@@ -61,6 +61,8 @@
 
         public Color WarningColor { get; set; }
 
+		public Color SecondWarningColor { get; set; }
+
         public Color StoppedColor { get; set; }
 
         public Color ExpiredColor { get; set; }
@@ -75,9 +77,21 @@
 
         public double WarningTime { get; set; }
 
-        public double AutoPauseTime { get; set; }
+        public double SecondWarningTime { get; set; }
 
         #endregion
+
+		public bool BlinkOnExpired { get; set; }
+
+		public bool HasFirstWarning
+		{
+			get { return this.WarningTime > 0; }
+		}
+
+		public bool HasSecondWarning
+		{
+			get { return this.SecondWarningTime > 0; }
+		}
 
         public void SetFont(string fontFamily = "", float fontSize = 0f)
         {
@@ -95,7 +109,7 @@
 
         public string SaveSettingsAsCsv()
         {
-            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16}",
+			return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18}",
                 this.Name,
                 this.Duration,
                 this.TimerFont.FontFamily.Name,
@@ -112,7 +126,9 @@
                 this.BackgroundColor.Name,
                 this.MessageColor.Name,
                 this.WarningTime,
-                this.AutoPauseTime);
+                this.SecondWarningTime,
+			    this.SecondWarningColor,
+			    this.BlinkOnExpired);
         }
 
         public static TimerViewSettings ParseCsv(string csv)
@@ -141,11 +157,13 @@
                 settings.BackgroundColor = Util.FromARGBString(Color.FromName(values[13]));
                 settings.MessageColor = Util.FromARGBString(Color.FromName(values[14]));
                 settings.WarningTime = double.Parse(values[15]);
-                settings.AutoPauseTime = double.Parse(values[16]);
+                settings.SecondWarningTime = double.Parse(values[16]);
+				settings.SecondWarningColor = Util.FromARGBString(Color.FromName(values[17]));
+				settings.BlinkOnExpired = bool.Parse(values[18]);
 
                 return settings;
             }
-            catch
+			catch
             {
                 return settings;
             }
@@ -161,10 +179,13 @@
             this.RunningColor = Color.White;
             this.PausedColor = Color.Cyan;
             this.WarningColor = Color.Yellow;
+			this.SecondWarningColor = Color.Orange;
             this.ExpiredColor = Color.Red;
             this.StoppedColor = Color.Silver;
             this.BackgroundColor = Color.Black;
             this.MessageColor = Color.DodgerBlue;
+
+			this.BlinkOnExpired = true;
         }
 
         public static TimerViewSettings Default
@@ -174,7 +195,7 @@
 
         public enum TimerCounterMode
         {
-            CountDownToZero, CountDownToMinus, CountUp
+			CountDownToMinus, CountDownToZero, CountUp
         }
 
         public enum TimerDisplayMode

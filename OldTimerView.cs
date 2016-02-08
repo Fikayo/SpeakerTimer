@@ -450,7 +450,7 @@
 
             this.DisplayTimeElapsed(this.CurrentTime);
 
-            if (this.CurrentTime == this.settings.AutoPauseTime && this.CurrentTime > 0)
+            if (this.CurrentTime == this.settings.SecondWarningTime && this.CurrentTime > 0)
             {
                 this.PauseTimer();
             }

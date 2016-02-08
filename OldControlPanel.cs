@@ -75,7 +75,7 @@
 
             // Special Times
             this.txtWarningTime.Text = TimeSpan.FromSeconds(this.settings.WarningTime).ToString();
-            this.txtAutoPauseTime.Text = TimeSpan.FromSeconds(this.settings.AutoPauseTime).ToString();
+            this.txtAutoPauseTime.Text = TimeSpan.FromSeconds(this.settings.SecondWarningTime).ToString();
         }
 
         private void SetPlayButton()
@@ -310,7 +310,7 @@
             if (!string.IsNullOrEmpty(this.autoPauseInput))
             {
                 var dt = DateTime.ParseExact(this.txtAutoPauseTime.Text, "HH:mm:ss", CultureInfo.InvariantCulture);
-                this.settings.AutoPauseTime = dt.TimeOfDay.TotalSeconds;
+                this.settings.SecondWarningTime = dt.TimeOfDay.TotalSeconds;
             }
         }
 

@@ -30,6 +30,7 @@
             this.timer.Tick += Timer_Tick;
             this.settings = TimerViewSettings.Default;
             this.stopped = true;
+			this.TimerState = TimerState.Stopped;
 
             this.blinkManager = new BlinkManager();
             this.blinkManager.Blink += BlinkManager_Blink;
@@ -86,6 +87,8 @@
                 this.lblCurrentTimer.ForeColor = value;
             }
         }
+				
+		public TimerState TimerState { get; set; }
 
         public Color BackgroundColor
         {
@@ -103,22 +106,6 @@
                 var preview = value;
                 this.lblTimer.Cursor = preview ? Cursors.IBeam : Cursors.Default;
             }
-        }
-
-        public bool BlinkOnExpired
-        {
-            get { return this.blinkOnExpired; }
-
-            set
-            {
-                var blink = value;
-                if (!blink && this.blinkManager.IsBlinking)
-                {
-                    this.blinkManager.StopBlinking();
-                }
-
-                this.blinkOnExpired = blink;
-            }                
         }
 
         public int BlinkInterval
@@ -155,7 +142,8 @@
                 this.blinkManager.StartBlinking();
             }
 
-            this.stopped = false;
+			this.stopped = false;
+			this.TimerState = TimerState.Running;
             this.DisplayTimeElapsed(this.CurrentTime);
             this.timer.Start();
             this.TimerColor = this.settings.RunningColor;
@@ -167,6 +155,7 @@
             this.blinkManager.StopBlinking();
 
             this.timer.Stop();
+			this.TimerState = TimerState.Paused;
             this.TimerColor = this.settings.PausedColor;
             this.OnTimePaused();
         }
@@ -177,6 +166,7 @@
 
             this.timer.Stop();
             this.stopped = true;
+			this.TimerState = TimerState.Stopped;
             this.TimerColor = this.settings.StoppedColor;
             this.OnTimeStopped();
         }
@@ -184,7 +174,8 @@
         public void ResetTimer()
         {
             this.timer.Stop();
-            this.stopped = true;
+			this.stopped = true;
+			this.TimerState = TimerState.Stopped;
             this.DisplayTimeElapsed(this.settings.Duration);
         }
 
@@ -198,6 +189,13 @@
             this.TimerColor = settings.RunningColor;
 
             this.settings = TimerViewSettings.ParseCsv(settings.SaveSettingsAsCsv());
+			this.settings.SecondWarningColor = this.settings.MessageColor;
+
+			if (!settings.BlinkOnExpired && this.blinkManager.IsBlinking)
+			{
+				this.blinkManager.StopBlinking();
+			}
+
             this.lblCurrentTimer.Text = this.settings.Name;
             this.RefreshTimerDisplay();
         }
@@ -322,6 +320,135 @@
             this.DisplayTimeElapsed(display);
         }
 
+		private void FadeTimerColor(FadeItem init, FadeItem dest)
+		{
+			int fadeIndex = (int)(init.Time - this.CurrentTime);
+			int steps = (int)(init.Time - dest.Time);
+			if (fadeIndex < steps && steps > 1) {
+				var oldR = init.Color.R;
+				var oldG = init.Color.G;
+				var oldB = init.Color.B;
+
+				var newR = dest.Color.R;
+				var newG = dest.Color.G;
+				var newB = dest.Color.B;
+
+				var r = oldR + ((fadeIndex * (newR - oldR)) / (steps - 1));
+				var g = oldG + ((fadeIndex * (newG - oldG)) / (steps - 1));
+				var b = oldB + ((fadeIndex * (newB - oldB)) / (steps - 1));
+
+				this.TimerColor = Color.FromArgb (r, g, b);
+			}
+		}
+
+		private void TimerTickState()
+		{
+			bool fade = false;
+			FadeItem init = new FadeItem {
+				Color = this.settings.RunningColor,
+				Time = this.settings.Duration
+			};
+
+			FadeItem dest = new FadeItem {
+				Color = default(Color),
+				Time = default(int),
+			};
+
+			switch (this.TimerState) {
+			case TimerState.Running:
+				{
+					if (this.settings.HasFirstWarning) 
+					{
+						fade = true;
+						init.Color = this.settings.RunningColor;
+						init.Time = this.settings.Duration;
+						if (this.settings.CounterMode == TimerViewSettings.TimerCounterMode.CountUp) {
+							init.Time = 0;
+						}
+
+						dest.Color = this.settings.WarningColor;
+						dest.Time = this.settings.WarningTime;
+					}
+
+					break;
+				}
+
+			case TimerState.FirstWarning:
+				{
+				
+					fade = true;
+					init.Color = this.settings.WarningColor;
+					init.Time = this.settings.WarningTime;
+
+					if (this.settings.HasSecondWarning) {
+						dest.Color = this.settings.SecondWarningColor;
+						dest.Time = this.settings.SecondWarningTime;
+					} else {
+						dest.Color = this.settings.ExpiredColor;
+						dest.Time = 0;	
+						if (this.settings.CounterMode == TimerViewSettings.TimerCounterMode.CountUp) {
+							dest.Time = this.settings.Duration;
+						}
+					}
+
+//					this.TimerColor = this.settings.WarningColor;
+					break;
+				}
+
+			case TimerState.SecondWarning:
+				{
+					fade = true;
+					init.Color = this.settings.SecondWarningColor;
+					init.Time = this.settings.SecondWarningTime;
+
+					dest.Color = this.settings.ExpiredColor;
+					dest.Time = 0;	
+					if (this.settings.CounterMode == TimerViewSettings.TimerCounterMode.CountUp) {
+						dest.Time = this.settings.Duration;
+					}
+					
+//					this.TimerColor = this.settings.WarningColor;
+					break;
+				}
+
+			case TimerState.Expired:
+				{
+					this.TimerColor = this.settings.ExpiredColor;
+					if (this.settings.BlinkOnExpired) {
+						if (!this.blinkManager.IsBlinking) {
+							this.blinkManager.StartBlinking ();
+							this.OnTimeExpired ();
+						}
+					} else {
+						this.OnTimeExpired ();
+					}
+
+					break;
+				}
+
+				
+			case TimerState.Stopped:
+				{
+					this.StopTimer ();
+					if (!this.DisplayFinalMessage ()) {
+						this.DisplayTimeElapsed (this.CurrentTime);
+					}
+
+					break;
+				}
+
+			default:
+				break;
+			}
+
+			if (fade) 
+			{
+				this.FadeTimerColor (init, dest);
+			}
+		}
+
+		#region Event Signals
+
         private void OnTimeStarted()
         {
             var handler = this.TimeStarted;
@@ -366,6 +493,8 @@
                 handler.Invoke(this, new DurationChangedEventArgs(duration));
             }
         }
+
+		#endregion
 
         #endregion
 
@@ -413,7 +542,9 @@
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            this.lblTimer.ForeColor = this.settings.RunningColor;
+//            this.lblTimer.ForeColor = this.settings.RunningColor;
+//			this.FadeTimerColor ();
+			this.TimerState = TimerState.Running;
 
             switch (this.settings.CounterMode)
             {
@@ -421,19 +552,18 @@
                     this.CurrentTime++;
                     if (this.CurrentTime >= this.settings.Duration)
                     {
-                        this.StopTimer();
-                        if (!this.DisplayFinalMessage())
-                        {
-                            this.DisplayTimeElapsed(this.CurrentTime);
-                        }
-
-                        return;
+						this.TimerState = TimerState.Stopped;
                     }
 
-                    if (this.CurrentTime >= this.settings.WarningTime && this.settings.WarningTime > 0)
+                    if (this.CurrentTime >= this.settings.WarningTime && this.settings.HasFirstWarning)
                     {
-                        this.TimerColor = this.settings.WarningColor;
+						this.TimerState = TimerState.FirstWarning;
                     }
+
+					if (this.CurrentTime >= this.settings.SecondWarningTime && this.settings.HasSecondWarning)
+					{					
+						this.TimerState = TimerState.SecondWarning;
+					}
 
                     break;
 
@@ -441,29 +571,33 @@
                     this.CurrentTime--;
                     if (this.CurrentTime <= 0)
                     {
-                        this.StopTimer();
-                        if (!this.DisplayFinalMessage())
-                        {
-                            this.DisplayTimeElapsed(this.CurrentTime);
-                        }
-
-                        return;
+						this.TimerState = TimerState.Stopped;
                     }
 
-                    if (this.CurrentTime <= this.settings.WarningTime && this.settings.WarningTime > 0)
-                    {
-                        this.TimerColor = this.settings.WarningColor;
+                    if (this.CurrentTime <= this.settings.WarningTime && this.settings.HasFirstWarning)
+                    {					
+						this.TimerState = TimerState.FirstWarning;
                     }
+
+					if (this.CurrentTime <= this.settings.SecondWarningTime && this.settings.HasSecondWarning)
+					{					
+						this.TimerState = TimerState.SecondWarning;
+					}
 
                     break;
 
                 case TimerViewSettings.TimerCounterMode.CountDownToMinus:
                 default:
                     this.CurrentTime--;
-                    if (this.CurrentTime <= this.settings.WarningTime && this.settings.WarningTime > 0)
+                    if (this.CurrentTime <= this.settings.WarningTime && this.settings.HasFirstWarning)
                     {
-                        this.TimerColor = this.settings.WarningColor;
+						this.TimerState = TimerState.FirstWarning;
                     }
+
+					if (this.CurrentTime <= this.settings.SecondWarningTime && this.settings.HasSecondWarning)
+					{					
+						this.TimerState = TimerState.SecondWarning;
+					}
 
                     if (this.CurrentTime == 0)
                     {
@@ -475,30 +609,18 @@
 
                     if (this.CurrentTime < 0)
                     {
-                        this.TimerColor = this.settings.ExpiredColor;
-                        if (this.BlinkOnExpired)
-                        {
-                            if (!this.blinkManager.IsBlinking)
-                            {
-                                this.blinkManager.StartBlinking();
-                                this.OnTimeExpired();
-                            }
-                        }
-                        else
-                        {
-                            this.OnTimeExpired();
-                        }
+						this.TimerState = TimerState.Expired;
                     }
 
                     break;
             }
 
-            this.DisplayTimeElapsed(this.CurrentTime);
+			this.TimerTickState ();
 
-            if (this.CurrentTime == this.settings.AutoPauseTime && this.CurrentTime > 0)
-            {
-                this.PauseTimer();
-            }
+			if(this.TimerState != TimerState.Stopped)
+			{
+            	this.DisplayTimeElapsed(this.CurrentTime);
+			}
         }
 
         private void BlinkManager_Blink(object sender, EventArgs e)
@@ -532,4 +654,15 @@
 
         #endregion
     }
+
+	public class FadeItem
+	{
+		public Color Color { get; set; }
+		public double Time { get; set; }
+	}
+
+	public enum TimerState 
+	{ 
+		Running, Paused, FirstWarning, SecondWarning, Expired, Stopped 
+	};
 }

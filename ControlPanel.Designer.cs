@@ -74,7 +74,7 @@
             this.timerPreview2.IsLive = true;
             this.timerPreview2.Location = new System.Drawing.Point(3, 253);
             this.timerPreview2.Name = "timerPreview2";
-            timerViewSettings1.AutoPauseTime = 0D;
+            timerViewSettings1.SecondWarningTime = 0D;
             timerViewSettings1.BackgroundColor = System.Drawing.Color.Black;
             timerViewSettings1.CounterMode = SpeakerTimer.TimerViewSettings.TimerCounterMode.CountDownToZero;
             timerViewSettings1.DisplayMode = SpeakerTimer.TimerViewSettings.TimerDisplayMode.FullWidth;
@@ -104,7 +104,7 @@
             this.timerPreview1.IsLive = true;
             this.timerPreview1.Location = new System.Drawing.Point(3, 3);
             this.timerPreview1.Name = "timerPreview1";
-            timerViewSettings2.AutoPauseTime = 0D;
+            timerViewSettings2.SecondWarningTime = 0D;
             timerViewSettings2.BackgroundColor = System.Drawing.Color.Black;
             timerViewSettings2.CounterMode = SpeakerTimer.TimerViewSettings.TimerCounterMode.CountDownToZero;
             timerViewSettings2.DisplayMode = SpeakerTimer.TimerViewSettings.TimerDisplayMode.FullWidth;
