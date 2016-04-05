@@ -37,7 +37,7 @@ namespace SpeakerTimer
         {
             this.BlinkOn = true;
             this.IsBlinking = true;
-            //this.timer.Start();
+            this.timer.Start();
         }
 
         public void StopBlinking()

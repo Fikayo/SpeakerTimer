@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -81,7 +81,7 @@
             this.txtSecondWarningTime = new SpeakerTimer.TimeInputBox();
             this.txtWarningTime = new SpeakerTimer.TimeInputBox();
             this.timerView = new SpeakerTimer.TimerView();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tlpOuterLayout.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -98,27 +98,27 @@
             this.grbPreviewBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // tlpOuterLayout
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel6, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.timerView, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(825, 228);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.tlpOuterLayout.ColumnCount = 2;
+            this.tlpOuterLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpOuterLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpOuterLayout.Controls.Add(this.tableLayoutPanel6, 1, 0);
+            this.tlpOuterLayout.Controls.Add(this.timerView, 0, 0);
+            this.tlpOuterLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpOuterLayout.Location = new System.Drawing.Point(3, 16);
+            this.tlpOuterLayout.Name = "tlpOuterLayout";
+            this.tlpOuterLayout.RowCount = 1;
+            this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpOuterLayout.Size = new System.Drawing.Size(825, 228);
+            this.tlpOuterLayout.TabIndex = 0;
             // 
             // tableLayoutPanel6
             // 
             this.tableLayoutPanel6.ColumnCount = 3;
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel8, 1, 0);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel10, 2, 0);
@@ -369,6 +369,7 @@
             // 
             this.chbBlink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chbBlink.AutoSize = true;
+            this.chbBlink.Enabled = false;
             this.chbBlink.Location = new System.Drawing.Point(113, 114);
             this.chbBlink.Name = "chbBlink";
             this.chbBlink.Size = new System.Drawing.Size(115, 17);
@@ -718,7 +719,7 @@
             // 
             // grbPreviewBox
             // 
-            this.grbPreviewBox.Controls.Add(this.tableLayoutPanel1);
+            this.grbPreviewBox.Controls.Add(this.tlpOuterLayout);
             this.grbPreviewBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbPreviewBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbPreviewBox.Location = new System.Drawing.Point(0, 0);
@@ -778,7 +779,7 @@
             this.Name = "TimerPreview";
             this.Size = new System.Drawing.Size(831, 247);
             this.Load += new System.EventHandler(this.TimerPreview_Load);
-            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tlpOuterLayout.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -805,7 +806,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tlpOuterLayout;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TextBox txtSettingsName;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;

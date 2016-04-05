@@ -185,7 +185,7 @@
             this.BackgroundColor = Color.Black;
             this.MessageColor = Color.DodgerBlue;
 
-			this.BlinkOnExpired = true;
+			this.BlinkOnExpired = false;
         }
 
         public static TimerViewSettings Default
