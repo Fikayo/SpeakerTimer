@@ -9,7 +9,6 @@
         private const int PreviewFontSize = 30;
         private const int PreviewLabelSize = 10;
 
-        private bool blinkOnExpired;
         private bool stopped;
         private Timer timer;
 
@@ -290,7 +289,8 @@
             }
 
             this.lblTimer.Visible = false;
-            this.tlpOuterLayout.Controls.Add(this.txtInput, 1, 1);
+
+            this.tlpOuterLayout.Controls.Add(this.txtInput, 1, 2);
 
             this.txtInput.Focus();
         }
@@ -303,7 +303,7 @@
 
             this.lblTimer.Visible = true;
             this.lblTimer.Focus();
-            this.tlpOuterLayout.Controls.Add(this.lblTimer, 1, 1);
+            this.tlpOuterLayout.Controls.Add(this.lblTimer, 1, 2);
             this.DisplayTimeElapsed(this.settings.Duration);
 
             this.OnDurationChanged(this.settings.Duration);

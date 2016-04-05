@@ -103,7 +103,7 @@
 
             // Special Times
             this.txtWarningTime.SetTime(this.Settings.WarningTime);
-            this.txtAutoPauseTime.SetTime(this.Settings.SecondWarningTime);
+            this.txtSecondWarningTime.SetTime(this.Settings.SecondWarningTime);
 
 			// Blinking
 			this.chbBlink.Checked = this.settings.BlinkOnExpired;
@@ -278,7 +278,7 @@
 
         private void txtAutoPauseTime_TimeChanged(object sender, EventArgs e)
         {
-            this.Settings.SecondWarningTime = this.txtAutoPauseTime.InputTime;
+            this.Settings.SecondWarningTime = this.txtSecondWarningTime.InputTime;
             this.OnSettingsChanged();
         }
 
@@ -317,7 +317,7 @@
         private void chbBlink_CheckedChanged(object sender, EventArgs e)
         {
 			this.settings.BlinkOnExpired = this.chbBlink.Checked;
-			this.OnSettingsChanged ();
+			this.OnSettingsChanged();
         }
 
         private void txtSettingsName_KeyPress(object sender, KeyPressEventArgs e)

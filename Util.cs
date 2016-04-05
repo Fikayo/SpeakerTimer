@@ -14,12 +14,12 @@
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
         private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, uint wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
 
-        public static void SetWatermark(/* this */ TextBox textBox, string watermarkText)
+        public static void SetWatermark(this TextBox textBox, string watermarkText)
         {
             SendMessage(textBox.Handle, EM_SETCUEBANNER, 0, watermarkText);
         }
 
-        public static TEnum ToEnum<TEnum>(/* this */ string value, TEnum defaultValue = default(TEnum)) where TEnum : struct
+        public static TEnum ToEnum<TEnum>(this string value, TEnum defaultValue = default(TEnum)) where TEnum : struct
         {
             if (string.IsNullOrEmpty(value))
             {
@@ -40,7 +40,7 @@
             //return Enum.TryParse<TEnum>(value, true, out result) ? result : defaultValue;
         }
 
-        public static Color FromARGBString(/* this */ Color color)
+        public static Color FromARGBString(this Color color)
         {
             if (!color.IsKnownColor && color.A == 0 && color.R == 0 && color.G == 0 && color.B == 0)
             {
