@@ -33,6 +33,13 @@ namespace SpeakerTimer
             set { this.timerView.CommandIssuer = value; }
         }
 
+        public bool IsPreviewForm
+        {
+            get { return this.timerView.IsPreviewMode; }
+
+            set { this.timerView.IsPreviewMode = value; }
+        }
+
         public void ToggleFullScreen()
         {
             if (this.IsFullScreen)

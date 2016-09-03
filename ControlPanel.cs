@@ -14,6 +14,7 @@
 
         private PresetManager presetManager;
         private PresentationTimerForm presentForm;
+        private PresentationTimerForm livePreviewForm;
 
         public ControlPanel()
         {
@@ -98,13 +99,26 @@
                 this.presentForm = new PresentationTimerForm();
                 this.HookPresentFormEvents();
             }
+
+            this.EnsureLivePreviewFormActive();
+        }
+
+        private void EnsureLivePreviewFormActive()
+        {
+            if (this.livePreviewForm == null || this.livePreviewForm.IsDisposed)
+            {
+                this.livePreviewForm = null;
+                this.livePreviewForm = new PresentationTimerForm();
+                this.livePreviewForm.Text = "Live Preview";
+                this.livePreviewForm.IsPreviewForm = true;
+            }
         }
 
         private void TogglePresentationForm(bool forceShow = false)
         {
             this.EnsureDisplayFormActive();
 
-            this.tsmShowDisplay.Checked = forceShow ? true : !this.tsmShowDisplay.Checked;
+            this.tsmShowDisplay.Checked = forceShow || !this.tsmShowDisplay.Checked;
             if (this.tsmShowDisplay.Checked)
             {
                 this.presentForm.Show();
@@ -125,6 +139,26 @@
             //this.tsmKeepOnTop.Enabled = displayShown;
             //this.tsmMaximizeDisplay.Enabled = displayShown;
             //this.tsmFullScreen.Enabled = displayShown;
+
+            if (this.tsmShowLivePreview.Checked)
+            {
+                this.ToggleLivePreviewForm(forceShow);
+            }
+        }
+
+        private void ToggleLivePreviewForm(bool forceShow = false)
+        {
+            this.EnsureLivePreviewFormActive();
+
+            this.tsmShowLivePreview.Checked = forceShow || !this.tsmShowLivePreview.Checked;
+            if (this.tsmShowLivePreview.Checked)
+            {
+                this.livePreviewForm.Show();
+            }
+            else
+            {
+                this.livePreviewForm.Hide();
+            }
         }
 
         #region Event Handlers
@@ -139,6 +173,18 @@
         private void tsmShowDisplay_Click(object sender, EventArgs e)
         {
             this.TogglePresentationForm();
+        }
+        
+        private void tsmKeepPreviewOnTop_Click(object sender, EventArgs e)
+        {
+            this.EnsureLivePreviewFormActive();
+            this.tsmKeepPreviewOnTop.Checked = !this.tsmKeepPreviewOnTop.Checked;
+            this.livePreviewForm.TopMost = this.tsmKeepPreviewOnTop.Checked;
+        }
+
+        private void tsmShowLivePreview_Click(object sender, EventArgs e)
+        {
+            this.ToggleLivePreviewForm();
         }
 
         private void tsmKeepOnTop_Click(object sender, EventArgs e)
@@ -388,6 +434,7 @@
                 this.EnsureDisplayFormActive();
 
                 this.presentForm.CommandIssuer = this.timerPreview1.CommandIssuer;
+                this.livePreviewForm.CommandIssuer = this.timerPreview1.CommandIssuer;
                 this.timerPreview2.IsLive = false;
                 this.TogglePresentationForm(true);
             }
@@ -397,6 +444,11 @@
                 if (this.presentForm != null)
                 {
                     this.presentForm.Hide();
+                }
+                
+                if (this.livePreviewForm != null)
+                {
+                    this.livePreviewForm.Hide();
                 }
             }
         }
@@ -411,6 +463,7 @@
                 }
 
                 this.presentForm.CommandIssuer = this.timerPreview2.CommandIssuer;
+                this.livePreviewForm.CommandIssuer = this.timerPreview2.CommandIssuer;
                 this.timerPreview1.IsLive = false;
                 this.TogglePresentationForm(true);
             }
@@ -420,6 +473,11 @@
                 if (this.presentForm != null)
                 {
                     this.presentForm.Hide();
+                }
+                
+                if (this.livePreviewForm != null)
+                {
+                    this.livePreviewForm.Hide();
                 }
             }
         }
