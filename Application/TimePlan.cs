@@ -6,6 +6,9 @@ namespace SpeakerTimer
 {
     public class TimePlan
     {
+        private const int CurrentTimerFontSize = 30;
+        private const int NextTimerFontSize = 15;
+
         private static readonly TimerViewSettings GeneralSetting = TimerViewSettings.Default;
 
         private int currentTimerIndex;
@@ -15,6 +18,11 @@ namespace SpeakerTimer
         {
             this.currentTimerIndex = -1;
             this.plan = new List<TimerViewSettings>();
+        }
+
+        public int PlanLength
+        {
+            get { return this.plan.Count; }
         }
 
         public TimerViewSettings CurrentTimer
@@ -29,10 +37,17 @@ namespace SpeakerTimer
         {
             get
             {
-                return this.plan[(this.currentTimerIndex + 1) % this.plan.Count];
+                var nextIndex = this.currentTimerIndex + 1;
+                //if (nextIndex >= this.plan.Count) return null;
+
+                return this.plan[(nextIndex) % this.plan.Count];
             }
         }
 
+        public bool AtLastTimer
+        {
+            get { return this.currentTimerIndex == this.plan.Count - 1; }
+        }
 
         public void AddTimer(string timerString)
         {
@@ -43,7 +58,11 @@ namespace SpeakerTimer
         {
             timer.CounterMode = TimerViewSettings.TimerCounterMode.CountDownToMinus;
             timer.DisplayMode = TimerViewSettings.TimerDisplayMode.FullWidth;
-            this.plan.Add(timer);
+
+            if (!this.plan.Contains(timer))
+            {
+                this.plan.Add(timer);
+            }
         }
 
         public bool RemoveTimer(TimerViewSettings timer)
@@ -56,12 +75,25 @@ namespace SpeakerTimer
             return this.RemoveTimer(TimerViewSettings.ParseCsv(timerString));
         }
 
-        public void Advance()
+        public void ClearPlan()
+        {
+            this.plan.Clear();
+        }
+
+        public bool Advance()
         {
             this.currentTimerIndex++;
+            if (this.currentTimerIndex >= this.plan.Count) return false;
 
-            this.CurrentTimer.SetFont(string.Empty, 30);
-            this.NextTimer.SetFont(string.Empty, 15);
+
+            this.CurrentTimer.SetFont(string.Empty, TimePlan.CurrentTimerFontSize);
+            var nextTimer = this.NextTimer;
+            if (nextTimer != null)
+            {
+                nextTimer.SetFont(string.Empty, TimePlan.NextTimerFontSize);
+            }
+
+            return true;
         }
     }
 }

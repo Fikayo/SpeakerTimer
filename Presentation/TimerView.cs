@@ -4,7 +4,7 @@
     using System.Drawing;
     using System.Windows.Forms;
 
-    public partial class TimerView : UserControl
+    public partial class TimerView : TimeViewControl
     {
         private const int PreviewFontSize = 30;
         private const int PreviewLabelSize = 10;
@@ -57,7 +57,7 @@
 
         #region Properties
 
-        public TimerViewerCommandIssuer CommandIssuer
+        public override TimerViewerCommandIssuer CommandIssuer
         {
             get { return this.commandIssuer; }
 
@@ -73,7 +73,13 @@
         {
             get { return this.lblTimer.Font; }
 
-            set { this.lblTimer.Font = value; }
+            set
+            {
+                var newFont = value;
+                //this.lblCurrentTimer.Font = new Font(this.lblCurrentTimer.Font.FontFamily, newFont.Size / 2);
+                //this.lblCurrentTimer.Font = newFont;
+                this.lblTimer.Font = newFont;
+            }
         }
 
         public Color TimerColor
@@ -96,7 +102,7 @@
             set { this.tlpOuterLayout.BackColor = value; }
         }
 
-        public bool IsPreviewMode
+        public override bool IsPreviewMode
         {
             get { return this.lblTimer.Cursor == Cursors.IBeam; }
 
@@ -181,7 +187,7 @@
         public void ApplySettings(TimerViewSettings settings)
         {
             this.TimerFont = this.IsPreviewMode ? new Font(settings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : settings.TimerFont;
-            int labelSize = this.IsPreviewMode ? TimerView.PreviewLabelSize : (int)Math.Max(settings.TimerFont.Size / 10, 10);
+            int labelSize = this.IsPreviewMode ? TimerView.PreviewLabelSize : (int)Math.Max(settings.TimerFont.Size / 3, 10);
             this.lblCurrentTimer.Font = new Font(settings.TimerFont.FontFamily.Name, labelSize);
 
             this.BackgroundColor = settings.BackgroundColor;

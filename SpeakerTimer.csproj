@@ -78,7 +78,14 @@
       <DependentUpon>ControlPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="OldTimerView.cs" />
+    <Compile Include="PresetationToolStrip.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PresetationToolStrip.Designer.cs">
+      <DependentUpon>PresetationToolStrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="PresetManager.cs" />
+    <Compile Include="PresetEventArgs.cs" />
     <Compile Include="RefreshDisplayEventArgs.cs" />
     <Compile Include="SettingIOEventArgs.cs" />
     <Compile Include="PresentationTimerForm.cs">
@@ -97,6 +104,13 @@
     <Compile Include="SettingsChangedEventArgs.cs" />
     <Compile Include="STimer.cs" />
     <Compile Include="TimePlan.cs" />
+    <Compile Include="TimePlanCommandIssuer.cs" />
+    <Compile Include="TimePlanControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimePlanControl.Designer.cs">
+      <DependentUpon>TimePlanControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="TimePlanForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +146,12 @@
     </Compile>
     <Compile Include="TimerViewSettings.cs" />
     <Compile Include="TimerViewerCommand.cs" />
+    <Compile Include="TimeViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimeViewControl.Designer.cs">
+      <DependentUpon>TimeViewControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Util.cs" />
     <EmbeddedResource Include="OldControlPanel.resx">
       <DependentUpon>OldControlPanel.cs</DependentUpon>
@@ -142,10 +162,16 @@
     <EmbeddedResource Include="PresentationTimerForm.resx">
       <DependentUpon>PresentationTimerForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PresetationToolStrip.resx">
+      <DependentUpon>PresetationToolStrip.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimePlanControl.resx">
+      <DependentUpon>TimePlanControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TimePlanForm.resx">
       <DependentUpon>TimePlanForm.cs</DependentUpon>

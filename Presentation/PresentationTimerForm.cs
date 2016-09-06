@@ -11,9 +11,24 @@ namespace SpeakerTimer
     public partial class PresentationTimerForm : Form
     {
         public const FormBorderStyle BorderStyle = FormBorderStyle.FixedSingle;
-        public PresentationTimerForm()
+
+        public PresentationTimerForm() :
+            this(new TimerView())
+        {
+        }
+
+        public PresentationTimerForm(TimeViewControl timeViewControl)
         {
             InitializeComponent();
+            this.TimeViewControl = timeViewControl;
+            this.TimeViewControl.Dock = DockStyle.Fill;
+            this.TimeViewControl.IsPreviewMode = false;
+            this.TimeViewControl.Location = new System.Drawing.Point(0, 0);
+            this.TimeViewControl.Name = "timerView";
+            this.TimeViewControl.Size = new System.Drawing.Size(484, 249);
+            this.TimeViewControl.TabIndex = 0;
+            this.TimeViewControl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.timerView_KeyDown);
+            this.Controls.Add(this.TimeViewControl);
         }
 
         public PresentationTimerForm(TimerViewerCommandIssuer commandIssuer)
@@ -26,18 +41,20 @@ namespace SpeakerTimer
 
         public bool IsFullScreen { get; private set; }
 
+        public TimeViewControl TimeViewControl { get; private set; }
+
         public TimerViewerCommandIssuer CommandIssuer
         {
-            get { return this.timerView.CommandIssuer; }
+            get { return this.TimeViewControl.CommandIssuer; }
 
-            set { this.timerView.CommandIssuer = value; }
+            set { this.TimeViewControl.CommandIssuer = value; }
         }
 
         public bool IsPreviewForm
         {
-            get { return this.timerView.IsPreviewMode; }
+            get { return this.TimeViewControl.IsPreviewMode; }
 
-            set { this.timerView.IsPreviewMode = value; }
+            set { this.TimeViewControl.IsPreviewMode = value; }
         }
 
         public void ToggleFullScreen()
@@ -100,6 +117,6 @@ namespace SpeakerTimer
         private void timerView_KeyDown(object sender, KeyEventArgs e)
         {
             this.CheckKeyPress(e.KeyCode);
-        }        
+        }
     }
 }

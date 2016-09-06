@@ -46,6 +46,8 @@
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.lblWarningTime = new System.Windows.Forms.Label();
+            this.txtSecondWarningTime = new SpeakerTimer.TimeInputBox();
+            this.txtWarningTime = new SpeakerTimer.TimeInputBox();
             this.chbBlink = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -67,20 +69,18 @@
             this.btnExpiredColor = new System.Windows.Forms.Button();
             this.btnRunningColor = new System.Windows.Forms.Button();
             this.btnPausedColor = new System.Windows.Forms.Button();
-            this.btnWarningColor = new System.Windows.Forms.Button();
-            this.btnBackColor = new System.Windows.Forms.Button();
             this.btnMessageColor = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.btnStoppedColor = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnWarningColor = new System.Windows.Forms.Button();
+            this.btnBackColor = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.timerView = new SpeakerTimer.TimerView();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.grbPreviewBox = new System.Windows.Forms.GroupBox();
-            this.txtSecondWarningTime = new SpeakerTimer.TimeInputBox();
-            this.txtWarningTime = new SpeakerTimer.TimeInputBox();
-            this.timerView = new SpeakerTimer.TimerView();
             this.tlpOuterLayout.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -230,6 +230,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(104, 102);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
@@ -364,6 +365,32 @@
             this.lblWarningTime.TabIndex = 7;
             this.lblWarningTime.Text = "First Warning";
             this.lblWarningTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtSecondWarningTime
+            // 
+            this.txtSecondWarningTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSecondWarningTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSecondWarningTime.InputTime = 0D;
+            this.txtSecondWarningTime.Location = new System.Drawing.Point(3, 69);
+            this.txtSecondWarningTime.Name = "txtSecondWarningTime";
+            this.txtSecondWarningTime.Size = new System.Drawing.Size(109, 30);
+            this.txtSecondWarningTime.TabIndex = 8;
+            this.txtSecondWarningTime.Text = "00:00:00";
+            this.txtSecondWarningTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSecondWarningTime.TimeChanged += new System.EventHandler(this.txtAutoPauseTime_TimeChanged);
+            // 
+            // txtWarningTime
+            // 
+            this.txtWarningTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtWarningTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWarningTime.InputTime = 0D;
+            this.txtWarningTime.Location = new System.Drawing.Point(3, 16);
+            this.txtWarningTime.Name = "txtWarningTime";
+            this.txtWarningTime.Size = new System.Drawing.Size(109, 30);
+            this.txtWarningTime.TabIndex = 8;
+            this.txtWarningTime.Text = "00:00:00";
+            this.txtWarningTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtWarningTime.TimeChanged += new System.EventHandler(this.txtWarningTime_TimeChanged);
             // 
             // chbBlink
             // 
@@ -559,15 +586,15 @@
             this.tableLayoutPanel10.Controls.Add(this.btnExpiredColor, 1, 5);
             this.tableLayoutPanel10.Controls.Add(this.btnRunningColor, 1, 1);
             this.tableLayoutPanel10.Controls.Add(this.btnPausedColor, 1, 2);
-            this.tableLayoutPanel10.Controls.Add(this.btnWarningColor, 1, 3);
-            this.tableLayoutPanel10.Controls.Add(this.btnBackColor, 1, 6);
             this.tableLayoutPanel10.Controls.Add(this.btnMessageColor, 1, 7);
             this.tableLayoutPanel10.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel10.Controls.Add(this.label9, 0, 2);
-            this.tableLayoutPanel10.Controls.Add(this.label8, 0, 3);
-            this.tableLayoutPanel10.Controls.Add(this.label5, 0, 6);
             this.tableLayoutPanel10.Controls.Add(this.btnStoppedColor, 1, 4);
             this.tableLayoutPanel10.Controls.Add(this.label7, 0, 5);
+            this.tableLayoutPanel10.Controls.Add(this.btnWarningColor, 1, 6);
+            this.tableLayoutPanel10.Controls.Add(this.btnBackColor, 1, 3);
+            this.tableLayoutPanel10.Controls.Add(this.label5, 0, 3);
+            this.tableLayoutPanel10.Controls.Add(this.label3, 0, 6);
             this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel10.Location = new System.Drawing.Point(475, 3);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
@@ -592,7 +619,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 13);
             this.label4.TabIndex = 20;
-            this.label4.Text = "Message";
+            this.label4.Text = "Warning 2";
             // 
             // label6
             // 
@@ -631,24 +658,6 @@
             this.btnPausedColor.UseVisualStyleBackColor = true;
             this.btnPausedColor.Click += new System.EventHandler(this.btnPausedColor_Click);
             // 
-            // btnWarningColor
-            // 
-            this.btnWarningColor.Location = new System.Drawing.Point(74, 67);
-            this.btnWarningColor.Name = "btnWarningColor";
-            this.btnWarningColor.Size = new System.Drawing.Size(28, 23);
-            this.btnWarningColor.TabIndex = 6;
-            this.btnWarningColor.UseVisualStyleBackColor = true;
-            this.btnWarningColor.Click += new System.EventHandler(this.btnWarningColor_Click);
-            // 
-            // btnBackColor
-            // 
-            this.btnBackColor.Location = new System.Drawing.Point(74, 154);
-            this.btnBackColor.Name = "btnBackColor";
-            this.btnBackColor.Size = new System.Drawing.Size(28, 23);
-            this.btnBackColor.TabIndex = 9;
-            this.btnBackColor.UseVisualStyleBackColor = true;
-            this.btnBackColor.Click += new System.EventHandler(this.btnBackColor_Click);
-            // 
             // btnMessageColor
             // 
             this.btnMessageColor.Location = new System.Drawing.Point(74, 183);
@@ -678,26 +687,6 @@
             this.label9.TabIndex = 15;
             this.label9.Text = "Paused";
             // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 72);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 13);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "Warning";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 159);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 13);
-            this.label5.TabIndex = 19;
-            this.label5.Text = "Background";
-            // 
             // btnStoppedColor
             // 
             this.btnStoppedColor.Location = new System.Drawing.Point(74, 96);
@@ -717,43 +706,43 @@
             this.label7.TabIndex = 17;
             this.label7.Text = "Expired";
             // 
-            // grbPreviewBox
+            // btnWarningColor
             // 
-            this.grbPreviewBox.Controls.Add(this.tlpOuterLayout);
-            this.grbPreviewBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbPreviewBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grbPreviewBox.Location = new System.Drawing.Point(0, 0);
-            this.grbPreviewBox.Name = "grbPreviewBox";
-            this.grbPreviewBox.Size = new System.Drawing.Size(831, 247);
-            this.grbPreviewBox.TabIndex = 1;
-            this.grbPreviewBox.TabStop = false;
-            this.grbPreviewBox.Text = "groupBox2";
+            this.btnWarningColor.Location = new System.Drawing.Point(74, 154);
+            this.btnWarningColor.Name = "btnWarningColor";
+            this.btnWarningColor.Size = new System.Drawing.Size(28, 23);
+            this.btnWarningColor.TabIndex = 6;
+            this.btnWarningColor.UseVisualStyleBackColor = true;
+            this.btnWarningColor.Click += new System.EventHandler(this.btnWarningColor_Click);
             // 
-            // txtSecondWarningTime
+            // btnBackColor
             // 
-            this.txtSecondWarningTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSecondWarningTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSecondWarningTime.InputTime = 0D;
-            this.txtSecondWarningTime.Location = new System.Drawing.Point(3, 69);
-            this.txtSecondWarningTime.Name = "txtSecondWarningTime";
-            this.txtSecondWarningTime.Size = new System.Drawing.Size(109, 30);
-            this.txtSecondWarningTime.TabIndex = 8;
-            this.txtSecondWarningTime.Text = "00:00:00";
-            this.txtSecondWarningTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtSecondWarningTime.TimeChanged += new System.EventHandler(this.txtAutoPauseTime_TimeChanged);
+            this.btnBackColor.Location = new System.Drawing.Point(74, 67);
+            this.btnBackColor.Name = "btnBackColor";
+            this.btnBackColor.Size = new System.Drawing.Size(28, 23);
+            this.btnBackColor.TabIndex = 9;
+            this.btnBackColor.UseVisualStyleBackColor = true;
+            this.btnBackColor.Click += new System.EventHandler(this.btnBackColor_Click);
             // 
-            // txtWarningTime
+            // label5
             // 
-            this.txtWarningTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtWarningTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtWarningTime.InputTime = 0D;
-            this.txtWarningTime.Location = new System.Drawing.Point(3, 16);
-            this.txtWarningTime.Name = "txtWarningTime";
-            this.txtWarningTime.Size = new System.Drawing.Size(109, 30);
-            this.txtWarningTime.TabIndex = 8;
-            this.txtWarningTime.Text = "00:00:00";
-            this.txtWarningTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtWarningTime.TimeChanged += new System.EventHandler(this.txtWarningTime_TimeChanged);
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 72);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 13);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "Background";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 159);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 13);
+            this.label3.TabIndex = 21;
+            this.label3.Text = "Warning";
             // 
             // timerView
             // 
@@ -770,6 +759,18 @@
             this.timerView.TimerColor = System.Drawing.SystemColors.ControlText;
             this.timerView.TimerFont = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timerView.TimerState = SpeakerTimer.TimerState.Stopped;
+            // 
+            // grbPreviewBox
+            // 
+            this.grbPreviewBox.Controls.Add(this.tlpOuterLayout);
+            this.grbPreviewBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grbPreviewBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grbPreviewBox.Location = new System.Drawing.Point(0, 0);
+            this.grbPreviewBox.Name = "grbPreviewBox";
+            this.grbPreviewBox.Size = new System.Drawing.Size(831, 247);
+            this.grbPreviewBox.TabIndex = 1;
+            this.grbPreviewBox.TabStop = false;
+            this.grbPreviewBox.Text = "groupBox2";
             // 
             // TimerPreview
             // 
@@ -846,7 +847,6 @@
         private System.Windows.Forms.Button btnMessageColor;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
@@ -859,5 +859,6 @@
         private System.Windows.Forms.PictureBox pcbLiveIndicator;
         private System.Windows.Forms.Button btnDefaultSettings;
         private System.Windows.Forms.CheckBox chbBlink;
+        private System.Windows.Forms.Label label3;
     }
 }

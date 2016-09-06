@@ -99,7 +99,7 @@
             this.btnExpiredColor.BackColor = this.Settings.ExpiredColor;
             this.btnStoppedColor.BackColor = this.Settings.StoppedColor;
             this.btnBackColor.BackColor = this.Settings.BackgroundColor;
-            this.btnMessageColor.BackColor = this.Settings.MessageColor;
+            this.btnMessageColor.BackColor = this.Settings.SecondWarningColor;
 
             // Special Times
             this.txtWarningTime.SetTime(this.Settings.WarningTime);

@@ -131,6 +131,44 @@
 			    this.BlinkOnExpired);
         }
 
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            TimerViewSettings that = obj as TimerViewSettings;
+            if (that == null) return false;
+
+            return this.Name.Equals(that.Name)
+                && this.Duration.Equals(that.Duration)
+                && this.TimerFont.FontFamily.Name.Equals(that.TimerFont.FontFamily.Name)
+                && this.TimerFont.Size.Equals(that.TimerFont.Size)
+                && this.CounterMode.Equals(that.CounterMode)
+                && this.DisplayMode.Equals(that.DisplayMode)
+                && this.FinalMessage.Equals(that.FinalMessage)
+                && this.TimerColor.Name.Equals(that.TimerColor)
+                && this.RunningColor.Equals(that.RunningColor)
+                && this.PausedColor.Equals(that.PausedColor)
+                && this.WarningColor.Equals(that.WarningColor)
+                && this.StoppedColor.Equals(that.StoppedColor)
+                && this.ExpiredColor.Equals(that.ExpiredColor)
+                && this.BackgroundColor.Equals(that.BackgroundColor)
+                && this.MessageColor.Equals(that.MessageColor)
+                && this.WarningTime.Equals(that.WarningTime)
+                && this.SecondWarningTime.Equals(that.SecondWarningTime)
+                && this.SecondWarningColor.Equals(that.SecondWarningColor)
+                && this.BlinkOnExpired.Equals(that.BlinkOnExpired);
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public static TimerViewSettings ParseCsv(string csv)
         {
             TimerViewSettings settings = TimerViewSettings.Default;
@@ -173,7 +211,7 @@
         {
             this.CounterMode = TimerCounterMode.CountDownToMinus;
             this.DisplayMode = TimerDisplayMode.FullWidth;
-            this.SetFont("Arial", 50f);
+            this.SetFont("Arial", 250f);
 
             this.TimerColor = Color.White;
             this.RunningColor = Color.White;

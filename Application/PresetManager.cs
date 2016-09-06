@@ -88,6 +88,19 @@
             return true;
         }
 
+        public bool DeleteSettings(List<string> names, bool flush = true)
+        {
+            foreach(string name in names)
+            {
+                if(!this.DeleteSetting(name, flush))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public bool SaveAll()
         {
             StringBuilder sb = new StringBuilder();

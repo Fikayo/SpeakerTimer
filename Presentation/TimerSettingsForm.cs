@@ -34,11 +34,6 @@ namespace SpeakerTimer
             }
         }
 
-        public enum Action
-        {
-            Open, Delete
-        }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -49,12 +44,6 @@ namespace SpeakerTimer
         {
             if (this.clbTimerSettings.CheckedItems.Count > 0)
             {
-                if (this.SelectedAction == Action.Open && this.clbTimerSettings.CheckedItems.Count > 2)
-                {
-                    MessageBox.Show("You may only open 2 settings at a time.");
-                    return;
-                }
-
                 foreach (var selection in this.clbTimerSettings.CheckedItems)
                 {
                     this.selectedSettings.Add(selection.ToString());
@@ -72,6 +61,11 @@ namespace SpeakerTimer
         private void rdbOpen_CheckedChanged(object sender, EventArgs e)
         {
             this.SelectedAction = this.rdbOpen.Checked ? Action.Open : Action.Delete;
+        }
+        
+        public enum Action
+        {
+            Open, Delete
         }
     }
 }
