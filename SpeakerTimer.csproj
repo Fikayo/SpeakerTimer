@@ -63,130 +63,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlinkManager.cs" />
-    <Compile Include="OldControlPanel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="OldControlPanel.Designer.cs">
-      <DependentUpon>OldControlPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DurationChangedEventArgs.cs" />
-    <Compile Include="ControlPanel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ControlPanel.Designer.cs">
-      <DependentUpon>ControlPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="OldTimerView.cs" />
-    <Compile Include="PresetationToolStrip.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PresetationToolStrip.Designer.cs">
-      <DependentUpon>PresetationToolStrip.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PresetManager.cs" />
-    <Compile Include="PresetEventArgs.cs" />
-    <Compile Include="RefreshDisplayEventArgs.cs" />
-    <Compile Include="SettingIOEventArgs.cs" />
-    <Compile Include="PresentationTimerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PresentationTimerForm.Designer.cs">
-      <DependentUpon>PresentationTimerForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SettingsChangedEventArgs.cs" />
-    <Compile Include="STimer.cs" />
-    <Compile Include="TimePlan.cs" />
-    <Compile Include="TimePlanCommandIssuer.cs" />
-    <Compile Include="TimePlanControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TimePlanControl.Designer.cs">
-      <DependentUpon>TimePlanControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TimePlanForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TimePlanForm.Designer.cs">
-      <DependentUpon>TimePlanForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TimePlanView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TimePlanView.Designer.cs">
-      <DependentUpon>TimePlanView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TimerPreview.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TimerPreview.Designer.cs">
-      <DependentUpon>TimerPreview.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TimeInputBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="TimerSettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TimerSettingsForm.Designer.cs">
-      <DependentUpon>TimerSettingsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TimerView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TimerView.Designer.cs">
-      <DependentUpon>TimerView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TimerViewSettings.cs" />
-    <Compile Include="TimerViewerCommand.cs" />
-    <Compile Include="TimeViewControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TimeViewControl.Designer.cs">
-      <DependentUpon>TimeViewControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Util.cs" />
-    <EmbeddedResource Include="OldControlPanel.resx">
-      <DependentUpon>OldControlPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ControlPanel.resx">
-      <DependentUpon>ControlPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PresentationTimerForm.resx">
-      <DependentUpon>PresentationTimerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PresetationToolStrip.resx">
-      <DependentUpon>PresetationToolStrip.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TimePlanControl.resx">
-      <DependentUpon>TimePlanControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TimePlanForm.resx">
-      <DependentUpon>TimePlanForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TimePlanView.resx">
-      <DependentUpon>TimePlanView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TimerPreview.resx">
-      <DependentUpon>TimerPreview.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TimerSettingsForm.resx">
-      <DependentUpon>TimerSettingsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TimerView.resx">
-      <DependentUpon>TimerView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
@@ -198,6 +86,52 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Application\PresetManager.cs" />
+    <Compile Include="Application\Program.cs" />
+    <Compile Include="Application\TimePlan.cs" />
+    <Compile Include="Application\TimePlanCommandIssuer.cs" />
+    <Compile Include="Application\TimerViewerCommand.cs" />
+    <Compile Include="Application\TimerViewSettings.cs" />
+    <Compile Include="Presentation\BlinkManager.cs" />
+    <Compile Include="Presentation\ControlPanel.cs" />
+    <Compile Include="Presentation\ControlPanel.Designer.cs" />
+    <None Include="Presentation\ControlPanel.resx" />
+    <Compile Include="Presentation\OldControlPanel.cs" />
+    <Compile Include="Presentation\OldControlPanel.Designer.cs" />
+    <None Include="Presentation\OldControlPanel.resx" />
+    <Compile Include="Presentation\PresentationTimerForm.cs" />
+    <Compile Include="Presentation\PresentationTimerForm.Designer.cs" />
+    <None Include="Presentation\PresentationTimerForm.resx" />
+    <Compile Include="Presentation\PresetationToolStrip.cs" />
+    <Compile Include="Presentation\PresetationToolStrip.Designer.cs" />
+    <None Include="Presentation\PresetationToolStrip.resx" />
+    <Compile Include="Presentation\STimer.cs" />
+    <Compile Include="Presentation\TimeInputBox.cs" />
+    <Compile Include="Presentation\TimePlanControl.cs" />
+    <Compile Include="Presentation\TimePlanControl.Designer.cs" />
+    <None Include="Presentation\TimePlanControl.resx" />
+    <Compile Include="Presentation\TimePlanForm.cs" />
+    <Compile Include="Presentation\TimePlanForm.Designer.cs" />
+    <None Include="Presentation\TimePlanForm.resx" />
+    <Compile Include="Presentation\TimePlanView.cs" />
+    <Compile Include="Presentation\TimePlanView.Designer.cs" />
+    <None Include="Presentation\TimePlanView.resx" />
+    <Compile Include="Presentation\TimerPreview.cs" />
+    <Compile Include="Presentation\TimerPreview.Designer.cs" />
+    <None Include="Presentation\TimerPreview.resx" />
+    <Compile Include="Presentation\TimerSettingsForm.cs" />
+    <Compile Include="Presentation\TimerSettingsForm.Designer.cs" />
+    <None Include="Presentation\TimerSettingsForm.resx" />
+    <Compile Include="Presentation\TimerView.cs" />
+    <Compile Include="Presentation\TimerView.Designer.cs" />
+    <None Include="Presentation\TimerView.resx" />
+    <Compile Include="Presentation\TimeViewControl.cs" />
+    <Compile Include="Presentation\TimeViewControl.Designer.cs" />
+    <Compile Include="Application\DurationChangedEventArgs.cs" />
+    <Compile Include="Application\PresetEventArgs.cs" />
+    <Compile Include="Application\RefreshDisplayEventArgs.cs" />
+    <Compile Include="Application\SettingIOEventArgs.cs" />
+    <Compile Include="Application\SettingsChangedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\02_play-20.png" />

@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Presentation
 {
     partial class ControlPanel
     {
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            SpeakerTimer.TimerViewSettings timerViewSettings1 = new SpeakerTimer.TimerViewSettings();
-            SpeakerTimer.TimerViewSettings timerViewSettings2 = new SpeakerTimer.TimerViewSettings();
+            SpeakerTimer.Application.TimerViewSettings timerViewSettings1 = new SpeakerTimer.Application.TimerViewSettings();
+            SpeakerTimer.Application.TimerViewSettings timerViewSettings2 = new SpeakerTimer.Application.TimerViewSettings();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlPanel));
             this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -48,9 +48,9 @@
             this.tsmClearAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRefreshList = new System.Windows.Forms.ToolStripMenuItem();
             this.tslMakeTimePlan = new System.Windows.Forms.ToolStripLabel();
-            this.timerPreview2 = new SpeakerTimer.TimerPreview();
-            this.timerPreview1 = new SpeakerTimer.TimerPreview();
-            this.ptsToolStrip = new SpeakerTimer.PresetationToolStrip();
+            this.timerPreview2 = new SpeakerTimer.Presentation.TimerPreview();
+            this.timerPreview1 = new SpeakerTimer.Presentation.TimerPreview();
+            this.ptsToolStrip = new SpeakerTimer.Presentation.PresetationToolStrip();
             this.tlpOuterLayout.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -220,8 +220,8 @@
             this.timerPreview2.Name = "timerPreview2";
             timerViewSettings1.BackgroundColor = System.Drawing.Color.Black;
             timerViewSettings1.BlinkOnExpired = false;
-            timerViewSettings1.CounterMode = SpeakerTimer.TimerViewSettings.TimerCounterMode.CountDownToZero;
-            timerViewSettings1.DisplayMode = SpeakerTimer.TimerViewSettings.TimerDisplayMode.FullWidth;
+            timerViewSettings1.CounterMode = SpeakerTimer.Application.TimerViewSettings.TimerCounterMode.CountDownToZero;
+            timerViewSettings1.DisplayMode = SpeakerTimer.Application.TimerViewSettings.TimerDisplayMode.FullWidth;
             timerViewSettings1.Duration = 0D;
             timerViewSettings1.ExpiredColor = System.Drawing.Color.Red;
             timerViewSettings1.FinalMessage = null;
@@ -239,8 +239,8 @@
             this.timerPreview2.Settings = timerViewSettings1;
             this.timerPreview2.Size = new System.Drawing.Size(877, 223);
             this.timerPreview2.TabIndex = 1;
-            this.timerPreview2.LoadRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_LoadRequested);
-            this.timerPreview2.SaveRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_SaveRequested);
+            this.timerPreview2.LoadRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_LoadRequested);
+            this.timerPreview2.SaveRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_SaveRequested);
             this.timerPreview2.LiveStateChanged += new System.EventHandler(this.timerPreview2_LiveStateChanged);
             // 
             // timerPreview1
@@ -252,8 +252,8 @@
             this.timerPreview1.Name = "timerPreview1";
             timerViewSettings2.BackgroundColor = System.Drawing.Color.Black;
             timerViewSettings2.BlinkOnExpired = false;
-            timerViewSettings2.CounterMode = SpeakerTimer.TimerViewSettings.TimerCounterMode.CountDownToZero;
-            timerViewSettings2.DisplayMode = SpeakerTimer.TimerViewSettings.TimerDisplayMode.FullWidth;
+            timerViewSettings2.CounterMode = SpeakerTimer.Application.TimerViewSettings.TimerCounterMode.CountDownToZero;
+            timerViewSettings2.DisplayMode = SpeakerTimer.Application.TimerViewSettings.TimerDisplayMode.FullWidth;
             timerViewSettings2.Duration = 0D;
             timerViewSettings2.ExpiredColor = System.Drawing.Color.Red;
             timerViewSettings2.FinalMessage = null;
@@ -271,8 +271,8 @@
             this.timerPreview1.Settings = timerViewSettings2;
             this.timerPreview1.Size = new System.Drawing.Size(877, 223);
             this.timerPreview1.TabIndex = 0;
-            this.timerPreview1.LoadRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_LoadRequested);
-            this.timerPreview1.SaveRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_SaveRequested);
+            this.timerPreview1.LoadRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_LoadRequested);
+            this.timerPreview1.SaveRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_SaveRequested);
             this.timerPreview1.LiveStateChanged += new System.EventHandler(this.timerPreview1_LiveStateChanged);
             // 
             // ptsToolStrip
@@ -289,9 +289,9 @@
             this.ptsToolStrip.LivePreviewFormRequired += new System.EventHandler(this.ptsToolStrip_LivePreviewFormRequired);
             this.ptsToolStrip.PresentFormEventsRequired += new System.EventHandler(this.ptsToolStrip_PresentFormEventsRequired);
             this.ptsToolStrip.PresentFormEventsRemoved += new System.EventHandler(this.ptsToolStrip_PresentFormEventsRemoved);
-            this.ptsToolStrip.PresetsLoaded += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_PresetsLoaded);
-            this.ptsToolStrip.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_TimersSettingsOpened);
-            this.ptsToolStrip.TimersSettingsDeleted += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_TimersSettingsDeleted);
+            this.ptsToolStrip.PresetsLoaded += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs>(this.ptsToolStrip_PresetsLoaded);
+            this.ptsToolStrip.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs>(this.ptsToolStrip_TimersSettingsOpened);
+            this.ptsToolStrip.TimersSettingsDeleted += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs>(this.ptsToolStrip_TimersSettingsDeleted);
             // 
             // ControlPanel
             // 
@@ -300,7 +300,7 @@
             this.ClientSize = new System.Drawing.Size(883, 528);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tlpOuterLayout);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "ControlPanel";
             this.Text = "Speaker Timer - Control Panel";

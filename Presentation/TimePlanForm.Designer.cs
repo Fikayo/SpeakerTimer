@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Presentation
 {
     partial class TimePlanForm
     {
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ptsToolStrip = new SpeakerTimer.PresetationToolStrip();
-            this.timePlanControl = new SpeakerTimer.TimePlanControl();
+            this.ptsToolStrip = new SpeakerTimer.Presentation.PresetationToolStrip();
+            this.timePlanControl = new SpeakerTimer.Presentation.TimePlanControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -49,7 +49,7 @@
             this.ptsToolStrip.PresentFormRequired += new System.EventHandler(this.ptsToolStrip_PresentFormRequired);
             this.ptsToolStrip.LivePreviewFormRequired += new System.EventHandler(this.ptsToolStrip_LivePreviewFormRequired);
             this.ptsToolStrip.PresentFormEventsRequired += new System.EventHandler(this.ptsToolStrip_PresentFormEventsRequired);
-            this.ptsToolStrip.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_TimersSettingsOpened);
+            this.ptsToolStrip.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs>(this.ptsToolStrip_TimersSettingsOpened);
             // 
             // timePlanControl
             // 

@@ -16,7 +16,7 @@
 
         public static void SetWatermark(this TextBox textBox, string watermarkText)
         {
-            SendMessage(textBox.Handle, EM_SETCUEBANNER, 0, watermarkText);
+            //SendMessage(textBox.Handle, EM_SETCUEBANNER, 0, watermarkText);
         }
 
         public static TEnum ToEnum<TEnum>(this string value, TEnum defaultValue = default(TEnum)) where TEnum : struct

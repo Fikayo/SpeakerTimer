@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpeakerTimer
+namespace SpeakerTimer.Application
 {
     public class TimePlan
     {

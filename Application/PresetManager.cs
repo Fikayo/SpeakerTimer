@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Application
 {
     using System;
     using System.Collections.Generic;

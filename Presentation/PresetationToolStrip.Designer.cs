@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Presentation
 {
     partial class PresetationToolStrip
     {

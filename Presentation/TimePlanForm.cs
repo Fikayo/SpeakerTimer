@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-namespace SpeakerTimer
+﻿namespace SpeakerTimer.Presentation
 {
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel;
+	using System.Data;
+	using System.Drawing;
+	using System.Text;
+	using System.Windows.Forms;
+	using SpeakerTimer.Application;
+
     public partial class TimePlanForm : Form
     {
         public TimePlanForm()
@@ -22,7 +23,7 @@ namespace SpeakerTimer
 
         private TimeViewControl CreateTimerView()
         {
-            return new SpeakerTimer.TimePlanView();
+            return new SpeakerTimer.Presentation.TimePlanView();
         }
 
         private void HookPresentFormEvents()

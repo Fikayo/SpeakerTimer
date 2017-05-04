@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Presentation
 {
     partial class TimePlanView
     {
@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.tmvCurrentTimer = new SpeakerTimer.TimerView();
-            this.tmvNextTimer = new SpeakerTimer.TimerView();
+            this.tmvCurrentTimer = new SpeakerTimer.Presentation.TimerView();
+            this.tmvNextTimer = new SpeakerTimer.Presentation.TimerView();
             this.tlpOuterLayout.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,7 +67,7 @@
             this.tmvCurrentTimer.TabIndex = 1;
             this.tmvCurrentTimer.TimerColor = System.Drawing.SystemColors.ControlText;
             this.tmvCurrentTimer.TimerFont = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tmvCurrentTimer.TimerState = SpeakerTimer.TimerState.Stopped;
+            this.tmvCurrentTimer.TimerState = SpeakerTimer.Presentation.TimerState.Stopped;
             // 
             // tmvNextTimer
             // 
@@ -83,7 +83,7 @@
             this.tmvNextTimer.TabIndex = 2;
             this.tmvNextTimer.TimerColor = System.Drawing.SystemColors.ControlText;
             this.tmvNextTimer.TimerFont = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tmvNextTimer.TimerState = SpeakerTimer.TimerState.Stopped;
+            this.tmvNextTimer.TimerState = SpeakerTimer.Presentation.TimerState.Stopped;
             // 
             // TimePlanView
             // 

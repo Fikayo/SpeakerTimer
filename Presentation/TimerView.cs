@@ -1,8 +1,9 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Presentation
 {
     using System;
     using System.Drawing;
-    using System.Windows.Forms;
+	using System.Windows.Forms;
+	using SpeakerTimer.Application;
 
     public partial class TimerView : TimeViewControl
     {

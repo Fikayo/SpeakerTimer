@@ -5,8 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
-namespace SpeakerTimer
+namespace SpeakerTimer.Presentation
 {
     public partial class TimerSettingsForm : Form
     {

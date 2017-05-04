@@ -1,7 +1,8 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Application
 {
     using System;
-    using System.Windows.Forms;
+	using System.Windows.Forms;
+    using SpeakerTimer.Presentation;
 
     public static class Program
     {
