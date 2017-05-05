@@ -120,6 +120,15 @@
             base.OnLeave(e);
         }
 
+        protected override void OnMouseHover(EventArgs e)
+        {
+            const int duration = 1000;
+            ToolTip tooltip = new ToolTip();
+            tooltip.Show("Double-click to set the time", this, 0, 0, duration);
+
+            base.OnMouseHover(e);
+        }
+
         private void Init()
         {
             this.firsttouch = true;

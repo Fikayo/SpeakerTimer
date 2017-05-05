@@ -1011,6 +1011,10 @@
                 this.ptsToolStrip.LivePreviewForm.CommandIssuer = this.timerPreview1.CommandIssuer;
                 this.timerPreview2.IsLive = false;
                 this.ptsToolStrip.TogglePresentationForm(true);
+                if (this.ptsToolStrip.IsLivePreviewVisible)
+                {
+                    this.ptsToolStrip.ToggleLivePreviewForm(true);
+                }
             }
             else if (!this.timerPreview2.IsLive)
             {
@@ -1037,6 +1041,10 @@
                 this.ptsToolStrip.LivePreviewForm.CommandIssuer = this.timerPreview2.CommandIssuer;
                 this.timerPreview1.IsLive = false;
                 this.ptsToolStrip.TogglePresentationForm(true);
+                if(this.ptsToolStrip.IsLivePreviewVisible)
+                {
+                    this.ptsToolStrip.ToggleLivePreviewForm(true);
+                }
             }
             else if (!this.timerPreview1.IsLive)
             {
@@ -1098,28 +1106,28 @@
             }
         }
 
-        private void ptsToolStrip_PresentFormRequired(object sender, EventArgs e)
-        {
-            this.ptsToolStrip.PresentForm = new PresentationTimerForm(this.CreateTimerView());
-        }
+        //private void ptsToolStrip_PresentFormRequired(object sender, EventArgs e)
+        //{
+        //    this.ptsToolStrip.PresentForm = new PresentationTimerForm(this.CreateTimerView());
+        //}
 
         private void ptsToolStrip_PresentFormEventsRequired(object sender, EventArgs e)
         {
             this.HookPresentFormEvents();
         }
 
-        private void ptsToolStrip_PresentFormEventsRemoved(object sender, EventArgs e)
-        {
-            this.UnHookPresentFormEvents();
-        }
+        //private void ptsToolStrip_PresentFormEventsRemoved(object sender, EventArgs e)
+        //{
+        //    this.UnHookPresentFormEvents();
+        //}
 
-        private void ptsToolStrip_LivePreviewFormRequired(object sender, EventArgs e)
-        {
-            this.ptsToolStrip.LivePreviewForm = new PresentationTimerForm(this.CreateTimerView());
-            this.ptsToolStrip.LivePreviewForm.Text = "Live Preview";
-            this.ptsToolStrip.LivePreviewForm.IsPreviewForm = true;
-            this.ptsToolStrip.LivePreviewForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;
-        }
+        //private void ptsToolStrip_LivePreviewFormRequired(object sender, EventArgs e)
+        //{
+        //    this.ptsToolStrip.LivePreviewForm = new PresentationTimerForm(this.CreateTimerView());
+        //    this.ptsToolStrip.LivePreviewForm.Text = "Live Preview";
+        //    this.ptsToolStrip.LivePreviewForm.IsPreviewForm = true;
+        //    this.ptsToolStrip.LivePreviewForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;
+        //}
 
         #endregion
     }

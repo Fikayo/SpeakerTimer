@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-namespace SpeakerTimer
+﻿namespace SpeakerTimer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Data;
+    using System.Linq;
+    using System.Text;
+    using System.Windows.Forms;
+
     public partial class PresetationToolStrip : UserControl
     {
+        private TimeViewControl previousimeViewControl;
+        private TimerViewerCommandIssuer previousCommandIssuer;
+
         public PresetationToolStrip()
         {
             InitializeComponent();
@@ -24,13 +27,17 @@ namespace SpeakerTimer
 
         #region Events
 
-        public event EventHandler PresentFormRequired;
-
-        public event EventHandler LivePreviewFormRequired;
-
+        //public event EventHandler PresentFormRequired;
+        
         public event EventHandler PresentFormEventsRequired;
 
-        public event EventHandler PresentFormEventsRemoved;
+        //public event EventHandler PresentFormEventsRemoved;
+
+        //public event EventHandler LivePreviewFormRequired;
+
+        public event EventHandler LivePreviewFormEventsRequired;
+
+        public event EventHandler LivePreviewFormEventsRemoved;
 
         public event EventHandler<PresetEventArgs> PresetsLoaded;
 
@@ -69,10 +76,16 @@ namespace SpeakerTimer
             set { this.tslMakeTimePlan.Visible = value; }
         }
 
+        public bool IsMainDisplayVisible { get { return this.tsmShowDisplay.Checked; } }
+
+        public bool IsLivePreviewVisible { get { return this.tsmShowLivePreview.Checked; } }
+
+        public Func<TimeViewControl> FetchTimerView { get; internal set; }
+
         #endregion
 
         #region External Members
-        
+
         public void Init()
         {
             this.LoadSavedTimers();
@@ -83,7 +96,9 @@ namespace SpeakerTimer
             if (this.PresentForm == null || this.PresentForm.IsDisposed)
             {
                 this.PresentForm = null;
-                this.OnPresentFormRequired();
+                this.PresentForm = new PresentationTimerForm(this.FetchTimerView());
+                this.HookPresentFormEvents();
+                //this.OnPresentFormRequired();
                 this.OnPresentFormEventsRequired();
             }
 
@@ -94,12 +109,40 @@ namespace SpeakerTimer
         {
             if (this.LivePreviewForm == null || this.LivePreviewForm.IsDisposed)
             {
+                bool wasRunning = this.PresentForm.TimeViewControl.TimerState == TimerState.Running;
+                if (wasRunning)
+                {
+                    // Pause an ongoing timer
+                    this.PresentForm.CommandIssuer.IssuePauseCommand();
+                }
+               
                 this.LivePreviewForm = null;
-                this.OnLivePreviewFormRequired();
-                //this.LivePreviewForm.Text = "Live Preview";
-                //this.LivePreviewForm.IsPreviewForm = true;
-                //this.LivePreviewForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;
+                //this.OnLivePreviewFormRequired();
+                this.LivePreviewForm = new PresentationTimerForm(this.FetchTimerView());
+                this.LivePreviewForm.Text = "Live Preview";
+                this.LivePreviewForm.IsPreviewForm = true;
+                this.LivePreviewForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;
                 this.HookLivePreviewFormEvents();
+                this.OnLivePreviewFormEventsRequired();
+
+                if (this.IsMainDisplayVisible)
+                {
+                    this.LivePreviewForm.CommandIssuer = this.PresentForm.CommandIssuer;
+                    this.LivePreviewForm.CommandIssuer.OnSettingsChanged(this.PresentForm.TimeViewControl.Settings);
+                    if (!wasRunning)
+                    {
+                        // Stop any previously running timer on the live screen
+                        this.LivePreviewForm.CommandIssuer.IssueStopCommand();
+                    }
+
+                    this.LivePreviewForm.CommandIssuer.OnRefreshTimerDisplay(this.PresentForm.TimeViewControl.CurrentTime);
+                }
+
+                if (wasRunning)
+                {
+                    // Resume the paused timer from current time
+                    this.PresentForm.CommandIssuer.IssueStartCommand();
+                }
             }
         }
 
@@ -155,30 +198,21 @@ namespace SpeakerTimer
                 item.Enabled = displayShown;
             }
         }
-        
+
         #endregion
 
         #region Internal Members
 
         #region Event Triggers
 
-        private void OnPresentFormRequired()
-        {
-            var handler = this.PresentFormRequired;
-            if (handler != null)
-            {
-                handler.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-        private void OnLivePreviewFormRequired()
-        {
-            var handler = this.LivePreviewFormRequired;
-            if (handler != null)
-            {
-                handler.Invoke(this, EventArgs.Empty);
-            }
-        }
+        //private void OnPresentFormRequired()
+        //{
+        //    var handler = this.PresentFormRequired;
+        //    if (handler != null)
+        //    {
+        //        handler.Invoke(this, EventArgs.Empty);
+        //    }
+        //}
 
         private void OnPresentFormEventsRequired()
         {
@@ -189,14 +223,50 @@ namespace SpeakerTimer
             }
         }
 
-        private void OnPresentFormEventsRemoved()
+        //private void OnPresentFormEventsRemoved()
+        //{
+        //    var handler = this.PresentFormEventsRemoved;
+        //    if (handler != null)
+        //    {
+        //        handler.Invoke(this, EventArgs.Empty);
+        //    }
+        //}
+
+        //private void OnLivePreviewFormRequired()
+        //{
+        //    var handler = this.LivePreviewFormRequired;
+        //    if (handler != null)
+        //    {
+        //        handler.Invoke(this, EventArgs.Empty);
+        //    }
+        //}
+
+        private void OnLivePreviewFormEventsRequired()
         {
-            var handler = this.PresentFormEventsRemoved;
+            var handler = this.LivePreviewFormEventsRequired;
             if (handler != null)
             {
                 handler.Invoke(this, EventArgs.Empty);
             }
         }
+
+        private void OnUnhookLivePreviewFormEvents()
+        {
+            var handler = this.LivePreviewFormEventsRemoved;
+            if (handler != null)
+            {
+                handler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        //private void OnLivePreviewFormEventsRemoved()
+        //{
+        //    var handler = this.LivePreviewFormEventsRemoved;
+        //    if (handler != null)
+        //    {
+        //        handler.Invoke(this, EventArgs.Empty);
+        //    }
+        //}
 
         private void OnPresetsLoaded(List<string> names)
         {
@@ -235,7 +305,13 @@ namespace SpeakerTimer
 
         private void HookLivePreviewFormEvents()
         {
-            this.LivePreviewForm.FormClosed += (s, e) => { this.tsmShowLivePreview.Checked = false; };
+            this.LivePreviewForm.FormClosing += (s, e) => 
+            {
+                this.tsmShowLivePreview.Checked = false;
+                this.OnUnhookLivePreviewFormEvents();
+                this.previousimeViewControl = this.LivePreviewForm.TimeViewControl;
+                this.previousCommandIssuer = this.LivePreviewForm.CommandIssuer;
+            };
         }
 
         private void AddAllScreens()

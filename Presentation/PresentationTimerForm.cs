@@ -54,7 +54,11 @@ namespace SpeakerTimer
         {
             get { return this.TimeViewControl.IsPreviewMode; }
 
-            set { this.TimeViewControl.IsPreviewMode = value; }
+            set
+            {
+                this.TimeViewControl.IsPreviewMode = value;
+                this.MaximizeBox = !value;
+            }
         }
 
         public void ToggleFullScreen()
@@ -116,7 +120,10 @@ namespace SpeakerTimer
 
         private void timerView_KeyDown(object sender, KeyEventArgs e)
         {
-            this.CheckKeyPress(e.KeyCode);
+            if (!this.IsPreviewForm)
+            {
+                this.CheckKeyPress(e.KeyCode);
+            }
         }
     }
 }
