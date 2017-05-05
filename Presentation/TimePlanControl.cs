@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer
 {
 	using System;
 	using System.Collections.Generic;
@@ -8,7 +8,7 @@
 	using System.Linq;
 	using System.Text;
 	using System.Windows.Forms;
-	using SpeakerTimer.Application;
+	using SpeakerTimer;
 
     public partial class TimePlanControl : UserControl
     {

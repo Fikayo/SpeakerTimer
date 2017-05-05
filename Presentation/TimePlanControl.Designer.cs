@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer
 {
     partial class TimePlanControl
     {
@@ -38,7 +38,7 @@
             this.btnNext = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
-            this.tpvTimer = new SpeakerTimer.Presentation.TimePlanView();
+            this.tpvTimer = new SpeakerTimer.TimePlanView();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.tlpOuterLayout.SuspendLayout();

@@ -3,8 +3,8 @@
     using System;
     using System.Drawing;
 	using System.Windows.Forms;
-	using SpeakerTimer.Application;
-    using SpeakerTimer.Presentation;
+	using SpeakerTimer;
+    using SpeakerTimer;
 
     public class OldTimerView
     {

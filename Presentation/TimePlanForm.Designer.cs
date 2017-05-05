@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer
 {
     partial class TimePlanForm
     {
@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ptsToolStrip = new SpeakerTimer.Presentation.PresetationToolStrip();
-            this.timePlanControl = new SpeakerTimer.Presentation.TimePlanControl();
+            this.ptsToolStrip = new SpeakerTimer.PresetationToolStrip();
+            this.timePlanControl = new SpeakerTimer.TimePlanControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ptsToolStrip
             // 
+            this.ptsToolStrip.FetchTimerView = this.CreateTimerView;
             this.ptsToolStrip.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ptsToolStrip.LivePreviewForm = null;
             this.ptsToolStrip.Location = new System.Drawing.Point(3, 3);
@@ -46,10 +47,10 @@
             this.ptsToolStrip.ShowTimerSettingsMenu = true;
             this.ptsToolStrip.Size = new System.Drawing.Size(520, 30);
             this.ptsToolStrip.TabIndex = 7;
-            this.ptsToolStrip.PresentFormRequired += new System.EventHandler(this.ptsToolStrip_PresentFormRequired);
-            this.ptsToolStrip.LivePreviewFormRequired += new System.EventHandler(this.ptsToolStrip_LivePreviewFormRequired);
+            //this.ptsToolStrip.PresentFormRequired += new System.EventHandler(this.ptsToolStrip_PresentFormRequired);
+            //this.ptsToolStrip.LivePreviewFormRequired += new System.EventHandler(this.ptsToolStrip_LivePreviewFormRequired);
             this.ptsToolStrip.PresentFormEventsRequired += new System.EventHandler(this.ptsToolStrip_PresentFormEventsRequired);
-            this.ptsToolStrip.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs>(this.ptsToolStrip_TimersSettingsOpened);
+            this.ptsToolStrip.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_TimersSettingsOpened);
             // 
             // timePlanControl
             // 

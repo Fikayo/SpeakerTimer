@@ -2,3 +2,4 @@
 /obj
 /SavedTimers
 .vs/
+**/*.orig

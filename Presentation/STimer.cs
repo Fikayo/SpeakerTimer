@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer
 {
     using System;
     using System.Drawing;

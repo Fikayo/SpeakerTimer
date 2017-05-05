@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer
 {
 	using System;
 	using System.Collections.Generic;
@@ -7,7 +7,7 @@
 	using System.Drawing;
 	using System.Text;
 	using System.Windows.Forms;
-	using SpeakerTimer.Application;
+	using SpeakerTimer;
 
 	public partial class PresentationTimerForm : Form
     {
@@ -55,7 +55,11 @@
         {
             get { return this.TimeViewControl.IsPreviewMode; }
 
-            set { this.TimeViewControl.IsPreviewMode = value; }
+            set
+            {
+                this.TimeViewControl.IsPreviewMode = value;
+                this.MaximizeBox = !value;
+            }
         }
 
         public void ToggleFullScreen()
@@ -117,7 +121,10 @@
 
         private void timerView_KeyDown(object sender, KeyEventArgs e)
         {
-            this.CheckKeyPress(e.KeyCode);
+            if (!this.IsPreviewForm)
+            {
+                this.CheckKeyPress(e.KeyCode);
+            }
         }
     }
 }

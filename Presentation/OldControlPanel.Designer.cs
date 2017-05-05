@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer
 {
     partial class OldControlPanel
     {
@@ -79,8 +79,8 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.cmbLoadTimer = new System.Windows.Forms.ComboBox();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
-            this.timeInputBox1 = new SpeakerTimer.Presentation.TimeInputBox();
-            this.timerView = new SpeakerTimer.Presentation.TimerView();
+            this.timeInputBox1 = new SpeakerTimer.TimeInputBox();
+            this.timerView = new SpeakerTimer.TimerView();
             this.label3 = new System.Windows.Forms.Label();
             this.tlpOuterLayout.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();

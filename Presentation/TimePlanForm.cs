@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer
 {
 	using System;
 	using System.Collections.Generic;
@@ -7,7 +7,7 @@
 	using System.Drawing;
 	using System.Text;
 	using System.Windows.Forms;
-	using SpeakerTimer.Application;
+	using SpeakerTimer;
 
     public partial class TimePlanForm : Form
     {
@@ -23,7 +23,7 @@
 
         private TimeViewControl CreateTimerView()
         {
-            return new SpeakerTimer.Presentation.TimePlanView();
+            return new SpeakerTimer.TimePlanView();
         }
 
         private void HookPresentFormEvents()
@@ -34,25 +34,25 @@
 
         #region Event Handlers
 
-        private void ptsToolStrip_PresentFormRequired(object sender, EventArgs e)
-        {
-            this.ptsToolStrip.PresentForm = null;
-            this.ptsToolStrip.PresentForm = new PresentationTimerForm(this.CreateTimerView());
-        }
+        //private void ptsToolStrip_PresentFormRequired(object sender, EventArgs e)
+        //{
+        //    this.ptsToolStrip.PresentForm = null;
+        //    this.ptsToolStrip.PresentForm = new PresentationTimerForm(this.CreateTimerView());
+        //}
         
         private void ptsToolStrip_PresentFormEventsRequired(object sender, EventArgs e)
         {
             this.HookPresentFormEvents();
         }
 
-        private void ptsToolStrip_LivePreviewFormRequired(object sender, EventArgs e)
-        {
-            this.ptsToolStrip.LivePreviewForm = null;
-            this.ptsToolStrip.LivePreviewForm = new PresentationTimerForm(this.CreateTimerView());
-            this.ptsToolStrip.LivePreviewForm.Text = "Live Preview";
-            this.ptsToolStrip.LivePreviewForm.IsPreviewForm = true;
-            this.ptsToolStrip.LivePreviewForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;
-        }
+        //private void ptsToolStrip_LivePreviewFormRequired(object sender, EventArgs e)
+        //{
+        //    this.ptsToolStrip.LivePreviewForm = null;
+        //    this.ptsToolStrip.LivePreviewForm = new PresentationTimerForm(this.CreateTimerView());
+        //    this.ptsToolStrip.LivePreviewForm.Text = "Live Preview";
+        //    this.ptsToolStrip.LivePreviewForm.IsPreviewForm = true;
+        //    this.ptsToolStrip.LivePreviewForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;
+        //}
 
         private void ptsToolStrip_TimersSettingsOpened(object sender, PresetEventArgs e)
         {

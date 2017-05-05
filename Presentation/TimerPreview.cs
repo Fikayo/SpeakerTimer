@@ -1,9 +1,9 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer
 {
     using System;
     using System.Drawing;
     using System.Windows.Forms;
-    using SpeakerTimer.Application;
+    using SpeakerTimer;
 
     public partial class TimerPreview : UserControl
     {

@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Application
+﻿namespace SpeakerTimer
 {
     using System.Drawing;
 

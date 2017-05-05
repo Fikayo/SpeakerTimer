@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@
     using System.Globalization;
     using System.Resources;
 	using System.Windows.Forms;
-	using SpeakerTimer.Application;
+	using SpeakerTimer;
 
     public partial class OldControlPanel : Form
     {

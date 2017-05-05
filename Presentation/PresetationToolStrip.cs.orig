@@ -1,4 +1,17 @@
-namespace SpeakerTimer
+<<<<<<< HEAD
+﻿namespace SpeakerTimer
+{
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel;
+	using System.Drawing;
+	using System.Data;
+	using System.Linq;
+	using System.Text;
+	using System.Windows.Forms;
+	using SpeakerTimer;
+=======
+﻿namespace SpeakerTimer
 {
     using System;
     using System.Collections.Generic;
@@ -8,6 +21,7 @@ namespace SpeakerTimer
     using System.Linq;
     using System.Text;
     using System.Windows.Forms;
+>>>>>>> 6e99b39
 
     public partial class PresetationToolStrip : UserControl
     {

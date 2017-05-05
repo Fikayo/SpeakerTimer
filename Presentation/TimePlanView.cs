@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer
 {
 	using System;
 	using System.Collections.Generic;
@@ -7,7 +7,7 @@
 	using System.Data;
 	using System.Text;
 	using System.Windows.Forms;
-    using SpeakerTimer.Application;
+    using SpeakerTimer;
 
     public partial class TimePlanView : TimeViewControl
     {
@@ -28,6 +28,8 @@
             ////this.tmvNextTimer.CommandIssuer = this.timePlanCommandIssuer.nextCommandIssuer;
             this.HookEventHandlers();
         }
+
+        #region Properties
 
         public override TimerViewerCommandIssuer CommandIssuer
         {
@@ -60,6 +62,14 @@
 
         public TimePlan TimePlan { get; private set; }
 
+        public override TimerState TimerState { get { return this.tmvCurrentTimer.TimerState; } }
+
+        public override double CurrentTime { get { return this.tmvCurrentTimer.CurrentTime; } }
+
+        public override TimerViewSettings Settings { get { return this.tmvCurrentTimer.Settings; } }
+
+        #endregion
+
         #region External Members
 
         public void StartPlan()
@@ -69,10 +79,10 @@
             this.timePlanCommandIssuer.CurrentTimerCommandIssuer.OnSettingsChanged(this.TimePlan.CurrentTimer);
             this.timePlanCommandIssuer.CurrentTimerCommandIssuer.OnRefreshTimerDisplay();
 
-            var nextTimer = this.TimePlan.NextTimer;
-            if (nextTimer != null)
+            var nextTimerSettings = this.TimePlan.NextTimer;
+            if (nextTimerSettings != null)
             {
-                this.timePlanCommandIssuer.NextTimerCommandIssuer.OnSettingsChanged(nextTimer);
+                this.timePlanCommandIssuer.NextTimerCommandIssuer.OnSettingsChanged(nextTimerSettings);
                 this.timePlanCommandIssuer.NextTimerCommandIssuer.OnRefreshTimerDisplay();
             }
 

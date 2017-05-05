@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer
 {
     partial class TimerPreview
     {
@@ -46,8 +46,8 @@
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.lblWarningTime = new System.Windows.Forms.Label();
-            this.txtSecondWarningTime = new SpeakerTimer.Presentation.TimeInputBox();
-            this.txtWarningTime = new SpeakerTimer.Presentation.TimeInputBox();
+            this.txtSecondWarningTime = new SpeakerTimer.TimeInputBox();
+            this.txtWarningTime = new SpeakerTimer.TimeInputBox();
             this.chbBlink = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -78,7 +78,7 @@
             this.btnBackColor = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.timerView = new SpeakerTimer.Presentation.TimerView();
+            this.timerView = new SpeakerTimer.TimerView();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.grbPreviewBox = new System.Windows.Forms.GroupBox();
             this.tlpOuterLayout.SuspendLayout();
@@ -758,7 +758,7 @@
             this.timerView.TabIndex = 2;
             this.timerView.TimerColor = System.Drawing.SystemColors.ControlText;
             this.timerView.TimerFont = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timerView.TimerState = SpeakerTimer.Presentation.TimerState.Stopped;
+            this.timerView.TimerState = SpeakerTimer.TimerState.Stopped;
             // 
             // grbPreviewBox
             // 
