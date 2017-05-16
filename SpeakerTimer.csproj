@@ -277,6 +277,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1451759639_timer.ico" />
+    <None Include="Resources\1494315729_10.Folder.png" />
+    <None Include="Resources\1494315762_Noun_Project_100Icon_10px_grid-38.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

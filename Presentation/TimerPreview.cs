@@ -131,19 +131,19 @@
 
         private void ResetPlayButton()
         {
-            this.btnStart.Text = "Start";
+            //this.btnStart.Text = "Start";
             this.btnStart.Image = ControlPanel.PlayImage;
-            this.btnStart.ForeColor = Color.RoyalBlue;
-            this.btnStart.BackColor = Color.Silver;
+            //this.btnStart.ForeColor = Color.RoyalBlue;
+            //this.btnStart.BackColor = Color.Silver;
             this.running = false;
         }
 
         private void ResetPausedButton()
         {
-            this.btnStart.Text = "Pause";
+            //this.btnStart.Text = "Pause";
             this.btnStart.Image = ControlPanel.PauseImage;
-            this.btnStart.ForeColor = Color.Green;
-            this.btnStart.BackColor = Color.LightCyan;
+            //this.btnStart.ForeColor = Color.Green;
+            //this.btnStart.BackColor = Color.LightCyan;
             this.running = true;
         }
 
