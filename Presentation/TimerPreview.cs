@@ -231,7 +231,7 @@
             //this.settings.Duration = duration;
             //this.InitSettings();
             //this.OnSettingsChanged();
-            new SpeakerTimer.Presentation.VisualSettingsForm().Show();
+            new SpeakerTimer.Presentation.VisualSettingsForm(TimerViewSettings.TimerVisualSettings.Default).Show();
         }
 
         #region Functions Event Handlers
