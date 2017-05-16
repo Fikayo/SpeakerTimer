@@ -226,11 +226,12 @@
 
         private void btnDefaultSettings_Click(object sender, EventArgs e)
         {
-            var duration = this.settings.Duration;
-            this.settings = TimerViewSettings.Default;
-            this.settings.Duration = duration;
-            this.InitSettings();
-            this.OnSettingsChanged();
+            //var duration = this.settings.Duration;
+            //this.settings = TimerViewSettings.Default;
+            //this.settings.Duration = duration;
+            //this.InitSettings();
+            //this.OnSettingsChanged();
+            new SpeakerTimer.Presentation.VisualSettingsForm().Show();
         }
 
         #region Functions Event Handlers

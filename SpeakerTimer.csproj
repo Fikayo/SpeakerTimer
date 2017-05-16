@@ -96,6 +96,12 @@
       <DependentUpon>PresentationTimerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Application\Program.cs" />
+    <Compile Include="Presentation\VisualSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\VisualSettingsForm.Designer.cs">
+      <DependentUpon>VisualSettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -164,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation\PresetationToolStrip.resx">
       <DependentUpon>PresetationToolStrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\VisualSettingsForm.resx">
+      <DependentUpon>VisualSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
