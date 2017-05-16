@@ -74,33 +74,6 @@
             this.rdbLive = new System.Windows.Forms.RadioButton();
             this.pcbLiveIndicator = new System.Windows.Forms.PictureBox();
             this.timerView = new SpeakerTimer.TimerView();
-            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.cmbDisplayMode = new System.Windows.Forms.ComboBox();
-            this.cmbCounterMode = new System.Windows.Forms.ComboBox();
-            this.cmbFontFace = new System.Windows.Forms.ComboBox();
-            this.numFontSize = new System.Windows.Forms.NumericUpDown();
-            this.lblDisplayMode = new System.Windows.Forms.Label();
-            this.lblCounterMode = new System.Windows.Forms.Label();
-            this.lblFontFace = new System.Windows.Forms.Label();
-            this.lblFontSize = new System.Windows.Forms.Label();
-            this.btnDefaultSettings = new System.Windows.Forms.Button();
-            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnExpiredColor = new System.Windows.Forms.Button();
-            this.btnRunningColor = new System.Windows.Forms.Button();
-            this.btnPausedColor = new System.Windows.Forms.Button();
-            this.btnMessageColor = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.btnStoppedColor = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.btnWarningColor = new System.Windows.Forms.Button();
-            this.btnBackColor = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.grbPreviewBox = new System.Windows.Forms.GroupBox();
             this.tlpOuterLayout.SuspendLayout();
@@ -123,11 +96,6 @@
             this.tlpFinalMessageLayout.SuspendLayout();
             this.tlpGoLiveLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbLiveIndicator)).BeginInit();
-            this.tableLayoutPanel8.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tableLayoutPanel9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numFontSize)).BeginInit();
-            this.tableLayoutPanel10.SuspendLayout();
             this.grbPreviewBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -143,7 +111,7 @@
             this.tlpOuterLayout.Name = "tlpOuterLayout";
             this.tlpOuterLayout.RowCount = 1;
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpOuterLayout.Size = new System.Drawing.Size(943, 287);
+            this.tlpOuterLayout.Size = new System.Drawing.Size(1023, 284);
             this.tlpOuterLayout.TabIndex = 0;
             // 
             // tlpControlsLayout
@@ -159,7 +127,7 @@
             this.tlpControlsLayout.RowCount = 2;
             this.tlpControlsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpControlsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 108F));
-            this.tlpControlsLayout.Size = new System.Drawing.Size(662, 281);
+            this.tlpControlsLayout.Size = new System.Drawing.Size(742, 278);
             this.tlpControlsLayout.TabIndex = 1;
             // 
             // flpIOayout
@@ -172,7 +140,7 @@
             this.flpIOayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpIOayout.Location = new System.Drawing.Point(3, 3);
             this.flpIOayout.Name = "flpIOayout";
-            this.flpIOayout.Size = new System.Drawing.Size(656, 65);
+            this.flpIOayout.Size = new System.Drawing.Size(736, 34);
             this.flpIOayout.TabIndex = 4;
             // 
             // tlpTimerNameLayout
@@ -279,7 +247,7 @@
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSave.Location = new System.Drawing.Point(3, 37);
+            this.btnSave.Location = new System.Drawing.Point(636, 3);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(77, 25);
             this.btnSave.TabIndex = 2;
@@ -295,11 +263,11 @@
             this.tlpMainLayout.Controls.Add(this.tlpMainRightLayout, 1, 0);
             this.tlpMainLayout.Controls.Add(this.tlpMainLeftLayout, 0, 0);
             this.tlpMainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpMainLayout.Location = new System.Drawing.Point(3, 74);
+            this.tlpMainLayout.Location = new System.Drawing.Point(3, 43);
             this.tlpMainLayout.Name = "tlpMainLayout";
             this.tlpMainLayout.RowCount = 1;
             this.tlpMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMainLayout.Size = new System.Drawing.Size(656, 204);
+            this.tlpMainLayout.Size = new System.Drawing.Size(736, 232);
             this.tlpMainLayout.TabIndex = 1;
             // 
             // tlpMainRightLayout
@@ -317,7 +285,7 @@
             this.tlpMainRightLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tlpMainRightLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpMainRightLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMainRightLayout.Size = new System.Drawing.Size(394, 198);
+            this.tlpMainRightLayout.Size = new System.Drawing.Size(474, 226);
             this.tlpMainRightLayout.TabIndex = 3;
             // 
             // tlpMessageLayout
@@ -337,7 +305,7 @@
             this.tlpMessageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpMessageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpMessageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpMessageLayout.Size = new System.Drawing.Size(388, 130);
+            this.tlpMessageLayout.Size = new System.Drawing.Size(468, 158);
             this.tlpMessageLayout.TabIndex = 3;
             // 
             // tlpMessageDurationLayout
@@ -353,7 +321,7 @@
             this.tlpMessageDurationLayout.Controls.Add(this.numMessageDuration, 0, 0);
             this.tlpMessageDurationLayout.Controls.Add(this.lblSeconds, 1, 0);
             this.tlpMessageDurationLayout.Controls.Add(this.chbIndefiniteMessageDuration, 3, 0);
-            this.tlpMessageDurationLayout.Location = new System.Drawing.Point(131, 101);
+            this.tlpMessageDurationLayout.Location = new System.Drawing.Point(211, 129);
             this.tlpMessageDurationLayout.Name = "tlpMessageDurationLayout";
             this.tlpMessageDurationLayout.RowCount = 1;
             this.tlpMessageDurationLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -403,7 +371,7 @@
             // 
             this.btnShowMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnShowMessage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowMessage.Location = new System.Drawing.Point(315, 31);
+            this.btnShowMessage.Location = new System.Drawing.Point(395, 45);
             this.btnShowMessage.Name = "btnShowMessage";
             this.btnShowMessage.Size = new System.Drawing.Size(70, 36);
             this.btnShowMessage.TabIndex = 4;
@@ -414,19 +382,19 @@
             // txtShowMessage
             // 
             this.txtShowMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtShowMessage.Location = new System.Drawing.Point(128, 3);
+            this.txtShowMessage.Location = new System.Drawing.Point(208, 3);
             this.txtShowMessage.Multiline = true;
             this.txtShowMessage.Name = "txtShowMessage";
-            this.txtShowMessage.Size = new System.Drawing.Size(181, 92);
+            this.txtShowMessage.Size = new System.Drawing.Size(181, 120);
             this.txtShowMessage.TabIndex = 0;
             // 
             // lblMessageInfo
             // 
             this.lblMessageInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.lblMessageInfo.AutoSize = true;
-            this.lblMessageInfo.Location = new System.Drawing.Point(8, 0);
+            this.lblMessageInfo.Location = new System.Drawing.Point(12, 0);
             this.lblMessageInfo.Name = "lblMessageInfo";
-            this.lblMessageInfo.Size = new System.Drawing.Size(108, 98);
+            this.lblMessageInfo.Size = new System.Drawing.Size(180, 126);
             this.lblMessageInfo.TabIndex = 5;
             this.lblMessageInfo.Text = "Enter a message to display on the screen for a brief or indefinite interval";
             this.lblMessageInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -445,7 +413,7 @@
             this.tlpTitleLayout.Name = "tlpTitleLayout";
             this.tlpTitleLayout.RowCount = 1;
             this.tlpTitleLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpTitleLayout.Size = new System.Drawing.Size(388, 26);
+            this.tlpTitleLayout.Size = new System.Drawing.Size(468, 26);
             this.tlpTitleLayout.TabIndex = 12;
             // 
             // txtTitle
@@ -453,7 +421,7 @@
             this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTitle.Location = new System.Drawing.Point(65, 3);
             this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(320, 20);
+            this.txtTitle.Size = new System.Drawing.Size(400, 20);
             this.txtTitle.TabIndex = 10;
             this.txtTitle.TextChanged += new System.EventHandler(this.txtTitle_TextChanged);
             // 
@@ -476,7 +444,7 @@
             this.lblShowMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblShowMessage.Location = new System.Drawing.Point(3, 42);
             this.lblShowMessage.Name = "lblShowMessage";
-            this.lblShowMessage.Size = new System.Drawing.Size(388, 20);
+            this.lblShowMessage.Size = new System.Drawing.Size(468, 20);
             this.lblShowMessage.TabIndex = 5;
             this.lblShowMessage.Text = "Messages";
             this.lblShowMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -493,7 +461,7 @@
             this.tlpMainLeftLayout.Controls.Add(this.chbBlink, 0, 3);
             this.tlpMainLeftLayout.Controls.Add(this.tlpFinalMessageLayout, 0, 4);
             this.tlpMainLeftLayout.Controls.Add(this.tlpGoLiveLayout, 0, 5);
-            this.tlpMainLeftLayout.Location = new System.Drawing.Point(3, 5);
+            this.tlpMainLeftLayout.Location = new System.Drawing.Point(3, 19);
             this.tlpMainLeftLayout.Name = "tlpMainLeftLayout";
             this.tlpMainLeftLayout.RowCount = 7;
             this.tlpMainLeftLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -760,336 +728,21 @@
             this.timerView.Location = new System.Drawing.Point(3, 3);
             this.timerView.Name = "timerView";
             this.timerView.ShowLabel = true;
-            this.timerView.Size = new System.Drawing.Size(269, 281);
+            this.timerView.Size = new System.Drawing.Size(269, 278);
             this.timerView.TabIndex = 2;
             this.timerView.TimerColor = System.Drawing.SystemColors.ControlText;
             this.timerView.TimerFont = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timerView.TimerState = SpeakerTimer.TimerState.Stopped;
             // 
-            // tableLayoutPanel8
-            // 
-            this.tableLayoutPanel8.ColumnCount = 1;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Controls.Add(this.groupBox1, 0, 1);
-            this.tableLayoutPanel8.Controls.Add(this.btnDefaultSettings, 0, 2);
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(952, 19);
-            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
-            this.tableLayoutPanel8.RowCount = 3;
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(223, 216);
-            this.tableLayoutPanel8.TabIndex = 2;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.tableLayoutPanel9);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 20);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(217, 157);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Display Settings";
-            // 
-            // tableLayoutPanel9
-            // 
-            this.tableLayoutPanel9.ColumnCount = 2;
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel9.Controls.Add(this.cmbDisplayMode, 1, 0);
-            this.tableLayoutPanel9.Controls.Add(this.cmbCounterMode, 1, 1);
-            this.tableLayoutPanel9.Controls.Add(this.cmbFontFace, 1, 2);
-            this.tableLayoutPanel9.Controls.Add(this.numFontSize, 1, 3);
-            this.tableLayoutPanel9.Controls.Add(this.lblDisplayMode, 0, 0);
-            this.tableLayoutPanel9.Controls.Add(this.lblCounterMode, 0, 1);
-            this.tableLayoutPanel9.Controls.Add(this.lblFontFace, 0, 2);
-            this.tableLayoutPanel9.Controls.Add(this.lblFontSize, 0, 3);
-            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 16);
-            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
-            this.tableLayoutPanel9.RowCount = 5;
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(211, 138);
-            this.tableLayoutPanel9.TabIndex = 0;
-            // 
-            // cmbDisplayMode
-            // 
-            this.cmbDisplayMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbDisplayMode.FormattingEnabled = true;
-            this.cmbDisplayMode.Location = new System.Drawing.Point(108, 3);
-            this.cmbDisplayMode.Name = "cmbDisplayMode";
-            this.cmbDisplayMode.Size = new System.Drawing.Size(100, 21);
-            this.cmbDisplayMode.TabIndex = 2;
-            this.cmbDisplayMode.SelectedIndexChanged += new System.EventHandler(this.cmbDisplayMode_SelectedIndexChanged);
-            // 
-            // cmbCounterMode
-            // 
-            this.cmbCounterMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbCounterMode.FormattingEnabled = true;
-            this.cmbCounterMode.Location = new System.Drawing.Point(108, 30);
-            this.cmbCounterMode.Name = "cmbCounterMode";
-            this.cmbCounterMode.Size = new System.Drawing.Size(100, 21);
-            this.cmbCounterMode.TabIndex = 3;
-            this.cmbCounterMode.SelectedIndexChanged += new System.EventHandler(this.cmbCounterMode_SelectedIndexChanged);
-            // 
-            // cmbFontFace
-            // 
-            this.cmbFontFace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbFontFace.FormattingEnabled = true;
-            this.cmbFontFace.Location = new System.Drawing.Point(108, 57);
-            this.cmbFontFace.Name = "cmbFontFace";
-            this.cmbFontFace.Size = new System.Drawing.Size(100, 21);
-            this.cmbFontFace.TabIndex = 6;
-            this.cmbFontFace.SelectedIndexChanged += new System.EventHandler(this.cmbFontFace_SelectedIndexChanged);
-            // 
-            // numFontSize
-            // 
-            this.numFontSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numFontSize.Location = new System.Drawing.Point(108, 84);
-            this.numFontSize.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.numFontSize.Name = "numFontSize";
-            this.numFontSize.Size = new System.Drawing.Size(100, 20);
-            this.numFontSize.TabIndex = 8;
-            this.numFontSize.ValueChanged += new System.EventHandler(this.numFontSize_ValueChanged);
-            // 
-            // lblDisplayMode
-            // 
-            this.lblDisplayMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblDisplayMode.AutoSize = true;
-            this.lblDisplayMode.Location = new System.Drawing.Point(3, 7);
-            this.lblDisplayMode.Name = "lblDisplayMode";
-            this.lblDisplayMode.Size = new System.Drawing.Size(99, 13);
-            this.lblDisplayMode.TabIndex = 11;
-            this.lblDisplayMode.Text = "Display Mode";
-            // 
-            // lblCounterMode
-            // 
-            this.lblCounterMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCounterMode.AutoSize = true;
-            this.lblCounterMode.Location = new System.Drawing.Point(3, 34);
-            this.lblCounterMode.Name = "lblCounterMode";
-            this.lblCounterMode.Size = new System.Drawing.Size(99, 13);
-            this.lblCounterMode.TabIndex = 12;
-            this.lblCounterMode.Text = "Counter Mode";
-            // 
-            // lblFontFace
-            // 
-            this.lblFontFace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFontFace.AutoSize = true;
-            this.lblFontFace.Location = new System.Drawing.Point(3, 61);
-            this.lblFontFace.Name = "lblFontFace";
-            this.lblFontFace.Size = new System.Drawing.Size(99, 13);
-            this.lblFontFace.TabIndex = 13;
-            this.lblFontFace.Text = "Timer Font";
-            // 
-            // lblFontSize
-            // 
-            this.lblFontSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFontSize.AutoSize = true;
-            this.lblFontSize.Location = new System.Drawing.Point(3, 87);
-            this.lblFontSize.Name = "lblFontSize";
-            this.lblFontSize.Size = new System.Drawing.Size(99, 13);
-            this.lblFontSize.TabIndex = 14;
-            this.lblFontSize.Text = "Font Size";
-            // 
-            // btnDefaultSettings
-            // 
-            this.btnDefaultSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDefaultSettings.BackColor = System.Drawing.Color.Silver;
-            this.btnDefaultSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDefaultSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDefaultSettings.Location = new System.Drawing.Point(126, 183);
-            this.btnDefaultSettings.Name = "btnDefaultSettings";
-            this.btnDefaultSettings.Size = new System.Drawing.Size(94, 30);
-            this.btnDefaultSettings.TabIndex = 1;
-            this.btnDefaultSettings.Text = "Default Settings";
-            this.btnDefaultSettings.UseVisualStyleBackColor = false;
-            this.btnDefaultSettings.Click += new System.EventHandler(this.btnDefaultSettings_Click);
-            // 
-            // tableLayoutPanel10
-            // 
-            this.tableLayoutPanel10.ColumnCount = 2;
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Controls.Add(this.label4, 0, 7);
-            this.tableLayoutPanel10.Controls.Add(this.label6, 0, 4);
-            this.tableLayoutPanel10.Controls.Add(this.btnExpiredColor, 1, 5);
-            this.tableLayoutPanel10.Controls.Add(this.btnRunningColor, 1, 1);
-            this.tableLayoutPanel10.Controls.Add(this.btnPausedColor, 1, 2);
-            this.tableLayoutPanel10.Controls.Add(this.btnMessageColor, 1, 7);
-            this.tableLayoutPanel10.Controls.Add(this.label1, 0, 1);
-            this.tableLayoutPanel10.Controls.Add(this.label9, 0, 2);
-            this.tableLayoutPanel10.Controls.Add(this.btnStoppedColor, 1, 4);
-            this.tableLayoutPanel10.Controls.Add(this.label7, 0, 5);
-            this.tableLayoutPanel10.Controls.Add(this.btnWarningColor, 1, 6);
-            this.tableLayoutPanel10.Controls.Add(this.btnBackColor, 1, 3);
-            this.tableLayoutPanel10.Controls.Add(this.label5, 0, 3);
-            this.tableLayoutPanel10.Controls.Add(this.label3, 0, 6);
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(964, 267);
-            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
-            this.tableLayoutPanel10.RowCount = 9;
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(112, 23);
-            this.tableLayoutPanel10.TabIndex = 0;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 92);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 13);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "Warning 2";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 5);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 13);
-            this.label6.TabIndex = 18;
-            this.label6.Text = "Stopped";
-            // 
-            // btnExpiredColor
-            // 
-            this.btnExpiredColor.Location = new System.Drawing.Point(74, 29);
-            this.btnExpiredColor.Name = "btnExpiredColor";
-            this.btnExpiredColor.Size = new System.Drawing.Size(28, 23);
-            this.btnExpiredColor.TabIndex = 7;
-            this.btnExpiredColor.UseVisualStyleBackColor = true;
-            this.btnExpiredColor.Click += new System.EventHandler(this.btnExpiredColor_Click);
-            // 
-            // btnRunningColor
-            // 
-            this.btnRunningColor.Location = new System.Drawing.Point(74, -87);
-            this.btnRunningColor.Name = "btnRunningColor";
-            this.btnRunningColor.Size = new System.Drawing.Size(28, 23);
-            this.btnRunningColor.TabIndex = 2;
-            this.btnRunningColor.UseVisualStyleBackColor = true;
-            this.btnRunningColor.Click += new System.EventHandler(this.btnRunningColor_Click);
-            // 
-            // btnPausedColor
-            // 
-            this.btnPausedColor.Location = new System.Drawing.Point(74, -58);
-            this.btnPausedColor.Name = "btnPausedColor";
-            this.btnPausedColor.Size = new System.Drawing.Size(28, 23);
-            this.btnPausedColor.TabIndex = 5;
-            this.btnPausedColor.UseVisualStyleBackColor = true;
-            this.btnPausedColor.Click += new System.EventHandler(this.btnPausedColor_Click);
-            // 
-            // btnMessageColor
-            // 
-            this.btnMessageColor.Location = new System.Drawing.Point(74, 87);
-            this.btnMessageColor.Name = "btnMessageColor";
-            this.btnMessageColor.Size = new System.Drawing.Size(28, 23);
-            this.btnMessageColor.TabIndex = 10;
-            this.btnMessageColor.UseVisualStyleBackColor = true;
-            this.btnMessageColor.Click += new System.EventHandler(this.btnMessageColor_Click);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, -82);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Running";
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, -53);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(65, 13);
-            this.label9.TabIndex = 15;
-            this.label9.Text = "Paused";
-            // 
-            // btnStoppedColor
-            // 
-            this.btnStoppedColor.Location = new System.Drawing.Point(74, 0);
-            this.btnStoppedColor.Name = "btnStoppedColor";
-            this.btnStoppedColor.Size = new System.Drawing.Size(28, 23);
-            this.btnStoppedColor.TabIndex = 8;
-            this.btnStoppedColor.UseVisualStyleBackColor = true;
-            this.btnStoppedColor.Click += new System.EventHandler(this.btnStoppedColor_Click);
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 34);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(65, 13);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "Expired";
-            // 
-            // btnWarningColor
-            // 
-            this.btnWarningColor.Location = new System.Drawing.Point(74, 58);
-            this.btnWarningColor.Name = "btnWarningColor";
-            this.btnWarningColor.Size = new System.Drawing.Size(28, 23);
-            this.btnWarningColor.TabIndex = 6;
-            this.btnWarningColor.UseVisualStyleBackColor = true;
-            this.btnWarningColor.Click += new System.EventHandler(this.btnWarningColor_Click);
-            // 
-            // btnBackColor
-            // 
-            this.btnBackColor.Location = new System.Drawing.Point(74, -29);
-            this.btnBackColor.Name = "btnBackColor";
-            this.btnBackColor.Size = new System.Drawing.Size(28, 23);
-            this.btnBackColor.TabIndex = 9;
-            this.btnBackColor.UseVisualStyleBackColor = true;
-            this.btnBackColor.Click += new System.EventHandler(this.btnBackColor_Click);
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, -24);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 13);
-            this.label5.TabIndex = 19;
-            this.label5.Text = "Background";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 63);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
-            this.label3.TabIndex = 21;
-            this.label3.Text = "Warning";
-            // 
             // grbPreviewBox
             // 
             this.grbPreviewBox.Controls.Add(this.tlpOuterLayout);
+            this.grbPreviewBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbPreviewBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbPreviewBox.Location = new System.Drawing.Point(0, 0);
             this.grbPreviewBox.MinimumSize = new System.Drawing.Size(0, 303);
             this.grbPreviewBox.Name = "grbPreviewBox";
-            this.grbPreviewBox.Size = new System.Drawing.Size(949, 306);
+            this.grbPreviewBox.Size = new System.Drawing.Size(1029, 303);
             this.grbPreviewBox.TabIndex = 1;
             this.grbPreviewBox.TabStop = false;
             this.grbPreviewBox.Text = "groupBox2";
@@ -1099,10 +752,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grbPreviewBox);
-            this.Controls.Add(this.tableLayoutPanel10);
-            this.Controls.Add(this.tableLayoutPanel8);
             this.Name = "TimerPreview";
-            this.Size = new System.Drawing.Size(999, 311);
+            this.Size = new System.Drawing.Size(1029, 294);
             this.Load += new System.EventHandler(this.TimerPreview_Load);
             this.tlpOuterLayout.ResumeLayout(false);
             this.tlpControlsLayout.ResumeLayout(false);
@@ -1138,13 +789,6 @@
             this.tlpGoLiveLayout.ResumeLayout(false);
             this.tlpGoLiveLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbLiveIndicator)).EndInit();
-            this.tableLayoutPanel8.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.tableLayoutPanel9.ResumeLayout(false);
-            this.tableLayoutPanel9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numFontSize)).EndInit();
-            this.tableLayoutPanel10.ResumeLayout(false);
-            this.tableLayoutPanel10.PerformLayout();
             this.grbPreviewBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -1166,42 +810,15 @@
         private System.Windows.Forms.ComboBox cmbLoadTimer;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TableLayoutPanel tlpControlsLayout;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
-        private System.Windows.Forms.ComboBox cmbDisplayMode;
-        private System.Windows.Forms.ComboBox cmbCounterMode;
-        private System.Windows.Forms.ComboBox cmbFontFace;
-        private System.Windows.Forms.NumericUpDown numFontSize;
         private System.Windows.Forms.TextBox txtFinalMessage;
-        private System.Windows.Forms.Label lblDisplayMode;
-        private System.Windows.Forms.Label lblCounterMode;
-        private System.Windows.Forms.Label lblFontFace;
-        private System.Windows.Forms.Label lblFontSize;
         private System.Windows.Forms.Label lblFinalMessage;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
-        private System.Windows.Forms.Button btnRunningColor;
-        private System.Windows.Forms.Button btnPausedColor;
-        private System.Windows.Forms.Button btnWarningColor;
-        private System.Windows.Forms.Button btnExpiredColor;
-        private System.Windows.Forms.Button btnStoppedColor;
-        private System.Windows.Forms.Button btnBackColor;
-        private System.Windows.Forms.Button btnMessageColor;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TableLayoutPanel tlpGoLiveLayout;
         private System.Windows.Forms.RadioButton rdbLive;
         private TimerView timerView;
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.GroupBox grbPreviewBox;
         private System.Windows.Forms.PictureBox pcbLiveIndicator;
-        private System.Windows.Forms.Button btnDefaultSettings;
         private System.Windows.Forms.CheckBox chbBlink;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.FlowLayoutPanel flpIOayout;
         private System.Windows.Forms.TableLayoutPanel tlpOpenLayout;
         private System.Windows.Forms.PictureBox pictureBox1;

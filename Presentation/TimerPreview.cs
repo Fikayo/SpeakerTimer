@@ -78,29 +78,8 @@
 
         private void InitSettings()
         {
-            // Display Settings
-            this.cmbDisplayMode.DataSource = Enum.GetValues(typeof(TimerViewSettings.TimerDisplayMode));
-            this.cmbCounterMode.DataSource = Enum.GetValues(typeof(TimerViewSettings.TimerCounterMode));
-            this.cmbDisplayMode.Text = this.Settings.DisplayMode.ToString();
-            this.cmbCounterMode.Text = this.Settings.CounterMode.ToString();
-
-            foreach (FontFamily font in System.Drawing.FontFamily.Families)
-            {
-                this.cmbFontFace.Items.Add(font.Name);
-            }
-
-            this.cmbFontFace.Text = this.Settings.TimerFont.FontFamily.Name;
-            this.numFontSize.Value = (decimal)this.Settings.TimerFont.Size;
-            this.txtFinalMessage.Text = this.Settings.FinalMessage;
-
-            // Colors
-            this.btnRunningColor.BackColor = this.Settings.RunningColor;
-            this.btnPausedColor.BackColor = this.Settings.PausedColor;
-            this.btnWarningColor.BackColor = this.Settings.WarningColor;
-            this.btnExpiredColor.BackColor = this.Settings.ExpiredColor;
-            this.btnStoppedColor.BackColor = this.Settings.StoppedColor;
-            this.btnBackColor.BackColor = this.Settings.BackgroundColor;
-            this.btnMessageColor.BackColor = this.Settings.SecondWarningColor;
+            // Final Message
+            this.txtFinalMessage.Text = this.Settings.FinalMessage;            
 
             // Special Times
             this.txtWarningTime.SetTime(this.Settings.WarningTime);
@@ -333,6 +312,12 @@
             this.OnSettingsChanged();
         }
 
+        private void txtFinalMessage_TextChanged(object sender, EventArgs e)
+        {
+            this.Settings.FinalMessage = this.txtFinalMessage.Text;
+            this.OnSettingsChanged();
+        }
+
         #endregion
 
         #region Functions Event Handlers
@@ -432,105 +417,6 @@
 
         #endregion
         
-        #region Display Settings Event Handlers
-
-        private void cmbDisplayMode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.Settings.DisplayMode = Util.ToEnum<TimerViewSettings.TimerDisplayMode>(this.cmbDisplayMode.SelectedItem.ToString());
-            if (!this.running)
-            {
-                this.CommandIssuer.OnRefreshTimerDisplay();
-            }
-
-            this.OnSettingsChanged();
-        }
-
-        private void cmbCounterMode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.Settings.CounterMode = Util.ToEnum<TimerViewSettings.TimerCounterMode>(this.cmbCounterMode.SelectedItem.ToString());
-            this.OnSettingsChanged();
-        }
-
-        private void cmbFontFace_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.Settings.SetFont(this.cmbFontFace.SelectedItem.ToString());
-            this.OnSettingsChanged();
-        }
-
-        private void numFontSize_ValueChanged(object sender, EventArgs e)
-        {
-            this.Settings.SetFont(string.Empty, (int)this.numFontSize.Value);
-            this.OnSettingsChanged();
-        }
-
-        private void txtFinalMessage_TextChanged(object sender, EventArgs e)
-        {
-            this.Settings.FinalMessage = this.txtFinalMessage.Text;
-            this.OnSettingsChanged();
-        }
-
-        #endregion
-
-        #region Color Settings Event Handlers
-
-        private void btnRunningColor_Click(object sender, EventArgs e)
-        {
-            var color = this.PickColor(this.Settings.RunningColor);
-            this.btnRunningColor.BackColor = color;
-            this.Settings.RunningColor = color;
-            this.OnSettingsChanged();
-        }
-
-        private void btnPausedColor_Click(object sender, EventArgs e)
-        {
-            var color = this.PickColor(this.Settings.PausedColor);
-            this.btnPausedColor.BackColor = color;
-            this.Settings.PausedColor = color;
-            this.OnSettingsChanged();
-        }
-
-        private void btnWarningColor_Click(object sender, EventArgs e)
-        {
-            var color = this.PickColor(this.Settings.WarningColor);
-            this.btnWarningColor.BackColor = color;
-            this.Settings.WarningColor = color;
-            this.OnSettingsChanged();
-        }
-
-        private void btnStoppedColor_Click(object sender, EventArgs e)
-        {
-            var color = this.PickColor(this.Settings.StoppedColor);
-            this.btnStoppedColor.BackColor = color;
-            this.Settings.StoppedColor = color;
-            this.OnSettingsChanged();
-        }
-
-        private void btnExpiredColor_Click(object sender, EventArgs e)
-        {
-            var color = this.PickColor(this.Settings.ExpiredColor);
-            this.btnExpiredColor.BackColor = color;
-            this.Settings.ExpiredColor = color;
-            this.OnSettingsChanged();
-        }
-
-        private void btnBackColor_Click(object sender, EventArgs e)
-        {
-            var color = this.PickColor(this.Settings.BackgroundColor);
-            this.btnBackColor.BackColor = color;
-            this.Settings.BackgroundColor = color;
-            this.OnSettingsChanged();
-        }
-
-        private void btnMessageColor_Click(object sender, EventArgs e)
-        {
-            var color = this.PickColor(this.Settings.MessageColor);
-            this.btnMessageColor.BackColor = color;
-            this.Settings.MessageColor = color;
-            this.OnSettingsChanged();
-        }
-
-        #endregion
-
         #endregion
     }
 }
