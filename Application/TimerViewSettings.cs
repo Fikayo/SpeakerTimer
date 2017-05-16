@@ -71,16 +71,6 @@
             }
         }
 
-        public string FinalMessage
-        {
-            get { return this.VisualSettings.FinalMessage; }
-
-            set
-            {
-                this.VisualSettings.FinalMessage = value;
-            }
-        }
-
         public Color TimerColor
         {
             get { return this.VisualSettings.TimerColor; }
@@ -183,6 +173,8 @@
 
         #endregion
 
+        public string FinalMessage { get; set; }
+
         public bool BlinkOnExpired { get; set; }
 
         public bool HasFirstWarning
@@ -227,6 +219,7 @@
                 && this.WarningTime.Equals(that.WarningTime)
                 && this.SecondWarningTime.Equals(that.SecondWarningTime)
                 && this.BlinkOnExpired.Equals(that.BlinkOnExpired)
+                && this.FinalMessage.Equals(that.FinalMessage)
                 && this.VisualSettings.Equals(that.VisualSettings);
         }
 
@@ -248,8 +241,9 @@
                 settings.WarningTime = double.Parse(values[2]);
                 settings.SecondWarningTime = double.Parse(values[3]);
                 settings.BlinkOnExpired = bool.Parse(values[4]);
+                settings.FinalMessage = values[5];
 
-                settings.VisualSettings = TimerVisualSettings.ParseCsv(csv, 5);
+                settings.VisualSettings = TimerVisualSettings.ParseCsv(csv, 6);
 
                 return settings;
             }
@@ -311,8 +305,6 @@
 
             public TimerDisplayMode DisplayMode { get; set; }
 
-            public string FinalMessage { get; set; }
-
             #endregion
 
             #region Colors
@@ -358,12 +350,11 @@
 
             public string SaveSettingsAsCsv()
             {
-                return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}",
+                return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}",
                     this.TimerFont.FontFamily.Name,
                     this.TimerFont.Size,
                     this.CounterMode,
                     this.DisplayMode,
-                    this.FinalMessage,
                     this.TimerColor.Name,
                     this.RunningColor.Name,
                     this.PausedColor.Name,
@@ -390,7 +381,6 @@
                     && this.TimerFont.Size.Equals(that.TimerFont.Size)
                     && this.CounterMode.Equals(that.CounterMode)
                     && this.DisplayMode.Equals(that.DisplayMode)
-                    && this.FinalMessage.Equals(that.FinalMessage)
                     && this.TimerColor.Name.Equals(that.TimerColor)
                     && this.RunningColor.Equals(that.RunningColor)
                     && this.PausedColor.Equals(that.PausedColor)
@@ -422,16 +412,15 @@
 
                     settings.CounterMode = Util.ToEnum<TimerCounterMode>(values[start + 2]);
                     settings.DisplayMode = Util.ToEnum<TimerDisplayMode>(values[start + 3]);
-                    settings.FinalMessage = values[4];
-                    settings.TimerColor = Util.FromARGBString(Color.FromName(values[start + 5]));
-                    settings.RunningColor = Util.FromARGBString(Color.FromName(values[start + 6]));
-                    settings.PausedColor = Util.FromARGBString(Color.FromName(values[start + 7]));
-                    settings.WarningColor = Util.FromARGBString(Color.FromName(values[start + 8]));
-                    settings.StoppedColor = Util.FromARGBString(Color.FromName(values[start + 9]));
-                    settings.ExpiredColor = Util.FromARGBString(Color.FromName(values[start + 10]));
-                    settings.BackgroundColor = Util.FromARGBString(Color.FromName(values[start + 11]));
-                    settings.MessageColor = Util.FromARGBString(Color.FromName(values[start + 12]));
-                    settings.SecondWarningColor = Util.FromARGBString(Color.FromName(values[start + 13]));
+                    settings.TimerColor = Util.FromARGBString(Color.FromName(values[start + 4]));
+                    settings.RunningColor = Util.FromARGBString(Color.FromName(values[start + 5]));
+                    settings.PausedColor = Util.FromARGBString(Color.FromName(values[start + 6]));
+                    settings.WarningColor = Util.FromARGBString(Color.FromName(values[start + 7]));
+                    settings.StoppedColor = Util.FromARGBString(Color.FromName(values[start + 8]));
+                    settings.ExpiredColor = Util.FromARGBString(Color.FromName(values[start + 9]));
+                    settings.BackgroundColor = Util.FromARGBString(Color.FromName(values[start + 10]));
+                    settings.MessageColor = Util.FromARGBString(Color.FromName(values[start + 11]));
+                    settings.SecondWarningColor = Util.FromARGBString(Color.FromName(values[start + 12]));
 
                     return settings;
                 }

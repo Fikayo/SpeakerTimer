@@ -35,12 +35,10 @@
             this.tlpMainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.grbDisplaySettings = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblFinalMessage = new System.Windows.Forms.Label();
             this.cmbDisplayMode = new System.Windows.Forms.ComboBox();
             this.cmbCounterMode = new System.Windows.Forms.ComboBox();
             this.cmbFontFace = new System.Windows.Forms.ComboBox();
             this.numFontSize = new System.Windows.Forms.NumericUpDown();
-            this.txtFinalMessage = new System.Windows.Forms.TextBox();
             this.lblDisplayMode = new System.Windows.Forms.Label();
             this.lblCounterMode = new System.Windows.Forms.Label();
             this.lblFontFace = new System.Windows.Forms.Label();
@@ -61,6 +59,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.tlpOuterLayout.SuspendLayout();
             this.tlpButtonLayout.SuspendLayout();
             this.tlpMainLayout.SuspendLayout();
@@ -86,7 +85,7 @@
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tlpOuterLayout.Size = new System.Drawing.Size(402, 261);
+            this.tlpOuterLayout.Size = new System.Drawing.Size(406, 272);
             this.tlpOuterLayout.TabIndex = 0;
             // 
             // tlpButtonLayout
@@ -100,32 +99,34 @@
             this.tlpButtonLayout.Controls.Add(this.btnDefaultSettings, 2, 0);
             this.tlpButtonLayout.Controls.Add(this.btnOk, 0, 0);
             this.tlpButtonLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpButtonLayout.Location = new System.Drawing.Point(8, 224);
+            this.tlpButtonLayout.Location = new System.Drawing.Point(8, 226);
             this.tlpButtonLayout.Name = "tlpButtonLayout";
             this.tlpButtonLayout.RowCount = 1;
             this.tlpButtonLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpButtonLayout.Size = new System.Drawing.Size(386, 29);
+            this.tlpButtonLayout.Size = new System.Drawing.Size(390, 38);
             this.tlpButtonLayout.TabIndex = 0;
             // 
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(104, 3);
+            this.btnOk.Location = new System.Drawing.Point(106, 3);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(75, 23);
+            this.btnOk.Size = new System.Drawing.Size(75, 32);
             this.btnOk.TabIndex = 2;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancel.Location = new System.Drawing.Point(185, 3);
+            this.btnCancel.Location = new System.Drawing.Point(187, 3);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(75, 32);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // tlpMainLayout
             // 
@@ -139,9 +140,9 @@
             this.tlpMainLayout.Name = "tlpMainLayout";
             this.tlpMainLayout.RowCount = 1;
             this.tlpMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpMainLayout.Size = new System.Drawing.Size(386, 210);
+            this.tlpMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 210F));
+            this.tlpMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 210F));
+            this.tlpMainLayout.Size = new System.Drawing.Size(390, 212);
             this.tlpMainLayout.TabIndex = 3;
             // 
             // grbDisplaySettings
@@ -150,7 +151,7 @@
             this.grbDisplaySettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbDisplaySettings.Location = new System.Drawing.Point(3, 3);
             this.grbDisplaySettings.Name = "grbDisplaySettings";
-            this.grbDisplaySettings.Size = new System.Drawing.Size(265, 204);
+            this.grbDisplaySettings.Size = new System.Drawing.Size(269, 206);
             this.grbDisplaySettings.TabIndex = 0;
             this.grbDisplaySettings.TabStop = false;
             this.grbDisplaySettings.Text = "Display Settings";
@@ -162,12 +163,10 @@
             this.tableLayoutPanel9.ColumnCount = 2;
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel9.Controls.Add(this.lblFinalMessage, 0, 4);
             this.tableLayoutPanel9.Controls.Add(this.cmbDisplayMode, 1, 0);
             this.tableLayoutPanel9.Controls.Add(this.cmbCounterMode, 1, 1);
             this.tableLayoutPanel9.Controls.Add(this.cmbFontFace, 1, 2);
             this.tableLayoutPanel9.Controls.Add(this.numFontSize, 1, 3);
-            this.tableLayoutPanel9.Controls.Add(this.txtFinalMessage, 1, 4);
             this.tableLayoutPanel9.Controls.Add(this.lblDisplayMode, 0, 0);
             this.tableLayoutPanel9.Controls.Add(this.lblCounterMode, 0, 1);
             this.tableLayoutPanel9.Controls.Add(this.lblFontFace, 0, 2);
@@ -175,73 +174,54 @@
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
-            this.tableLayoutPanel9.RowCount = 6;
+            this.tableLayoutPanel9.RowCount = 5;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(259, 185);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(263, 187);
             this.tableLayoutPanel9.TabIndex = 0;
-            // 
-            // lblFinalMessage
-            // 
-            this.lblFinalMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFinalMessage.AutoSize = true;
-            this.lblFinalMessage.Location = new System.Drawing.Point(3, 113);
-            this.lblFinalMessage.Name = "lblFinalMessage";
-            this.lblFinalMessage.Size = new System.Drawing.Size(123, 13);
-            this.lblFinalMessage.TabIndex = 15;
-            this.lblFinalMessage.Text = "Final Message";
             // 
             // cmbDisplayMode
             // 
             this.cmbDisplayMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbDisplayMode.FormattingEnabled = true;
-            this.cmbDisplayMode.Location = new System.Drawing.Point(132, 3);
+            this.cmbDisplayMode.Location = new System.Drawing.Point(134, 3);
             this.cmbDisplayMode.Name = "cmbDisplayMode";
-            this.cmbDisplayMode.Size = new System.Drawing.Size(124, 21);
+            this.cmbDisplayMode.Size = new System.Drawing.Size(126, 21);
             this.cmbDisplayMode.TabIndex = 2;
             // 
             // cmbCounterMode
             // 
             this.cmbCounterMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbCounterMode.FormattingEnabled = true;
-            this.cmbCounterMode.Location = new System.Drawing.Point(132, 30);
+            this.cmbCounterMode.Location = new System.Drawing.Point(134, 30);
             this.cmbCounterMode.Name = "cmbCounterMode";
-            this.cmbCounterMode.Size = new System.Drawing.Size(124, 21);
+            this.cmbCounterMode.Size = new System.Drawing.Size(126, 21);
             this.cmbCounterMode.TabIndex = 3;
             // 
             // cmbFontFace
             // 
             this.cmbFontFace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbFontFace.FormattingEnabled = true;
-            this.cmbFontFace.Location = new System.Drawing.Point(132, 57);
+            this.cmbFontFace.Location = new System.Drawing.Point(134, 57);
             this.cmbFontFace.Name = "cmbFontFace";
-            this.cmbFontFace.Size = new System.Drawing.Size(124, 21);
+            this.cmbFontFace.Size = new System.Drawing.Size(126, 21);
             this.cmbFontFace.TabIndex = 6;
             // 
             // numFontSize
             // 
             this.numFontSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numFontSize.Location = new System.Drawing.Point(132, 84);
+            this.numFontSize.Location = new System.Drawing.Point(134, 84);
             this.numFontSize.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
             this.numFontSize.Name = "numFontSize";
-            this.numFontSize.Size = new System.Drawing.Size(124, 20);
+            this.numFontSize.Size = new System.Drawing.Size(126, 20);
             this.numFontSize.TabIndex = 8;
-            // 
-            // txtFinalMessage
-            // 
-            this.txtFinalMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFinalMessage.Location = new System.Drawing.Point(132, 110);
-            this.txtFinalMessage.Name = "txtFinalMessage";
-            this.txtFinalMessage.Size = new System.Drawing.Size(124, 20);
-            this.txtFinalMessage.TabIndex = 10;
             // 
             // lblDisplayMode
             // 
@@ -249,7 +229,7 @@
             this.lblDisplayMode.AutoSize = true;
             this.lblDisplayMode.Location = new System.Drawing.Point(3, 7);
             this.lblDisplayMode.Name = "lblDisplayMode";
-            this.lblDisplayMode.Size = new System.Drawing.Size(123, 13);
+            this.lblDisplayMode.Size = new System.Drawing.Size(125, 13);
             this.lblDisplayMode.TabIndex = 11;
             this.lblDisplayMode.Text = "Display Mode";
             // 
@@ -259,7 +239,7 @@
             this.lblCounterMode.AutoSize = true;
             this.lblCounterMode.Location = new System.Drawing.Point(3, 34);
             this.lblCounterMode.Name = "lblCounterMode";
-            this.lblCounterMode.Size = new System.Drawing.Size(123, 13);
+            this.lblCounterMode.Size = new System.Drawing.Size(125, 13);
             this.lblCounterMode.TabIndex = 12;
             this.lblCounterMode.Text = "Counter Mode";
             // 
@@ -269,7 +249,7 @@
             this.lblFontFace.AutoSize = true;
             this.lblFontFace.Location = new System.Drawing.Point(3, 61);
             this.lblFontFace.Name = "lblFontFace";
-            this.lblFontFace.Size = new System.Drawing.Size(123, 13);
+            this.lblFontFace.Size = new System.Drawing.Size(125, 13);
             this.lblFontFace.TabIndex = 13;
             this.lblFontFace.Text = "Timer Font";
             // 
@@ -279,7 +259,7 @@
             this.lblFontSize.AutoSize = true;
             this.lblFontSize.Location = new System.Drawing.Point(3, 87);
             this.lblFontSize.Name = "lblFontSize";
-            this.lblFontSize.Size = new System.Drawing.Size(123, 13);
+            this.lblFontSize.Size = new System.Drawing.Size(125, 13);
             this.lblFontSize.TabIndex = 14;
             this.lblFontSize.Text = "Font Size";
             // 
@@ -289,12 +269,13 @@
             this.btnDefaultSettings.BackColor = System.Drawing.Color.Silver;
             this.btnDefaultSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDefaultSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDefaultSettings.Location = new System.Drawing.Point(319, 3);
+            this.btnDefaultSettings.Location = new System.Drawing.Point(323, 3);
             this.btnDefaultSettings.Name = "btnDefaultSettings";
-            this.btnDefaultSettings.Size = new System.Drawing.Size(64, 23);
+            this.btnDefaultSettings.Size = new System.Drawing.Size(64, 32);
             this.btnDefaultSettings.TabIndex = 1;
             this.btnDefaultSettings.Text = "Default";
             this.btnDefaultSettings.UseVisualStyleBackColor = false;
+            this.btnDefaultSettings.Click += new System.EventHandler(this.btnDefaultSettings_Click);
             // 
             // tableLayoutPanel10
             // 
@@ -318,7 +299,7 @@
             this.tableLayoutPanel10.Controls.Add(this.label5, 0, 2);
             this.tableLayoutPanel10.Controls.Add(this.label3, 0, 5);
             this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(274, 3);
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(278, 3);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 8;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -331,7 +312,7 @@
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(109, 204);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(109, 206);
             this.tableLayoutPanel10.TabIndex = 1;
             // 
             // btnExpiredColor
@@ -471,7 +452,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(402, 261);
+            this.ClientSize = new System.Drawing.Size(406, 272);
             this.Controls.Add(this.tlpOuterLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "VisualSettingsForm";
@@ -502,12 +483,10 @@
         private System.Windows.Forms.TableLayoutPanel tlpMainLayout;
         private System.Windows.Forms.GroupBox grbDisplaySettings;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
-        private System.Windows.Forms.Label lblFinalMessage;
         private System.Windows.Forms.ComboBox cmbDisplayMode;
         private System.Windows.Forms.ComboBox cmbCounterMode;
         private System.Windows.Forms.ComboBox cmbFontFace;
         private System.Windows.Forms.NumericUpDown numFontSize;
-        private System.Windows.Forms.TextBox txtFinalMessage;
         private System.Windows.Forms.Label lblDisplayMode;
         private System.Windows.Forms.Label lblCounterMode;
         private System.Windows.Forms.Label lblFontFace;
@@ -528,5 +507,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ColorDialog colorDialog;
     }
 }
