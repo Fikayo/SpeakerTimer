@@ -234,6 +234,64 @@
             new SpeakerTimer.Presentation.VisualSettingsForm(TimerViewSettings.TimerVisualSettings.Default).Show();
         }
 
+        #region Settings Event Handlers
+
+        private void txtTitle_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                this.Settings.Title = this.txtTitle.Text;
+                this.SaveSetting();
+                e.Handled = true;
+                return;
+            }
+
+            var invalidChars = System.IO.Path.GetInvalidFileNameChars();
+            var handled = Array.Exists(invalidChars, x => x == e.KeyChar) && !char.IsControl(e.KeyChar);
+            handled = handled || e.KeyChar == ',';
+            e.Handled = handled;
+        }
+
+        private void rdbLive_Click(object sender, EventArgs e)
+        {
+            this.IsLive = !this.IsLive;
+
+            var wasRunning = this.running;
+            if (wasRunning)
+            {
+                // Pause an ongoing timer
+                this.CommandIssuer.IssuePauseCommand();
+            }
+
+            this.OnLiveStateChanged();
+
+            if (this.IsLive)
+            {
+                this.OnSettingsChanged();
+                if (!wasRunning)
+                {
+                    // Stop any previously running timer on the live screen
+                    this.CommandIssuer.IssueStopCommand();
+                }
+
+                this.CommandIssuer.OnRefreshTimerDisplay(this.timerView.CurrentTime);
+            }
+
+            if (wasRunning)
+            {
+                // Resume the paused timer from current time
+                this.CommandIssuer.IssueStartCommand(this.timerView.CurrentTime);
+            }
+        }
+
+        private void chbBlink_CheckedChanged(object sender, EventArgs e)
+        {
+            this.settings.BlinkOnExpired = this.chbBlink.Checked;
+            this.OnSettingsChanged();
+        }
+
+        #endregion
+
         #region Functions Event Handlers
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -272,55 +330,9 @@
             this.CommandIssuer.IssueResetCommand();
         }
 
-        private void txtWarningTime_TimeChanged(object sender, EventArgs e)
-        {
-            this.Settings.WarningTime = this.txtWarningTime.InputTime;
-            this.OnSettingsChanged();
-        }
+        #endregion
 
-        private void txtAutoPauseTime_TimeChanged(object sender, EventArgs e)
-        {
-            this.Settings.SecondWarningTime = this.txtSecondWarningTime.InputTime;
-            this.OnSettingsChanged();
-        }
-
-        private void rdbLive_Click(object sender, EventArgs e)
-        {
-            this.IsLive = !this.IsLive;
-
-            var wasRunning = this.running;
-            if (wasRunning)
-            {
-                // Pause an ongoing timer
-                this.CommandIssuer.IssuePauseCommand();
-            }
-
-            this.OnLiveStateChanged();
-
-            if (this.IsLive)
-            {
-                this.OnSettingsChanged();
-                if (!wasRunning)
-                {
-                    // Stop any previously running timer on the live screen
-                    this.CommandIssuer.IssueStopCommand();
-                }
-
-                this.CommandIssuer.OnRefreshTimerDisplay(this.timerView.CurrentTime);
-            }
-
-            if (wasRunning)
-            {
-                // Resume the paused timer from current time
-                this.CommandIssuer.IssueStartCommand(this.timerView.CurrentTime);
-            }
-        }
-
-        private void chbBlink_CheckedChanged(object sender, EventArgs e)
-        {
-			this.settings.BlinkOnExpired = this.chbBlink.Checked;
-			this.OnSettingsChanged();
-        }
+        #region IO Event Handlers
 
         private void txtSettingsName_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -361,6 +373,22 @@
 
         #endregion
 
+        #region Warning Event Handlers
+
+        private void txtWarningTime_TimeChanged(object sender, EventArgs e)
+        {
+            this.Settings.WarningTime = this.txtWarningTime.InputTime;
+            this.OnSettingsChanged();
+        }
+
+        private void txtAutoPauseTime_TimeChanged(object sender, EventArgs e)
+        {
+            this.Settings.SecondWarningTime = this.txtSecondWarningTime.InputTime;
+            this.OnSettingsChanged();
+        }
+
+        #endregion
+        
         #region Display Settings Event Handlers
 
         private void cmbDisplayMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -461,5 +489,17 @@
         #endregion
 
         #endregion
+
+        private void btnVisualSettings_Click(object sender, EventArgs e)
+        {
+            using(var form = new SpeakerTimer.Presentation.VisualSettingsForm(this.Settings.VisualSettings))
+            {
+                if(form.ShowDialog() == DialogResult.OK)
+                {
+                    this.Settings.VisualSettings = form.VisualSettings;
+                    this.OnSettingsChanged();
+                }
+            }
+        }
     }
 }

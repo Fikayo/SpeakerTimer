@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.clbTimerSettings = new System.Windows.Forms.CheckedListBox();
             this.btnOk = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
+            this.clbTimerSettings = new System.Windows.Forms.CheckedListBox();
             this.rdbOpen = new System.Windows.Forms.RadioButton();
             this.rdbDelete = new System.Windows.Forms.RadioButton();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,17 +59,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(284, 261);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // clbTimerSettings
-            // 
-            this.clbTimerSettings.CheckOnClick = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.clbTimerSettings, 2);
-            this.clbTimerSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clbTimerSettings.FormattingEnabled = true;
-            this.clbTimerSettings.Location = new System.Drawing.Point(11, 26);
-            this.clbTimerSettings.Name = "clbTimerSettings";
-            this.clbTimerSettings.Size = new System.Drawing.Size(262, 203);
-            this.clbTimerSettings.TabIndex = 1;
-            // 
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -81,16 +70,16 @@
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // btnCancel
+            // clbTimerSettings
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancel.Location = new System.Drawing.Point(145, 235);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.clbTimerSettings.CheckOnClick = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.clbTimerSettings, 2);
+            this.clbTimerSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clbTimerSettings.FormattingEnabled = true;
+            this.clbTimerSettings.Location = new System.Drawing.Point(11, 26);
+            this.clbTimerSettings.Name = "clbTimerSettings";
+            this.clbTimerSettings.Size = new System.Drawing.Size(262, 203);
+            this.clbTimerSettings.TabIndex = 1;
             // 
             // rdbOpen
             // 
@@ -115,6 +104,17 @@
             this.rdbDelete.TabStop = true;
             this.rdbDelete.Text = "Delete Selections";
             this.rdbDelete.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCancel.Location = new System.Drawing.Point(145, 235);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 2;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // TimerSettingsForm
             // 

@@ -197,7 +197,7 @@
 				this.blinkManager.StopBlinking();
 			}
 
-            this.lblCurrentTimer.Text = this.Settings.Name;
+            this.lblCurrentTimer.Text = this.Settings.Title;
             this.RefreshTimerDisplay();
         }
 
