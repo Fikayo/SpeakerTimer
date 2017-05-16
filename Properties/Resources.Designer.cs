@@ -133,6 +133,16 @@ namespace SpeakerTimer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1494315762_Noun_Project_100Icon_10px_grid_38 {
+            get {
+                object obj = ResourceManager.GetObject("1494315762_Noun_Project_100Icon_10px_grid-38", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pause_sm {
             get {
                 object obj = ResourceManager.GetObject("pause-sm", resourceCulture);

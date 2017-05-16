@@ -73,6 +73,7 @@ namespace SpeakerTimer.Presentation
         private void btnDefaultSettings_Click(object sender, EventArgs e)
         {
             this.VisualSettings = TimerVisualSettings.Default;
+            this.InitSettings();
         }
 
 

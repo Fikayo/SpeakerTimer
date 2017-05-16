@@ -4,7 +4,8 @@
 
     public class TimerViewSettings
     {
-        private static readonly string DefaultName = "Untitled";
+        private static readonly string DefaultName = "Un-named";
+        private static readonly string DefaultTitle = "Untitled";
 
         private string name;
         private static int count = 0;
@@ -36,6 +37,12 @@
                 }
             }
         }
+
+        public string Title { get; set; }
+
+        public string FinalMessage { get; set; }
+
+        public bool BlinkOnExpired { get; set; }
 
         public TimerVisualSettings VisualSettings { get; set; }
 
@@ -173,10 +180,6 @@
 
         #endregion
 
-        public string FinalMessage { get; set; }
-
-        public bool BlinkOnExpired { get; set; }
-
         public bool HasFirstWarning
         {
             get { return this.WarningTime > 0; }
@@ -194,8 +197,9 @@
 
         public string SaveSettingsAsCsv()
         {
-            return string.Format("{0},{1},{2},{3},{4},{5}",
+            return string.Format("{0},{1},{2},{3},{4},{5},{6}",
                 this.Name,
+                this.Title,
                 this.Duration,
                 this.WarningTime,
                 this.SecondWarningTime,
@@ -215,6 +219,7 @@
             if (that == null) return false;
 
             return this.Name.Equals(that.Name)
+                && this.Title.Equals(that.Title)
                 && this.Duration.Equals(that.Duration)
                 && this.WarningTime.Equals(that.WarningTime)
                 && this.SecondWarningTime.Equals(that.SecondWarningTime)
@@ -237,13 +242,14 @@
             {
                 var values = csv.Split(new char[] { ',' });
                 settings.Name = values[0];
-                settings.Duration = double.Parse(values[1]);
-                settings.WarningTime = double.Parse(values[2]);
-                settings.SecondWarningTime = double.Parse(values[3]);
-                settings.BlinkOnExpired = bool.Parse(values[4]);
-                settings.FinalMessage = values[5];
+                settings.Name = values[1];
+                settings.Duration = double.Parse(values[2]);
+                settings.WarningTime = double.Parse(values[3]);
+                settings.SecondWarningTime = double.Parse(values[4]);
+                settings.BlinkOnExpired = bool.Parse(values[5]);
+                settings.FinalMessage = values[6];
 
-                settings.VisualSettings = TimerVisualSettings.ParseCsv(csv, 6);
+                settings.VisualSettings = TimerVisualSettings.ParseCsv(csv, 7);
 
                 return settings;
             }
@@ -269,6 +275,7 @@
             //this.BackgroundColor = Color.Black;
             //this.MessageColor = Color.DodgerBlue;
 
+            this.Title = TimerViewSettings.DefaultTitle;
             this.VisualSettings = TimerVisualSettings.Default;
             this.BlinkOnExpired = false;
         }

@@ -121,8 +121,17 @@
   <data name="red-dot-glow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\red-dot-glow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="reset-sm" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\reset-sm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1451760379_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1451760379_save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="02_stop-20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\02_stop-20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1451760558_ic_save_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1451760558_ic_save_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pause-sm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pause-sm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stop-sm" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\stop-sm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -130,17 +139,17 @@
   <data name="wpid-gfgffh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wpid-gfgffh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1451760379_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1451760379_save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="reset-2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reset-2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1451759847_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1451759847_save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="reset-sm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reset-sm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="02_play-20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\02_play-20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="02_stop-20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\02_stop-20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pause-sm" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pause-sm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stop-sm1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\stop-sm1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,19 +157,13 @@
   <data name="play-sm" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\play-sm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1451759847_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1451759847_save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="1451760558_ic_save_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1451760558_ic_save_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="02_pause-20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\02_pause-20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="1451759953_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1451759953_save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="02_pause-20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\02_pause-20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="reset-2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\reset-2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1494315762_Noun_Project_100Icon_10px_grid-38" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1494315762_Noun_Project_100Icon_10px_grid-38.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
