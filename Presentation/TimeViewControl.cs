@@ -19,6 +19,8 @@
 
         public virtual TimerState TimerState { get; set; }
 
+        protected virtual DisplayState DisplayState { get; set; }
+
         public virtual TimerViewerCommandIssuer CommandIssuer { get; set; }
 
         public virtual bool IsPreviewMode { get; set; }

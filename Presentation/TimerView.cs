@@ -12,6 +12,7 @@
 
         private bool stopped;
         private Timer timer;
+        private Timer messageTimer;
 
         private BlinkManager blinkManager;
         private TimeInputBox txtInput;
@@ -27,8 +28,13 @@
             this.timer = new Timer();
             this.timer.Interval = 1000;
             this.timer.Tick += Timer_Tick;
+
+            this.messageTimer = new Timer();
+            this.messageTimer.Tick += MessageTimer_Tick;
+
             this.Settings = TimerViewSettings.Default;
             this.stopped = true;
+            this.DisplayState = DisplayState.Timer;
 			this.TimerState = TimerState.Stopped;
 
             this.blinkManager = new BlinkManager();
@@ -52,6 +58,8 @@
         public event EventHandler TimeExpired;
 
         public event EventHandler<DurationChangedEventArgs> DurationChanged;
+
+        public event EventHandler MessageFinished;
 
         #endregion
 
@@ -180,27 +188,6 @@
             this.DisplayTimeElapsed(this.Settings.Duration);
         }
 
-        public void ApplySettings(TimerViewSettings settings)
-        {
-            this.TimerFont = this.IsPreviewMode ? new Font(settings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : settings.TimerFont;
-            int labelSize = this.IsPreviewMode ? TimerView.PreviewLabelSize : (int)Math.Max(settings.TimerFont.Size / 3, 10);
-            this.lblCurrentTimer.Font = new Font(settings.TimerFont.FontFamily.Name, labelSize);
-
-            this.BackgroundColor = settings.BackgroundColor;
-            this.TimerColor = settings.RunningColor;
-
-            this.Settings = TimerViewSettings.ParseCsv(settings.SaveSettingsAsCsv());
-			this.Settings.SecondWarningColor = this.Settings.MessageColor;
-
-			if (!settings.BlinkOnExpired && this.blinkManager.IsBlinking)
-			{
-				this.blinkManager.StopBlinking();
-			}
-
-            this.lblCurrentTimer.Text = this.Settings.Title;
-            this.RefreshTimerDisplay();
-        }
-
         public void DisplayTimeElapsed(double counter)
         {
             string display = string.Empty;
@@ -225,6 +212,12 @@
             this.lblTimer.Text = display;
         }
 
+        public void DisplayTimerMessage()
+        {
+            this.ShowLabel = false;
+            this.lblTimer.Text = this.Settings.MessageSettings.TimerMessage;
+        }
+
         #endregion
 
         #region Internal Members
@@ -238,6 +231,8 @@
                 this.commandIssuer.StopCommand += CommandIssuer_StopCommand;
                 this.commandIssuer.ResetCommand += CommandIssuer_ResetCommand;
                 this.commandIssuer.RefreshTimerDisplay += CommandIssuer_RefreshTimerDisplay;
+                this.commandIssuer.TimerMessageChanged += CommandIssuer_TimerMessageChanged;
+                this.commandIssuer.TimerMessageCancelled += CommandIssuer_TimerMessageCancelled;
                 this.commandIssuer.SettingsChanged += CommandIssuer_SettingsChanged;
             }
         }
@@ -251,8 +246,56 @@
                 this.commandIssuer.StopCommand -= CommandIssuer_StopCommand;
                 this.commandIssuer.ResetCommand -= CommandIssuer_ResetCommand;
                 this.commandIssuer.RefreshTimerDisplay -= CommandIssuer_RefreshTimerDisplay;
+                this.commandIssuer.TimerMessageChanged -= CommandIssuer_TimerMessageChanged;
                 this.commandIssuer.SettingsChanged -= CommandIssuer_SettingsChanged;
             }
+        }
+        
+        private void ApplySettings(TimerViewSettings settings)
+        {
+            this.TimerFont = this.IsPreviewMode ? new Font(settings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : settings.TimerFont;
+            int labelSize = this.IsPreviewMode ? TimerView.PreviewLabelSize : (int)Math.Max(settings.TimerFont.Size / 3, 10);
+            this.lblCurrentTimer.Font = new Font(settings.TimerFont.FontFamily.Name, labelSize);
+
+            this.BackgroundColor = settings.BackgroundColor;
+            this.TimerColor = settings.RunningColor;
+
+            this.Settings = TimerViewSettings.ParseCsv(settings.SaveSettingsAsCsv());
+            this.Settings.SecondWarningColor = this.Settings.MessageColor;
+
+            if (!settings.BlinkOnExpired && this.blinkManager.IsBlinking)
+            {
+                this.blinkManager.StopBlinking();
+            }
+
+            this.lblCurrentTimer.Text = this.Settings.Title;
+            this.RefreshTimerDisplay();
+        }
+
+        private void ApplyMessageSettings(TimerViewSettings.TimerMessageSettings messageSettings)
+        {
+            this.Settings.MessageSettings = messageSettings;
+            if(!string.IsNullOrEmpty(this.Settings.MessageSettings.TimerMessage))
+            {
+                this.DisplayState = DisplayState.Message;
+                this.DisplayTimerMessage();
+
+                if (!messageSettings.IsIndefiniteMessage)
+                {
+                    this.messageTimer.Interval = messageSettings.MessageDuration;
+                    this.messageTimer.Start();
+                }
+            }
+        }
+
+        private void CancelTimerMessage()
+        {
+            this.messageTimer.Stop();
+            this.DisplayState = DisplayState.Timer;
+            this.RefreshTimerDisplay(true);
+            this.ShowLabel = true;
+
+            this.OnMessageFinished();
         }
 
         private void InitialiseTxtInput()
@@ -270,7 +313,7 @@
 
         private bool DisplayFinalMessage()
         {
-            if (!string.IsNullOrEmpty(this.Settings.FinalMessage))
+            if (!string.IsNullOrEmpty(this.Settings.FinalMessage) && this.DisplayState == DisplayState.Timer)
             {
                 this.lblTimer.ForeColor = this.Settings.MessageColor;
                 this.lblTimer.Text = this.Settings.FinalMessage;
@@ -487,6 +530,15 @@
             }
         }
 
+        private void OnMessageFinished()
+        {
+            var handler = this.MessageFinished;
+            if (handler != null)
+            {
+                handler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         private void OnDurationChanged(double duration)
         {
             var handler = this.DurationChanged;
@@ -535,6 +587,16 @@
         {
             this.CurrentTime = e.CurrentTime.HasValue ? e.CurrentTime.Value : this.CurrentTime;
             this.RefreshTimerDisplay(e.CurrentTime.HasValue);
+        }
+
+        private void CommandIssuer_TimerMessageChanged(object sender, SettingsChangedEventArgs e)
+        {
+            this.ApplyMessageSettings(e.MessageSettings);
+        }
+
+        private void CommandIssuer_TimerMessageCancelled(object sender, EventArgs e)
+        {
+            CancelTimerMessage();
         }
 
         private void CommandIssuer_SettingsChanged(object sender, SettingsChangedEventArgs e)
@@ -617,12 +679,33 @@
                     break;
             }
 
-			this.TimerTickState ();
+			this.TimerTickState();
 
-			if(this.TimerState != TimerState.Stopped)
-			{
-            	this.DisplayTimeElapsed(this.CurrentTime);
-			}
+            switch(this.DisplayState)
+            {
+                case DisplayState.Timer:
+                    {
+                        if (this.TimerState != TimerState.Stopped)
+                        {
+                            this.DisplayTimeElapsed(this.CurrentTime);
+                        }
+
+                        break;
+                    }
+
+                case DisplayState.Message:
+                    {
+                        break;
+                    }
+
+                default:
+                    break;
+            }
+        }
+
+        private void MessageTimer_Tick(object sender, EventArgs e)
+        {
+            CancelTimerMessage();
         }
 
         private void BlinkManager_Blink(object sender, EventArgs e)
@@ -667,4 +750,9 @@
 	{ 
 		Running, Paused, FirstWarning, SecondWarning, Expired, Stopped 
 	};
+
+    public enum DisplayState
+    {
+        Timer, Message
+    };
 }

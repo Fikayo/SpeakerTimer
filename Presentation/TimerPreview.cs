@@ -121,6 +121,14 @@
             this.timerView.TimeStarted += (_, __) => this.ResetPausedButton();
             this.timerView.TimePaused += (_, __) => this.ResetPlayButton();
             this.timerView.TimeStopped += (_, __) => this.ResetPlayButton();
+
+            this.timerView.MessageFinished += (_, __) =>
+            {
+                this.numMessageDuration.Enabled = true;
+                this.chbIndefiniteMessageDuration.Enabled = true;
+                this.btnShowMessage.Text = "Show Message";
+            };
+
             this.timerView.DurationChanged += (_, e) =>
             {
                 this.Settings.Duration = e.Duration;
@@ -232,6 +240,51 @@
             //this.InitSettings();
             //this.OnSettingsChanged();
             new SpeakerTimer.Presentation.VisualSettingsForm(TimerViewSettings.TimerVisualSettings.Default).Show();
+        }
+
+        private void btnVisualSettings_Click(object sender, EventArgs e)
+        {
+            using (var form = new SpeakerTimer.Presentation.VisualSettingsForm(this.Settings.VisualSettings))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    this.Settings.VisualSettings = form.VisualSettings;
+                    this.OnSettingsChanged();
+                }
+            }
+        }
+
+        private void btnShowMessage_Click(object sender, EventArgs e)
+        {
+            const string cancelMessageText = "CANCEL";
+
+            if (this.btnShowMessage.Text.Equals(cancelMessageText))
+            {
+                this.CommandIssuer.CancelTimerMessage();
+            }
+            else
+            {
+                this.Settings.MessageSettings.TimerMessage = this.txtShowMessage.Text;
+
+                this.numMessageDuration.Enabled = false;
+                this.chbIndefiniteMessageDuration.Enabled = false;
+                this.btnShowMessage.Text = cancelMessageText;
+
+                this.CommandIssuer.OnTimerMessageChanged(this.Settings.MessageSettings);
+            }
+        }
+
+        private void numMessageDuration_ValueChanged(object sender, EventArgs e)
+        {
+            int messageDuration = (int)this.numMessageDuration.Value;
+            this.chbIndefiniteMessageDuration.Checked = messageDuration <= 0;
+
+            this.Settings.MessageSettings.MessageDuration = messageDuration * 1000; // seconds
+        }
+
+        private void chbIndefiniteMessageDuration_CheckedChanged(object sender, EventArgs e)
+        {
+            this.Settings.MessageSettings.IsIndefiniteMessage = this.chbIndefiniteMessageDuration.Checked;
         }
 
         #region Settings Event Handlers
@@ -479,17 +532,5 @@
         #endregion
 
         #endregion
-
-        private void btnVisualSettings_Click(object sender, EventArgs e)
-        {
-            using(var form = new SpeakerTimer.Presentation.VisualSettingsForm(this.Settings.VisualSettings))
-            {
-                if(form.ShowDialog() == DialogResult.OK)
-                {
-                    this.Settings.VisualSettings = form.VisualSettings;
-                    this.OnSettingsChanged();
-                }
-            }
-        }
     }
 }

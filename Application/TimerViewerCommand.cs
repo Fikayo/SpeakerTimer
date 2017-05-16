@@ -14,6 +14,10 @@
 
         public event EventHandler<CurrentTimeEventArgs> RefreshTimerDisplay;
 
+        public event EventHandler<SettingsChangedEventArgs> TimerMessageChanged;
+
+        public event EventHandler TimerMessageCancelled;
+
         public event EventHandler<SettingsChangedEventArgs> SettingsChanged;
 
         public void IssueStartCommand(double? currentTime = null)
@@ -51,6 +55,15 @@
                 handler.Invoke(this, EventArgs.Empty);
             }
         }
+        
+        public void CancelTimerMessage()
+        {
+            var handler = this.TimerMessageCancelled;
+            if (handler != null)
+            {
+                handler.Invoke(this, EventArgs.Empty);
+            }
+        }        
 
         public void OnRefreshTimerDisplay(double? currentTime = null)
         {
@@ -64,6 +77,15 @@
         public void OnSettingsChanged(TimerViewSettings settings)
         {
             var handler = this.SettingsChanged;
+            if (handler != null)
+            {
+                handler.Invoke(this, new SettingsChangedEventArgs(settings));
+            }
+        }
+
+        public void OnTimerMessageChanged(TimerViewSettings.TimerMessageSettings settings)
+        {
+            var handler = this.TimerMessageChanged;
             if (handler != null)
             {
                 handler.Invoke(this, new SettingsChangedEventArgs(settings));

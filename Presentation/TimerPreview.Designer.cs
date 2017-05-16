@@ -289,7 +289,6 @@
             // 
             // tlpMainLayout
             // 
-            this.tlpMainLayout.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tlpMainLayout.ColumnCount = 2;
             this.tlpMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 256F));
             this.tlpMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -311,14 +310,14 @@
             this.tlpMainRightLayout.Controls.Add(this.tlpTitleLayout, 0, 0);
             this.tlpMainRightLayout.Controls.Add(this.lblShowMessage, 0, 2);
             this.tlpMainRightLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpMainRightLayout.Location = new System.Drawing.Point(261, 4);
+            this.tlpMainRightLayout.Location = new System.Drawing.Point(259, 3);
             this.tlpMainRightLayout.Name = "tlpMainRightLayout";
             this.tlpMainRightLayout.RowCount = 4;
             this.tlpMainRightLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpMainRightLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tlpMainRightLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpMainRightLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMainRightLayout.Size = new System.Drawing.Size(391, 196);
+            this.tlpMainRightLayout.Size = new System.Drawing.Size(394, 198);
             this.tlpMainRightLayout.TabIndex = 3;
             // 
             // tlpMessageLayout
@@ -338,7 +337,7 @@
             this.tlpMessageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpMessageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpMessageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpMessageLayout.Size = new System.Drawing.Size(385, 128);
+            this.tlpMessageLayout.Size = new System.Drawing.Size(388, 130);
             this.tlpMessageLayout.TabIndex = 3;
             // 
             // tlpMessageDurationLayout
@@ -354,7 +353,7 @@
             this.tlpMessageDurationLayout.Controls.Add(this.numMessageDuration, 0, 0);
             this.tlpMessageDurationLayout.Controls.Add(this.lblSeconds, 1, 0);
             this.tlpMessageDurationLayout.Controls.Add(this.chbIndefiniteMessageDuration, 3, 0);
-            this.tlpMessageDurationLayout.Location = new System.Drawing.Point(128, 99);
+            this.tlpMessageDurationLayout.Location = new System.Drawing.Point(131, 101);
             this.tlpMessageDurationLayout.Name = "tlpMessageDurationLayout";
             this.tlpMessageDurationLayout.RowCount = 1;
             this.tlpMessageDurationLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -373,6 +372,7 @@
             this.numMessageDuration.Name = "numMessageDuration";
             this.numMessageDuration.Size = new System.Drawing.Size(34, 20);
             this.numMessageDuration.TabIndex = 9;
+            this.numMessageDuration.ValueChanged += new System.EventHandler(this.numMessageDuration_ValueChanged);
             // 
             // lblSeconds
             // 
@@ -389,42 +389,44 @@
             // 
             this.chbIndefiniteMessageDuration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chbIndefiniteMessageDuration.AutoSize = true;
-            this.chbIndefiniteMessageDuration.Enabled = false;
+            this.chbIndefiniteMessageDuration.Checked = true;
+            this.chbIndefiniteMessageDuration.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chbIndefiniteMessageDuration.Location = new System.Drawing.Point(103, 4);
             this.chbIndefiniteMessageDuration.Name = "chbIndefiniteMessageDuration";
             this.chbIndefiniteMessageDuration.Size = new System.Drawing.Size(69, 17);
             this.chbIndefiniteMessageDuration.TabIndex = 9;
             this.chbIndefiniteMessageDuration.Text = "Indefinite";
             this.chbIndefiniteMessageDuration.UseVisualStyleBackColor = true;
+            this.chbIndefiniteMessageDuration.CheckedChanged += new System.EventHandler(this.chbIndefiniteMessageDuration_CheckedChanged);
             // 
             // btnShowMessage
             // 
             this.btnShowMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnShowMessage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowMessage.Location = new System.Drawing.Point(312, 30);
+            this.btnShowMessage.Location = new System.Drawing.Point(315, 31);
             this.btnShowMessage.Name = "btnShowMessage";
             this.btnShowMessage.Size = new System.Drawing.Size(70, 36);
             this.btnShowMessage.TabIndex = 4;
             this.btnShowMessage.Text = "Show Message";
             this.btnShowMessage.UseVisualStyleBackColor = true;
+            this.btnShowMessage.Click += new System.EventHandler(this.btnShowMessage_Click);
             // 
             // txtShowMessage
             // 
             this.txtShowMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtShowMessage.Location = new System.Drawing.Point(125, 3);
+            this.txtShowMessage.Location = new System.Drawing.Point(128, 3);
             this.txtShowMessage.Multiline = true;
             this.txtShowMessage.Name = "txtShowMessage";
-            this.txtShowMessage.Size = new System.Drawing.Size(181, 90);
+            this.txtShowMessage.Size = new System.Drawing.Size(181, 92);
             this.txtShowMessage.TabIndex = 0;
             // 
             // lblMessageInfo
             // 
             this.lblMessageInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.lblMessageInfo.AutoSize = true;
-            this.lblMessageInfo.Location = new System.Drawing.Point(7, 0);
+            this.lblMessageInfo.Location = new System.Drawing.Point(8, 0);
             this.lblMessageInfo.Name = "lblMessageInfo";
-            this.tlpMessageLayout.SetRowSpan(this.lblMessageInfo, 2);
-            this.lblMessageInfo.Size = new System.Drawing.Size(108, 128);
+            this.lblMessageInfo.Size = new System.Drawing.Size(108, 98);
             this.lblMessageInfo.TabIndex = 5;
             this.lblMessageInfo.Text = "Enter a message to display on the screen for a brief or indefinite interval";
             this.lblMessageInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -443,7 +445,7 @@
             this.tlpTitleLayout.Name = "tlpTitleLayout";
             this.tlpTitleLayout.RowCount = 1;
             this.tlpTitleLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpTitleLayout.Size = new System.Drawing.Size(385, 26);
+            this.tlpTitleLayout.Size = new System.Drawing.Size(388, 26);
             this.tlpTitleLayout.TabIndex = 12;
             // 
             // txtTitle
@@ -451,7 +453,7 @@
             this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTitle.Location = new System.Drawing.Point(65, 3);
             this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(317, 20);
+            this.txtTitle.Size = new System.Drawing.Size(320, 20);
             this.txtTitle.TabIndex = 10;
             this.txtTitle.TextChanged += new System.EventHandler(this.txtTitle_TextChanged);
             // 
@@ -474,7 +476,7 @@
             this.lblShowMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblShowMessage.Location = new System.Drawing.Point(3, 42);
             this.lblShowMessage.Name = "lblShowMessage";
-            this.lblShowMessage.Size = new System.Drawing.Size(385, 20);
+            this.lblShowMessage.Size = new System.Drawing.Size(388, 20);
             this.lblShowMessage.TabIndex = 5;
             this.lblShowMessage.Text = "Messages";
             this.lblShowMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -491,7 +493,7 @@
             this.tlpMainLeftLayout.Controls.Add(this.chbBlink, 0, 3);
             this.tlpMainLeftLayout.Controls.Add(this.tlpFinalMessageLayout, 0, 4);
             this.tlpMainLeftLayout.Controls.Add(this.tlpGoLiveLayout, 0, 5);
-            this.tlpMainLeftLayout.Location = new System.Drawing.Point(4, 5);
+            this.tlpMainLeftLayout.Location = new System.Drawing.Point(3, 5);
             this.tlpMainLeftLayout.Name = "tlpMainLeftLayout";
             this.tlpMainLeftLayout.RowCount = 7;
             this.tlpMainLeftLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());

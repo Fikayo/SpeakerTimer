@@ -180,6 +180,14 @@
 
         #endregion
 
+        #region Variable Settings
+
+        public TimerMessageSettings MessageSettings { get; set; }
+
+        #endregion
+
+        #region Propeties
+
         public bool HasFirstWarning
         {
             get { return this.WarningTime > 0; }
@@ -189,7 +197,9 @@
         {
             get { return this.SecondWarningTime > 0; }
         }
-        
+
+        #endregion
+
         public void SetFont(string fontFamily = "", float fontSize = 0f)
         {
             this.VisualSettings.SetFont(fontFamily, fontSize);
@@ -278,6 +288,7 @@
 
             this.Title = TimerViewSettings.DefaultTitle;
             this.VisualSettings = TimerVisualSettings.Default;
+            this.MessageSettings = TimerMessageSettings.Default;
             this.BlinkOnExpired = false;
         }
 
@@ -302,7 +313,6 @@
             public TimerVisualSettings()
             {
                 this.SetDefaultSettings();
-                TimerViewSettings.count++;
             }
 
             #region Display Settings
@@ -455,6 +465,32 @@
                 this.MessageColor = Color.DodgerBlue;
             }
 
+        }
+
+        public class TimerMessageSettings
+        {
+            private TimerMessageSettings()
+            {
+                this.SetDefaultSettings();
+            }
+
+            public static TimerMessageSettings Default
+            {
+                get { return new TimerMessageSettings(); }
+            }
+
+            public string TimerMessage { get; set; }
+
+            public int MessageDuration { get; set; }
+
+            public bool IsIndefiniteMessage { get; set; }
+
+            private void SetDefaultSettings()
+            {
+                this.TimerMessage = string.Empty;
+                this.MessageDuration = 0;
+                this.IsIndefiniteMessage = true;
+            }
         }
     }
 }
