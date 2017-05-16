@@ -100,7 +100,7 @@
             this.lblShowMessage = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.numMessageDuration = new System.Windows.Forms.NumericUpDown();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpMessageDurationLayout = new System.Windows.Forms.TableLayoutPanel();
             this.lblSeconds = new System.Windows.Forms.Label();
             this.chbIndefiniteMessageDuration = new System.Windows.Forms.CheckBox();
             this.tlpOuterLayout.SuspendLayout();
@@ -128,7 +128,7 @@
             this.tlpTitleLayout.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMessageDuration)).BeginInit();
-            this.tableLayoutPanel3.SuspendLayout();
+            this.tlpMessageDurationLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // tlpOuterLayout
@@ -583,7 +583,7 @@
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.Controls.Add(this.groupBox1, 0, 1);
             this.tableLayoutPanel8.Controls.Add(this.btnDefaultSettings, 0, 2);
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(440, 404);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(952, 19);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 3;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -745,7 +745,7 @@
             this.tableLayoutPanel10.Controls.Add(this.btnBackColor, 1, 3);
             this.tableLayoutPanel10.Controls.Add(this.label5, 0, 3);
             this.tableLayoutPanel10.Controls.Add(this.label3, 0, 6);
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(688, 404);
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(964, 267);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 9;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -757,14 +757,14 @@
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(112, 216);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(112, 23);
             this.tableLayoutPanel10.TabIndex = 0;
             // 
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 188);
+            this.label4.Location = new System.Drawing.Point(3, 92);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 13);
             this.label4.TabIndex = 20;
@@ -774,7 +774,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 101);
+            this.label6.Location = new System.Drawing.Point(3, 5);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 13);
             this.label6.TabIndex = 18;
@@ -782,7 +782,7 @@
             // 
             // btnExpiredColor
             // 
-            this.btnExpiredColor.Location = new System.Drawing.Point(74, 125);
+            this.btnExpiredColor.Location = new System.Drawing.Point(74, 29);
             this.btnExpiredColor.Name = "btnExpiredColor";
             this.btnExpiredColor.Size = new System.Drawing.Size(28, 23);
             this.btnExpiredColor.TabIndex = 7;
@@ -791,7 +791,7 @@
             // 
             // btnRunningColor
             // 
-            this.btnRunningColor.Location = new System.Drawing.Point(74, 9);
+            this.btnRunningColor.Location = new System.Drawing.Point(74, -87);
             this.btnRunningColor.Name = "btnRunningColor";
             this.btnRunningColor.Size = new System.Drawing.Size(28, 23);
             this.btnRunningColor.TabIndex = 2;
@@ -800,7 +800,7 @@
             // 
             // btnPausedColor
             // 
-            this.btnPausedColor.Location = new System.Drawing.Point(74, 38);
+            this.btnPausedColor.Location = new System.Drawing.Point(74, -58);
             this.btnPausedColor.Name = "btnPausedColor";
             this.btnPausedColor.Size = new System.Drawing.Size(28, 23);
             this.btnPausedColor.TabIndex = 5;
@@ -809,7 +809,7 @@
             // 
             // btnMessageColor
             // 
-            this.btnMessageColor.Location = new System.Drawing.Point(74, 183);
+            this.btnMessageColor.Location = new System.Drawing.Point(74, 87);
             this.btnMessageColor.Name = "btnMessageColor";
             this.btnMessageColor.Size = new System.Drawing.Size(28, 23);
             this.btnMessageColor.TabIndex = 10;
@@ -820,7 +820,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 14);
+            this.label1.Location = new System.Drawing.Point(3, -82);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 13);
             this.label1.TabIndex = 11;
@@ -830,7 +830,7 @@
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 43);
+            this.label9.Location = new System.Drawing.Point(3, -53);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(65, 13);
             this.label9.TabIndex = 15;
@@ -838,7 +838,7 @@
             // 
             // btnStoppedColor
             // 
-            this.btnStoppedColor.Location = new System.Drawing.Point(74, 96);
+            this.btnStoppedColor.Location = new System.Drawing.Point(74, 0);
             this.btnStoppedColor.Name = "btnStoppedColor";
             this.btnStoppedColor.Size = new System.Drawing.Size(28, 23);
             this.btnStoppedColor.TabIndex = 8;
@@ -849,7 +849,7 @@
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 130);
+            this.label7.Location = new System.Drawing.Point(3, 34);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 13);
             this.label7.TabIndex = 17;
@@ -857,7 +857,7 @@
             // 
             // btnWarningColor
             // 
-            this.btnWarningColor.Location = new System.Drawing.Point(74, 154);
+            this.btnWarningColor.Location = new System.Drawing.Point(74, 58);
             this.btnWarningColor.Name = "btnWarningColor";
             this.btnWarningColor.Size = new System.Drawing.Size(28, 23);
             this.btnWarningColor.TabIndex = 6;
@@ -866,7 +866,7 @@
             // 
             // btnBackColor
             // 
-            this.btnBackColor.Location = new System.Drawing.Point(74, 67);
+            this.btnBackColor.Location = new System.Drawing.Point(74, -29);
             this.btnBackColor.Name = "btnBackColor";
             this.btnBackColor.Size = new System.Drawing.Size(28, 23);
             this.btnBackColor.TabIndex = 9;
@@ -877,7 +877,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 72);
+            this.label5.Location = new System.Drawing.Point(3, -24);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 19;
@@ -887,7 +887,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 159);
+            this.label3.Location = new System.Drawing.Point(3, 63);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 21;
@@ -911,6 +911,7 @@
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.tlpTitleLayout, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblShowMessage, 0, 2);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(259, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
@@ -918,16 +919,16 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(380, 187);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(394, 200);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // txtShowMessage
             // 
             this.txtShowMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtShowMessage.Location = new System.Drawing.Point(180, 3);
+            this.txtShowMessage.Location = new System.Drawing.Point(165, 3);
             this.txtShowMessage.Multiline = true;
             this.txtShowMessage.Name = "txtShowMessage";
-            this.txtShowMessage.Size = new System.Drawing.Size(165, 61);
+            this.txtShowMessage.Size = new System.Drawing.Size(158, 94);
             this.txtShowMessage.TabIndex = 0;
             // 
             // btnVisualSettings
@@ -955,7 +956,7 @@
             this.tlpTitleLayout.Name = "tlpTitleLayout";
             this.tlpTitleLayout.RowCount = 1;
             this.tlpTitleLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpTitleLayout.Size = new System.Drawing.Size(374, 26);
+            this.tlpTitleLayout.Size = new System.Drawing.Size(388, 26);
             this.tlpTitleLayout.TabIndex = 12;
             // 
             // txtTitle
@@ -963,7 +964,7 @@
             this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTitle.Location = new System.Drawing.Point(65, 3);
             this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(306, 20);
+            this.txtTitle.Size = new System.Drawing.Size(320, 20);
             this.txtTitle.TabIndex = 10;
             this.txtTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTitle_KeyPress);
             // 
@@ -981,27 +982,29 @@
             // 
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 171F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 1, 2);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 164F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 62F));
+            this.tableLayoutPanel2.Controls.Add(this.tlpMessageDurationLayout, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.btnShowMessage, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.txtShowMessage, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label8, 0, 1);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 65);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(368, 119);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(388, 132);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // btnShowMessage
             // 
-            this.btnShowMessage.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnShowMessage.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnShowMessage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowMessage.Location = new System.Drawing.Point(840, 344);
+            this.btnShowMessage.Location = new System.Drawing.Point(329, 32);
             this.btnShowMessage.Name = "btnShowMessage";
-            this.btnShowMessage.Size = new System.Drawing.Size(100, 36);
+            this.btnShowMessage.Size = new System.Drawing.Size(56, 36);
             this.btnShowMessage.TabIndex = 4;
             this.btnShowMessage.Text = "Show Message";
             this.btnShowMessage.UseVisualStyleBackColor = true;
@@ -1015,7 +1018,7 @@
             this.lblShowMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblShowMessage.Location = new System.Drawing.Point(3, 42);
             this.lblShowMessage.Name = "lblShowMessage";
-            this.lblShowMessage.Size = new System.Drawing.Size(374, 20);
+            this.lblShowMessage.Size = new System.Drawing.Size(388, 20);
             this.lblShowMessage.TabIndex = 5;
             this.lblShowMessage.Text = "Messages";
             this.lblShowMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1024,10 +1027,10 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(5, 0);
+            this.label8.Location = new System.Drawing.Point(7, 0);
             this.label8.Name = "label8";
             this.tableLayoutPanel2.SetRowSpan(this.label8, 2);
-            this.label8.Size = new System.Drawing.Size(166, 119);
+            this.label8.Size = new System.Drawing.Size(148, 132);
             this.label8.TabIndex = 5;
             this.label8.Text = "Enter a message to display on the screen for a brief or indefinite interval";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1045,27 +1048,25 @@
             this.numMessageDuration.Size = new System.Drawing.Size(34, 20);
             this.numMessageDuration.TabIndex = 9;
             // 
-            // tableLayoutPanel3
+            // tlpMessageDurationLayout
             // 
-            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.tableLayoutPanel3.AutoSize = true;
-            this.tableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Controls.Add(this.chbIndefiniteMessageDuration, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.numMessageDuration, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.lblSeconds, 1, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(215, 70);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(95, 46);
-            this.tableLayoutPanel3.TabIndex = 10;
+            this.tlpMessageDurationLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.tlpMessageDurationLayout.AutoSize = true;
+            this.tlpMessageDurationLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tlpMessageDurationLayout.ColumnCount = 4;
+            this.tlpMessageDurationLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tlpMessageDurationLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpMessageDurationLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
+            this.tlpMessageDurationLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpMessageDurationLayout.Controls.Add(this.numMessageDuration, 0, 0);
+            this.tlpMessageDurationLayout.Controls.Add(this.lblSeconds, 1, 0);
+            this.tlpMessageDurationLayout.Controls.Add(this.chbIndefiniteMessageDuration, 3, 0);
+            this.tlpMessageDurationLayout.Location = new System.Drawing.Point(165, 103);
+            this.tlpMessageDurationLayout.Name = "tlpMessageDurationLayout";
+            this.tlpMessageDurationLayout.RowCount = 1;
+            this.tlpMessageDurationLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpMessageDurationLayout.Size = new System.Drawing.Size(158, 26);
+            this.tlpMessageDurationLayout.TabIndex = 10;
             // 
             // lblSeconds
             // 
@@ -1082,11 +1083,10 @@
             // 
             this.chbIndefiniteMessageDuration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chbIndefiniteMessageDuration.AutoSize = true;
-            this.tableLayoutPanel3.SetColumnSpan(this.chbIndefiniteMessageDuration, 2);
             this.chbIndefiniteMessageDuration.Enabled = false;
-            this.chbIndefiniteMessageDuration.Location = new System.Drawing.Point(3, 29);
+            this.chbIndefiniteMessageDuration.Location = new System.Drawing.Point(103, 4);
             this.chbIndefiniteMessageDuration.Name = "chbIndefiniteMessageDuration";
-            this.chbIndefiniteMessageDuration.Size = new System.Drawing.Size(89, 14);
+            this.chbIndefiniteMessageDuration.Size = new System.Drawing.Size(69, 17);
             this.chbIndefiniteMessageDuration.TabIndex = 9;
             this.chbIndefiniteMessageDuration.Text = "Indefinite";
             this.chbIndefiniteMessageDuration.UseVisualStyleBackColor = true;
@@ -1096,11 +1096,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grbPreviewBox);
-            this.Controls.Add(this.btnShowMessage);
             this.Controls.Add(this.tableLayoutPanel10);
             this.Controls.Add(this.tableLayoutPanel8);
             this.Name = "TimerPreview";
-            this.Size = new System.Drawing.Size(1003, 568);
+            this.Size = new System.Drawing.Size(999, 311);
             this.Load += new System.EventHandler(this.TimerPreview_Load);
             this.tlpOuterLayout.ResumeLayout(false);
             this.tlpControlsLayout.ResumeLayout(false);
@@ -1142,8 +1141,8 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMessageDuration)).EndInit();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
+            this.tlpMessageDurationLayout.ResumeLayout(false);
+            this.tlpMessageDurationLayout.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1222,7 +1221,7 @@
         private System.Windows.Forms.Label lblShowMessage;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numMessageDuration;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel tlpMessageDurationLayout;
         private System.Windows.Forms.Label lblSeconds;
         private System.Windows.Forms.CheckBox chbIndefiniteMessageDuration;
     }
