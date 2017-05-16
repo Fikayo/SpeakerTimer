@@ -13,10 +13,13 @@ namespace SpeakerTimer
     {
         private TimeViewControl previousimeViewControl;
         private TimerViewerCommandIssuer previousCommandIssuer;
+        private Size previewFormSize;
 
         public PresetationToolStrip()
         {
             InitializeComponent();
+
+            this.previewFormSize = new Size(365, 225);
 
             //this.EnsureDisplayFormActive();
             this.PresetManager = new PresetManager();
@@ -109,7 +112,7 @@ namespace SpeakerTimer
         {
             if (this.LivePreviewForm == null || this.LivePreviewForm.IsDisposed)
             {
-                bool wasRunning = this.PresentForm.TimeViewControl.TimerState == TimerState.Running;
+                bool wasRunning = (this.PresentForm != null && !this.PresentForm.IsDisposed) && this.PresentForm.TimeViewControl.TimerState == TimerState.Running;
                 if (wasRunning)
                 {
                     // Pause an ongoing timer
@@ -121,6 +124,7 @@ namespace SpeakerTimer
                 this.LivePreviewForm = new PresentationTimerForm(this.FetchTimerView());
                 this.LivePreviewForm.Text = "Live Preview";
                 this.LivePreviewForm.IsPreviewForm = true;
+                this.LivePreviewForm.Size = this.previewFormSize;
                 this.LivePreviewForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;
                 this.HookLivePreviewFormEvents();
                 this.OnLivePreviewFormEventsRequired();
@@ -305,6 +309,11 @@ namespace SpeakerTimer
 
         private void HookLivePreviewFormEvents()
         {
+            this.LivePreviewForm.SizeChanged += (s, e) =>
+            {
+                this.previewFormSize = this.LivePreviewForm.Size;
+            };
+
             this.LivePreviewForm.FormClosing += (s, e) => 
             {
                 this.tsmShowLivePreview.Checked = false;

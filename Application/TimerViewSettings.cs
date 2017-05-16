@@ -197,13 +197,14 @@
 
         public string SaveSettingsAsCsv()
         {
-            return string.Format("{0},{1},{2},{3},{4},{5},{6}",
+            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
                 this.Name,
                 this.Title,
                 this.Duration,
                 this.WarningTime,
                 this.SecondWarningTime,
                 this.BlinkOnExpired,
+                this.FinalMessage,
                 this.VisualSettings.SaveSettingsAsCsv());
         }
 
@@ -242,7 +243,7 @@
             {
                 var values = csv.Split(new char[] { ',' });
                 settings.Name = values[0];
-                settings.Name = values[1];
+                settings.Title = values[1];
                 settings.Duration = double.Parse(values[2]);
                 settings.WarningTime = double.Parse(values[3]);
                 settings.SecondWarningTime = double.Parse(values[4]);
@@ -370,7 +371,7 @@
                     this.ExpiredColor.Name,
                     this.BackgroundColor.Name,
                     this.MessageColor.Name,
-                    this.SecondWarningColor);
+                    this.SecondWarningColor.Name);
             }
 
             // override object.Equals

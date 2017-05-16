@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             SpeakerTimer.TimerViewSettings timerViewSettings1 = new SpeakerTimer.TimerViewSettings();
+            SpeakerTimer.TimerViewSettings.TimerVisualSettings timerVisualSettings1 = new SpeakerTimer.TimerViewSettings.TimerVisualSettings();
             SpeakerTimer.TimerViewSettings timerViewSettings2 = new SpeakerTimer.TimerViewSettings();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlPanel));
+            SpeakerTimer.TimerViewSettings.TimerVisualSettings timerVisualSettings2 = new SpeakerTimer.TimerViewSettings.TimerVisualSettings();
             this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.ptsToolStrip = new SpeakerTimer.PresetationToolStrip();
             this.timerPreview2 = new SpeakerTimer.TimerPreview();
             this.timerPreview1 = new SpeakerTimer.TimerPreview();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -50,7 +52,6 @@
             this.tsmClearAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRefreshList = new System.Windows.Forms.ToolStripMenuItem();
             this.tslMakeTimePlan = new System.Windows.Forms.ToolStripLabel();
-            this.ptsToolStrip = new SpeakerTimer.PresetationToolStrip();
             this.tlpOuterLayout.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -71,15 +72,32 @@
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpOuterLayout.Size = new System.Drawing.Size(906, 541);
+            this.tlpOuterLayout.Size = new System.Drawing.Size(965, 715);
             this.tlpOuterLayout.TabIndex = 0;
+            // 
+            // ptsToolStrip
+            // 
+            this.ptsToolStrip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptsToolStrip.LivePreviewForm = null;
+            this.ptsToolStrip.Location = new System.Drawing.Point(3, 43);
+            this.ptsToolStrip.Name = "ptsToolStrip";
+            this.ptsToolStrip.PresentForm = null;
+            this.ptsToolStrip.ShowDisplayMenu = true;
+            this.ptsToolStrip.ShowTimePlanMenu = true;
+            this.ptsToolStrip.ShowTimerSettingsMenu = true;
+            this.ptsToolStrip.Size = new System.Drawing.Size(959, 24);
+            this.ptsToolStrip.TabIndex = 2;
+            this.ptsToolStrip.PresentFormEventsRequired += new System.EventHandler(this.ptsToolStrip_PresentFormEventsRequired);
+            this.ptsToolStrip.PresetsLoaded += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_PresetsLoaded);
+            this.ptsToolStrip.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_TimersSettingsOpened);
+            this.ptsToolStrip.TimersSettingsDeleted += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_TimersSettingsDeleted);
             // 
             // timerPreview2
             // 
             this.timerPreview2.DisplayName = "Untitled9";
             this.timerPreview2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerPreview2.IsLive = true;
-            this.timerPreview2.Location = new System.Drawing.Point(3, 308);
+            this.timerPreview2.Location = new System.Drawing.Point(3, 395);
             this.timerPreview2.Name = "timerPreview2";
             timerViewSettings1.BackgroundColor = System.Drawing.Color.Black;
             timerViewSettings1.BlinkOnExpired = false;
@@ -97,10 +115,24 @@
             timerViewSettings1.StoppedColor = System.Drawing.Color.Silver;
             timerViewSettings1.TimerColor = System.Drawing.Color.White;
             timerViewSettings1.TimerFont = new System.Drawing.Font("Arial", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            timerViewSettings1.Title = "Untitled";
+            timerVisualSettings1.BackgroundColor = System.Drawing.Color.Black;
+            timerVisualSettings1.CounterMode = SpeakerTimer.TimerViewSettings.TimerCounterMode.CountDownToZero;
+            timerVisualSettings1.DisplayMode = SpeakerTimer.TimerViewSettings.TimerDisplayMode.FullWidth;
+            timerVisualSettings1.ExpiredColor = System.Drawing.Color.Red;
+            timerVisualSettings1.MessageColor = System.Drawing.Color.DodgerBlue;
+            timerVisualSettings1.PausedColor = System.Drawing.Color.Cyan;
+            timerVisualSettings1.RunningColor = System.Drawing.Color.White;
+            timerVisualSettings1.SecondWarningColor = System.Drawing.Color.Orange;
+            timerVisualSettings1.StoppedColor = System.Drawing.Color.Silver;
+            timerVisualSettings1.TimerColor = System.Drawing.Color.White;
+            timerVisualSettings1.TimerFont = new System.Drawing.Font("Arial", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            timerVisualSettings1.WarningColor = System.Drawing.Color.Yellow;
+            timerViewSettings1.VisualSettings = timerVisualSettings1;
             timerViewSettings1.WarningColor = System.Drawing.Color.Yellow;
             timerViewSettings1.WarningTime = 0D;
             this.timerPreview2.Settings = timerViewSettings1;
-            this.timerPreview2.Size = new System.Drawing.Size(900, 230);
+            this.timerPreview2.Size = new System.Drawing.Size(959, 317);
             this.timerPreview2.TabIndex = 1;
             this.timerPreview2.LoadRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_LoadRequested);
             this.timerPreview2.SaveRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_SaveRequested);
@@ -129,10 +161,24 @@
             timerViewSettings2.StoppedColor = System.Drawing.Color.Silver;
             timerViewSettings2.TimerColor = System.Drawing.Color.White;
             timerViewSettings2.TimerFont = new System.Drawing.Font("Arial", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            timerViewSettings2.Title = "Untitled";
+            timerVisualSettings2.BackgroundColor = System.Drawing.Color.Black;
+            timerVisualSettings2.CounterMode = SpeakerTimer.TimerViewSettings.TimerCounterMode.CountDownToZero;
+            timerVisualSettings2.DisplayMode = SpeakerTimer.TimerViewSettings.TimerDisplayMode.FullWidth;
+            timerVisualSettings2.ExpiredColor = System.Drawing.Color.Red;
+            timerVisualSettings2.MessageColor = System.Drawing.Color.DodgerBlue;
+            timerVisualSettings2.PausedColor = System.Drawing.Color.Cyan;
+            timerVisualSettings2.RunningColor = System.Drawing.Color.White;
+            timerVisualSettings2.SecondWarningColor = System.Drawing.Color.Orange;
+            timerVisualSettings2.StoppedColor = System.Drawing.Color.Silver;
+            timerVisualSettings2.TimerColor = System.Drawing.Color.White;
+            timerVisualSettings2.TimerFont = new System.Drawing.Font("Arial", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            timerVisualSettings2.WarningColor = System.Drawing.Color.Yellow;
+            timerViewSettings2.VisualSettings = timerVisualSettings2;
             timerViewSettings2.WarningColor = System.Drawing.Color.Yellow;
             timerViewSettings2.WarningTime = 0D;
             this.timerPreview1.Settings = timerViewSettings2;
-            this.timerPreview1.Size = new System.Drawing.Size(900, 229);
+            this.timerPreview1.Size = new System.Drawing.Size(959, 316);
             this.timerPreview1.TabIndex = 0;
             this.timerPreview1.LoadRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_LoadRequested);
             this.timerPreview1.SaveRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_SaveRequested);
@@ -147,7 +193,7 @@
             this.tslMakeTimePlan});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(906, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(965, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -274,33 +320,14 @@
             this.tslMakeTimePlan.Size = new System.Drawing.Size(92, 22);
             this.tslMakeTimePlan.Text = "Make Time Plan";
             this.tslMakeTimePlan.Click += new System.EventHandler(this.tslMakeTimePlan_Click);
-            //
-            // ptsToolStrip
-            // 
-            this.ptsToolStrip.FetchTimerView = this.CreateTimerView;
-            this.ptsToolStrip.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ptsToolStrip.LivePreviewForm = null;
-            this.ptsToolStrip.Location = new System.Drawing.Point(3, 43);
-            this.ptsToolStrip.Name = "ptsToolStrip";
-            this.ptsToolStrip.PresentForm = null;
-            this.ptsToolStrip.ShowDisplayMenu = true;
-            this.ptsToolStrip.ShowTimePlanMenu = true;
-            this.ptsToolStrip.ShowTimerSettingsMenu = true;
-            this.ptsToolStrip.Size = new System.Drawing.Size(900, 24);
-            this.ptsToolStrip.TabIndex = 2;
-            this.ptsToolStrip.PresentFormEventsRequired += new System.EventHandler(this.ptsToolStrip_PresentFormEventsRequired);
-            this.ptsToolStrip.PresetsLoaded += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_PresetsLoaded);
-            this.ptsToolStrip.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_TimersSettingsOpened);
-            this.ptsToolStrip.TimersSettingsDeleted += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_TimersSettingsDeleted);
             // 
             // ControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(906, 541);
+            this.ClientSize = new System.Drawing.Size(965, 715);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tlpOuterLayout);
-            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "ControlPanel";
             this.Text = "Speaker Timer - Control Panel";

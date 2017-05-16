@@ -236,20 +236,10 @@
 
         #region Settings Event Handlers
 
-        private void txtTitle_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtTitle_TextChanged(object sender, EventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                this.Settings.Title = this.txtTitle.Text;
-                this.SaveSetting();
-                e.Handled = true;
-                return;
-            }
-
-            var invalidChars = System.IO.Path.GetInvalidFileNameChars();
-            var handled = Array.Exists(invalidChars, x => x == e.KeyChar) && !char.IsControl(e.KeyChar);
-            handled = handled || e.KeyChar == ',';
-            e.Handled = handled;
+            this.Settings.Title = this.txtTitle.Text;
+            this.OnSettingsChanged();
         }
 
         private void rdbLive_Click(object sender, EventArgs e)

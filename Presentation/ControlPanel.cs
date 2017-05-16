@@ -553,9 +553,10 @@
         public ControlPanel()
         {
             InitializeComponent();
-
+            
             this.timerPreview1.IsLive = false;
             this.timerPreview2.IsLive = false;
+            this.ptsToolStrip.FetchTimerView = this.CreateTimerView;
             this.ptsToolStrip.Init();
 
 #if DEBUG
