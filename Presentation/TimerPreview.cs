@@ -328,6 +328,8 @@
             {
                 this.SaveSetting();
                 e.Handled = true;
+                this.txtSettingsName.Enabled = false;
+                this.btnEditName.Enabled = true;
                 return;
             }
 
@@ -335,6 +337,12 @@
             var handled = Array.Exists(invalidChars, x => x == e.KeyChar) && !char.IsControl(e.KeyChar);
             handled = handled || e.KeyChar == ',';
             e.Handled = handled;
+        }
+
+        private void btnEditName_Click(object sender, EventArgs e)
+        {
+            this.txtSettingsName.Enabled = true;
+            this.btnEditName.Enabled = false;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
