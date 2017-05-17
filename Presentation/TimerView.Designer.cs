@@ -31,7 +31,10 @@
             this.lblTimer = new System.Windows.Forms.Label();
             this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
             this.lblCurrentTimer = new System.Windows.Forms.Label();
+            this.lblMiniTimer = new System.Windows.Forms.Label();
+            this.tlpMiniTimerLayout = new System.Windows.Forms.TableLayoutPanel();
             this.tlpOuterLayout.SuspendLayout();
+            this.tlpMiniTimerLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTimer
@@ -56,6 +59,7 @@
             this.tlpOuterLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpOuterLayout.Controls.Add(this.lblTimer, 1, 2);
             this.tlpOuterLayout.Controls.Add(this.lblCurrentTimer, 1, 1);
+            this.tlpOuterLayout.Controls.Add(this.tlpMiniTimerLayout, 1, 3);
             this.tlpOuterLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpOuterLayout.Location = new System.Drawing.Point(0, 0);
             this.tlpOuterLayout.Name = "tlpOuterLayout";
@@ -80,6 +84,36 @@
             this.lblCurrentTimer.Text = "Current Timer";
             this.lblCurrentTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblMiniTimer
+            // 
+            this.lblMiniTimer.AutoSize = true;
+            this.lblMiniTimer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblMiniTimer.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMiniTimer.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblMiniTimer.Location = new System.Drawing.Point(3, 0);
+            this.lblMiniTimer.Name = "lblMiniTimer";
+            this.lblMiniTimer.Size = new System.Drawing.Size(88, 23);
+            this.lblMiniTimer.TabIndex = 2;
+            this.lblMiniTimer.Text = "00:00:00";
+            this.lblMiniTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblMiniTimer.Visible = false;
+            // 
+            // tlpMiniTimerLayout
+            // 
+            this.tlpMiniTimerLayout.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.tlpMiniTimerLayout.AutoSize = true;
+            this.tlpMiniTimerLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tlpMiniTimerLayout.ColumnCount = 1;
+            this.tlpMiniTimerLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpMiniTimerLayout.Controls.Add(this.lblMiniTimer, 0, 0);
+            this.tlpMiniTimerLayout.Location = new System.Drawing.Point(128, 135);
+            this.tlpMiniTimerLayout.Name = "tlpMiniTimerLayout";
+            this.tlpMiniTimerLayout.RowCount = 2;
+            this.tlpMiniTimerLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpMiniTimerLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tlpMiniTimerLayout.Size = new System.Drawing.Size(94, 33);
+            this.tlpMiniTimerLayout.TabIndex = 3;
+            // 
             // TimerView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -90,6 +124,8 @@
             this.Leave += new System.EventHandler(this.TimerView_Leave);
             this.tlpOuterLayout.ResumeLayout(false);
             this.tlpOuterLayout.PerformLayout();
+            this.tlpMiniTimerLayout.ResumeLayout(false);
+            this.tlpMiniTimerLayout.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -99,5 +135,7 @@
         private System.Windows.Forms.Label lblTimer;
         private System.Windows.Forms.TableLayoutPanel tlpOuterLayout;
         private System.Windows.Forms.Label lblCurrentTimer;
+        private System.Windows.Forms.Label lblMiniTimer;
+        private System.Windows.Forms.TableLayoutPanel tlpMiniTimerLayout;
     }
 }

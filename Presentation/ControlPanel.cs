@@ -955,29 +955,33 @@
             try
             {
                 var name = e.SettingName;
-                if (this.ptsToolStrip.PresetManager.HasSetting(name))
+                if (!TimerViewSettings.IsUntitled(name))
                 {
-                    var result = MessageBox.Show(
-                        "A setting with the name '" + name + "' already exists.\r\n" +
-                        "Do you wish to update the existing timer settings?\r\n\r\n" +
-                        "Select 'Cancel' to choose a new name",
-                        "Setting Already Exists",
-                        MessageBoxButtons.OKCancel,
-                        MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button2);
+                    ////if (this.ptsToolStrip.PresetManager.HasSetting(name))
+                    ////{
+                    ////var result = MessageBox.Show(
+                    ////    "A setting with the name '" + name + "' already exists.\r\n" +
+                    ////    "Do you wish to update the existing timer settings?\r\n\r\n" +
+                    ////    "Select 'Cancel' to choose a new name",
+                    ////    "Setting Already Exists",
+                    ////    MessageBoxButtons.OKCancel,
+                    ////    MessageBoxIcon.Information,
+                    ////    MessageBoxDefaultButton.Button2);
 
-                    if (result != System.Windows.Forms.DialogResult.OK)
+                    ////if (result != System.Windows.Forms.DialogResult.OK)
+                    ////{
+                    ////    return;
+                    ////}
+                    ////}
+                    ////else
+                    if (!this.ptsToolStrip.PresetManager.HasSetting(name))
                     {
-                        return;
+                        this.AddPresetsToPreviews(name);
                     }
-                }
-                else
-                {
-                    this.AddPresetsToPreviews(name);
-                }
 
-                success = this.ptsToolStrip.PresetManager.AddOrUpdateSetting(new KeyValuePair<string, string>(name, e.Settings.SaveSettingsAsCsv()));
-                preview.DisplayName = name;
+                    success = this.ptsToolStrip.PresetManager.AddOrUpdateSetting(new KeyValuePair<string, string>(name, e.Settings.SaveSettingsAsCsv()));
+                    preview.DisplayName = name;
+                }
             }
             catch
             {

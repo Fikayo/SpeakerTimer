@@ -277,6 +277,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1451759639_timer.ico" />
+    <None Include="Resources\settings.png" />
     <None Include="Resources\refresh.png" />
     <None Include="Resources\play.png" />
     <None Include="Resources\pause.png" />

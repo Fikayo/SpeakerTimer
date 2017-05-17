@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
             this.tlpControlsLayout = new System.Windows.Forms.TableLayoutPanel();
             this.flpIOayout = new System.Windows.Forms.FlowLayoutPanel();
@@ -35,26 +36,29 @@
             this.lblTimerName = new System.Windows.Forms.Label();
             this.txtSettingsName = new System.Windows.Forms.TextBox();
             this.btnEditName = new System.Windows.Forms.Button();
+            this.tlpTitleLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.txtTitle = new System.Windows.Forms.TextBox();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.tlpOpenLayout = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cmbLoadTimer = new System.Windows.Forms.ComboBox();
             this.btnVisualSettings = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.tlpMainLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.tlpMainRightLayout = new System.Windows.Forms.TableLayoutPanel();
             this.tlpMessageLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.btnShowMessage = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tlpMessageDurationLayout = new System.Windows.Forms.TableLayoutPanel();
             this.numMessageDuration = new System.Windows.Forms.NumericUpDown();
             this.lblSeconds = new System.Windows.Forms.Label();
             this.chbIndefiniteMessageDuration = new System.Windows.Forms.CheckBox();
-            this.btnShowMessage = new System.Windows.Forms.Button();
             this.txtShowMessage = new System.Windows.Forms.TextBox();
             this.lblMessageInfo = new System.Windows.Forms.Label();
-            this.tlpTitleLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.txtTitle = new System.Windows.Forms.TextBox();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblShowMessage = new System.Windows.Forms.Label();
-            this.tlpMainLeftLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.flpMainLeftLayout = new System.Windows.Forms.FlowLayoutPanel();
+            this.tlpTimerControlLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
             this.flpWarningTimesLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.tlpFirstWarningLayout = new System.Windows.Forms.TableLayoutPanel();
             this.txtWarningTime = new SpeakerTimer.TimeInputBox();
@@ -62,10 +66,6 @@
             this.tlpSecondWarningLayout = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSecondWarningTime = new SpeakerTimer.TimeInputBox();
-            this.tlpTimerControlLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.btnReset = new System.Windows.Forms.Button();
-            this.btnStart = new System.Windows.Forms.Button();
-            this.btnStop = new System.Windows.Forms.Button();
             this.chbBlink = new System.Windows.Forms.CheckBox();
             this.tlpFinalMessageLayout = new System.Windows.Forms.TableLayoutPanel();
             this.txtFinalMessage = new System.Windows.Forms.TextBox();
@@ -76,27 +76,29 @@
             this.timerView = new SpeakerTimer.TimerView();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.grbPreviewBox = new System.Windows.Forms.GroupBox();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tlpOuterLayout.SuspendLayout();
             this.tlpControlsLayout.SuspendLayout();
             this.flpIOayout.SuspendLayout();
             this.tlpTimerNameLayout.SuspendLayout();
+            this.tlpTitleLayout.SuspendLayout();
             this.tlpOpenLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tlpMainLayout.SuspendLayout();
-            this.tlpMainRightLayout.SuspendLayout();
             this.tlpMessageLayout.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.tlpMessageDurationLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMessageDuration)).BeginInit();
-            this.tlpTitleLayout.SuspendLayout();
-            this.tlpMainLeftLayout.SuspendLayout();
+            this.flpMainLeftLayout.SuspendLayout();
+            this.tlpTimerControlLayout.SuspendLayout();
             this.flpWarningTimesLayout.SuspendLayout();
             this.tlpFirstWarningLayout.SuspendLayout();
             this.tlpSecondWarningLayout.SuspendLayout();
-            this.tlpTimerControlLayout.SuspendLayout();
             this.tlpFinalMessageLayout.SuspendLayout();
             this.tlpGoLiveLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbLiveIndicator)).BeginInit();
             this.grbPreviewBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // tlpOuterLayout
@@ -111,7 +113,7 @@
             this.tlpOuterLayout.Name = "tlpOuterLayout";
             this.tlpOuterLayout.RowCount = 1;
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpOuterLayout.Size = new System.Drawing.Size(1023, 284);
+            this.tlpOuterLayout.Size = new System.Drawing.Size(1037, 303);
             this.tlpOuterLayout.TabIndex = 0;
             // 
             // tlpControlsLayout
@@ -127,20 +129,22 @@
             this.tlpControlsLayout.RowCount = 2;
             this.tlpControlsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpControlsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 108F));
-            this.tlpControlsLayout.Size = new System.Drawing.Size(742, 278);
+            this.tlpControlsLayout.Size = new System.Drawing.Size(756, 297);
             this.tlpControlsLayout.TabIndex = 1;
             // 
             // flpIOayout
             // 
             this.flpIOayout.AutoSize = true;
+            this.flpIOayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flpIOayout.Controls.Add(this.tlpTimerNameLayout);
+            this.flpIOayout.Controls.Add(this.tlpTitleLayout);
             this.flpIOayout.Controls.Add(this.tlpOpenLayout);
             this.flpIOayout.Controls.Add(this.btnVisualSettings);
             this.flpIOayout.Controls.Add(this.btnSave);
             this.flpIOayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpIOayout.Location = new System.Drawing.Point(3, 3);
             this.flpIOayout.Name = "flpIOayout";
-            this.flpIOayout.Size = new System.Drawing.Size(736, 34);
+            this.flpIOayout.Size = new System.Drawing.Size(750, 65);
             this.flpIOayout.TabIndex = 4;
             // 
             // tlpTimerNameLayout
@@ -157,7 +161,7 @@
             this.tlpTimerNameLayout.Name = "tlpTimerNameLayout";
             this.tlpTimerNameLayout.RowCount = 1;
             this.tlpTimerNameLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpTimerNameLayout.Size = new System.Drawing.Size(278, 28);
+            this.tlpTimerNameLayout.Size = new System.Drawing.Size(220, 28);
             this.tlpTimerNameLayout.TabIndex = 6;
             // 
             // lblTimerName
@@ -176,7 +180,7 @@
             this.txtSettingsName.Enabled = false;
             this.txtSettingsName.Location = new System.Drawing.Point(44, 4);
             this.txtSettingsName.Name = "txtSettingsName";
-            this.txtSettingsName.Size = new System.Drawing.Size(164, 20);
+            this.txtSettingsName.Size = new System.Drawing.Size(118, 20);
             this.txtSettingsName.TabIndex = 0;
             this.txtSettingsName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSettingsName_KeyPress);
             // 
@@ -185,13 +189,48 @@
             this.btnEditName.BackColor = System.Drawing.SystemColors.Control;
             this.btnEditName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditName.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnEditName.Location = new System.Drawing.Point(214, 3);
+            this.btnEditName.Location = new System.Drawing.Point(168, 3);
             this.btnEditName.Name = "btnEditName";
-            this.btnEditName.Size = new System.Drawing.Size(61, 22);
+            this.btnEditName.Size = new System.Drawing.Size(49, 22);
             this.btnEditName.TabIndex = 13;
             this.btnEditName.Text = "Edit...";
             this.btnEditName.UseVisualStyleBackColor = false;
             this.btnEditName.Click += new System.EventHandler(this.btnEditName_Click);
+            // 
+            // tlpTitleLayout
+            // 
+            this.tlpTitleLayout.AutoSize = true;
+            this.tlpTitleLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tlpTitleLayout.ColumnCount = 2;
+            this.tlpTitleLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpTitleLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpTitleLayout.Controls.Add(this.txtTitle, 1, 0);
+            this.tlpTitleLayout.Controls.Add(this.lblTitle, 0, 0);
+            this.tlpTitleLayout.Location = new System.Drawing.Point(229, 3);
+            this.tlpTitleLayout.Name = "tlpTitleLayout";
+            this.tlpTitleLayout.RowCount = 1;
+            this.tlpTitleLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpTitleLayout.Size = new System.Drawing.Size(225, 26);
+            this.tlpTitleLayout.TabIndex = 12;
+            // 
+            // txtTitle
+            // 
+            this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTitle.Location = new System.Drawing.Point(65, 3);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(157, 20);
+            this.txtTitle.TabIndex = 10;
+            this.txtTitle.TextChanged += new System.EventHandler(this.txtTitle_TextChanged);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(3, 6);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(56, 13);
+            this.lblTitle.TabIndex = 15;
+            this.lblTitle.Text = "Timer Title";
             // 
             // tlpOpenLayout
             // 
@@ -202,11 +241,11 @@
             this.tlpOpenLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpOpenLayout.Controls.Add(this.pictureBox1, 0, 0);
             this.tlpOpenLayout.Controls.Add(this.cmbLoadTimer, 1, 0);
-            this.tlpOpenLayout.Location = new System.Drawing.Point(287, 3);
+            this.tlpOpenLayout.Location = new System.Drawing.Point(460, 3);
             this.tlpOpenLayout.Name = "tlpOpenLayout";
             this.tlpOpenLayout.RowCount = 1;
             this.tlpOpenLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpOpenLayout.Size = new System.Drawing.Size(266, 28);
+            this.tlpOpenLayout.Size = new System.Drawing.Size(210, 28);
             this.tlpOpenLayout.TabIndex = 5;
             // 
             // pictureBox1
@@ -226,19 +265,23 @@
             this.cmbLoadTimer.FormattingEnabled = true;
             this.cmbLoadTimer.Location = new System.Drawing.Point(38, 3);
             this.cmbLoadTimer.Name = "cmbLoadTimer";
-            this.cmbLoadTimer.Size = new System.Drawing.Size(225, 21);
+            this.cmbLoadTimer.Size = new System.Drawing.Size(169, 21);
             this.cmbLoadTimer.TabIndex = 1;
             this.cmbLoadTimer.SelectedIndexChanged += new System.EventHandler(this.cmbLoadTimer_SelectedIndexChanged);
             // 
             // btnVisualSettings
             // 
+            this.btnVisualSettings.BackColor = System.Drawing.Color.Transparent;
+            this.btnVisualSettings.BackgroundImage = global::SpeakerTimer.Properties.Resources.settings;
+            this.btnVisualSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnVisualSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVisualSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVisualSettings.Location = new System.Drawing.Point(559, 3);
+            this.btnVisualSettings.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnVisualSettings.Location = new System.Drawing.Point(676, 3);
             this.btnVisualSettings.Name = "btnVisualSettings";
-            this.btnVisualSettings.Size = new System.Drawing.Size(71, 27);
+            this.btnVisualSettings.Size = new System.Drawing.Size(33, 27);
             this.btnVisualSettings.TabIndex = 1;
-            this.btnVisualSettings.Text = "Settings";
-            this.btnVisualSettings.UseVisualStyleBackColor = true;
+            this.btnVisualSettings.UseVisualStyleBackColor = false;
             this.btnVisualSettings.Click += new System.EventHandler(this.btnVisualSettings_Click);
             // 
             // btnSave
@@ -247,7 +290,7 @@
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSave.Location = new System.Drawing.Point(636, 3);
+            this.btnSave.Location = new System.Drawing.Point(3, 37);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(77, 25);
             this.btnSave.TabIndex = 2;
@@ -258,59 +301,72 @@
             // tlpMainLayout
             // 
             this.tlpMainLayout.ColumnCount = 2;
-            this.tlpMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 256F));
-            this.tlpMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMainLayout.Controls.Add(this.tlpMainRightLayout, 1, 0);
-            this.tlpMainLayout.Controls.Add(this.tlpMainLeftLayout, 0, 0);
+            this.tlpMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpMainLayout.Controls.Add(this.tlpMessageLayout, 1, 0);
+            this.tlpMainLayout.Controls.Add(this.flpMainLeftLayout, 0, 0);
             this.tlpMainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpMainLayout.Location = new System.Drawing.Point(3, 43);
+            this.tlpMainLayout.Location = new System.Drawing.Point(3, 74);
             this.tlpMainLayout.Name = "tlpMainLayout";
             this.tlpMainLayout.RowCount = 1;
             this.tlpMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMainLayout.Size = new System.Drawing.Size(736, 232);
+            this.tlpMainLayout.Size = new System.Drawing.Size(750, 220);
             this.tlpMainLayout.TabIndex = 1;
-            // 
-            // tlpMainRightLayout
-            // 
-            this.tlpMainRightLayout.ColumnCount = 1;
-            this.tlpMainRightLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMainRightLayout.Controls.Add(this.tlpMessageLayout, 0, 3);
-            this.tlpMainRightLayout.Controls.Add(this.tlpTitleLayout, 0, 0);
-            this.tlpMainRightLayout.Controls.Add(this.lblShowMessage, 0, 2);
-            this.tlpMainRightLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpMainRightLayout.Location = new System.Drawing.Point(259, 3);
-            this.tlpMainRightLayout.Name = "tlpMainRightLayout";
-            this.tlpMainRightLayout.RowCount = 4;
-            this.tlpMainRightLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpMainRightLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            this.tlpMainRightLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpMainRightLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMainRightLayout.Size = new System.Drawing.Size(474, 226);
-            this.tlpMainRightLayout.TabIndex = 3;
             // 
             // tlpMessageLayout
             // 
             this.tlpMessageLayout.ColumnCount = 3;
-            this.tlpMessageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMessageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 187F));
-            this.tlpMessageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 76F));
-            this.tlpMessageLayout.Controls.Add(this.tlpMessageDurationLayout, 1, 2);
+            this.tlpMessageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpMessageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tlpMessageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpMessageLayout.Controls.Add(this.btnShowMessage, 2, 1);
-            this.tlpMessageLayout.Controls.Add(this.txtShowMessage, 1, 1);
+            this.tlpMessageLayout.Controls.Add(this.tableLayoutPanel1, 1, 1);
             this.tlpMessageLayout.Controls.Add(this.lblMessageInfo, 0, 1);
             this.tlpMessageLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpMessageLayout.Location = new System.Drawing.Point(3, 65);
+            this.tlpMessageLayout.Location = new System.Drawing.Point(259, 3);
             this.tlpMessageLayout.Name = "tlpMessageLayout";
             this.tlpMessageLayout.RowCount = 3;
             this.tlpMessageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpMessageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpMessageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpMessageLayout.Size = new System.Drawing.Size(468, 158);
+            this.tlpMessageLayout.Size = new System.Drawing.Size(488, 214);
             this.tlpMessageLayout.TabIndex = 3;
+            // 
+            // btnShowMessage
+            // 
+            this.btnShowMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnShowMessage.AutoSize = true;
+            this.btnShowMessage.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnShowMessage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowMessage.Location = new System.Drawing.Point(393, 94);
+            this.btnShowMessage.Name = "btnShowMessage";
+            this.btnShowMessage.Size = new System.Drawing.Size(92, 25);
+            this.btnShowMessage.TabIndex = 4;
+            this.btnShowMessage.Text = "Show Message";
+            this.btnShowMessage.UseVisualStyleBackColor = true;
+            this.btnShowMessage.Click += new System.EventHandler(this.btnShowMessage_Click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.tlpMessageDurationLayout, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txtShowMessage, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(81, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(306, 208);
+            this.tableLayoutPanel1.TabIndex = 5;
             // 
             // tlpMessageDurationLayout
             // 
-            this.tlpMessageDurationLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.tlpMessageDurationLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tlpMessageDurationLayout.AutoSize = true;
             this.tlpMessageDurationLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tlpMessageDurationLayout.ColumnCount = 4;
@@ -321,11 +377,11 @@
             this.tlpMessageDurationLayout.Controls.Add(this.numMessageDuration, 0, 0);
             this.tlpMessageDurationLayout.Controls.Add(this.lblSeconds, 1, 0);
             this.tlpMessageDurationLayout.Controls.Add(this.chbIndefiniteMessageDuration, 3, 0);
-            this.tlpMessageDurationLayout.Location = new System.Drawing.Point(211, 129);
+            this.tlpMessageDurationLayout.Location = new System.Drawing.Point(3, 183);
             this.tlpMessageDurationLayout.Name = "tlpMessageDurationLayout";
             this.tlpMessageDurationLayout.RowCount = 1;
             this.tlpMessageDurationLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMessageDurationLayout.Size = new System.Drawing.Size(175, 26);
+            this.tlpMessageDurationLayout.Size = new System.Drawing.Size(300, 22);
             this.tlpMessageDurationLayout.TabIndex = 10;
             // 
             // numMessageDuration
@@ -346,7 +402,7 @@
             // 
             this.lblSeconds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSeconds.AutoSize = true;
-            this.lblSeconds.Location = new System.Drawing.Point(43, 6);
+            this.lblSeconds.Location = new System.Drawing.Point(43, 4);
             this.lblSeconds.Name = "lblSeconds";
             this.lblSeconds.Size = new System.Drawing.Size(49, 13);
             this.lblSeconds.TabIndex = 10;
@@ -355,124 +411,118 @@
             // 
             // chbIndefiniteMessageDuration
             // 
-            this.chbIndefiniteMessageDuration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.chbIndefiniteMessageDuration.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chbIndefiniteMessageDuration.AutoSize = true;
             this.chbIndefiniteMessageDuration.Checked = true;
             this.chbIndefiniteMessageDuration.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbIndefiniteMessageDuration.Location = new System.Drawing.Point(103, 4);
+            this.chbIndefiniteMessageDuration.Location = new System.Drawing.Point(103, 3);
             this.chbIndefiniteMessageDuration.Name = "chbIndefiniteMessageDuration";
-            this.chbIndefiniteMessageDuration.Size = new System.Drawing.Size(69, 17);
+            this.chbIndefiniteMessageDuration.Size = new System.Drawing.Size(69, 16);
             this.chbIndefiniteMessageDuration.TabIndex = 9;
             this.chbIndefiniteMessageDuration.Text = "Indefinite";
             this.chbIndefiniteMessageDuration.UseVisualStyleBackColor = true;
             this.chbIndefiniteMessageDuration.CheckedChanged += new System.EventHandler(this.chbIndefiniteMessageDuration_CheckedChanged);
             // 
-            // btnShowMessage
-            // 
-            this.btnShowMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnShowMessage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowMessage.Location = new System.Drawing.Point(395, 45);
-            this.btnShowMessage.Name = "btnShowMessage";
-            this.btnShowMessage.Size = new System.Drawing.Size(70, 36);
-            this.btnShowMessage.TabIndex = 4;
-            this.btnShowMessage.Text = "Show Message";
-            this.btnShowMessage.UseVisualStyleBackColor = true;
-            this.btnShowMessage.Click += new System.EventHandler(this.btnShowMessage_Click);
-            // 
             // txtShowMessage
             // 
             this.txtShowMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtShowMessage.Location = new System.Drawing.Point(208, 3);
+            this.txtShowMessage.Location = new System.Drawing.Point(3, 3);
             this.txtShowMessage.Multiline = true;
             this.txtShowMessage.Name = "txtShowMessage";
-            this.txtShowMessage.Size = new System.Drawing.Size(181, 120);
+            this.txtShowMessage.Size = new System.Drawing.Size(300, 174);
             this.txtShowMessage.TabIndex = 0;
             // 
             // lblMessageInfo
             // 
             this.lblMessageInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.lblMessageInfo.AutoSize = true;
-            this.lblMessageInfo.Location = new System.Drawing.Point(12, 0);
+            this.lblMessageInfo.Location = new System.Drawing.Point(3, 0);
             this.lblMessageInfo.Name = "lblMessageInfo";
-            this.lblMessageInfo.Size = new System.Drawing.Size(180, 126);
+            this.lblMessageInfo.Size = new System.Drawing.Size(72, 214);
             this.lblMessageInfo.TabIndex = 5;
             this.lblMessageInfo.Text = "Enter a message to display on the screen for a brief or indefinite interval";
             this.lblMessageInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tlpTitleLayout
+            // flpMainLeftLayout
             // 
-            this.tlpTitleLayout.AutoSize = true;
-            this.tlpTitleLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tlpTitleLayout.ColumnCount = 2;
-            this.tlpTitleLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tlpTitleLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpTitleLayout.Controls.Add(this.txtTitle, 1, 0);
-            this.tlpTitleLayout.Controls.Add(this.lblTitle, 0, 0);
-            this.tlpTitleLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpTitleLayout.Location = new System.Drawing.Point(3, 3);
-            this.tlpTitleLayout.Name = "tlpTitleLayout";
-            this.tlpTitleLayout.RowCount = 1;
-            this.tlpTitleLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpTitleLayout.Size = new System.Drawing.Size(468, 26);
-            this.tlpTitleLayout.TabIndex = 12;
+            this.flpMainLeftLayout.AutoSize = true;
+            this.flpMainLeftLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flpMainLeftLayout.Controls.Add(this.tlpTimerControlLayout);
+            this.flpMainLeftLayout.Controls.Add(this.flpWarningTimesLayout);
+            this.flpMainLeftLayout.Controls.Add(this.chbBlink);
+            this.flpMainLeftLayout.Controls.Add(this.tlpFinalMessageLayout);
+            this.flpMainLeftLayout.Controls.Add(this.tlpGoLiveLayout);
+            this.flpMainLeftLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flpMainLeftLayout.Location = new System.Drawing.Point(3, 3);
+            this.flpMainLeftLayout.Name = "flpMainLeftLayout";
+            this.flpMainLeftLayout.Size = new System.Drawing.Size(250, 184);
+            this.flpMainLeftLayout.TabIndex = 2;
             // 
-            // txtTitle
+            // tlpTimerControlLayout
             // 
-            this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTitle.Location = new System.Drawing.Point(65, 3);
-            this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(400, 20);
-            this.txtTitle.TabIndex = 10;
-            this.txtTitle.TextChanged += new System.EventHandler(this.txtTitle_TextChanged);
+            this.tlpTimerControlLayout.ColumnCount = 5;
+            this.tlpTimerControlLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpTimerControlLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tlpTimerControlLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tlpTimerControlLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tlpTimerControlLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpTimerControlLayout.Controls.Add(this.btnReset, 3, 0);
+            this.tlpTimerControlLayout.Controls.Add(this.btnStart, 1, 0);
+            this.tlpTimerControlLayout.Controls.Add(this.btnStop, 2, 0);
+            this.tlpTimerControlLayout.Location = new System.Drawing.Point(3, 3);
+            this.tlpTimerControlLayout.Name = "tlpTimerControlLayout";
+            this.tlpTimerControlLayout.RowCount = 1;
+            this.tlpTimerControlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpTimerControlLayout.Size = new System.Drawing.Size(244, 33);
+            this.tlpTimerControlLayout.TabIndex = 4;
             // 
-            // lblTitle
+            // btnReset
             // 
-            this.lblTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(3, 6);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(56, 13);
-            this.lblTitle.TabIndex = 15;
-            this.lblTitle.Text = "Timer Title";
+            this.btnReset.BackColor = System.Drawing.Color.Transparent;
+            this.btnReset.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReset.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReset.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnReset.Image = global::SpeakerTimer.Properties.Resources.refresh;
+            this.btnReset.Location = new System.Drawing.Point(145, 3);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(34, 27);
+            this.btnReset.TabIndex = 3;
+            this.btnReset.UseVisualStyleBackColor = false;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
-            // lblShowMessage
+            // btnStart
             // 
-            this.lblShowMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblShowMessage.AutoSize = true;
-            this.lblShowMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblShowMessage.Location = new System.Drawing.Point(3, 42);
-            this.lblShowMessage.Name = "lblShowMessage";
-            this.lblShowMessage.Size = new System.Drawing.Size(468, 20);
-            this.lblShowMessage.TabIndex = 5;
-            this.lblShowMessage.Text = "Messages";
-            this.lblShowMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnStart.BackColor = System.Drawing.Color.Transparent;
+            this.btnStart.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStart.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnStart.Image = global::SpeakerTimer.Properties.Resources.play;
+            this.btnStart.Location = new System.Drawing.Point(65, 3);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(34, 27);
+            this.btnStart.TabIndex = 1;
+            this.btnStart.UseVisualStyleBackColor = false;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // tlpMainLeftLayout
+            // btnStop
             // 
-            this.tlpMainLeftLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tlpMainLeftLayout.AutoSize = true;
-            this.tlpMainLeftLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tlpMainLeftLayout.ColumnCount = 1;
-            this.tlpMainLeftLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMainLeftLayout.Controls.Add(this.flpWarningTimesLayout, 0, 1);
-            this.tlpMainLeftLayout.Controls.Add(this.tlpTimerControlLayout, 0, 0);
-            this.tlpMainLeftLayout.Controls.Add(this.chbBlink, 0, 3);
-            this.tlpMainLeftLayout.Controls.Add(this.tlpFinalMessageLayout, 0, 4);
-            this.tlpMainLeftLayout.Controls.Add(this.tlpGoLiveLayout, 0, 5);
-            this.tlpMainLeftLayout.Location = new System.Drawing.Point(3, 19);
-            this.tlpMainLeftLayout.Name = "tlpMainLeftLayout";
-            this.tlpMainLeftLayout.RowCount = 7;
-            this.tlpMainLeftLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpMainLeftLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpMainLeftLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 9F));
-            this.tlpMainLeftLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpMainLeftLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpMainLeftLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpMainLeftLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMainLeftLayout.Size = new System.Drawing.Size(250, 193);
-            this.tlpMainLeftLayout.TabIndex = 2;
+            this.btnStop.BackColor = System.Drawing.Color.Transparent;
+            this.btnStop.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStop.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnStop.Image = global::SpeakerTimer.Properties.Resources.stop_sm1;
+            this.btnStop.Location = new System.Drawing.Point(105, 3);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(34, 27);
+            this.btnStop.TabIndex = 2;
+            this.btnStop.UseVisualStyleBackColor = false;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // flpWarningTimesLayout
             // 
@@ -565,78 +615,13 @@
             this.txtSecondWarningTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtSecondWarningTime.TimeChanged += new System.EventHandler(this.txtAutoPauseTime_TimeChanged);
             // 
-            // tlpTimerControlLayout
-            // 
-            this.tlpTimerControlLayout.ColumnCount = 5;
-            this.tlpTimerControlLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpTimerControlLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tlpTimerControlLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tlpTimerControlLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tlpTimerControlLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpTimerControlLayout.Controls.Add(this.btnReset, 3, 0);
-            this.tlpTimerControlLayout.Controls.Add(this.btnStart, 1, 0);
-            this.tlpTimerControlLayout.Controls.Add(this.btnStop, 2, 0);
-            this.tlpTimerControlLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpTimerControlLayout.Location = new System.Drawing.Point(3, 3);
-            this.tlpTimerControlLayout.Name = "tlpTimerControlLayout";
-            this.tlpTimerControlLayout.RowCount = 1;
-            this.tlpTimerControlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpTimerControlLayout.Size = new System.Drawing.Size(244, 33);
-            this.tlpTimerControlLayout.TabIndex = 4;
-            // 
-            // btnReset
-            // 
-            this.btnReset.BackColor = System.Drawing.Color.Transparent;
-            this.btnReset.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReset.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnReset.Image = global::SpeakerTimer.Properties.Resources.refresh;
-            this.btnReset.Location = new System.Drawing.Point(145, 3);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(34, 27);
-            this.btnReset.TabIndex = 3;
-            this.btnReset.UseVisualStyleBackColor = false;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
-            // 
-            // btnStart
-            // 
-            this.btnStart.BackColor = System.Drawing.Color.Transparent;
-            this.btnStart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnStart.Image = global::SpeakerTimer.Properties.Resources.play;
-            this.btnStart.Location = new System.Drawing.Point(65, 3);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(34, 27);
-            this.btnStart.TabIndex = 1;
-            this.btnStart.UseVisualStyleBackColor = false;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
-            // 
-            // btnStop
-            // 
-            this.btnStop.BackColor = System.Drawing.Color.Transparent;
-            this.btnStop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStop.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnStop.Image = global::SpeakerTimer.Properties.Resources.stop_sm1;
-            this.btnStop.Location = new System.Drawing.Point(105, 3);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(34, 27);
-            this.btnStop.TabIndex = 2;
-            this.btnStop.UseVisualStyleBackColor = false;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
             // chbBlink
             // 
-            this.chbBlink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chbBlink.AutoSize = true;
             this.chbBlink.Enabled = false;
-            this.chbBlink.Location = new System.Drawing.Point(3, 112);
+            this.chbBlink.Location = new System.Drawing.Point(3, 103);
             this.chbBlink.Name = "chbBlink";
-            this.chbBlink.Size = new System.Drawing.Size(244, 17);
+            this.chbBlink.Size = new System.Drawing.Size(115, 17);
             this.chbBlink.TabIndex = 8;
             this.chbBlink.Text = "Blink when expired";
             this.chbBlink.UseVisualStyleBackColor = true;
@@ -651,8 +636,7 @@
             this.tlpFinalMessageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpFinalMessageLayout.Controls.Add(this.txtFinalMessage, 1, 0);
             this.tlpFinalMessageLayout.Controls.Add(this.lblFinalMessage, 0, 0);
-            this.tlpFinalMessageLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpFinalMessageLayout.Location = new System.Drawing.Point(3, 135);
+            this.tlpFinalMessageLayout.Location = new System.Drawing.Point(3, 126);
             this.tlpFinalMessageLayout.Name = "tlpFinalMessageLayout";
             this.tlpFinalMessageLayout.RowCount = 1;
             this.tlpFinalMessageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -680,18 +664,17 @@
             // 
             // tlpGoLiveLayout
             // 
-            this.tlpGoLiveLayout.ColumnCount = 3;
+            this.tlpGoLiveLayout.AutoSize = true;
+            this.tlpGoLiveLayout.ColumnCount = 2;
             this.tlpGoLiveLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tlpGoLiveLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tlpGoLiveLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpGoLiveLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpGoLiveLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpGoLiveLayout.Controls.Add(this.rdbLive, 0, 0);
             this.tlpGoLiveLayout.Controls.Add(this.pcbLiveIndicator, 1, 0);
-            this.tlpGoLiveLayout.Location = new System.Drawing.Point(3, 167);
+            this.tlpGoLiveLayout.Location = new System.Drawing.Point(3, 158);
             this.tlpGoLiveLayout.Name = "tlpGoLiveLayout";
             this.tlpGoLiveLayout.RowCount = 1;
             this.tlpGoLiveLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpGoLiveLayout.Size = new System.Drawing.Size(244, 23);
+            this.tlpGoLiveLayout.Size = new System.Drawing.Size(99, 23);
             this.tlpGoLiveLayout.TabIndex = 7;
             // 
             // rdbLive
@@ -728,7 +711,7 @@
             this.timerView.Location = new System.Drawing.Point(3, 3);
             this.timerView.Name = "timerView";
             this.timerView.ShowLabel = true;
-            this.timerView.Size = new System.Drawing.Size(269, 278);
+            this.timerView.Size = new System.Drawing.Size(269, 297);
             this.timerView.TabIndex = 2;
             this.timerView.TimerColor = System.Drawing.SystemColors.ControlText;
             this.timerView.TimerFont = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -740,12 +723,15 @@
             this.grbPreviewBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbPreviewBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbPreviewBox.Location = new System.Drawing.Point(0, 0);
-            this.grbPreviewBox.MinimumSize = new System.Drawing.Size(0, 303);
             this.grbPreviewBox.Name = "grbPreviewBox";
-            this.grbPreviewBox.Size = new System.Drawing.Size(1029, 303);
+            this.grbPreviewBox.Size = new System.Drawing.Size(1043, 322);
             this.grbPreviewBox.TabIndex = 1;
             this.grbPreviewBox.TabStop = false;
             this.grbPreviewBox.Text = "groupBox2";
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
             // 
             // TimerPreview
             // 
@@ -753,7 +739,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grbPreviewBox);
             this.Name = "TimerPreview";
-            this.Size = new System.Drawing.Size(1029, 294);
+            this.Size = new System.Drawing.Size(1043, 322);
             this.Load += new System.EventHandler(this.TimerPreview_Load);
             this.tlpOuterLayout.ResumeLayout(false);
             this.tlpControlsLayout.ResumeLayout(false);
@@ -762,34 +748,35 @@
             this.flpIOayout.PerformLayout();
             this.tlpTimerNameLayout.ResumeLayout(false);
             this.tlpTimerNameLayout.PerformLayout();
+            this.tlpTitleLayout.ResumeLayout(false);
+            this.tlpTitleLayout.PerformLayout();
             this.tlpOpenLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tlpMainLayout.ResumeLayout(false);
             this.tlpMainLayout.PerformLayout();
-            this.tlpMainRightLayout.ResumeLayout(false);
-            this.tlpMainRightLayout.PerformLayout();
             this.tlpMessageLayout.ResumeLayout(false);
             this.tlpMessageLayout.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.tlpMessageDurationLayout.ResumeLayout(false);
             this.tlpMessageDurationLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMessageDuration)).EndInit();
-            this.tlpTitleLayout.ResumeLayout(false);
-            this.tlpTitleLayout.PerformLayout();
-            this.tlpMainLeftLayout.ResumeLayout(false);
-            this.tlpMainLeftLayout.PerformLayout();
+            this.flpMainLeftLayout.ResumeLayout(false);
+            this.flpMainLeftLayout.PerformLayout();
+            this.tlpTimerControlLayout.ResumeLayout(false);
             this.flpWarningTimesLayout.ResumeLayout(false);
             this.flpWarningTimesLayout.PerformLayout();
             this.tlpFirstWarningLayout.ResumeLayout(false);
             this.tlpFirstWarningLayout.PerformLayout();
             this.tlpSecondWarningLayout.ResumeLayout(false);
             this.tlpSecondWarningLayout.PerformLayout();
-            this.tlpTimerControlLayout.ResumeLayout(false);
             this.tlpFinalMessageLayout.ResumeLayout(false);
             this.tlpFinalMessageLayout.PerformLayout();
             this.tlpGoLiveLayout.ResumeLayout(false);
             this.tlpGoLiveLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbLiveIndicator)).EndInit();
             this.grbPreviewBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -801,7 +788,6 @@
         private System.Windows.Forms.TextBox txtSettingsName;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.TableLayoutPanel tlpMainLeftLayout;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblWarningTime;
@@ -830,7 +816,6 @@
         private System.Windows.Forms.FlowLayoutPanel flpWarningTimesLayout;
         private System.Windows.Forms.TableLayoutPanel tlpFinalMessageLayout;
         private System.Windows.Forms.Button btnEditName;
-        private System.Windows.Forms.TableLayoutPanel tlpMainRightLayout;
         private System.Windows.Forms.TextBox txtShowMessage;
         private System.Windows.Forms.Button btnVisualSettings;
         private System.Windows.Forms.TableLayoutPanel tlpTitleLayout;
@@ -838,11 +823,13 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.TableLayoutPanel tlpMessageLayout;
         private System.Windows.Forms.Button btnShowMessage;
-        private System.Windows.Forms.Label lblShowMessage;
         private System.Windows.Forms.Label lblMessageInfo;
         private System.Windows.Forms.NumericUpDown numMessageDuration;
         private System.Windows.Forms.TableLayoutPanel tlpMessageDurationLayout;
         private System.Windows.Forms.Label lblSeconds;
         private System.Windows.Forms.CheckBox chbIndefiniteMessageDuration;
+        private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.FlowLayoutPanel flpMainLeftLayout;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

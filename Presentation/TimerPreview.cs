@@ -66,7 +66,7 @@
                 Util.SetWatermark(this.txtSettingsName, value);
             }
         }
-        
+
         public ComboBox.ObjectCollection SavedTimers
         {
             get { return this.cmbLoadTimer.Items; }
@@ -79,14 +79,14 @@
         private void InitSettings()
         {
             // Final Message
-            this.txtFinalMessage.Text = this.Settings.FinalMessage;            
+            this.txtFinalMessage.Text = this.Settings.FinalMessage;
 
             // Special Times
             this.txtWarningTime.SetTime(this.Settings.WarningTime);
             this.txtSecondWarningTime.SetTime(this.Settings.SecondWarningTime);
 
-			// Blinking
-			this.chbBlink.Checked = this.settings.BlinkOnExpired;
+            // Blinking
+            this.chbBlink.Checked = this.settings.BlinkOnExpired;
 
             // Meta data
             this.running = false;
@@ -199,6 +199,8 @@
         {
             this.CommandIssuer.OnSettingsChanged(this.Settings);
             this.grbPreviewBox.Text = this.settings.Name + "*";
+
+            this.SaveSetting();
         }
 
         #endregion
@@ -290,6 +292,8 @@
             if (this.IsLive)
             {
                 this.OnSettingsChanged();
+                this.CommandIssuer.CancelTimerMessage();
+
                 if (!wasRunning)
                 {
                     // Stop any previously running timer on the live screen
@@ -377,6 +381,17 @@
             var handled = Array.Exists(invalidChars, x => x == e.KeyChar) && !char.IsControl(e.KeyChar);
             handled = handled || e.KeyChar == ',';
             e.Handled = handled;
+
+            if (this.SavedTimers.Contains(this.txtSettingsName.Text))
+            {
+                this.txtSettingsName.BackColor = Color.LightPink;
+                this.errorProvider.SetError(this.txtSettingsName, "Setting name already exists");
+            }
+            else
+            {
+                this.txtSettingsName.BackColor = Color.White;
+                this.errorProvider.SetError(this.txtSettingsName, string.Empty);
+            }
         }
 
         private void btnEditName_Click(object sender, EventArgs e)
@@ -416,7 +431,7 @@
         }
 
         #endregion
-        
+
         #endregion
     }
 }

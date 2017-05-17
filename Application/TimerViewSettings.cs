@@ -1,5 +1,6 @@
 ﻿namespace SpeakerTimer
 {
+    using System;
     using System.Drawing;
 
     public class TimerViewSettings
@@ -198,6 +199,11 @@
             get { return this.SecondWarningTime > 0; }
         }
 
+        public static TimerViewSettings Default
+        {
+            get { return new TimerViewSettings(); }
+        }
+
         #endregion
 
         public void SetFont(string fontFamily = "", float fontSize = 0f)
@@ -245,6 +251,14 @@
             return base.GetHashCode();
         }
 
+        private void SetDefaultSettings()
+        {
+            this.Title = TimerViewSettings.DefaultTitle;
+            this.VisualSettings = TimerVisualSettings.Default;
+            this.MessageSettings = TimerMessageSettings.Default;
+            this.BlinkOnExpired = false;
+        }
+
         public static TimerViewSettings ParseCsv(string csv)
         {
             TimerViewSettings settings = TimerViewSettings.Default;
@@ -270,31 +284,16 @@
             }
         }
 
-        private void SetDefaultSettings()
+        public static bool IsUntitled(string name)
         {
-            //this.CounterMode = TimerCounterMode.CountDownToMinus;
-            //this.DisplayMode = TimerDisplayMode.FullWidth;
-            //this.SetFont("Arial", 250f);
+            if (name.StartsWith(TimerViewSettings.DefaultName))
+            {
+                string remnant = name.Replace(TimerViewSettings.DefaultName, string.Empty);
+                int value;
+                return int.TryParse(remnant, out value);
+            }
 
-            //this.TimerColor = Color.White;
-            //this.RunningColor = Color.White;
-            //this.PausedColor = Color.Cyan;
-            //this.WarningColor = Color.Yellow;
-            //this.SecondWarningColor = Color.Orange;
-            //this.ExpiredColor = Color.Red;
-            //this.StoppedColor = Color.Silver;
-            //this.BackgroundColor = Color.Black;
-            //this.MessageColor = Color.DodgerBlue;
-
-            this.Title = TimerViewSettings.DefaultTitle;
-            this.VisualSettings = TimerVisualSettings.Default;
-            this.MessageSettings = TimerMessageSettings.Default;
-            this.BlinkOnExpired = false;
-        }
-
-        public static TimerViewSettings Default
-        {
-            get { return new TimerViewSettings(); }
+            return false;
         }
 
         public enum TimerCounterMode
@@ -309,7 +308,6 @@
 
         public class TimerVisualSettings
         {
-
             public TimerVisualSettings()
             {
                 this.SetDefaultSettings();
@@ -416,6 +414,23 @@
                 return base.GetHashCode();
             }
 
+            private void SetDefaultSettings()
+            {
+                this.CounterMode = TimerCounterMode.CountDownToMinus;
+                this.DisplayMode = TimerDisplayMode.FullWidth;
+                this.SetFont("Arial", 250f);
+
+                this.TimerColor = Color.White;
+                this.RunningColor = Color.White;
+                this.PausedColor = Color.Cyan;
+                this.WarningColor = Color.Yellow;
+                this.SecondWarningColor = Color.Orange;
+                this.ExpiredColor = Color.Red;
+                this.StoppedColor = Color.Silver;
+                this.BackgroundColor = Color.Black;
+                this.MessageColor = Color.DodgerBlue;
+            }
+            
             public static TimerVisualSettings ParseCsv(string csv, int start = 0)
             {
                 TimerVisualSettings settings = TimerVisualSettings.Default;
@@ -447,24 +462,6 @@
                     return settings;
                 }
             }
-
-            private void SetDefaultSettings()
-            {
-                this.CounterMode = TimerCounterMode.CountDownToMinus;
-                this.DisplayMode = TimerDisplayMode.FullWidth;
-                this.SetFont("Arial", 250f);
-
-                this.TimerColor = Color.White;
-                this.RunningColor = Color.White;
-                this.PausedColor = Color.Cyan;
-                this.WarningColor = Color.Yellow;
-                this.SecondWarningColor = Color.Orange;
-                this.ExpiredColor = Color.Red;
-                this.StoppedColor = Color.Silver;
-                this.BackgroundColor = Color.Black;
-                this.MessageColor = Color.DodgerBlue;
-            }
-
         }
 
         public class TimerMessageSettings

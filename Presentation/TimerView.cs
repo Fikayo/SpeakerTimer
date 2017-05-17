@@ -21,6 +21,9 @@
         public TimerView()
         {
             InitializeComponent();
+            
+            this.blinkManager = new BlinkManager();
+            this.blinkManager.Blink += BlinkManager_Blink;
 
             this.txtInput = new TimeInputBox();
             this.InitialiseTxtInput();
@@ -32,13 +35,12 @@
             this.messageTimer = new Timer();
             this.messageTimer.Tick += MessageTimer_Tick;
 
-            this.Settings = TimerViewSettings.Default;
+            this.ApplySettings(TimerViewSettings.Default);
             this.stopped = true;
             this.DisplayState = DisplayState.Timer;
 			this.TimerState = TimerState.Stopped;
 
-            this.blinkManager = new BlinkManager();
-            this.blinkManager.Blink += BlinkManager_Blink;
+            this.SizeChanged += (_, e) => this.lblTimer.MaximumSize = new Size(this.Width, 0);
         }
 
         public TimerView(TimerViewerCommandIssuer commandIssuer)
@@ -92,11 +94,11 @@
 
         public Color TimerColor
         {
-            get { return this.lblTimer.ForeColor; }
+            get { return this.TimerLabel.ForeColor; }
 
             set
             {
-                this.lblTimer.ForeColor = value;
+                this.TimerLabel.ForeColor = value;
                 this.lblCurrentTimer.ForeColor = value;
             }
         }
@@ -110,12 +112,12 @@
 
         public override bool IsPreviewMode
         {
-            get { return this.lblTimer.Cursor == Cursors.IBeam; }
+            get { return this.TimerLabel.Cursor == Cursors.IBeam; }
 
             set
             {
                 var preview = value;
-                this.lblTimer.Cursor = preview ? Cursors.IBeam : Cursors.Default;
+                this.TimerLabel.Cursor = preview ? Cursors.IBeam : Cursors.Default;
             }
         }
 
@@ -129,6 +131,27 @@
         {
             get { return this.lblCurrentTimer.Visible; }
             set { this.lblCurrentTimer.Visible = value; }
+        }
+
+        private Label TimerLabel
+        {
+            get
+            {
+                switch (this.DisplayState)
+                {
+                    case DisplayState.Message:
+                        {
+                            return this.lblMiniTimer;
+                        }
+
+                    default:
+                    case DisplayState.Timer:
+                        {
+
+                            return this.lblTimer;
+                        }
+                }
+            }
         }
 
         #endregion
@@ -209,13 +232,17 @@
                     break;
             }
 
-            this.lblTimer.Text = display;
+            this.TimerLabel.Text = display;
         }
 
         public void DisplayTimerMessage()
         {
             this.ShowLabel = false;
             this.lblTimer.Text = this.Settings.MessageSettings.TimerMessage;
+
+            this.lblMiniTimer.Visible = true;
+            this.lblMiniTimer.ForeColor = this.Settings.RunningColor;
+            this.RefreshTimerDisplay(true);
         }
 
         #endregion
@@ -250,7 +277,20 @@
                 this.commandIssuer.SettingsChanged -= CommandIssuer_SettingsChanged;
             }
         }
-        
+
+        private void InitialiseTxtInput()
+        {
+            this.txtInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtInput.Enabled = false;
+            this.txtInput.InputTime = 0D;
+            this.txtInput.Size = new System.Drawing.Size(292, 85);
+            this.txtInput.TabIndex = 1;
+            this.txtInput.Text = "00:00:00";
+            this.txtInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtInput.Visible = false;
+            this.txtInput.TimeChanged += this.txtInput_TimeChanged;
+        }
+
         private void ApplySettings(TimerViewSettings settings)
         {
             this.TimerFont = this.IsPreviewMode ? new Font(settings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : settings.TimerFont;
@@ -275,7 +315,7 @@
         private void ApplyMessageSettings(TimerViewSettings.TimerMessageSettings messageSettings)
         {
             this.Settings.MessageSettings = messageSettings;
-            if(!string.IsNullOrEmpty(this.Settings.MessageSettings.TimerMessage))
+            if(this.DisplayState != DisplayState.Message && !string.IsNullOrEmpty(this.Settings.MessageSettings.TimerMessage))
             {
                 this.DisplayState = DisplayState.Message;
                 this.DisplayTimerMessage();
@@ -290,33 +330,24 @@
 
         private void CancelTimerMessage()
         {
-            this.messageTimer.Stop();
-            this.DisplayState = DisplayState.Timer;
-            this.RefreshTimerDisplay(true);
-            this.ShowLabel = true;
+            if (this.DisplayState == DisplayState.Message)
+            {
+                this.messageTimer.Stop();
+                this.DisplayState = DisplayState.Timer;
+                this.RefreshTimerDisplay(true);
+                this.lblMiniTimer.Visible = false;
+                this.ShowLabel = true;
 
-            this.OnMessageFinished();
-        }
-
-        private void InitialiseTxtInput()
-        {
-            this.txtInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtInput.Enabled = false;
-            this.txtInput.InputTime = 0D;
-            this.txtInput.Size = new System.Drawing.Size(292, 85);
-            this.txtInput.TabIndex = 1;
-            this.txtInput.Text = "00:00:00";
-            this.txtInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtInput.Visible = false;
-            this.txtInput.TimeChanged += this.txtInput_TimeChanged;
+                this.OnMessageFinished();
+            }
         }
 
         private bool DisplayFinalMessage()
         {
             if (!string.IsNullOrEmpty(this.Settings.FinalMessage) && this.DisplayState == DisplayState.Timer)
             {
-                this.lblTimer.ForeColor = this.Settings.MessageColor;
-                this.lblTimer.Text = this.Settings.FinalMessage;
+                this.TimerLabel.ForeColor = this.Settings.MessageColor;
+                this.TimerLabel.Text = this.Settings.FinalMessage;
                 return true;
             }
 
@@ -327,13 +358,13 @@
         {
             this.txtInput.Enabled = true;
             this.txtInput.Visible = true;
-            this.txtInput.Font = this.lblTimer.Font;
+            this.txtInput.Font = this.TimerLabel.Font;
             if (this.Settings.DisplayMode == TimerViewSettings.TimerDisplayMode.FullWidth)
             {
-                this.txtInput.Size = this.lblTimer.Size;
+                this.txtInput.Size = this.TimerLabel.Size;
             }
 
-            this.lblTimer.Visible = false;
+            this.TimerLabel.Visible = false;
 
             this.tlpOuterLayout.Controls.Add(this.txtInput, 1, 2);
 
@@ -346,9 +377,9 @@
             this.txtInput.Visible = false;
             this.Settings.Duration = this.txtInput.InputTime;
 
-            this.lblTimer.Visible = true;
-            this.lblTimer.Focus();
-            this.tlpOuterLayout.Controls.Add(this.lblTimer, 1, 2);
+            this.TimerLabel.Visible = true;
+            this.TimerLabel.Focus();
+            this.tlpOuterLayout.Controls.Add(this.TimerLabel, 1, 2);
             this.DisplayTimeElapsed(this.Settings.Duration);
 
             this.OnDurationChanged(this.Settings.Duration);
@@ -606,7 +637,7 @@
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-//            this.lblTimer.ForeColor = this.settings.RunningColor;
+//            this.TimerLabel.ForeColor = this.settings.RunningColor;
 //			this.FadeTimerColor ();
 			this.TimerState = TimerState.Running;
 
@@ -681,25 +712,9 @@
 
 			this.TimerTickState();
 
-            switch(this.DisplayState)
+            if (this.TimerState != TimerState.Stopped)
             {
-                case DisplayState.Timer:
-                    {
-                        if (this.TimerState != TimerState.Stopped)
-                        {
-                            this.DisplayTimeElapsed(this.CurrentTime);
-                        }
-
-                        break;
-                    }
-
-                case DisplayState.Message:
-                    {
-                        break;
-                    }
-
-                default:
-                    break;
+                this.DisplayTimeElapsed(this.CurrentTime);
             }
         }
 
@@ -710,7 +725,7 @@
 
         private void BlinkManager_Blink(object sender, EventArgs e)
         {
-            this.lblTimer.ForeColor = this.blinkManager.BlinkOn ? this.Settings.ExpiredColor : this.Settings.BackgroundColor;
+            this.TimerLabel.ForeColor = this.blinkManager.BlinkOn ? this.Settings.ExpiredColor : this.Settings.BackgroundColor;
         }
 
         private void lblTimer_DoubleClick(object sender, EventArgs e)
