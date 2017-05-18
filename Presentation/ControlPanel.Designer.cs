@@ -33,7 +33,9 @@
             SpeakerTimer.TimerViewSettings timerViewSettings2 = new SpeakerTimer.TimerViewSettings();
             SpeakerTimer.TimerViewSettings.TimerVisualSettings timerVisualSettings2 = new SpeakerTimer.TimerViewSettings.TimerVisualSettings();
             this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpToolStripLayout = new System.Windows.Forms.TableLayoutPanel();
             this.ptsToolStrip = new SpeakerTimer.PresetationToolStrip();
+            this.pcbLiveIndicator = new System.Windows.Forms.PictureBox();
             this.timerPreview2 = new SpeakerTimer.TimerPreview();
             this.timerPreview1 = new SpeakerTimer.TimerPreview();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -53,6 +55,8 @@
             this.tsmRefreshList = new System.Windows.Forms.ToolStripMenuItem();
             this.tslMakeTimePlan = new System.Windows.Forms.ToolStripLabel();
             this.tlpOuterLayout.SuspendLayout();
+            this.tlpToolStripLayout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbLiveIndicator)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,44 +64,71 @@
             // 
             this.tlpOuterLayout.ColumnCount = 1;
             this.tlpOuterLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpOuterLayout.Controls.Add(this.ptsToolStrip, 0, 2);
+            this.tlpOuterLayout.Controls.Add(this.tlpToolStripLayout, 0, 2);
             this.tlpOuterLayout.Controls.Add(this.timerPreview2, 0, 4);
             this.tlpOuterLayout.Controls.Add(this.timerPreview1, 0, 3);
             this.tlpOuterLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpOuterLayout.Location = new System.Drawing.Point(0, 0);
             this.tlpOuterLayout.Name = "tlpOuterLayout";
             this.tlpOuterLayout.RowCount = 5;
-            this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
+            this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpOuterLayout.Size = new System.Drawing.Size(1015, 715);
+            this.tlpOuterLayout.Size = new System.Drawing.Size(1040, 522);
             this.tlpOuterLayout.TabIndex = 0;
+            // 
+            // tlpToolStripLayout
+            // 
+            this.tlpToolStripLayout.ColumnCount = 2;
+            this.tlpToolStripLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpToolStripLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpToolStripLayout.Controls.Add(this.ptsToolStrip, 0, 0);
+            this.tlpToolStripLayout.Controls.Add(this.pcbLiveIndicator, 1, 0);
+            this.tlpToolStripLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpToolStripLayout.Location = new System.Drawing.Point(3, 33);
+            this.tlpToolStripLayout.Name = "tlpToolStripLayout";
+            this.tlpToolStripLayout.RowCount = 1;
+            this.tlpToolStripLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpToolStripLayout.Size = new System.Drawing.Size(1034, 24);
+            this.tlpToolStripLayout.TabIndex = 2;
             // 
             // ptsToolStrip
             // 
             this.ptsToolStrip.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ptsToolStrip.LivePreviewForm = null;
-            this.ptsToolStrip.Location = new System.Drawing.Point(3, 43);
+            this.ptsToolStrip.Location = new System.Drawing.Point(3, 3);
             this.ptsToolStrip.Name = "ptsToolStrip";
             this.ptsToolStrip.PresentForm = null;
             this.ptsToolStrip.ShowDisplayMenu = true;
             this.ptsToolStrip.ShowTimePlanMenu = true;
             this.ptsToolStrip.ShowTimerSettingsMenu = true;
-            this.ptsToolStrip.Size = new System.Drawing.Size(1009, 24);
+            this.ptsToolStrip.Size = new System.Drawing.Size(983, 18);
             this.ptsToolStrip.TabIndex = 2;
             this.ptsToolStrip.PresentFormEventsRequired += new System.EventHandler(this.ptsToolStrip_PresentFormEventsRequired);
             this.ptsToolStrip.PresetsLoaded += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_PresetsLoaded);
             this.ptsToolStrip.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_TimersSettingsOpened);
             this.ptsToolStrip.TimersSettingsDeleted += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_TimersSettingsDeleted);
             // 
+            // pcbLiveIndicator
+            // 
+            this.pcbLiveIndicator.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pcbLiveIndicator.Image = global::SpeakerTimer.Properties.Resources.wpid_gfgffh;
+            this.pcbLiveIndicator.Location = new System.Drawing.Point(992, 3);
+            this.pcbLiveIndicator.Name = "pcbLiveIndicator";
+            this.pcbLiveIndicator.Size = new System.Drawing.Size(39, 18);
+            this.pcbLiveIndicator.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pcbLiveIndicator.TabIndex = 8;
+            this.pcbLiveIndicator.TabStop = false;
+            // 
             // timerPreview2
             // 
-            this.timerPreview2.DisplayName = "Untitled9";
+            this.timerPreview2.DisplayName = "Un-named3";
             this.timerPreview2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerPreview2.IsLive = true;
-            this.timerPreview2.Location = new System.Drawing.Point(3, 395);
+            this.timerPreview2.Location = new System.Drawing.Point(3, 294);
+            this.timerPreview2.MinimumSize = new System.Drawing.Size(0, 195);
             this.timerPreview2.Name = "timerPreview2";
             timerViewSettings1.BackgroundColor = System.Drawing.Color.Black;
             timerViewSettings1.BlinkOnExpired = false;
@@ -107,7 +138,7 @@
             timerViewSettings1.ExpiredColor = System.Drawing.Color.Red;
             timerViewSettings1.FinalMessage = null;
             timerViewSettings1.MessageColor = System.Drawing.Color.DodgerBlue;
-            timerViewSettings1.Name = "Untitled9";
+            timerViewSettings1.Name = "Un-named3";
             timerViewSettings1.PausedColor = System.Drawing.Color.Cyan;
             timerViewSettings1.RunningColor = System.Drawing.Color.White;
             timerViewSettings1.SecondWarningColor = System.Drawing.Color.Orange;
@@ -132,7 +163,7 @@
             timerViewSettings1.WarningColor = System.Drawing.Color.Yellow;
             timerViewSettings1.WarningTime = 0D;
             this.timerPreview2.Settings = timerViewSettings1;
-            this.timerPreview2.Size = new System.Drawing.Size(1009, 317);
+            this.timerPreview2.Size = new System.Drawing.Size(1034, 225);
             this.timerPreview2.TabIndex = 1;
             this.timerPreview2.LoadRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_LoadRequested);
             this.timerPreview2.SaveRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_SaveRequested);
@@ -140,10 +171,11 @@
             // 
             // timerPreview1
             // 
-            this.timerPreview1.DisplayName = "Untitled11";
+            this.timerPreview1.DisplayName = "Un-named4";
             this.timerPreview1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerPreview1.IsLive = true;
-            this.timerPreview1.Location = new System.Drawing.Point(3, 73);
+            this.timerPreview1.Location = new System.Drawing.Point(3, 63);
+            this.timerPreview1.MinimumSize = new System.Drawing.Size(0, 195);
             this.timerPreview1.Name = "timerPreview1";
             timerViewSettings2.BackgroundColor = System.Drawing.Color.Black;
             timerViewSettings2.BlinkOnExpired = false;
@@ -153,7 +185,7 @@
             timerViewSettings2.ExpiredColor = System.Drawing.Color.Red;
             timerViewSettings2.FinalMessage = null;
             timerViewSettings2.MessageColor = System.Drawing.Color.DodgerBlue;
-            timerViewSettings2.Name = "Untitled11";
+            timerViewSettings2.Name = "Un-named4";
             timerViewSettings2.PausedColor = System.Drawing.Color.Cyan;
             timerViewSettings2.RunningColor = System.Drawing.Color.White;
             timerViewSettings2.SecondWarningColor = System.Drawing.Color.Orange;
@@ -178,7 +210,7 @@
             timerViewSettings2.WarningColor = System.Drawing.Color.Yellow;
             timerViewSettings2.WarningTime = 0D;
             this.timerPreview1.Settings = timerViewSettings2;
-            this.timerPreview1.Size = new System.Drawing.Size(1009, 316);
+            this.timerPreview1.Size = new System.Drawing.Size(1034, 225);
             this.timerPreview1.TabIndex = 0;
             this.timerPreview1.LoadRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_LoadRequested);
             this.timerPreview1.SaveRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_SaveRequested);
@@ -193,7 +225,7 @@
             this.tslMakeTimePlan});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1015, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1040, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -325,7 +357,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1015, 715);
+            this.ClientSize = new System.Drawing.Size(1040, 522);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tlpOuterLayout);
             this.KeyPreview = true;
@@ -335,6 +367,8 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ControlPanel_KeyDown);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.ControlPanel_PreviewKeyDown);
             this.tlpOuterLayout.ResumeLayout(false);
+            this.tlpToolStripLayout.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pcbLiveIndicator)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -364,5 +398,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmShowLivePreview;
         private System.Windows.Forms.ToolStripMenuItem tsmKeepPreviewOnTop;
         private PresetationToolStrip ptsToolStrip;
+        private System.Windows.Forms.TableLayoutPanel tlpToolStripLayout;
+        private System.Windows.Forms.PictureBox pcbLiveIndicator;
     }
 }

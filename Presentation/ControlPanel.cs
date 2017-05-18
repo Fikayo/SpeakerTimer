@@ -1035,6 +1035,8 @@
                     this.ptsToolStrip.LivePreviewForm.Hide();
                 }
             }
+
+            this.pcbLiveIndicator.Visible = this.timerPreview1.IsLive || this.timerPreview2.IsLive;
         }
 
         private void timerPreview2_LiveStateChanged(object sender, EventArgs e)
@@ -1065,6 +1067,8 @@
                     this.ptsToolStrip.LivePreviewForm.Hide();
                 }
             }
+            
+            this.pcbLiveIndicator.Visible = this.timerPreview1.IsLive || this.timerPreview2.IsLive;
         }
 
         #endregion
