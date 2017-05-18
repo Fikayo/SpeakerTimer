@@ -707,7 +707,7 @@
             this.timerView.BlinkInterval = 700;
             this.timerView.CommandIssuer = null;
             this.timerView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timerView.IsPreviewMode = true;
+            this.timerView.IsPreviewMode = false;
             this.timerView.Location = new System.Drawing.Point(3, 3);
             this.timerView.Name = "timerView";
             this.timerView.ShowLabel = true;

@@ -112,12 +112,12 @@
 
         public override bool IsPreviewMode
         {
-            get { return this.TimerLabel.Cursor == Cursors.IBeam; }
+            get { return this.TimerLabel.Cursor == Cursors.Hand; }
 
             set
             {
                 var preview = value;
-                this.TimerLabel.Cursor = preview ? Cursors.IBeam : Cursors.Default;
+                this.TimerLabel.Cursor = preview ? Cursors.Hand : Cursors.Default;
             }
         }
 
