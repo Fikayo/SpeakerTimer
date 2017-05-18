@@ -78,21 +78,26 @@
 
         private void InitSettings()
         {
+            // Title
+            this.txtTitle.Text = this.Settings.Title;
+
             // Final Message
             this.txtFinalMessage.Text = this.Settings.FinalMessage;
 
             // Special Times
-            this.txtWarningTime.SetTime(this.Settings.WarningTime);
-            this.txtSecondWarningTime.SetTime(this.Settings.SecondWarningTime);
+            this.tibWarningTime.SetTime(this.Settings.WarningTime);
+            this.tibSecondWarningTime.SetTime(this.Settings.SecondWarningTime);
 
             // Blinking
-            this.chbBlink.Checked = this.settings.BlinkOnExpired;
+            this.chbBlink.Checked = this.Settings.BlinkOnExpired;
 
             // Meta data
             this.running = false;
-            this.grbPreviewBox.Text = this.settings.Name;
-            this.txtSettingsName.Text = this.settings.Name;
-            Util.SetWatermark(this.txtSettingsName, this.settings.Name);
+            this.grbPreviewBox.Text = this.Settings.Name;
+            this.txtSettingsName.Text = this.Settings.Name;
+            Util.SetWatermark(this.txtSettingsName, this.Settings.Name);
+
+            this.SaveSettings();
         }
 
         private void HookEventHandlers()
@@ -145,7 +150,7 @@
             return result == DialogResult.OK ? this.colorDialog.Color : defaultColor;
         }
 
-        private void SaveSetting()
+        private void SaveSettings()
         {
             var name = this.txtSettingsName.Text.Trim();
             if (string.IsNullOrEmpty(name))
@@ -171,6 +176,8 @@
 
             this.Settings.Name = name;
             this.OnSaveRequested(name, this.Settings);
+
+            this.btnSave.BackgroundImage = ControlPanel.SaveImage;
         }
 
         #region Event Triggers
@@ -206,8 +213,9 @@
         {
             this.CommandIssuer.OnSettingsChanged(this.Settings);
             this.grbPreviewBox.Text = this.settings.Name + "*";
+            this.btnSave.BackgroundImage = ControlPanel.SaveAsterisk;
 
-            this.SaveSetting();
+            //this.SaveSetting();
         }
 
         #endregion
@@ -383,7 +391,7 @@
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                this.SaveSetting();
+                this.SaveSettings();
                 e.Handled = true;
                 this.txtSettingsName.Enabled = false;
                 this.btnEditName.Enabled = true;
@@ -415,7 +423,7 @@
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            this.SaveSetting();
+            this.SaveSettings();
         }
 
         private void cmbLoadTimer_SelectedIndexChanged(object sender, EventArgs e)
@@ -433,13 +441,13 @@
 
         private void txtWarningTime_TimeChanged(object sender, EventArgs e)
         {
-            this.Settings.WarningTime = this.txtWarningTime.InputTime;
+            this.Settings.WarningTime = this.tibWarningTime.InputTime;
             this.OnSettingsChanged();
         }
 
         private void txtAutoPauseTime_TimeChanged(object sender, EventArgs e)
         {
-            this.Settings.SecondWarningTime = this.txtSecondWarningTime.InputTime;
+            this.Settings.SecondWarningTime = this.tibSecondWarningTime.InputTime;
             this.OnSettingsChanged();
         }
 

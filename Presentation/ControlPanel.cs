@@ -549,6 +549,8 @@
         public static readonly ResourceManager rm = SpeakerTimer.Properties.Resources.ResourceManager;
         public static readonly Image PlayImage = (Bitmap)rm.GetObject("play-sm");
         public static readonly Image PauseImage = (Bitmap)rm.GetObject("pause-sm");
+        public static readonly Image SaveImage = (Bitmap)rm.GetObject("save");
+        public static readonly Image SaveAsterisk = (Bitmap)rm.GetObject("save-asterisk");
 
         public ControlPanel()
         {
@@ -980,7 +982,7 @@
                     }
 
                     success = this.ptsToolStrip.PresetManager.AddOrUpdateSetting(new KeyValuePair<string, string>(name, e.Settings.SaveSettingsAsCsv()));
-                    preview.DisplayName = name;
+                    //preview.DisplayName = name;
                 }
             }
             catch
