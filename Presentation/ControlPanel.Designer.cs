@@ -121,10 +121,11 @@
             this.pcbLiveIndicator.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pcbLiveIndicator.TabIndex = 8;
             this.pcbLiveIndicator.TabStop = false;
+            this.pcbLiveIndicator.Visible = false;
             // 
             // timerPreview2
             // 
-            this.timerPreview2.DisplayName = "Un-named3";
+            this.timerPreview2.DisplayName = "Un-named2";
             this.timerPreview2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerPreview2.IsLive = true;
             this.timerPreview2.Location = new System.Drawing.Point(3, 294);
@@ -138,7 +139,7 @@
             timerViewSettings1.ExpiredColor = System.Drawing.Color.Red;
             timerViewSettings1.FinalMessage = null;
             timerViewSettings1.MessageColor = System.Drawing.Color.DodgerBlue;
-            timerViewSettings1.Name = "Un-named3";
+            timerViewSettings1.Name = "Un-named2";
             timerViewSettings1.PausedColor = System.Drawing.Color.Cyan;
             timerViewSettings1.RunningColor = System.Drawing.Color.White;
             timerViewSettings1.SecondWarningColor = System.Drawing.Color.Orange;
@@ -171,7 +172,7 @@
             // 
             // timerPreview1
             // 
-            this.timerPreview1.DisplayName = "Un-named4";
+            this.timerPreview1.DisplayName = "Un-named3";
             this.timerPreview1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerPreview1.IsLive = true;
             this.timerPreview1.Location = new System.Drawing.Point(3, 63);
@@ -185,7 +186,7 @@
             timerViewSettings2.ExpiredColor = System.Drawing.Color.Red;
             timerViewSettings2.FinalMessage = null;
             timerViewSettings2.MessageColor = System.Drawing.Color.DodgerBlue;
-            timerViewSettings2.Name = "Un-named4";
+            timerViewSettings2.Name = "Un-named3";
             timerViewSettings2.PausedColor = System.Drawing.Color.Cyan;
             timerViewSettings2.RunningColor = System.Drawing.Color.White;
             timerViewSettings2.SecondWarningColor = System.Drawing.Color.Orange;
