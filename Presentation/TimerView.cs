@@ -15,7 +15,7 @@
         private Timer messageTimer;
 
         private BlinkManager blinkManager;
-        private TimeInputBox txtInput;
+        private TimeInputBox tibInput;
         private TimerViewerCommandIssuer commandIssuer;
 
         public TimerView()
@@ -25,7 +25,7 @@
             this.blinkManager = new BlinkManager();
             this.blinkManager.Blink += BlinkManager_Blink;
 
-            this.txtInput = new TimeInputBox();
+            this.tibInput = new TimeInputBox();
             this.InitialiseTxtInput();
 
             this.timer = new Timer();
@@ -280,15 +280,15 @@
 
         private void InitialiseTxtInput()
         {
-            this.txtInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtInput.Enabled = false;
-            this.txtInput.InputTime = 0D;
-            this.txtInput.Size = new System.Drawing.Size(292, 85);
-            this.txtInput.TabIndex = 1;
-            this.txtInput.Text = "00:00:00";
-            this.txtInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtInput.Visible = false;
-            this.txtInput.TimeChanged += this.txtInput_TimeChanged;
+            this.tibInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tibInput.Enabled = false;
+            this.tibInput.InputTime = 0D;
+            this.tibInput.Size = new System.Drawing.Size(292, 85);
+            this.tibInput.TabIndex = 1;
+            this.tibInput.Text = "00:00:00";
+            this.tibInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tibInput.Visible = false;
+            this.tibInput.TimeChanged += this.txtInput_TimeChanged;
         }
 
         private void ApplySettings(TimerViewSettings settings)
@@ -356,26 +356,26 @@
 
         private void ShowInputBox()
         {
-            this.txtInput.Enabled = true;
-            this.txtInput.Visible = true;
-            this.txtInput.Font = this.TimerLabel.Font;
+            this.tibInput.Enabled = true;
+            this.tibInput.Visible = true;
+            this.tibInput.Font = this.TimerLabel.Font;
             if (this.Settings.DisplayMode == TimerViewSettings.TimerDisplayMode.FullWidth)
             {
-                this.txtInput.Size = this.TimerLabel.Size;
+                this.tibInput.Size = this.TimerLabel.Size;
             }
 
             this.TimerLabel.Visible = false;
 
-            this.tlpOuterLayout.Controls.Add(this.txtInput, 1, 2);
+            this.tlpOuterLayout.Controls.Add(this.tibInput, 1, 2);
 
-            this.txtInput.Focus();
+            this.tibInput.Focus();
         }
 
         private void HideInputBox()
         {
-            this.txtInput.Enabled = false;
-            this.txtInput.Visible = false;
-            this.Settings.Duration = this.txtInput.InputTime;
+            this.tibInput.Enabled = false;
+            this.tibInput.Visible = false;
+            this.Settings.Duration = this.tibInput.InputTime;
 
             this.TimerLabel.Visible = true;
             this.TimerLabel.Focus();
@@ -587,7 +587,7 @@
 
         private void TimerView_Leave(object sender, EventArgs e)
         {
-            if (this.IsPreviewMode && this.txtInput.Visible)
+            if (this.IsPreviewMode && this.tibInput.Visible)
             {
                 this.HideInputBox();
             }
@@ -738,7 +738,7 @@
 
         private void tlpOuterLayout_DoubleClick(object sender, EventArgs e)
         {
-            if (this.IsPreviewMode && this.txtInput.Visible)
+            if (this.IsPreviewMode && this.tibInput.Visible)
             {
                 this.HideInputBox();
             }
@@ -746,7 +746,7 @@
 
         private void txtInput_TimeChanged(object sender, EventArgs e)
         {
-            if (this.IsPreviewMode && this.txtInput.Visible)
+            if (this.IsPreviewMode && this.tibInput.Visible)
             {
                 this.HideInputBox();
             }

@@ -8,6 +8,8 @@
 
     public static class Util
     {
+        public const int MAX_INPUT_TIME_ALLOWED = 86399;
+
         private const uint ECM_FIRST = 0x1500;
         private const uint EM_SETCUEBANNER = ECM_FIRST + 1;
 

@@ -69,6 +69,7 @@
             this.tlpFinalMessageLayout = new System.Windows.Forms.TableLayoutPanel();
             this.txtFinalMessage = new System.Windows.Forms.TextBox();
             this.lblFinalMessage = new System.Windows.Forms.Label();
+            this.flpLiveAndBlinkLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.tlpGoLiveLayout = new System.Windows.Forms.TableLayoutPanel();
             this.rdbLive = new System.Windows.Forms.RadioButton();
             this.pcbLiveIndicator = new System.Windows.Forms.PictureBox();
@@ -77,7 +78,6 @@
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.grbPreviewBox = new System.Windows.Forms.GroupBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.flpLiveAndBlinkLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.tlpOuterLayout.SuspendLayout();
             this.tlpControlsLayout.SuspendLayout();
             this.flpIOayout.SuspendLayout();
@@ -96,11 +96,11 @@
             this.tlpFirstWarningLayout.SuspendLayout();
             this.tlpSecondWarningLayout.SuspendLayout();
             this.tlpFinalMessageLayout.SuspendLayout();
+            this.flpLiveAndBlinkLayout.SuspendLayout();
             this.tlpGoLiveLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbLiveIndicator)).BeginInit();
             this.grbPreviewBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-            this.flpLiveAndBlinkLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // tlpOuterLayout
@@ -658,6 +658,17 @@
             this.lblFinalMessage.TabIndex = 15;
             this.lblFinalMessage.Text = "Final Message";
             // 
+            // flpLiveAndBlinkLayout
+            // 
+            this.flpLiveAndBlinkLayout.AutoSize = true;
+            this.flpLiveAndBlinkLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flpLiveAndBlinkLayout.Controls.Add(this.tlpGoLiveLayout);
+            this.flpLiveAndBlinkLayout.Controls.Add(this.chbBlink);
+            this.flpLiveAndBlinkLayout.Location = new System.Drawing.Point(3, 96);
+            this.flpLiveAndBlinkLayout.Name = "flpLiveAndBlinkLayout";
+            this.flpLiveAndBlinkLayout.Size = new System.Drawing.Size(226, 29);
+            this.flpLiveAndBlinkLayout.TabIndex = 2;
+            // 
             // tlpGoLiveLayout
             // 
             this.tlpGoLiveLayout.AutoSize = true;
@@ -742,17 +753,6 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // flpLiveAndBlinkLayout
-            // 
-            this.flpLiveAndBlinkLayout.AutoSize = true;
-            this.flpLiveAndBlinkLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flpLiveAndBlinkLayout.Controls.Add(this.tlpGoLiveLayout);
-            this.flpLiveAndBlinkLayout.Controls.Add(this.chbBlink);
-            this.flpLiveAndBlinkLayout.Location = new System.Drawing.Point(3, 96);
-            this.flpLiveAndBlinkLayout.Name = "flpLiveAndBlinkLayout";
-            this.flpLiveAndBlinkLayout.Size = new System.Drawing.Size(226, 29);
-            this.flpLiveAndBlinkLayout.TabIndex = 2;
-            // 
             // TimerPreview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -794,13 +794,13 @@
             this.tlpSecondWarningLayout.PerformLayout();
             this.tlpFinalMessageLayout.ResumeLayout(false);
             this.tlpFinalMessageLayout.PerformLayout();
+            this.flpLiveAndBlinkLayout.ResumeLayout(false);
+            this.flpLiveAndBlinkLayout.PerformLayout();
             this.tlpGoLiveLayout.ResumeLayout(false);
             this.tlpGoLiveLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbLiveIndicator)).EndInit();
             this.grbPreviewBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            this.flpLiveAndBlinkLayout.ResumeLayout(false);
-            this.flpLiveAndBlinkLayout.PerformLayout();
             this.ResumeLayout(false);
 
         }

@@ -110,9 +110,7 @@
 
             this.timerView.DurationChanged += (_, e) =>
             {
-                this.Settings.Duration = e.Duration;
-                this.OnSettingsChanged();
-                this.CommandIssuer.OnRefreshTimerDisplay(e.Duration);
+                ChangeTimerDuration(e.Duration);
             };
         }
 
@@ -132,6 +130,13 @@
             //this.btnStart.ForeColor = Color.Green;
             //this.btnStart.BackColor = Color.LightCyan;
             this.running = true;
+        }
+
+        private void ChangeTimerDuration(double duration)
+        {
+            this.Settings.Duration = duration;
+            this.OnSettingsChanged();
+            this.CommandIssuer.OnRefreshTimerDisplay(duration);
         }
 
         private Color PickColor(Color defaultColor)
@@ -168,6 +173,8 @@
             this.OnSaveRequested(name, this.Settings);
         }
 
+        #region Event Triggers
+
         private void OnLoadRequested(string name)
         {
             var handler = this.LoadRequested;
@@ -202,6 +209,8 @@
 
             this.SaveSetting();
         }
+
+        #endregion
 
         #endregion
 
@@ -328,7 +337,11 @@
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (this.settings.Duration == 0)
+            if (this.settings.Duration == 0 && this.settings.CounterMode == TimerViewSettings.TimerCounterMode.CountUp)
+            {
+                this.ChangeTimerDuration(Util.MAX_INPUT_TIME_ALLOWED);
+            }
+            else if (this.settings.Duration == 0)
             {
                 MessageBox.Show("Please enter a non-zero duration.\r\n" +
                     "(Double click on the preview timer to set the timer duration).",

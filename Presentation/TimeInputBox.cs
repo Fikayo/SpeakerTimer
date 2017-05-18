@@ -142,13 +142,13 @@
                 try
                 {
                     var dt = DateTime.ParseExact(this.Text, "HH:mm:ss", CultureInfo.InvariantCulture);
-                    this.InputTime = dt.TimeOfDay.TotalSeconds;
+                    this.InputTime = dt.TimeOfDay.TotalSeconds; MessageBox.Show(this.InputTime + "");
                     this.OnTimeChanged();
                 }
-                catch
+                catch (Exception e)
                 {
                     // Error getting input...ignore and keep input as is.
-                    MessageBox.Show("Input time was not understood. Please try again.");
+                    MessageBox.Show("Input time was not understood or is not supported by this version of the Gregorian Calendar. Please try again.");
                 }
             }
 
