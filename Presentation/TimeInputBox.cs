@@ -142,7 +142,7 @@
                 try
                 {
                     var dt = DateTime.ParseExact(this.Text, "HH:mm:ss", CultureInfo.InvariantCulture);
-                    this.InputTime = dt.TimeOfDay.TotalSeconds; MessageBox.Show(this.InputTime + "");
+                    this.InputTime = dt.TimeOfDay.TotalSeconds;
                     this.OnTimeChanged();
                 }
                 catch (Exception e)
