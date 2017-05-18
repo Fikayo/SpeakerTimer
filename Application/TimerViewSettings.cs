@@ -224,6 +224,15 @@
                 this.VisualSettings.SaveSettingsAsCsv());
         }
 
+        public TimerViewSettings Clone()
+        {
+            TimerViewSettings clone = TimerViewSettings.ParseCsv(this.SaveSettingsAsCsv());
+            clone.VisualSettings = this.VisualSettings.Clone();
+            clone.MessageSettings = this.MessageSettings.Clone();
+
+            return clone;
+        }
+
         // override object.Equals
         public override bool Equals(object obj)
         {
@@ -382,6 +391,13 @@
                     this.SecondWarningColor.Name);
             }
 
+            public TimerVisualSettings Clone()
+            {
+                TimerVisualSettings clone = TimerVisualSettings.ParseCsv(this.SaveSettingsAsCsv());
+
+                return clone;
+            }
+
             // override object.Equals
             public override bool Equals(object obj)
             {
@@ -481,6 +497,16 @@
             public int MessageDuration { get; set; }
 
             public bool IsIndefiniteMessage { get; set; }
+
+            public TimerMessageSettings Clone()
+            {
+                TimerMessageSettings settings = new TimerMessageSettings();
+                settings.TimerMessage = this.TimerMessage;
+                settings.MessageDuration = this.MessageDuration;
+                settings.IsIndefiniteMessage = this.IsIndefiniteMessage;
+
+                return settings;
+            }
 
             private void SetDefaultSettings()
             {

@@ -4,10 +4,12 @@
     using System.Drawing;
     using System.Windows.Forms;
     using SpeakerTimer;
+    using TimerMessageSettings = TimerViewSettings.TimerMessageSettings;
 
     public partial class TimerPreview : UserControl
     {
         private bool running;
+        private bool showingMessage;
         private TimerViewSettings settings;
 
         public TimerPreview()
@@ -93,6 +95,7 @@
 
             // Meta data
             this.running = false;
+            this.showingMessage = false;
             this.grbPreviewBox.Text = this.Settings.Name;
             this.txtSettingsName.Text = this.Settings.Name;
             Util.SetWatermark(this.txtSettingsName, this.Settings.Name);
@@ -108,6 +111,7 @@
 
             this.timerView.MessageFinished += (_, __) =>
             {
+                this.showingMessage = false;
                 this.numMessageDuration.Enabled = true;
                 this.chbIndefiniteMessageDuration.Enabled = true;
                 this.btnShowMessage.Text = "Show Message";
@@ -135,6 +139,16 @@
             //this.btnStart.ForeColor = Color.Green;
             //this.btnStart.BackColor = Color.LightCyan;
             this.running = true;
+        }
+
+        private void FreezeMessageInput()
+        {
+            const string cancelMessageText = "CANCEL";
+
+            this.numMessageDuration.Enabled = false;
+            this.chbIndefiniteMessageDuration.Enabled = false;
+            this.btnShowMessage.Text = cancelMessageText;
+            this.showingMessage = true;
         }
 
         private void ChangeTimerDuration(double duration)
@@ -240,23 +254,11 @@
             new SpeakerTimer.Presentation.VisualSettingsForm(TimerViewSettings.TimerVisualSettings.Default).Show();
         }
 
-        private void btnVisualSettings_Click(object sender, EventArgs e)
-        {
-            using (var form = new SpeakerTimer.Presentation.VisualSettingsForm(this.Settings.VisualSettings))
-            {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    this.Settings.VisualSettings = form.VisualSettings;
-                    this.OnSettingsChanged();
-                }
-            }
-        }
+        #region Timer Message
 
         private void btnShowMessage_Click(object sender, EventArgs e)
         {
-            const string cancelMessageText = "CANCEL";
-
-            if (this.btnShowMessage.Text.Equals(cancelMessageText))
+            if (this.showingMessage)
             {
                 this.CommandIssuer.CancelTimerMessage();
             }
@@ -264,10 +266,7 @@
             {
                 this.Settings.MessageSettings.TimerMessage = this.txtShowMessage.Text;
 
-                this.numMessageDuration.Enabled = false;
-                this.chbIndefiniteMessageDuration.Enabled = false;
-                this.btnShowMessage.Text = cancelMessageText;
-
+                this.FreezeMessageInput();
                 this.CommandIssuer.OnTimerMessageChanged(this.Settings.MessageSettings);
             }
         }
@@ -277,13 +276,15 @@
             int messageDuration = (int)this.numMessageDuration.Value;
             this.chbIndefiniteMessageDuration.Checked = messageDuration <= 0;
 
-            this.Settings.MessageSettings.MessageDuration = messageDuration * 1000; // seconds
+            this.Settings.MessageSettings.MessageDuration = messageDuration; // seconds
         }
 
         private void chbIndefiniteMessageDuration_CheckedChanged(object sender, EventArgs e)
         {
             this.Settings.MessageSettings.IsIndefiniteMessage = this.chbIndefiniteMessageDuration.Checked;
         }
+
+        #endregion 
 
         #region Settings Event Handlers
 
@@ -304,12 +305,19 @@
                 this.CommandIssuer.IssuePauseCommand();
             }
 
+            var wasDisplayingMessage = this.showingMessage;
+            var messageSettings = TimerMessageSettings.Default;
+            if(wasDisplayingMessage)
+            {
+                this.CommandIssuer.CancelTimerMessage();
+                messageSettings = this.timerView.Settings.MessageSettings.Clone();
+            }
+
             this.OnLiveStateChanged();
 
             if (this.IsLive)
             {
                 this.OnSettingsChanged();
-                this.CommandIssuer.CancelTimerMessage();
 
                 if (!wasRunning)
                 {
@@ -325,6 +333,14 @@
                 // Resume the paused timer from current time
                 this.CommandIssuer.IssueStartCommand(this.timerView.CurrentTime);
             }
+
+            if(wasDisplayingMessage)
+            {
+                this.FreezeMessageInput();
+
+                // Use the settings of the timerview because it may have updated since it was set
+                this.CommandIssuer.OnTimerMessageChanged(messageSettings);
+            }
         }
 
         private void chbBlink_CheckedChanged(object sender, EventArgs e)
@@ -337,6 +353,18 @@
         {
             this.Settings.FinalMessage = this.txtFinalMessage.Text;
             this.OnSettingsChanged();
+        }
+
+        private void btnVisualSettings_Click(object sender, EventArgs e)
+        {
+            using (var form = new SpeakerTimer.Presentation.VisualSettingsForm(this.Settings.VisualSettings))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    this.Settings.VisualSettings = form.VisualSettings;
+                    this.OnSettingsChanged();
+                }
+            }
         }
 
         #endregion

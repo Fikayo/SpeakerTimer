@@ -4,6 +4,7 @@
     using System.Drawing;
 	using System.Windows.Forms;
 	using SpeakerTimer;
+    using TimerMessageSettings = TimerViewSettings.TimerMessageSettings;
 
     public partial class TimerView : TimeViewControl
     {
@@ -300,7 +301,7 @@
             this.BackgroundColor = settings.BackgroundColor;
             this.TimerColor = settings.RunningColor;
 
-            this.Settings = TimerViewSettings.ParseCsv(settings.SaveSettingsAsCsv());
+            this.Settings = settings.Clone();
             this.Settings.SecondWarningColor = this.Settings.MessageColor;
 
             if (!settings.BlinkOnExpired && this.blinkManager.IsBlinking)
@@ -312,17 +313,17 @@
             this.RefreshTimerDisplay();
         }
 
-        private void ApplyMessageSettings(TimerViewSettings.TimerMessageSettings messageSettings)
+        private void ApplyMessageSettings(TimerMessageSettings messageSettings)
         {
-            this.Settings.MessageSettings = messageSettings;
-            if(this.DisplayState != DisplayState.Message && !string.IsNullOrEmpty(this.Settings.MessageSettings.TimerMessage))
+            this.Settings.MessageSettings = messageSettings.Clone();
+            if(this.DisplayState != DisplayState.Message)
             {
                 this.DisplayState = DisplayState.Message;
                 this.DisplayTimerMessage();
 
                 if (!messageSettings.IsIndefiniteMessage)
                 {
-                    this.messageTimer.Interval = messageSettings.MessageDuration;
+                    this.messageTimer.Interval = 1000;
                     this.messageTimer.Start();
                 }
             }
@@ -720,7 +721,11 @@
 
         private void MessageTimer_Tick(object sender, EventArgs e)
         {
-            CancelTimerMessage();
+            this.Settings.MessageSettings.MessageDuration--;
+            if (this.Settings.MessageSettings.MessageDuration <= 0)
+            {
+                CancelTimerMessage();
+            }
         }
 
         private void BlinkManager_Blink(object sender, EventArgs e)
