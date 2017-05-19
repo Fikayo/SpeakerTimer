@@ -701,8 +701,9 @@
         {
             ////this.LoadSavedTimers();
         }
-
-        private void tslMakeTimePlan_Click(object sender, EventArgs e)
+         
+        
+        private void tsbCreateSequence_Click(object sender, EventArgs e)
         {
             using (var form = new TimePlanForm())
             {
@@ -908,8 +909,7 @@
                 this.ClearPresetFromPreviews(setting);
             }
         }
-        
+
         #endregion
-        
     }
 }

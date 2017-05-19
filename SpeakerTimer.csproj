@@ -75,12 +75,6 @@
     <Compile Include="Presentation\DisplayToolStripItem.Designer.cs">
       <DependentUpon>DisplayToolStripItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\NewPresentationToolStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Presentation\NewPresentationToolStrip.Designer.cs">
-      <DependentUpon>NewPresentationToolStrip.cs</DependentUpon>
-    </Compile>
     <Compile Include="Presentation\OldControlPanel.cs">
       <SubType>Form</SubType>
     </Compile>

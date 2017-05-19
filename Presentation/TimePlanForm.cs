@@ -17,6 +17,7 @@
 
             this.timePlanControl.IsLive = false;
 
+            this.displayToolStripItem.FetchTimerView = this.CreateTimerView;
             this.ptsToolStrip.ShowTimePlanMenu = false;
             this.ptsToolStrip.Init();
         }
@@ -28,32 +29,26 @@
 
         private void HookPresentFormEvents()
         {
-            //this.ptsToolStrip.PresentForm.WindowStateChanged += presentForm_WindowStateChanged;
-            this.ptsToolStrip.PresentForm.FormClosed += presentForm_FormClosed;
+            this.displayToolStripItem.PresentForm.FormClosed += presentForm_FormClosed;
+        }
+
+        private void UnHookPresentFormEvents()
+        {
+            this.displayToolStripItem.PresentForm.FormClosed -= presentForm_FormClosed;
         }
 
         #region Event Handlers
-
-        //private void ptsToolStrip_PresentFormRequired(object sender, EventArgs e)
-        //{
-        //    this.ptsToolStrip.PresentForm = null;
-        //    this.ptsToolStrip.PresentForm = new PresentationTimerForm(this.CreateTimerView());
-        //}
         
-        private void ptsToolStrip_PresentFormEventsRequired(object sender, EventArgs e)
+        private void displayToolStripItem_PresentFormEventsRequired(object sender, EventArgs e)
         {
             this.HookPresentFormEvents();
         }
 
-        //private void ptsToolStrip_LivePreviewFormRequired(object sender, EventArgs e)
-        //{
-        //    this.ptsToolStrip.LivePreviewForm = null;
-        //    this.ptsToolStrip.LivePreviewForm = new PresentationTimerForm(this.CreateTimerView());
-        //    this.ptsToolStrip.LivePreviewForm.Text = "Live Preview";
-        //    this.ptsToolStrip.LivePreviewForm.IsPreviewForm = true;
-        //    this.ptsToolStrip.LivePreviewForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;
-        //}
-
+        private void displayToolStripItem_PresentFormEventsRemoved(object sender, EventArgs e)
+        {
+            this.UnHookPresentFormEvents();
+        }
+        
         private void ptsToolStrip_TimersSettingsOpened(object sender, PresetEventArgs e)
         {
             if (e != null && e.Names != null)
@@ -66,23 +61,23 @@
         {
             if (this.timePlanControl.IsLive)
             {
-                this.ptsToolStrip.EnsureDisplayFormActive();
+                this.displayToolStripItem.EnsureDisplayFormActive();
 
-                this.ptsToolStrip.PresentForm.CommandIssuer = this.timePlanControl.CommandIssuer;
-                this.ptsToolStrip.LivePreviewForm.CommandIssuer = this.timePlanControl.CommandIssuer;
-                this.ptsToolStrip.TogglePresentationForm(true);
+                this.displayToolStripItem.PresentForm.CommandIssuer = this.timePlanControl.CommandIssuer;
+                this.displayToolStripItem.LivePreviewForm.CommandIssuer = this.timePlanControl.CommandIssuer;
+                this.displayToolStripItem.TogglePresentationForm(true);
             }
             else
             {
                 // We aren't live, so remove the presentation form
-                if (this.ptsToolStrip.PresentForm != null)
+                if (this.displayToolStripItem.PresentForm != null)
                 {
-                    this.ptsToolStrip.PresentForm.Hide();
+                    this.displayToolStripItem.PresentForm.Hide();
                 }
 
-                if (this.ptsToolStrip.LivePreviewForm != null)
+                if (this.displayToolStripItem.LivePreviewForm != null)
                 {
-                    this.ptsToolStrip.LivePreviewForm.Hide();
+                    this.displayToolStripItem.LivePreviewForm.Hide();
                 }
             }
         }

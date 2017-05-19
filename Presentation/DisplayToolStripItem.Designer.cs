@@ -41,7 +41,7 @@
             // tsmShowDisplay
             // 
             this.tsmShowDisplay.Name = "tsmShowDisplay";
-            this.tsmShowDisplay.Size = new System.Drawing.Size(228, 22);
+            this.tsmShowDisplay.Size = new System.Drawing.Size(229, 22);
             this.tsmShowDisplay.Text = "Show Display Window";
             this.tsmShowDisplay.Click += new System.EventHandler(this.tsmShowDisplay_Click);
             // 
@@ -50,14 +50,14 @@
             this.tsmShowLivePreview.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmKeepPreviewOnTop});
             this.tsmShowLivePreview.Name = "tsmShowLivePreview";
-            this.tsmShowLivePreview.Size = new System.Drawing.Size(228, 22);
+            this.tsmShowLivePreview.Size = new System.Drawing.Size(229, 22);
             this.tsmShowLivePreview.Text = "Show Live Preview";
             this.tsmShowLivePreview.Click += new System.EventHandler(this.tsmShowLivePreview_Click);
             // 
             // tsmKeepPreviewOnTop
             // 
             this.tsmKeepPreviewOnTop.Name = "tsmKeepPreviewOnTop";
-            this.tsmKeepPreviewOnTop.Size = new System.Drawing.Size(184, 22);
+            this.tsmKeepPreviewOnTop.Size = new System.Drawing.Size(185, 22);
             this.tsmKeepPreviewOnTop.Text = "Keep Preview on Top";
             this.tsmKeepPreviewOnTop.Click += new System.EventHandler(this.tsmKeepPreviewOnTop_Click);
             // 
@@ -65,7 +65,7 @@
             // 
             this.tsmKeepOnTop.Enabled = false;
             this.tsmKeepOnTop.Name = "tsmKeepOnTop";
-            this.tsmKeepOnTop.Size = new System.Drawing.Size(228, 22);
+            this.tsmKeepOnTop.Size = new System.Drawing.Size(229, 22);
             this.tsmKeepOnTop.Text = "Keep Display Window on Top";
             this.tsmKeepOnTop.Click += new System.EventHandler(this.tsmKeepOnTop_Click);
             // 
@@ -73,7 +73,7 @@
             // 
             this.tsmFullScreen.Enabled = false;
             this.tsmFullScreen.Name = "tsmFullScreen";
-            this.tsmFullScreen.Size = new System.Drawing.Size(228, 22);
+            this.tsmFullScreen.Size = new System.Drawing.Size(229, 22);
             this.tsmFullScreen.Text = "Full Screen Display";
             this.tsmFullScreen.Click += new System.EventHandler(this.tsmFullScreen_Click);
             // 
@@ -83,7 +83,7 @@
             this.tsmRefreshScreens});
             this.tsmChangeDisplayScreen.Enabled = false;
             this.tsmChangeDisplayScreen.Name = "tsmChangeDisplayScreen";
-            this.tsmChangeDisplayScreen.Size = new System.Drawing.Size(228, 22);
+            this.tsmChangeDisplayScreen.Size = new System.Drawing.Size(229, 22);
             this.tsmChangeDisplayScreen.Text = "Change Display Screen";
             this.tsmChangeDisplayScreen.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tsmChangeDisplayScreen_DropDownItemClicked);
             // 
@@ -98,7 +98,7 @@
             // 
             this.tsmMaximizeDisplay.Enabled = false;
             this.tsmMaximizeDisplay.Name = "tsmMaximizeDisplay";
-            this.tsmMaximizeDisplay.Size = new System.Drawing.Size(228, 22);
+            this.tsmMaximizeDisplay.Size = new System.Drawing.Size(229, 22);
             this.tsmMaximizeDisplay.Text = "Maximize Display";
             this.tsmMaximizeDisplay.Click += new System.EventHandler(this.tsmMaximizeDisplay_Click);
             // 
@@ -106,12 +106,13 @@
             // 
             this.tsmRemoveDisplayBorder.Enabled = false;
             this.tsmRemoveDisplayBorder.Name = "tsmRemoveDisplayBorder";
-            this.tsmRemoveDisplayBorder.Size = new System.Drawing.Size(228, 22);
+            this.tsmRemoveDisplayBorder.Size = new System.Drawing.Size(229, 22);
             this.tsmRemoveDisplayBorder.Text = "Remove Display Border";
             this.tsmRemoveDisplayBorder.Click += new System.EventHandler(this.tsmRemoveDisplayBorder_Click);
             // 
             // DisplayToolStripItem
             // 
+            this.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmShowDisplay,
             this.tsmShowLivePreview,
@@ -120,9 +121,9 @@
             this.tsmChangeDisplayScreen,
             this.tsmMaximizeDisplay,
             this.tsmRemoveDisplayBorder});
-            this.Name = "DisplayToolStripItem";
             this.Size = new System.Drawing.Size(88, 27);
             this.Text = "Main Display";
+
         }
 
         #endregion
