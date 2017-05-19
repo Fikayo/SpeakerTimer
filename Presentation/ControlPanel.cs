@@ -549,7 +549,7 @@
         public static readonly ResourceManager rm = SpeakerTimer.Properties.Resources.ResourceManager;
         public static readonly Image PlayImage = (Bitmap)rm.GetObject("play-sm");
         public static readonly Image PauseImage = (Bitmap)rm.GetObject("pause-sm");
-        public static readonly Image SaveImage = (Bitmap)rm.GetObject("save");
+        public static readonly Image SaveImage = (Bitmap)rm.GetObject("save-2");
         public static readonly Image SaveAsterisk = (Bitmap)rm.GetObject("save-asterisk");
 
         public ControlPanel()
@@ -564,7 +564,7 @@
 #if DEBUG
             this.ptsToolStrip.ShowTimePlanMenu = true;
 #else
-                this.ptsToolStrip.HideTimePlanMenu = false;
+                this.ptsToolStrip.ShowTimePlanMenu = false;
 #endif
         }
 

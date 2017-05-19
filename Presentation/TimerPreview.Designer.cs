@@ -292,14 +292,14 @@
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.BackColor = System.Drawing.Color.Transparent;
-            this.btnSave.BackgroundImage = global::SpeakerTimer.Properties.Resources.save;
+            this.btnSave.BackgroundImage = global::SpeakerTimer.Properties.Resources.save_2;
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.ForeColor = System.Drawing.SystemColors.Control;
             this.btnSave.Location = new System.Drawing.Point(3, 37);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(22, 22);
+            this.btnSave.Size = new System.Drawing.Size(29, 22);
             this.btnSave.TabIndex = 2;
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);

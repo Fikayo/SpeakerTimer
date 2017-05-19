@@ -44,7 +44,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\..\OneDrive\SpeakerTimer\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -69,6 +69,18 @@
     <Compile Include="Application\SettingIOEventArgs.cs" />
     <Compile Include="Application\SettingsChangedEventArgs.cs" />
     <Compile Include="Presentation\BlinkManager.cs" />
+    <Compile Include="Presentation\DisplayToolStripItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Presentation\DisplayToolStripItem.Designer.cs">
+      <DependentUpon>DisplayToolStripItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\NewPresentationToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Presentation\NewPresentationToolStrip.Designer.cs">
+      <DependentUpon>NewPresentationToolStrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\OldControlPanel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,6 +289,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1451759639_timer.ico" />
+    <None Include="Resources\save-2.png" />
     <None Include="Resources\save.png" />
     <None Include="Resources\save-asterisk.png" />
     <None Include="Resources\settings.png" />

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VisualSettingsForm));
             this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
             this.tlpMainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.grbDisplaySettings = new System.Windows.Forms.GroupBox();
@@ -467,6 +468,7 @@
             this.ClientSize = new System.Drawing.Size(411, 284);
             this.Controls.Add(this.tlpOuterLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "VisualSettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
