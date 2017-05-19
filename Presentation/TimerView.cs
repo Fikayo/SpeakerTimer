@@ -185,7 +185,7 @@
 
         public void PauseTimer()
         {
-            //this.blinkManager.StopBlinking();
+            this.blinkManager.StopBlinking();
 
             this.timer.Stop();
 			this.TimerState = TimerState.Paused;

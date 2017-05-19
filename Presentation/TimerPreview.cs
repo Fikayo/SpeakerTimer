@@ -4,6 +4,7 @@
     using System.Drawing;
     using System.Windows.Forms;
     using SpeakerTimer;
+    using System.ComponentModel;
     using TimerMessageSettings = TimerViewSettings.TimerMessageSettings;
 
     public partial class TimerPreview : UserControl
@@ -21,18 +22,14 @@
             this.timerView.CommandIssuer = this.CommandIssuer;
             this.HookEventHandlers();
 
-            this.settings = TimerViewSettings.Default;
-            this.CommandIssuer.OnSettingsChanged(this.settings);
-            this.InitSettings();
-
-            ////Util.SetWatermark(this.txtSettingsName, this.settings.Name);
-            ////this.grbPreviewBox.Text = this.settings.Name;
+            this.Settings = TimerViewSettings.Default;
         }
 
         public event EventHandler<SettingIOEventArgs> LoadRequested;
         public event EventHandler<SettingIOEventArgs> SaveRequested;
         public event EventHandler LiveStateChanged;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public TimerViewSettings Settings
         {
             get { return this.settings; }
@@ -230,8 +227,6 @@
             this.CommandIssuer.OnSettingsChanged(this.Settings);
             this.grbPreviewBox.Text = this.settings.Name + "*";
             this.btnSave.BackgroundImage = ControlPanel.SaveAsterisk;
-
-            //this.SaveSetting();
         }
 
         #endregion
