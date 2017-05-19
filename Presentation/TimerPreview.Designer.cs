@@ -715,7 +715,6 @@
             // 
             this.chbBlink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.chbBlink.AutoSize = true;
-            this.chbBlink.Enabled = false;
             this.chbBlink.Location = new System.Drawing.Point(108, 3);
             this.chbBlink.Name = "chbBlink";
             this.chbBlink.Size = new System.Drawing.Size(115, 23);

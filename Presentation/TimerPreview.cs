@@ -17,14 +17,16 @@
             InitializeComponent();
 
             this.IsLive = false;
-            this.settings = TimerViewSettings.Default;
             this.CommandIssuer = new TimerViewerCommandIssuer();
             this.timerView.CommandIssuer = this.CommandIssuer;
             this.HookEventHandlers();
 
+            this.settings = TimerViewSettings.Default;
+            this.CommandIssuer.OnSettingsChanged(this.settings);
             this.InitSettings();
-            Util.SetWatermark(this.txtSettingsName, this.settings.Name);
-            this.grbPreviewBox.Text = this.settings.Name;
+
+            ////Util.SetWatermark(this.txtSettingsName, this.settings.Name);
+            ////this.grbPreviewBox.Text = this.settings.Name;
         }
 
         public event EventHandler<SettingIOEventArgs> LoadRequested;

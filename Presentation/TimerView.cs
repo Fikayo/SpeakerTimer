@@ -170,7 +170,7 @@
                 }
             }
 
-            if (this.CurrentTime < 0)
+            if (this.CurrentTime < 0 && this.Settings.BlinkOnExpired)
             {
                 this.blinkManager.StartBlinking();
             }
@@ -185,7 +185,7 @@
 
         public void PauseTimer()
         {
-            this.blinkManager.StopBlinking();
+            //this.blinkManager.StopBlinking();
 
             this.timer.Stop();
 			this.TimerState = TimerState.Paused;
@@ -490,7 +490,11 @@
 
 			case TimerState.Expired:
 				{
-					this.TimerColor = this.Settings.ExpiredColor;
+                    if (!this.Settings.BlinkOnExpired || !this.blinkManager.IsBlinking)
+                    {
+                        this.TimerColor = this.Settings.ExpiredColor;
+                    }
+
 					if (this.Settings.BlinkOnExpired) {
 						if (!this.blinkManager.IsBlinking) {
 							this.blinkManager.StartBlinking ();
