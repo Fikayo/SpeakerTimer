@@ -560,14 +560,7 @@
             this.timerPreview2.IsLive = false;
 
             this.displayToolStripItem.FetchTimerView = this.CreateTimerView;
-            //this.ptsToolStrip.FetchTimerView = this.CreateTimerView;
-            this.ptsToolStrip.Init();
-
-#if DEBUG
-            this.ptsToolStrip.ShowTimePlanMenu = true;
-#else
-                this.ptsToolStrip.ShowTimePlanMenu = false;
-#endif
+            this.savedTimersToolStripItem.Init();
         }
 
         #region Internal Members
@@ -634,74 +627,45 @@
         {
             this.HookPresentFormEvents();
         }
-        
-
-        private void tsmOpenSettings_Click(object sender, EventArgs e)
+                
+        private void savedTimersToolStripItem_PresetsLoaded(object sender, PresetEventArgs e)
         {
-            ////using (var form = new TimerSettingsForm())
-            ////{
-            ////    form.TimerSettings = this.ptsToolStrip.PresetManager.SettingsNames;
-            ////    if (form.ShowDialog() == DialogResult.OK)
-            ////    {
-            ////        var selections = form.TimerSettings;
-            ////        switch (form.SelectedAction)
-            ////        {
-
-            ////            case TimerSettingsForm.Action.Open:
-            ////                {
-            ////                    this.timerPreview1.Settings = TimerViewSettings.ParseCsv(this.ptsToolStrip.PresetManager[selections[0]]);
-            ////                    if (selections.Count > 1)
-            ////                    {
-            ////                        this.timerPreview2.Settings = TimerViewSettings.ParseCsv(this.ptsToolStrip.PresetManager[selections[1]]);
-            ////                    }
-
-            ////                    break;
-            ////                }
-
-            ////            case TimerSettingsForm.Action.Delete:
-            ////                {
-            ////                    var result = MessageBox.Show("Are you sure you want to to delete selected timer settings?", Application.ProductName, MessageBoxButtons.YesNo);
-            ////                    if (result == System.Windows.Forms.DialogResult.Yes)
-            ////                    {
-            ////                        foreach (var setting in selections)
-            ////                        {
-            ////                            this.ptsToolStrip.PresetManager.DeleteSetting(setting, false);
-            ////                            this.ClearPresetFromPreviews(setting);
-            ////                        }
-
-            ////                        this.ptsToolStrip.PresetManager.SaveAll();
-            ////                    }
-
-            ////                    break;
-            ////                }
-
-            ////            default:
-            ////                break;
-            ////        }
-            ////    }
-            ////}
+            if (e != null)
+            {
+                foreach (string name in e.Names)
+                {
+                    AddPresetsToPreviews(name);
+                }
+            }
         }
 
-        private void tsmClearAll_Click(object sender, EventArgs e)
+        private void savedTimersToolStripItem_TimersSettingsDeleted(object sender, PresetEventArgs e)
         {
-            ////var result = MessageBox.Show("All pre-saved timer settings will be deleted permanently.\r\nProceed?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            ////if (result == System.Windows.Forms.DialogResult.Yes)
-            ////{
-            ////    if (!this.ptsToolStrip.PresetManager.DeleteAll())
-            ////    {
-            ////        MessageBox.Show("An error occurred. Could not clear settings.");
-            ////        return;
-            ////    }
+            if (e.Names == null)
+            {
+                this.ClearPresetFromPreviews(null);
+                return;
+            }
 
-            ////    this.ClearPresetFromPreviews();
-            ////}
+            foreach (var setting in e.Names)
+            {
+                this.ClearPresetFromPreviews(setting);
+            }
         }
 
-        private void tsmRefreshList_Click(object sender, EventArgs e)
+        private void savedTimersToolStripItem_TimersSettingsOpened(object sender, PresetEventArgs e)
         {
-            ////this.LoadSavedTimers();
+            if (e.Names.Count > 2)
+            {
+                MessageBox.Show("You may only open 2 settings at a time. Only the first two will be opened");
+            }
+
+            this.timerPreview1.Settings = TimerViewSettings.ParseCsv(this.savedTimersToolStripItem.PresetManager[e.Names[0]]);
+            if (e.Names.Count > 1)
+            {
+                this.timerPreview2.Settings = TimerViewSettings.ParseCsv(this.savedTimersToolStripItem.PresetManager[e.Names[1]]);
+            }
         }
-         
         
         private void tsbCreateSequence_Click(object sender, EventArgs e)
         {
@@ -866,49 +830,6 @@
         }
 
         #endregion
-
-        #endregion
-
-        #region Presentation Tool Strip
-
-        private void ptsToolStrip_PresetsLoaded(object sender, PresetEventArgs e)
-        {
-            if (e != null)
-            {
-                foreach (string name in e.Names)
-                {
-                    AddPresetsToPreviews(name);
-                }
-            }
-        }
-
-        private void ptsToolStrip_TimersSettingsOpened(object sender, PresetEventArgs e)
-        {
-            if (e.Names.Count > 2)
-            {
-                MessageBox.Show("You may only open 2 settings at a time. Only the first two will be opened");
-            }
-
-            this.timerPreview1.Settings = TimerViewSettings.ParseCsv(this.ptsToolStrip.PresetManager[e.Names[0]]);
-            if (e.Names.Count > 1)
-            {
-                this.timerPreview2.Settings = TimerViewSettings.ParseCsv(this.ptsToolStrip.PresetManager[e.Names[1]]);
-            }
-        }
-
-        private void ptsToolStrip_TimersSettingsDeleted(object sender, PresetEventArgs e)
-        {
-            if (e.Names == null)
-            {
-                this.ClearPresetFromPreviews(null);
-                return;
-            }
-
-            foreach (var setting in e.Names)
-            {
-                this.ClearPresetFromPreviews(setting);
-            }
-        }
 
         #endregion
     }

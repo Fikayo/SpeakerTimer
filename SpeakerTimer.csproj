@@ -102,6 +102,12 @@
       <DependentUpon>PresentationTimerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Application\Program.cs" />
+    <Compile Include="Presentation\SavedTimersToolStripButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Presentation\SavedTimersToolStripButton.Designer.cs">
+      <DependentUpon>SavedTimersToolStripButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\VisualSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +171,9 @@
       <DependentUpon>TimeViewControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
+    <EmbeddedResource Include="Presentation\DisplayToolStripItem.resx">
+      <DependentUpon>DisplayToolStripItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\OldControlPanel.resx">
       <DependentUpon>OldControlPanel.cs</DependentUpon>
     </EmbeddedResource>
