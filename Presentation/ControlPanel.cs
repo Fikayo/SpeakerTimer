@@ -5,7 +5,7 @@
     using System.Drawing;
     using System.Resources;
 	using System.Windows.Forms;
-	using SpeakerTimer;
+	using SpeakerTimer.Presentation;
 
     ////    public partial class ControlPanel : Form
     ////    {
@@ -555,10 +555,12 @@
         public ControlPanel()
         {
             InitializeComponent();
-            
+
             this.timerPreview1.IsLive = false;
             this.timerPreview2.IsLive = false;
-            this.ptsToolStrip.FetchTimerView = this.CreateTimerView;
+
+            this.displayToolStripItem.FetchTimerView = this.CreateTimerView;
+            //this.ptsToolStrip.FetchTimerView = this.CreateTimerView;
             this.ptsToolStrip.Init();
 
 #if DEBUG
@@ -572,14 +574,12 @@
 
         private void HookPresentFormEvents()
         {
-            //this.ptsToolStrip.PresentForm.WindowStateChanged += presentForm_WindowStateChanged;
-            this.ptsToolStrip.PresentForm.FormClosed += presentForm_FormClosed;
+            this.displayToolStripItem.PresentForm.FormClosed += presentForm_FormClosed;
         }
 
         private void UnHookPresentFormEvents()
         {
-            //this.ptsToolStrip.PresentForm.WindowStateChanged -= presentForm_WindowStateChanged;
-            this.ptsToolStrip.PresentForm.FormClosed -= presentForm_FormClosed;
+            this.displayToolStripItem.PresentForm.FormClosed -= presentForm_FormClosed;
         }
 
         private TimeViewControl CreateTimerView()
@@ -613,123 +613,7 @@
             this.timerPreview1.SavedTimers.Remove(name);
             this.timerPreview2.SavedTimers.Remove(name);
         }
-
-        ////private void AddAllScreens()
-        ////{
-        ////    this.tsmChangeDisplayScreen.DropDownItems.Clear();
-        ////    foreach (var screen in Screen.AllScreens)
-        ////    {
-        ////        ToolStripMenuItem item = new ToolStripMenuItem(screen.DeviceName);
-        ////        if (screen == Screen.PrimaryScreen)
-        ////        {
-        ////            item.Enabled = false;
-        ////        }
-
-        ////        this.tsmChangeDisplayScreen.DropDownItems.Add(item);
-        ////    }
-
-        ////    this.tsmChangeDisplayScreen.DropDownItems.Add(this.tsmRefreshScreens);
-        ////}
-
-        ////private void LoadSavedTimers()
-        ////{
-        ////    var settings = this.ptsToolStrip.PresetManager.LoadAll();
-        ////    if (settings != null)
-        ////    {
-        ////        foreach (var name in settings)
-        ////        {
-        ////            this.AddPresetsToPreviews(name);
-        ////        }
-
-        ////        return;
-        ////    }
-        ////    else
-        ////    {
-        ////        MessageBox.Show("There was an error when trying to load pre-saved settings.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        ////    }
-        ////}
-
-        ////private void EnsureDisplayFormActive()
-        ////{
-        ////    this.ptsToolStrip.EnsureDisplayFormActive();
-        ////    if (this.ptsToolStrip.PresentForm == null || this.ptsToolStrip.PresentForm.IsDisposed)
-        ////    {
-        ////        this.ptsToolStrip.PresentForm = null;
-        ////        this.ptsToolStrip.PresentForm = new PresentationTimerForm(this.CreateTimerView());
-        ////        this.HookPresentFormEvents();
-        ////    }
-
-        ////    this.EnsureLivePreviewFormActive();
-        ////}
-
-        ////private void EnsureLivePreviewFormActive()
-        ////{
-        ////    this.ptsToolStrip.EnsureLivePreviewFormActive();
-        ////    if (this.ptsToolStrip.LivePreviewForm == null || this.ptsToolStrip.LivePreviewForm.IsDisposed)
-        ////    {
-        ////        this.ptsToolStrip.LivePreviewForm = null;
-        ////        this.ptsToolStrip.LivePreviewForm = new PresentationTimerForm(this.CreateTimerView());
-        ////        this.ptsToolStrip.LivePreviewForm.Text = "Live Preview";
-        ////        this.ptsToolStrip.LivePreviewForm.IsPreviewForm = true;
-        ////        this.ptsToolStrip.LivePreviewForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;
-        ////    }
-        ////}
-
-        ////private void TogglePresentationForm(bool forceShow = false)
-        ////{
-        ////    this.ptsToolStrip.TogglePresentationForm(forceShow);
-        ////    this.EnsureDisplayFormActive();
-
-        ////    this.tsmShowDisplay.Checked = forceShow || !this.tsmShowDisplay.Checked;
-        ////    if (this.tsmShowDisplay.Checked)
-        ////    {
-        ////        this.ptsToolStrip.PresentForm.Show();
-        ////    }
-        ////    else
-        ////    {
-        ////        this.ptsToolStrip.PresentForm.Hide();
-        ////    }
-
-        ////    var displayShown = this.tsmShowDisplay.Checked;
-        ////    foreach (ToolStripItem item in this.tsiMainDisplay.DropDownItems)
-        ////    {
-        ////        item.Enabled = displayShown;
-        ////    }
-
-        ////    this.tsmShowDisplay.Enabled = true;
-        ////    this.tsmChangeDisplayScreen.Enabled = displayShown;
-        ////    this.tsmKeepOnTop.Enabled = displayShown;
-        ////    this.tsmMaximizeDisplay.Enabled = displayShown;
-        ////    this.tsmFullScreen.Enabled = displayShown;
-
-        ////    if (this.tsmShowLivePreview.Checked)
-        ////    {
-        ////        this.ToggleLivePreviewForm(forceShow);
-        ////    }
-        ////}
-
-        ////private void ToggleLivePreviewForm(bool forceShow = false)
-        ////{
-        ////    this.ptsToolStrip.ToggleLivePreviewForm(forceShow);
-        ////    this.EnsureLivePreviewFormActive();
-
-        ////    this.tsmShowLivePreview.Checked = forceShow || !this.tsmShowLivePreview.Checked;
-        ////    if (this.tsmShowLivePreview.Checked)
-        ////    {
-        ////        this.ptsToolStrip.LivePreviewForm.Show();
-        ////    }
-        ////    else
-        ////    {
-        ////        this.ptsToolStrip.LivePreviewForm.Hide();
-        ////    }
-
-        ////    var displayShown = this.tsmShowLivePreview.Checked;
-        ////    foreach (ToolStripItem item in this.tsmShowLivePreview.DropDownItems)
-        ////    {
-        ////        item.Enabled = displayShown;
-        ////    }
-        ////}
-
+        
         #endregion
 
         #region Event Handlers
@@ -740,103 +624,17 @@
         }
 
         #region ToolStrip Menu Items Event Handlers
-
-        private void tsmShowDisplay_Click(object sender, EventArgs e)
+        
+        private void displayToolStripItem_PresentFormEventsRequired(object sender, EventArgs e)
         {
-            ////this.TogglePresentationForm();
+            this.HookPresentFormEvents();
         }
 
-        private void tsmKeepPreviewOnTop_Click(object sender, EventArgs e)
+        private void displayToolStripItem_PresentFormEventsRemoved(object sender, EventArgs e)
         {
-            ////this.EnsureLivePreviewFormActive();
-            ////this.tsmKeepPreviewOnTop.Checked = !this.tsmKeepPreviewOnTop.Checked;
-            ////this.ptsToolStrip.LivePreviewForm.TopMost = this.tsmKeepPreviewOnTop.Checked;
+            this.HookPresentFormEvents();
         }
-
-        private void tsmShowLivePreview_Click(object sender, EventArgs e)
-        {
-            ////this.ToggleLivePreviewForm();
-        }
-
-        private void tsmKeepOnTop_Click(object sender, EventArgs e)
-        {
-            ////this.EnsureDisplayFormActive();
-            ////this.tsmKeepOnTop.Checked = !this.tsmKeepOnTop.Checked;
-            ////this.ptsToolStrip.PresentForm.TopMost = this.tsmKeepOnTop.Checked;
-        }
-
-        private void tsmFullScreen_Click(object sender, EventArgs e)
-        {
-            ////this.EnsureDisplayFormActive();
-            ////this.ptsToolStrip.PresentForm.ToggleFullScreen();
-        }
-
-        private void tsmMaximizeDisplay_Click(object sender, EventArgs e)
-        {
-            ////this.EnsureDisplayFormActive();
-            ////this.tsmMaximizeDisplay.Checked = !this.tsmMaximizeDisplay.Checked;
-            ////if (this.tsmMaximizeDisplay.Checked)
-            ////{
-            ////    this.ptsToolStrip.PresentForm.WindowState = FormWindowState.Maximized;
-            ////}
-            ////else
-            ////{
-            ////    this.ptsToolStrip.PresentForm.WindowState = FormWindowState.Normal;
-            ////}
-        }
-
-        private void tsmRemoveDisplayBorder_Click(object sender, EventArgs e)
-        {
-            ////this.EnsureDisplayFormActive();
-            ////this.tsmRemoveDisplayBorder.Checked = !this.tsmRemoveDisplayBorder.Checked;
-            ////if (this.tsmRemoveDisplayBorder.Checked)
-            ////{
-            ////    this.ptsToolStrip.PresentForm.FormBorderStyle = FormBorderStyle.None;
-            ////}
-            ////else
-            ////{
-            ////    this.ptsToolStrip.PresentForm.FormBorderStyle = PresentationTimerForm.BorderStyle;
-            ////}
-        }
-
-        private void tsmChangeDisplayScreen_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            ////var count = this.tsmChangeDisplayScreen.DropDownItems.Count;
-            ////var index = this.tsmChangeDisplayScreen.DropDownItems.IndexOf(e.ClickedItem);
-
-            ////// If not lat item in list ie Refresh button
-            ////if (index != count - 1)
-            ////{
-            ////    this.EnsureDisplayFormActive();
-
-            ////    // Enable all other screen options
-            ////    foreach (ToolStripMenuItem item in this.tsmChangeDisplayScreen.DropDownItems)
-            ////    {
-            ////        item.Enabled = true;
-            ////    }
-
-            ////    e.ClickedItem.Enabled = false;
-
-            ////    var newScreen = Screen.AllScreens[index].WorkingArea;
-            ////    Point newLocation = newScreen.Location;
-            ////    if (this.ptsToolStrip.PresentForm.WindowState == FormWindowState.Maximized)
-            ////    {
-            ////        this.ptsToolStrip.PresentForm.WindowState = FormWindowState.Normal;
-            ////        this.ptsToolStrip.PresentForm.SetDesktopLocation(newLocation.X, newLocation.Y);
-            ////        this.ptsToolStrip.PresentForm.WindowState = FormWindowState.Maximized;
-            ////    }
-
-            ////    newLocation.X += (newScreen.Width / 2) - (this.ptsToolStrip.PresentForm.Size.Width / 2);
-            ////    newLocation.Y += (newScreen.Height / 2) - (this.ptsToolStrip.PresentForm.Size.Height / 2);
-
-            ////    this.ptsToolStrip.PresentForm.SetDesktopLocation(newLocation.X, newLocation.Y);
-            ////}
-        }
-
-        private void tsmRefreshScreens_Click(object sender, EventArgs e)
-        {
-            ////this.AddAllScreens();
-        }
+        
 
         private void tsmOpenSettings_Click(object sender, EventArgs e)
         {
@@ -906,34 +704,27 @@
 
         private void tslMakeTimePlan_Click(object sender, EventArgs e)
         {
-            ////using (var form = new TimePlanForm())
-            ////{
-            ////    form.ShowDialog();
-            ////}
+            using (var form = new TimePlanForm())
+            {
+                form.ShowDialog();
+            }
         }
 
         private void ControlPanel_KeyDown(object sender, KeyEventArgs e)
         {
-            this.ptsToolStrip.EnsureDisplayFormActive();
-            this.ptsToolStrip.PresentForm.CheckKeyPress(e.KeyCode);
+            this.displayToolStripItem.EnsureDisplayFormActive();
+            this.displayToolStripItem.PresentForm.CheckKeyPress(e.KeyCode);
         }
 
         private void ControlPanel_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            this.ptsToolStrip.EnsureDisplayFormActive();
-            this.ptsToolStrip.PresentForm.CheckKeyPress(e.KeyCode);
+            this.displayToolStripItem.EnsureDisplayFormActive();
+            this.displayToolStripItem.PresentForm.CheckKeyPress(e.KeyCode);
         }
 
         #endregion
 
-        #region Present Form Event Handlers
-
-        private void presentForm_WindowStateChanged(object sender, EventArgs e)
-        {
-            this.ptsToolStrip.EnsureDisplayFormActive();
-            this.tsmFullScreen.Checked = this.ptsToolStrip.PresentForm.IsFullScreen;
-            this.tsmMaximizeDisplay.Checked = this.ptsToolStrip.PresentForm.IsFullScreen;
-        }
+        #region Present Form Event Handlers        
 
         private void presentForm_FormClosed(object sender, EventArgs e)
         {
@@ -1013,28 +804,28 @@
         {
             if (this.timerPreview1.IsLive)
             {
-                this.ptsToolStrip.EnsureDisplayFormActive();
+                this.displayToolStripItem.EnsureDisplayFormActive();
 
-                this.ptsToolStrip.PresentForm.CommandIssuer = this.timerPreview1.CommandIssuer;
-                this.ptsToolStrip.LivePreviewForm.CommandIssuer = this.timerPreview1.CommandIssuer;
+                this.displayToolStripItem.PresentForm.CommandIssuer = this.timerPreview1.CommandIssuer;
+                this.displayToolStripItem.LivePreviewForm.CommandIssuer = this.timerPreview1.CommandIssuer;
                 this.timerPreview2.IsLive = false;
-                this.ptsToolStrip.TogglePresentationForm(true);
-                if (this.ptsToolStrip.IsLivePreviewVisible)
+                this.displayToolStripItem.TogglePresentationForm(true);
+                if (this.displayToolStripItem.IsLivePreviewVisible)
                 {
-                    this.ptsToolStrip.ToggleLivePreviewForm(true);
+                    this.displayToolStripItem.ToggleLivePreviewForm(true);
                 }
             }
             else if (!this.timerPreview2.IsLive)
             {
                 // If no one is live then remove the presentation form
-                if (this.ptsToolStrip.PresentForm != null)
+                if (this.displayToolStripItem.PresentForm != null)
                 {
-                    this.ptsToolStrip.PresentForm.Hide();
+                    this.displayToolStripItem.PresentForm.Hide();
                 }
 
-                if (this.ptsToolStrip.LivePreviewForm != null)
+                if (this.displayToolStripItem.LivePreviewForm != null)
                 {
-                    this.ptsToolStrip.LivePreviewForm.Hide();
+                    this.displayToolStripItem.LivePreviewForm.Hide();
                 }
             }
 
@@ -1045,28 +836,28 @@
         {
             if (this.timerPreview2.IsLive)
             {
-                this.ptsToolStrip.EnsureDisplayFormActive();
+                this.displayToolStripItem.EnsureDisplayFormActive();
 
-                this.ptsToolStrip.PresentForm.CommandIssuer = this.timerPreview2.CommandIssuer;
-                this.ptsToolStrip.LivePreviewForm.CommandIssuer = this.timerPreview2.CommandIssuer;
+                this.displayToolStripItem.PresentForm.CommandIssuer = this.timerPreview2.CommandIssuer;
+                this.displayToolStripItem.LivePreviewForm.CommandIssuer = this.timerPreview2.CommandIssuer;
                 this.timerPreview1.IsLive = false;
-                this.ptsToolStrip.TogglePresentationForm(true);
-                if(this.ptsToolStrip.IsLivePreviewVisible)
+                this.displayToolStripItem.TogglePresentationForm(true);
+                if(this.displayToolStripItem.IsLivePreviewVisible)
                 {
-                    this.ptsToolStrip.ToggleLivePreviewForm(true);
+                    this.displayToolStripItem.ToggleLivePreviewForm(true);
                 }
             }
             else if (!this.timerPreview1.IsLive)
             {
                 //If no one is live then remove the presentation form
-                if (this.ptsToolStrip.PresentForm != null)
+                if (this.displayToolStripItem.PresentForm != null)
                 {
-                    this.ptsToolStrip.PresentForm.Hide();
+                    this.displayToolStripItem.PresentForm.Hide();
                 }
 
-                if (this.ptsToolStrip.LivePreviewForm != null)
+                if (this.displayToolStripItem.LivePreviewForm != null)
                 {
-                    this.ptsToolStrip.LivePreviewForm.Hide();
+                    this.displayToolStripItem.LivePreviewForm.Hide();
                 }
             }
             
@@ -1117,30 +908,8 @@
                 this.ClearPresetFromPreviews(setting);
             }
         }
-
-        //private void ptsToolStrip_PresentFormRequired(object sender, EventArgs e)
-        //{
-        //    this.ptsToolStrip.PresentForm = new PresentationTimerForm(this.CreateTimerView());
-        //}
-
-        private void ptsToolStrip_PresentFormEventsRequired(object sender, EventArgs e)
-        {
-            this.HookPresentFormEvents();
-        }
-
-        //private void ptsToolStrip_PresentFormEventsRemoved(object sender, EventArgs e)
-        //{
-        //    this.UnHookPresentFormEvents();
-        //}
-
-        //private void ptsToolStrip_LivePreviewFormRequired(object sender, EventArgs e)
-        //{
-        //    this.ptsToolStrip.LivePreviewForm = new PresentationTimerForm(this.CreateTimerView());
-        //    this.ptsToolStrip.LivePreviewForm.Text = "Live Preview";
-        //    this.ptsToolStrip.LivePreviewForm.IsPreviewForm = true;
-        //    this.ptsToolStrip.LivePreviewForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;
-        //}
-
+        
         #endregion
+        
     }
 }

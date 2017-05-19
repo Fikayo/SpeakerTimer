@@ -32,14 +32,17 @@
             SpeakerTimer.TimerViewSettings.TimerVisualSettings timerVisualSettings1 = new SpeakerTimer.TimerViewSettings.TimerVisualSettings();
             SpeakerTimer.TimerViewSettings timerViewSettings2 = new SpeakerTimer.TimerViewSettings();
             SpeakerTimer.TimerViewSettings.TimerVisualSettings timerVisualSettings2 = new SpeakerTimer.TimerViewSettings.TimerVisualSettings();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlPanel));
             this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
             this.tlpToolStripLayout = new System.Windows.Forms.TableLayoutPanel();
             this.ptsToolStrip = new SpeakerTimer.PresetationToolStrip();
             this.pcbLiveIndicator = new System.Windows.Forms.PictureBox();
             this.timerPreview2 = new SpeakerTimer.TimerPreview();
             this.timerPreview1 = new SpeakerTimer.TimerPreview();
+            this.newPresentationToolStrip1 = new SpeakerTimer.Presentation.NewPresentationToolStrip();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tsiMainDisplay = new System.Windows.Forms.ToolStripDropDownButton();
+            this.displayToolStripItem = new SpeakerTimer.Presentation.DisplayToolStripItem();
+            this.tsiOldMainDisplay = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmShowDisplay = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmShowLivePreview = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmKeepPreviewOnTop = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +57,6 @@
             this.tsmClearAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRefreshList = new System.Windows.Forms.ToolStripMenuItem();
             this.tslMakeTimePlan = new System.Windows.Forms.ToolStripLabel();
-            this.newPresentationToolStrip1 = new SpeakerTimer.Presentation.NewPresentationToolStrip();
             this.tlpOuterLayout.SuspendLayout();
             this.tlpToolStripLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbLiveIndicator)).BeginInit();
@@ -109,7 +111,6 @@
             this.ptsToolStrip.ShowTimerSettingsMenu = true;
             this.ptsToolStrip.Size = new System.Drawing.Size(994, 18);
             this.ptsToolStrip.TabIndex = 2;
-            this.ptsToolStrip.PresentFormEventsRequired += new System.EventHandler(this.ptsToolStrip_PresentFormEventsRequired);
             this.ptsToolStrip.PresetsLoaded += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_PresetsLoaded);
             this.ptsToolStrip.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_TimersSettingsOpened);
             this.ptsToolStrip.TimersSettingsDeleted += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_TimersSettingsDeleted);
@@ -220,11 +221,25 @@
             this.timerPreview1.SaveRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_SaveRequested);
             this.timerPreview1.LiveStateChanged += new System.EventHandler(this.timerPreview1_LiveStateChanged);
             // 
+            // newPresentationToolStrip1
+            // 
+            this.newPresentationToolStrip1.LivePreviewForm = null;
+            this.newPresentationToolStrip1.Location = new System.Drawing.Point(0, 60);
+            this.newPresentationToolStrip1.Name = "newPresentationToolStrip1";
+            this.newPresentationToolStrip1.PresentForm = null;
+            this.newPresentationToolStrip1.ShowDisplayMenu = true;
+            this.newPresentationToolStrip1.ShowTimePlanMenu = true;
+            this.newPresentationToolStrip1.ShowTimerSettingsMenu = true;
+            this.newPresentationToolStrip1.Size = new System.Drawing.Size(1040, 20);
+            this.newPresentationToolStrip1.TabIndex = 3;
+            this.newPresentationToolStrip1.Text = "newPresentationToolStrip1";
+            // 
             // toolStrip1
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsiMainDisplay,
+            this.displayToolStripItem,
+            this.tsiOldMainDisplay,
             this.tslTimers,
             this.tslMakeTimePlan});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -233,9 +248,22 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // tsiMainDisplay
+            // displayToolStripItem
             // 
-            this.tsiMainDisplay.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.displayToolStripItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.displayToolStripItem.Image = ((System.Drawing.Image)(resources.GetObject("displayToolStripItem.Image")));
+            this.displayToolStripItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.displayToolStripItem.LivePreviewForm = null;
+            this.displayToolStripItem.Name = "DisplayToolStripItem";
+            this.displayToolStripItem.PresentForm = null;
+            this.displayToolStripItem.Size = new System.Drawing.Size(88, 22);
+            this.displayToolStripItem.Text = "Main Display";
+            this.displayToolStripItem.PresentFormEventsRequired += new System.EventHandler(this.displayToolStripItem_PresentFormEventsRequired);
+            this.displayToolStripItem.PresentFormEventsRemoved += new System.EventHandler(this.displayToolStripItem_PresentFormEventsRemoved);
+            // 
+            // tsiOldMainDisplay
+            // 
+            this.tsiOldMainDisplay.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmShowDisplay,
             this.tsmShowLivePreview,
             this.tsmKeepOnTop,
@@ -243,16 +271,15 @@
             this.tsmChangeDisplayScreen,
             this.tsmMaximizeDisplay,
             this.tsmRemoveDisplayBorder});
-            this.tsiMainDisplay.Name = "tsiMainDisplay";
-            this.tsiMainDisplay.Size = new System.Drawing.Size(88, 22);
-            this.tsiMainDisplay.Text = "Main Display";
+            this.tsiOldMainDisplay.Name = "tsiOldMainDisplay";
+            this.tsiOldMainDisplay.Size = new System.Drawing.Size(110, 22);
+            this.tsiOldMainDisplay.Text = "Old Main Display";
             // 
             // tsmShowDisplay
             // 
             this.tsmShowDisplay.Name = "tsmShowDisplay";
             this.tsmShowDisplay.Size = new System.Drawing.Size(229, 22);
             this.tsmShowDisplay.Text = "Show Display Window";
-            this.tsmShowDisplay.Click += new System.EventHandler(this.tsmShowDisplay_Click);
             // 
             // tsmShowLivePreview
             // 
@@ -261,14 +288,12 @@
             this.tsmShowLivePreview.Name = "tsmShowLivePreview";
             this.tsmShowLivePreview.Size = new System.Drawing.Size(229, 22);
             this.tsmShowLivePreview.Text = "Show Live Preview";
-            this.tsmShowLivePreview.Click += new System.EventHandler(this.tsmShowLivePreview_Click);
             // 
             // tsmKeepPreviewOnTop
             // 
             this.tsmKeepPreviewOnTop.Name = "tsmKeepPreviewOnTop";
             this.tsmKeepPreviewOnTop.Size = new System.Drawing.Size(185, 22);
             this.tsmKeepPreviewOnTop.Text = "Keep Preview on Top";
-            this.tsmKeepPreviewOnTop.Click += new System.EventHandler(this.tsmKeepPreviewOnTop_Click);
             // 
             // tsmKeepOnTop
             // 
@@ -276,7 +301,6 @@
             this.tsmKeepOnTop.Name = "tsmKeepOnTop";
             this.tsmKeepOnTop.Size = new System.Drawing.Size(229, 22);
             this.tsmKeepOnTop.Text = "Keep Display Window on Top";
-            this.tsmKeepOnTop.Click += new System.EventHandler(this.tsmKeepOnTop_Click);
             // 
             // tsmFullScreen
             // 
@@ -284,7 +308,6 @@
             this.tsmFullScreen.Name = "tsmFullScreen";
             this.tsmFullScreen.Size = new System.Drawing.Size(229, 22);
             this.tsmFullScreen.Text = "Full Screen Display";
-            this.tsmFullScreen.Click += new System.EventHandler(this.tsmFullScreen_Click);
             // 
             // tsmChangeDisplayScreen
             // 
@@ -294,14 +317,12 @@
             this.tsmChangeDisplayScreen.Name = "tsmChangeDisplayScreen";
             this.tsmChangeDisplayScreen.Size = new System.Drawing.Size(229, 22);
             this.tsmChangeDisplayScreen.Text = "Change Display Screen";
-            this.tsmChangeDisplayScreen.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tsmChangeDisplayScreen_DropDownItemClicked);
             // 
             // tsmRefreshScreens
             // 
             this.tsmRefreshScreens.Name = "tsmRefreshScreens";
             this.tsmRefreshScreens.Size = new System.Drawing.Size(156, 22);
             this.tsmRefreshScreens.Text = "Refresh Screens";
-            this.tsmRefreshScreens.Click += new System.EventHandler(this.tsmRefreshScreens_Click);
             // 
             // tsmMaximizeDisplay
             // 
@@ -309,7 +330,6 @@
             this.tsmMaximizeDisplay.Name = "tsmMaximizeDisplay";
             this.tsmMaximizeDisplay.Size = new System.Drawing.Size(229, 22);
             this.tsmMaximizeDisplay.Text = "Maximize Display";
-            this.tsmMaximizeDisplay.Click += new System.EventHandler(this.tsmMaximizeDisplay_Click);
             // 
             // tsmRemoveDisplayBorder
             // 
@@ -317,7 +337,6 @@
             this.tsmRemoveDisplayBorder.Name = "tsmRemoveDisplayBorder";
             this.tsmRemoveDisplayBorder.Size = new System.Drawing.Size(229, 22);
             this.tsmRemoveDisplayBorder.Text = "Remove Display Border";
-            this.tsmRemoveDisplayBorder.Click += new System.EventHandler(this.tsmRemoveDisplayBorder_Click);
             // 
             // tslTimers
             // 
@@ -357,19 +376,6 @@
             this.tslMakeTimePlan.Text = "Make Time Plan";
             this.tslMakeTimePlan.Click += new System.EventHandler(this.tslMakeTimePlan_Click);
             // 
-            // newPresentationToolStrip1
-            // 
-            this.newPresentationToolStrip1.LivePreviewForm = null;
-            this.newPresentationToolStrip1.Location = new System.Drawing.Point(0, 60);
-            this.newPresentationToolStrip1.Name = "newPresentationToolStrip1";
-            this.newPresentationToolStrip1.PresentForm = null;
-            this.newPresentationToolStrip1.ShowDisplayMenu = true;
-            this.newPresentationToolStrip1.ShowTimePlanMenu = true;
-            this.newPresentationToolStrip1.ShowTimerSettingsMenu = true;
-            this.newPresentationToolStrip1.Size = new System.Drawing.Size(1040, 20);
-            this.newPresentationToolStrip1.TabIndex = 3;
-            this.newPresentationToolStrip1.Text = "newPresentationToolStrip1";
-            // 
             // ControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -400,7 +406,7 @@
         private TimerPreview timerPreview2;
         private TimerPreview timerPreview1;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripDropDownButton tsiMainDisplay;
+        private System.Windows.Forms.ToolStripDropDownButton tsiOldMainDisplay;
         private System.Windows.Forms.ToolStripMenuItem tsmShowDisplay;
         private System.Windows.Forms.ToolStripMenuItem tsmKeepOnTop;
         private System.Windows.Forms.ToolStripMenuItem tsmFullScreen;
@@ -419,5 +425,6 @@
         private System.Windows.Forms.TableLayoutPanel tlpToolStripLayout;
         private System.Windows.Forms.PictureBox pcbLiveIndicator;
         private Presentation.NewPresentationToolStrip newPresentationToolStrip1;
+        private Presentation.DisplayToolStripItem displayToolStripItem;
     }
 }

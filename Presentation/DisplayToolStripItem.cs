@@ -22,37 +22,25 @@ namespace SpeakerTimer.Presentation
             this.previewFormSize = new Size(365, 225);
 
             //this.EnsureDisplayFormActive();
-            this.PresetManager = new PresetManager();
 
             //this.OnPresentFormEventsRequired();
             this.AddAllScreens();
         }
 
         #region Events
-
-        //public event EventHandler PresentFormRequired;
+        
 
         public event EventHandler PresentFormEventsRequired;
 
-        //public event EventHandler PresentFormEventsRemoved;
-
-        //public event EventHandler LivePreviewFormRequired;
-
+        public event EventHandler PresentFormEventsRemoved;
+        
         public event EventHandler LivePreviewFormEventsRequired;
 
         public event EventHandler LivePreviewFormEventsRemoved;
 
-        public event EventHandler<PresetEventArgs> PresetsLoaded;
-
-        public event EventHandler<PresetEventArgs> TimersSettingsOpened;
-
-        public event EventHandler<PresetEventArgs> TimersSettingsDeleted;
-
         #endregion
 
         #region Properties
-
-        internal PresetManager PresetManager { get; private set; }
 
         public PresentationTimerForm PresentForm { get; set; }
 
@@ -67,11 +55,6 @@ namespace SpeakerTimer.Presentation
         #endregion
 
         #region External Members
-
-        public void Init()
-        {
-            this.LoadSavedTimers();
-        }
 
         public void EnsureDisplayFormActive()
         {
@@ -225,19 +208,6 @@ namespace SpeakerTimer.Presentation
             this.tsmChangeDisplayScreen.DropDownItems.Add(this.tsmRefreshScreens);
         }
 
-        private void LoadSavedTimers()
-        {
-            var settings = this.PresetManager.LoadAll();
-            if (settings != null)
-            {
-                this.OnPresetsLoaded(settings);
-            }
-            else
-            {
-                MessageBox.Show("There was an error when trying to load pre-saved settings.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
         #endregion
 
         #region Event Triggers
@@ -245,6 +215,15 @@ namespace SpeakerTimer.Presentation
         private void OnPresentFormEventsRequired()
         {
             var handler = this.PresentFormEventsRequired;
+            if (handler != null)
+            {
+                handler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        private void OnPresentFormEventsRemoved()
+        {
+            var handler = this.PresentFormEventsRemoved;
             if (handler != null)
             {
                 handler.Invoke(this, EventArgs.Empty);
@@ -268,34 +247,7 @@ namespace SpeakerTimer.Presentation
                 handler.Invoke(this, EventArgs.Empty);
             }
         }
-
-        private void OnPresetsLoaded(List<string> names)
-        {
-            var handler = this.PresetsLoaded;
-            if (handler != null)
-            {
-                handler.Invoke(this, new PresetEventArgs(names));
-            }
-        }
-
-        private void OnTimersSettingsOpened(List<string> selections)
-        {
-            var handler = this.TimersSettingsOpened;
-            if (handler != null)
-            {
-                handler.Invoke(this, new PresetEventArgs(selections));
-            }
-        }
-
-        private void OnTimerSettingsDeleted(List<string> selections)
-        {
-            var handler = this.TimersSettingsDeleted;
-            if (handler != null)
-            {
-                handler.Invoke(this, new PresetEventArgs(selections));
-            }
-        }
-
+        
         #endregion
 
         #region ToolStrip Menu Items Event Handlers
@@ -411,7 +363,7 @@ namespace SpeakerTimer.Presentation
         private void presentForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.tsmShowDisplay.Checked = false;
-            ////this.OnPresentFormEventsRemoved();
+            this.OnPresentFormEventsRemoved();
         }
 
         #endregion
