@@ -292,6 +292,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1451759639_timer.ico" />
+    <None Include="Resources\46729351-live-images.png" />
+    <None Include="Resources\live-circle-32px.png" />
     <None Include="Resources\save-2.png" />
     <None Include="Resources\save.png" />
     <None Include="Resources\save-asterisk.png" />

@@ -552,6 +552,9 @@
         public static readonly Image SaveImage = (Bitmap)rm.GetObject("save-2");
         public static readonly Image SaveAsterisk = (Bitmap)rm.GetObject("save-asterisk");
 
+        private const string ReadyStatus = "Ready";
+        private const string LiveStatus = "LIVE";
+
         public ControlPanel()
         {
             InitializeComponent();
@@ -613,7 +616,7 @@
 
         private void ControlPanel_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.ptsToolStrip.PresetManager.SaveAll();
+            this.savedTimersToolStripItem.PresetManager.SaveAll();
         }
 
         #region ToolStrip Menu Items Event Handlers
@@ -732,12 +735,12 @@
                     ////}
                     ////}
                     ////else
-                    if (!this.ptsToolStrip.PresetManager.HasSetting(name))
+                    if (!this.savedTimersToolStripItem.PresetManager.HasSetting(name))
                     {
                         this.AddPresetsToPreviews(name);
                     }
 
-                    success = this.ptsToolStrip.PresetManager.AddOrUpdateSetting(new KeyValuePair<string, string>(name, e.Settings.SaveSettingsAsCsv()));
+                    success = this.savedTimersToolStripItem.PresetManager.AddOrUpdateSetting(new KeyValuePair<string, string>(name, e.Settings.SaveSettingsAsCsv()));
                     //preview.DisplayName = name;
                 }
             }
@@ -754,7 +757,7 @@
 
         private void timerPreview_LoadRequested(object sender, SettingIOEventArgs e)
         {
-            string settingsCsv = this.ptsToolStrip.PresetManager.LoadSetting(e.SettingName);
+            string settingsCsv = this.savedTimersToolStripItem.PresetManager.LoadSetting(e.SettingName);
             if (settingsCsv != string.Empty)
             {
                 var timerPreview = sender as TimerPreview;
@@ -779,6 +782,9 @@
                 {
                     this.displayToolStripItem.ToggleLivePreviewForm(true);
                 }
+
+                this.statusLabel.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+                this.statusLabel.Text = this.timerPreview1.Settings.Name + " " + ControlPanel.LiveStatus;
             }
             else if (!this.timerPreview2.IsLive)
             {
@@ -792,9 +798,10 @@
                 {
                     this.displayToolStripItem.LivePreviewForm.Hide();
                 }
-            }
 
-            this.pcbLiveIndicator.Visible = this.timerPreview1.IsLive || this.timerPreview2.IsLive;
+                this.statusLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
+                this.statusLabel.Text = ControlPanel.ReadyStatus;
+            }
         }
 
         private void timerPreview2_LiveStateChanged(object sender, EventArgs e)
@@ -811,6 +818,9 @@
                 {
                     this.displayToolStripItem.ToggleLivePreviewForm(true);
                 }
+
+                this.statusLabel.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+                this.statusLabel.Text = this.timerPreview2.Settings.Name + " " + ControlPanel.LiveStatus;
             }
             else if (!this.timerPreview1.IsLive)
             {
@@ -824,9 +834,10 @@
                 {
                     this.displayToolStripItem.LivePreviewForm.Hide();
                 }
+
+                this.statusLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
+                this.statusLabel.Text = ControlPanel.ReadyStatus;
             }
-            
-            this.pcbLiveIndicator.Visible = this.timerPreview1.IsLive || this.timerPreview2.IsLive;
         }
 
         #endregion
