@@ -7,7 +7,7 @@
 	using System.Drawing;
 	using System.Text;
 	using System.Windows.Forms;
-	using SpeakerTimer;
+    using SpeakerTimer.Application;
 
     public partial class TimePlanForm : Form
     {
@@ -18,8 +18,8 @@
             this.timePlanControl.IsLive = false;
 
             this.displayToolStripItem.FetchTimerView = this.CreateTimerView;
-            this.ptsToolStrip.ShowTimePlanMenu = false;
-            this.ptsToolStrip.Init();
+
+            this.savedTimersTSDDButton.Init();
         }
 
         private TimeViewControl CreateTimerView()
@@ -49,11 +49,11 @@
             this.UnHookPresentFormEvents();
         }
         
-        private void ptsToolStrip_TimersSettingsOpened(object sender, PresetEventArgs e)
+        private void savedTimersTSDDButton_TimersSettingsOpened(object sender, PresetEventArgs e)
         {
-            if (e != null && e.Names != null)
+            if(e != null && e.Pairs != null)
             {
-                this.timePlanControl.OpenTimerSettings(e.Names);
+                this.timePlanControl.OpenTimerSettings(e.Pairs);
             }
         }
 

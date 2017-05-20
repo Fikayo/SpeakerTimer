@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\IdNamePair.cs" />
     <Compile Include="Application\DurationChangedEventArgs.cs" />
     <Compile Include="Application\PresetEventArgs.cs" />
     <Compile Include="Application\RefreshDisplayEventArgs.cs" />
@@ -88,12 +89,6 @@
       <DependentUpon>ControlPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="OldTimerView.cs" />
-    <Compile Include="Presentation\PresetationToolStrip.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Presentation\PresetationToolStrip.Designer.cs">
-      <DependentUpon>PresetationToolStrip.cs</DependentUpon>
-    </Compile>
     <Compile Include="Application\PresetManager.cs" />
     <Compile Include="Presentation\PresentationTimerForm.cs">
       <SubType>Form</SubType>
@@ -182,9 +177,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation\PresentationTimerForm.resx">
       <DependentUpon>PresentationTimerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\PresetationToolStrip.resx">
-      <DependentUpon>PresetationToolStrip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation\VisualSettingsForm.resx">
       <DependentUpon>VisualSettingsForm.cs</DependentUpon>

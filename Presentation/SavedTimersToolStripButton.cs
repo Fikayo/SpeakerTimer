@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer.Presentation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Data;
+    using System.Linq;
+    using System.Text;
+    using System.Windows.Forms;
+    using SpeakerTimer.Application;
+
     public partial class SavedTimersTSDDButton : ToolStripDropDownButton
     {
         public SavedTimersTSDDButton()
@@ -54,7 +55,7 @@ namespace SpeakerTimer.Presentation
             }
             else
             {
-                MessageBox.Show("There was an error when trying to load pre-saved settings.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("There was an error when trying to load saved settings.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -62,7 +63,7 @@ namespace SpeakerTimer.Presentation
 
         #region Event Triggers
 
-        private void OnPresetsLoaded(List<string> names)
+        private void OnPresetsLoaded(List<IdNamePair> names)
         {
             var handler = this.PresetsLoaded;
             if (handler != null)
@@ -71,7 +72,7 @@ namespace SpeakerTimer.Presentation
             }
         }
 
-        private void OnTimersSettingsOpened(List<string> selections)
+        private void OnTimersSettingsOpened(List<IdNamePair> selections)
         {
             var handler = this.TimersSettingsOpened;
             if (handler != null)
@@ -80,7 +81,7 @@ namespace SpeakerTimer.Presentation
             }
         }
 
-        private void OnTimerSettingsDeleted(List<string> selections)
+        private void OnTimerSettingsDeleted(List<IdNamePair> selections)
         {
             var handler = this.TimersSettingsDeleted;
             if (handler != null)
@@ -97,16 +98,15 @@ namespace SpeakerTimer.Presentation
         {
             using (var form = new TimerSettingsForm())
             {
-                form.TimerSettings = this.PresetManager.SettingsNames;
+                form.TimerSettings = this.PresetManager.SettingsIdNamePairs;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     var selections = form.TimerSettings;
                     switch (form.SelectedAction)
                     {
-
                         case TimerSettingsForm.Action.Open:
                             {
-                                this.OnTimersSettingsOpened(selections as List<string>);
+                                this.OnTimersSettingsOpened(selections as List<IdNamePair>);
                                 break;
                             }
 
@@ -116,7 +116,7 @@ namespace SpeakerTimer.Presentation
                                 if (result == System.Windows.Forms.DialogResult.Yes)
                                 {
                                     this.PresetManager.DeleteSettings(selections as List<string>, false);
-                                    this.OnTimerSettingsDeleted(selections as List<string>);
+                                    this.OnTimerSettingsDeleted(selections as List<IdNamePair>);
 
                                     this.PresetManager.SaveAll();
                                 }

@@ -7,6 +7,7 @@
     using System.Resources;
 	using System.Windows.Forms;
 	using SpeakerTimer.Presentation;
+	using SpeakerTimer.Application;
 
     ////    public partial class ControlPanel : Form
     ////    {
@@ -592,13 +593,14 @@
             return timerView;
         }
 
-        private void AddPresetsToPreviews(string name)
+        private void AddPresetsToPreviews(int id, string name)
         {
-            this.timerPreview1.SavedTimers.Add(name);
-            this.timerPreview2.SavedTimers.Add(name);
+            var item = new IdNamePair(id, name);
+            this.timerPreview1.SavedTimers.Add(item);
+            this.timerPreview2.SavedTimers.Add(item);
         }
 
-        private void ClearPresetFromPreviews(string name = "")
+        private void ClearPresetFromPreviews(int id = -1, string name = null)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -607,8 +609,9 @@
                 return;
             }
 
-            this.timerPreview1.SavedTimers.Remove(name);
-            this.timerPreview2.SavedTimers.Remove(name);
+            var item = new IdNamePair(id, name);
+            this.timerPreview1.SavedTimers.Remove(item);
+            this.timerPreview2.SavedTimers.Remove(item);
         }
         
         #endregion
@@ -636,38 +639,38 @@
         {
             if (e != null)
             {
-                foreach (string name in e.Names)
+                foreach (var pair in e.Pairs)
                 {
-                    AddPresetsToPreviews(name);
+                    AddPresetsToPreviews(pair.Id, pair.Name);
                 }
             }
         }
 
         private void savedTimersToolStripItem_TimersSettingsDeleted(object sender, PresetEventArgs e)
         {
-            if (e.Names == null)
+            if (e.Pairs == null)
             {
-                this.ClearPresetFromPreviews(null);
+                this.ClearPresetFromPreviews();
                 return;
             }
 
-            foreach (var setting in e.Names)
+            foreach (var setting in e.Pairs)
             {
-                this.ClearPresetFromPreviews(setting);
+                this.ClearPresetFromPreviews(setting.Id, setting.Name);
             }
         }
 
         private void savedTimersToolStripItem_TimersSettingsOpened(object sender, PresetEventArgs e)
         {
-            if (e.Names.Count > 2)
+            if (e.Pairs.Count > 2)
             {
                 MessageBox.Show("You may only open 2 settings at a time. Only the first two will be opened");
             }
 
-            this.timerPreview1.Settings = this.savedTimersToolStripItem.PresetManager[e.Names[0]];
-            if (e.Names.Count > 1)
+            this.timerPreview1.Settings = this.savedTimersToolStripItem.PresetManager[e.Pairs[0].Id];
+            if (e.Pairs.Count > 1)
             {
-                this.timerPreview2.Settings = this.savedTimersToolStripItem.PresetManager[e.Names[1]];
+                this.timerPreview2.Settings = this.savedTimersToolStripItem.PresetManager[e.Pairs[1].Id];
             }
         }
         
@@ -716,26 +719,27 @@
             var success = true;
             try
             {
+                var id = e.Settings.Id;
                 var name = e.Settings.Name;
                 if (!TimerViewSettings.IsUntitled(name))
                 {                    
-                    if(this.savedTimersToolStripItem.PresetManager.HasSetting(e.Settings.Id))
+                    if(this.savedTimersToolStripItem.PresetManager.HasSetting(id))
                     {
                         // Get the old name for this setting
-                        string oldName = this.savedTimersToolStripItem.PresetManager.LoadSetting(e.Settings.Id).Name;
+                        string oldName = this.savedTimersToolStripItem.PresetManager.LoadSetting(id).Name;
                         if(oldName != name)
                         {
                             // Removed the old name from the dropdowsn and add the new name in
-                            this.ClearPresetFromPreviews(oldName);
-                            this.AddPresetsToPreviews(name);
+                            this.ClearPresetFromPreviews(id, oldName);
+                            this.AddPresetsToPreviews(id, name);
                         }
                     }
                     else
                     {
-                        this.AddPresetsToPreviews(name);
+                        this.AddPresetsToPreviews(id, name);
                     }
 
-                    success = this.savedTimersToolStripItem.PresetManager.AddOrUpdateSetting(new KeyValuePair<int, TimerViewSettings>(e.Settings.Id, e.Settings));
+                    success = this.savedTimersToolStripItem.PresetManager.AddOrUpdateSetting(new KeyValuePair<int, TimerViewSettings>(id, e.Settings));
                     //preview.DisplayName = name;
                 }
             }

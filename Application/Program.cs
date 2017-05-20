@@ -3,6 +3,7 @@
     using System;
 	using System.Windows.Forms;
     using SpeakerTimer;
+    using MainApplication = System.Windows.Forms.Application;
 
     public static class Program
     {
@@ -14,9 +15,9 @@
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ControlPanel());
+            MainApplication.EnableVisualStyles();
+            MainApplication.SetCompatibleTextRenderingDefault(false);
+            MainApplication.Run(new ControlPanel());
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -27,7 +28,7 @@
                     "An unknown error has occurred which is resulting in a program crash. Please report the problem start the application again."+
                     "Thank you."+
                 "\r\n\r\n" + e.ExceptionObject,
-                    Application.ProductName,
+                    MainApplication.ProductName,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 
@@ -36,7 +37,7 @@
 
             MessageBox.Show("An unknown error has occurred. Please report the problem start the application again." +
                     "Thank you.",
-                    Application.ProductName,
+                    MainApplication.ProductName,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
         }

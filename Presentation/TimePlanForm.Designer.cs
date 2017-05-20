@@ -29,36 +29,22 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TimePlanForm));
-            this.ptsToolStrip = new SpeakerTimer.PresetationToolStrip();
             this.timePlanControl = new SpeakerTimer.TimePlanControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.displayToolStripItem = new SpeakerTimer.Presentation.DisplayToolStripItem();
+            this.savedTimersTSDDButton = new SpeakerTimer.Presentation.SavedTimersTSDDButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // ptsToolStrip
-            // 
-            this.ptsToolStrip.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ptsToolStrip.LivePreviewForm = null;
-            this.ptsToolStrip.Location = new System.Drawing.Point(3, 3);
-            this.ptsToolStrip.Name = "ptsToolStrip";
-            this.ptsToolStrip.PresentForm = null;
-            this.ptsToolStrip.ShowDisplayMenu = true;
-            this.ptsToolStrip.ShowTimePlanMenu = true;
-            this.ptsToolStrip.ShowTimerSettingsMenu = true;
-            this.ptsToolStrip.Size = new System.Drawing.Size(520, 30);
-            this.ptsToolStrip.TabIndex = 7;
-            this.ptsToolStrip.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.ptsToolStrip_TimersSettingsOpened);
             // 
             // timePlanControl
             // 
             this.timePlanControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timePlanControl.IsLive = true;
-            this.timePlanControl.Location = new System.Drawing.Point(3, 39);
+            this.timePlanControl.Location = new System.Drawing.Point(3, 3);
             this.timePlanControl.Name = "timePlanControl";
-            this.timePlanControl.Size = new System.Drawing.Size(520, 220);
+            this.timePlanControl.Size = new System.Drawing.Size(520, 256);
             this.timePlanControl.TabIndex = 6;
             this.timePlanControl.LiveStateChanged += new System.EventHandler(this.timePlanControl_LiveStateChanged);
             // 
@@ -66,7 +52,6 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.ptsToolStrip, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.timePlanControl, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 28);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -80,7 +65,8 @@
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.displayToolStripItem});
+            this.displayToolStripItem,
+            this.savedTimersTSDDButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(526, 25);
@@ -93,12 +79,22 @@
             this.displayToolStripItem.Image = ((System.Drawing.Image)(resources.GetObject("displayToolStripItem.Image")));
             this.displayToolStripItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.displayToolStripItem.LivePreviewForm = null;
-            this.displayToolStripItem.Name = "DisplayToolStripItem";
+            this.displayToolStripItem.Name = "displayToolStripItem";
             this.displayToolStripItem.PresentForm = null;
             this.displayToolStripItem.Size = new System.Drawing.Size(88, 22);
             this.displayToolStripItem.Text = "Main Display";
             this.displayToolStripItem.PresentFormEventsRequired += new System.EventHandler(this.displayToolStripItem_PresentFormEventsRequired);
             this.displayToolStripItem.PresentFormEventsRemoved += new System.EventHandler(this.displayToolStripItem_PresentFormEventsRemoved);
+            // 
+            // savedTimersTSDDButton
+            // 
+            this.savedTimersTSDDButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.savedTimersTSDDButton.Image = ((System.Drawing.Image)(resources.GetObject("savedTimersTSDDButton.Image")));
+            this.savedTimersTSDDButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.savedTimersTSDDButton.Name = "savedTimersTSDDButton";
+            this.savedTimersTSDDButton.Size = new System.Drawing.Size(56, 22);
+            this.savedTimersTSDDButton.Text = "Timers";
+            this.savedTimersTSDDButton.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs>(this.savedTimersTSDDButton_TimersSettingsOpened);
             // 
             // TimePlanForm
             // 
@@ -120,9 +116,9 @@
 
         #endregion
         private TimePlanControl timePlanControl;
-        private PresetationToolStrip ptsToolStrip;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private Presentation.DisplayToolStripItem displayToolStripItem;
+        private Presentation.SavedTimersTSDDButton savedTimersTSDDButton;
     }
 }

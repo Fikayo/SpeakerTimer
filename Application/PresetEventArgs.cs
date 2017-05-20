@@ -1,17 +1,15 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Application
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
 
     public class PresetEventArgs : EventArgs
     {
-        public PresetEventArgs(List<string> names)
+        public PresetEventArgs(List<IdNamePair> pairs)
         {
-            this.Names = names;
+            this.Pairs = pairs;
         }
 
-        public List<string> Names { get; private set; }
+        public List<IdNamePair> Pairs { get; private set; }
     }
 }

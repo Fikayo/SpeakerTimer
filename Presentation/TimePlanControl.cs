@@ -8,7 +8,8 @@
 	using System.Linq;
 	using System.Text;
 	using System.Windows.Forms;
-	using SpeakerTimer;
+    using SpeakerTimer.Application;
+    using MainApplication = System.Windows.Forms.Application;
 
     public partial class TimePlanControl : UserControl
     {
@@ -41,7 +42,7 @@
             }
             else
             {
-                MessageBox.Show("There was an error when trying to load pre-saved settings.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("There was an error when trying to load pre-saved settings.", MainApplication.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -70,20 +71,20 @@
 
         public TimePlanCommandIssuer CommandIssuer { get; private set; }
 
-        public void OpenTimerSettings(List<string> timers)
+        public void OpenTimerSettings(List<IdNamePair> timers)
         {
             for(int i = 0; i < this.clbAllTimers.Items.Count; i++)
             {
                 this.clbAllTimers.SetItemChecked(0, false);
             }
 
-            foreach(string timer in timers)
+            foreach(var timerPair in timers)
             {
-                if (this.clbAllTimers.Items.Contains(timer))
+                if (this.clbAllTimers.Items.Contains(timerPair))
                 {
-                    var index = this.clbAllTimers.FindStringExact(timer);
+                    var index = this.clbAllTimers.FindStringExact(timerPair.Name);
                     this.clbAllTimers.SetItemChecked(index, true);
-                    this.AddTimer(timer);
+                    this.AddTimer(timerPair.Id);
                 }
             }
         }
@@ -117,10 +118,10 @@
             }
         }
 
-        private void AddTimer(string timer)
+        private void AddTimer(int timerId)
         {
             ////this.TimePlanView.TimePlan.AddTimer(this.presetManager.LoadSetting(timer));
-            this.CommandIssuer.OnTimerAdded(this.presetManager.LoadSetting(timer));
+            this.CommandIssuer.OnTimerAdded(this.presetManager.LoadSetting(timerId));
         }
 
         #endregion
@@ -137,10 +138,10 @@
 
             if (this.clbAllTimers.CheckedItems.Count > 0)
             {
-                foreach (var selection in this.clbAllTimers.CheckedItems)
+                foreach (IdNamePair selection in this.clbAllTimers.CheckedItems)
                 {
                     //this.TimePlanView.TimePlan.AddTimer(this.presetManager.LoadSetting(selection.ToString()));
-                    this.AddTimer(selection.ToString());
+                    this.AddTimer(selection.Id);
                 }
             }
             else

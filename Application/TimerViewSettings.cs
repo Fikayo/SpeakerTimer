@@ -11,10 +11,13 @@
         private string name;
         private static int count = 0;
 
-        public TimerViewSettings()
+        public TimerViewSettings(bool isDefault = false)
         {
             this.SetDefaultSettings();
-            this.Id = TimerViewSettings.count++;
+            if (isDefault)
+            {
+                this.Id = TimerViewSettings.count++;
+            }
         }
 
         public int Id { get; private set; }
@@ -203,6 +206,11 @@
 
         public static TimerViewSettings Default
         {
+            get { return new TimerViewSettings(true); }
+        }
+
+        private static TimerViewSettings Empty
+        {
             get { return new TimerViewSettings(); }
         }
 
@@ -273,7 +281,7 @@
 
         public static TimerViewSettings ParseCsv(string csv)
         {
-            TimerViewSettings settings = TimerViewSettings.Default;
+            TimerViewSettings settings = TimerViewSettings.Empty;
 
             try
             {

@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Application
 {
     using System;
     using System.Collections.Generic;
@@ -32,6 +32,25 @@
         public List<string> SettingsNames
         {
             get { return new List<string>(this.nameToSettingIdx.Keys); }
+        }
+
+        public List<IdNamePair> SettingsIdNamePairs
+        {
+            get
+            {
+                var idNamePairs = new List<IdNamePair>();
+                foreach (var setting in this.savedSettings)
+                {
+                    idNamePairs.Add(new IdNamePair(setting.Id, setting.Name));
+                }
+
+                return idNamePairs;
+            }
+        }
+
+        public TimerViewSettings this[int settingId]
+        {
+            get { return this.LoadSetting(settingId); }
         }
 
         public TimerViewSettings this[string settingName]
@@ -149,7 +168,7 @@
             }
         }
 
-        public List<string> LoadAll()
+        public List<IdNamePair> LoadAll()
         {
             string[] lines = { };
             try
@@ -164,6 +183,7 @@
             }
 
             this.savedSettings.Clear();
+            var idNamePairs = new List<IdNamePair>();
             foreach (var line in lines)
             {
                 var setting = TimerViewSettings.ParseCsv(line);
@@ -176,9 +196,11 @@
                 {
                     this.AddNewSetting(id, setting);
                 }
+
+                idNamePairs.Add(new IdNamePair(id, setting.Name));
             }
 
-            return this.SettingsNames;
+            return idNamePairs;
         }
 
         public bool DeleteAll()
@@ -216,7 +238,7 @@
 
         private void AddNewSetting(int id, TimerViewSettings setting)
         {
-            this.savedSettings.Add(setting);
+            this.savedSettings.Add(setting.Clone());
 
             var index = this.savedSettings.Count - 1;
             this.idToSettingIdx[id] = index;
@@ -239,7 +261,7 @@
             }
 
             // Update setting
-            this.savedSettings[index] = setting;
+            this.savedSettings[index] = setting.Clone();
             this.nameToSettingIdx[setting.Name] = index;
         }
     }

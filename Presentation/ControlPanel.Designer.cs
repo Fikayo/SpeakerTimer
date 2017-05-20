@@ -121,9 +121,9 @@
             this.savedTimersToolStripItem.Name = "savedTimersToolStripItem";
             this.savedTimersToolStripItem.Size = new System.Drawing.Size(56, 22);
             this.savedTimersToolStripItem.Text = "Timers";
-            this.savedTimersToolStripItem.PresetsLoaded += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.savedTimersToolStripItem_PresetsLoaded);
-            this.savedTimersToolStripItem.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.savedTimersToolStripItem_TimersSettingsOpened);
-            this.savedTimersToolStripItem.TimersSettingsDeleted += new System.EventHandler<SpeakerTimer.PresetEventArgs>(this.savedTimersToolStripItem_TimersSettingsDeleted);
+            this.savedTimersToolStripItem.PresetsLoaded += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs>(this.savedTimersToolStripItem_PresetsLoaded);
+            this.savedTimersToolStripItem.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs>(this.savedTimersToolStripItem_TimersSettingsOpened);
+            this.savedTimersToolStripItem.TimersSettingsDeleted += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs>(this.savedTimersToolStripItem_TimersSettingsDeleted);
             // 
             // tsbCreateSequence
             // 

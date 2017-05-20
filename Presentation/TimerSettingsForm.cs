@@ -1,33 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-namespace SpeakerTimer
+﻿namespace SpeakerTimer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.Text;
+    using System.Windows.Forms;
+    using SpeakerTimer.Application;
+
     public partial class TimerSettingsForm : Form
     {
-        private List<string> selectedSettings;
+        private List<IdNamePair> selectedSettings;
 
         public TimerSettingsForm()
         {
             InitializeComponent();
 
-            this.selectedSettings = new List<string>();
+            this.selectedSettings = new List<IdNamePair>();
         }
 
         public Action SelectedAction { get; private set; }
 
-        public IList<string> TimerSettings
+        public IList<IdNamePair> TimerSettings
         {
             get { return this.selectedSettings; }
 
             set
             {
                 this.clbTimerSettings.Items.Clear();
-                string[] array = new string[value.Count];
+                IdNamePair[] array = new IdNamePair[value.Count];
                 value.CopyTo(array, 0);
                 this.clbTimerSettings.Items.AddRange(array);
             }
@@ -45,7 +47,7 @@ namespace SpeakerTimer
             {
                 foreach (var selection in this.clbTimerSettings.CheckedItems)
                 {
-                    this.selectedSettings.Add(selection.ToString());
+                    this.selectedSettings.Add(selection as IdNamePair);
                 }
 
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
