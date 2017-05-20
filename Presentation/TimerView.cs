@@ -241,6 +241,9 @@
             this.ShowLabel = false;
             this.lblTimer.Text = this.Settings.MessageSettings.TimerMessage;
 
+            var messageFont = new Font(this.Settings.TimerFont.FontFamily.Name, this.Settings.MessageSettings.MessageFontSize);
+            this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : messageFont;
+            
             this.lblMiniTimer.Visible = true;
             this.lblMiniTimer.ForeColor = this.Settings.RunningColor;
             this.RefreshTimerDisplay(true);
@@ -339,7 +342,8 @@
             this.RefreshTimerDisplay(true);
             this.lblMiniTimer.Visible = false;
             this.ShowLabel = true;
-
+            this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : this.Settings.TimerFont;
+            
             this.OnMessageFinished();
         }
 

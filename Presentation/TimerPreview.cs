@@ -92,6 +92,9 @@
             // Blinking
             this.chbBlink.Checked = this.Settings.BlinkOnExpired;
 
+            // Timer Message Font
+            this.numMessageFont.Value = (decimal)this.Settings.MessageSettings.MessageFontSize;
+
             // Meta data
             this.running = false;
             this.showingMessage = false;
@@ -113,6 +116,7 @@
                 this.showingMessage = false;
                 this.numMessageDuration.Enabled = true;
                 this.chbIndefiniteMessageDuration.Enabled = true;
+                this.numMessageFont.Enabled = true;
                 this.btnShowMessage.Text = "Show Message";
             };
 
@@ -146,6 +150,8 @@
 
             this.numMessageDuration.Enabled = false;
             this.chbIndefiniteMessageDuration.Enabled = false;
+            this.numMessageFont.Enabled = false;
+
             this.btnShowMessage.Text = cancelMessageText;
             this.showingMessage = true;
         }
