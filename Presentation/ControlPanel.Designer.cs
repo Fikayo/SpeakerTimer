@@ -56,18 +56,18 @@
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpOuterLayout.Size = new System.Drawing.Size(1040, 522);
+            this.tlpOuterLayout.Size = new System.Drawing.Size(1054, 522);
             this.tlpOuterLayout.TabIndex = 0;
             // 
             // timerPreview2
             // 
-            this.timerPreview2.DisplayName = "Un-named2";
+            this.timerPreview2.DisplayName = "Un-named5";
             this.timerPreview2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerPreview2.IsLive = true;
             this.timerPreview2.Location = new System.Drawing.Point(3, 274);
             this.timerPreview2.MinimumSize = new System.Drawing.Size(0, 195);
             this.timerPreview2.Name = "timerPreview2";
-            this.timerPreview2.Size = new System.Drawing.Size(1034, 245);
+            this.timerPreview2.Size = new System.Drawing.Size(1048, 245);
             this.timerPreview2.TabIndex = 1;
             this.timerPreview2.LoadRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_LoadRequested);
             this.timerPreview2.SaveRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_SaveRequested);
@@ -75,13 +75,13 @@
             // 
             // timerPreview1
             // 
-            this.timerPreview1.DisplayName = "Un-named3";
+            this.timerPreview1.DisplayName = "Un-named6";
             this.timerPreview1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerPreview1.IsLive = true;
             this.timerPreview1.Location = new System.Drawing.Point(3, 23);
             this.timerPreview1.MinimumSize = new System.Drawing.Size(0, 195);
             this.timerPreview1.Name = "timerPreview1";
-            this.timerPreview1.Size = new System.Drawing.Size(1034, 245);
+            this.timerPreview1.Size = new System.Drawing.Size(1048, 245);
             this.timerPreview1.TabIndex = 0;
             this.timerPreview1.LoadRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_LoadRequested);
             this.timerPreview1.SaveRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_SaveRequested);
@@ -96,7 +96,7 @@
             this.tsbCreateSequence});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(1040, 25);
+            this.toolStrip.Size = new System.Drawing.Size(1054, 25);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip";
             // 
@@ -143,7 +143,7 @@
             this.statusStrip.Location = new System.Drawing.Point(0, 500);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.statusStrip.Size = new System.Drawing.Size(1040, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1054, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -159,12 +159,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1040, 522);
+            this.ClientSize = new System.Drawing.Size(1054, 522);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.tlpOuterLayout);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(1030, 500);
+            this.MinimumSize = new System.Drawing.Size(1070, 500);
             this.Name = "ControlPanel";
             this.Text = "Speaker Timer - Control Panel";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ControlPanel_FormClosing);

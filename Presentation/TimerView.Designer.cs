@@ -30,9 +30,9 @@
         {
             this.lblTimer = new System.Windows.Forms.Label();
             this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.lblCurrentTimer = new System.Windows.Forms.Label();
-            this.lblMiniTimer = new System.Windows.Forms.Label();
+            this.lblTimerTitle = new System.Windows.Forms.Label();
             this.tlpMiniTimerLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.lblMiniTimer = new System.Windows.Forms.Label();
             this.tlpOuterLayout.SuspendLayout();
             this.tlpMiniTimerLayout.SuspendLayout();
             this.SuspendLayout();
@@ -58,7 +58,7 @@
             this.tlpOuterLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpOuterLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpOuterLayout.Controls.Add(this.lblTimer, 1, 2);
-            this.tlpOuterLayout.Controls.Add(this.lblCurrentTimer, 1, 1);
+            this.tlpOuterLayout.Controls.Add(this.lblTimerTitle, 1, 1);
             this.tlpOuterLayout.Controls.Add(this.tlpMiniTimerLayout, 1, 3);
             this.tlpOuterLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpOuterLayout.Location = new System.Drawing.Point(0, 0);
@@ -72,31 +72,17 @@
             this.tlpOuterLayout.TabIndex = 1;
             this.tlpOuterLayout.DoubleClick += new System.EventHandler(this.tlpOuterLayout_DoubleClick);
             // 
-            // lblCurrentTimer
+            // lblTimerTitle
             // 
-            this.lblCurrentTimer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCurrentTimer.AutoSize = true;
-            this.lblCurrentTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentTimer.Location = new System.Drawing.Point(88, 54);
-            this.lblCurrentTimer.Name = "lblCurrentTimer";
-            this.lblCurrentTimer.Size = new System.Drawing.Size(174, 17);
-            this.lblCurrentTimer.TabIndex = 1;
-            this.lblCurrentTimer.Text = "Current Timer";
-            this.lblCurrentTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblMiniTimer
-            // 
-            this.lblMiniTimer.AutoSize = true;
-            this.lblMiniTimer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblMiniTimer.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMiniTimer.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblMiniTimer.Location = new System.Drawing.Point(3, 0);
-            this.lblMiniTimer.Name = "lblMiniTimer";
-            this.lblMiniTimer.Size = new System.Drawing.Size(88, 23);
-            this.lblMiniTimer.TabIndex = 2;
-            this.lblMiniTimer.Text = "00:00:00";
-            this.lblMiniTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblMiniTimer.Visible = false;
+            this.lblTimerTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTimerTitle.AutoSize = true;
+            this.lblTimerTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTimerTitle.Location = new System.Drawing.Point(88, 54);
+            this.lblTimerTitle.Name = "lblTimerTitle";
+            this.lblTimerTitle.Size = new System.Drawing.Size(174, 17);
+            this.lblTimerTitle.TabIndex = 1;
+            this.lblTimerTitle.Text = "Current Timer";
+            this.lblTimerTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tlpMiniTimerLayout
             // 
@@ -113,6 +99,20 @@
             this.tlpMiniTimerLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tlpMiniTimerLayout.Size = new System.Drawing.Size(94, 33);
             this.tlpMiniTimerLayout.TabIndex = 3;
+            // 
+            // lblMiniTimer
+            // 
+            this.lblMiniTimer.AutoSize = true;
+            this.lblMiniTimer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblMiniTimer.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMiniTimer.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblMiniTimer.Location = new System.Drawing.Point(3, 0);
+            this.lblMiniTimer.Name = "lblMiniTimer";
+            this.lblMiniTimer.Size = new System.Drawing.Size(88, 23);
+            this.lblMiniTimer.TabIndex = 2;
+            this.lblMiniTimer.Text = "00:00:00";
+            this.lblMiniTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblMiniTimer.Visible = false;
             // 
             // TimerView
             // 
@@ -134,7 +134,7 @@
 
         private System.Windows.Forms.Label lblTimer;
         private System.Windows.Forms.TableLayoutPanel tlpOuterLayout;
-        private System.Windows.Forms.Label lblCurrentTimer;
+        private System.Windows.Forms.Label lblTimerTitle;
         private System.Windows.Forms.Label lblMiniTimer;
         private System.Windows.Forms.TableLayoutPanel tlpMiniTimerLayout;
     }

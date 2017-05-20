@@ -17,41 +17,50 @@
         private const string SavedTimersFilename = "presets.csv";
         private static readonly string SavedTimersPath = Path.Combine(PresetManager.SavedTimersDirectory, PresetManager.SavedTimersFilename);
 
-        private Dictionary<string, string> savedSettings;
+        private Dictionary<int, int> idToSettingIdx;
+        private Dictionary<string, int> nameToSettingIdx;
+        private List<TimerViewSettings> savedSettings;
 
         public PresetManager()
         {
-            this.savedSettings = new Dictionary<string, string>();
+            this.idToSettingIdx = new Dictionary<int, int>();
+            this.nameToSettingIdx = new Dictionary<string, int>();
+            this.savedSettings = new List<TimerViewSettings>();
             this.EnsureFileExists();
         }
 
         public List<string> SettingsNames
         {
-            get { return new List<string>(this.savedSettings.Keys); }
+            get { return new List<string>(this.nameToSettingIdx.Keys); }
         }
 
-        public string this[string settingName]
+        public TimerViewSettings this[string settingName]
         {
             get { return this.LoadSetting(settingName); }
         }
 
         public bool HasSetting(string name)
         {
-            return this.savedSettings.ContainsKey(name);
+            return this.nameToSettingIdx.ContainsKey(name);
         }
 
-        public bool AddOrUpdateSetting(KeyValuePair<string, string> setting)
+        public bool HasSetting(int id)
         {
-            if (this.savedSettings.ContainsKey(setting.Key))
+            return this.idToSettingIdx.ContainsKey(id);
+        }
+
+        public bool AddOrUpdateSetting(KeyValuePair<int, TimerViewSettings> setting)
+        {
+            if (this.idToSettingIdx.ContainsKey(setting.Key))
             {
                 // Update file
-                this.savedSettings[setting.Key] = setting.Value;
+                this.UpdateSetting(setting.Key, setting.Value);
                 return this.SaveAll();
             }
 
             // Append to file
-            this.savedSettings.Add(setting.Key, setting.Value);
-            var preset = setting.Value + Environment.NewLine;
+            this.AddNewSetting(setting.Key, setting.Value);
+            var preset = setting.Value.SaveSettingsAsCsv() + Environment.NewLine;
 
             try
             {
@@ -65,20 +74,39 @@
             }
         }
 
-        public string LoadSetting(string name)
+        public TimerViewSettings LoadSetting(string name)
         {
-            string settingsCsv = string.Empty;
-            if (this.savedSettings.TryGetValue(name, out settingsCsv))
+            int index;
+            if (this.nameToSettingIdx.TryGetValue(name, out index))
             {
-                return settingsCsv;
+                return this.savedSettings[index];
             }
 
-            return string.Empty;
+            return null;
+        }
+
+        public TimerViewSettings LoadSetting(int id)
+        {
+            int index;
+            if (this.idToSettingIdx.TryGetValue(id, out index))
+            {
+                return this.savedSettings[index];
+            }
+
+            return null;
         }
 
         public bool DeleteSetting(string name, bool flush = true)
         {
-            this.savedSettings.Remove(name);
+            int index;
+            if (this.nameToSettingIdx.TryGetValue(name, out index))
+            {
+                var settingId = this.savedSettings[index].Id;
+
+                this.savedSettings.RemoveAt(index);
+                this.nameToSettingIdx.Remove(name);
+                this.idToSettingIdx.Remove(settingId);
+            }
 
             if (flush)
             {
@@ -104,9 +132,9 @@
         public bool SaveAll()
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var kvp in this.savedSettings)
+            foreach (var setting in this.savedSettings)
             {
-                sb.AppendLine(kvp.Value);
+                sb.AppendLine(setting.SaveSettingsAsCsv());
             }
 
             try
@@ -138,15 +166,15 @@
             this.savedSettings.Clear();
             foreach (var line in lines)
             {
-                var settings = TimerViewSettings.ParseCsv(line);
-                var name = settings.Name;
-                if (this.savedSettings.ContainsKey(name))
+                var setting = TimerViewSettings.ParseCsv(line);
+                var id = setting.Id;
+                if (this.HasSetting(id))
                 {
-                    this.savedSettings[name] = line;
+                    this.UpdateSetting(id, setting);
                 }
                 else
                 {
-                    this.savedSettings.Add(name, line);
+                    this.AddNewSetting(id, setting);
                 }
             }
 
@@ -159,7 +187,11 @@
             {
                 this.EnsureFileExists();
                 File.WriteAllText(PresetManager.SavedTimersPath, string.Empty);
+
                 this.savedSettings.Clear();
+                this.nameToSettingIdx.Clear();
+                this.idToSettingIdx.Clear();
+
                 return true;
             }
             catch
@@ -180,6 +212,35 @@
                 // Create the file without creating a file stream
                 using (var sw = new StreamWriter(PresetManager.SavedTimersPath)) { }
             }
+        }
+
+        private void AddNewSetting(int id, TimerViewSettings setting)
+        {
+            this.savedSettings.Add(setting);
+
+            var index = this.savedSettings.Count - 1;
+            this.idToSettingIdx[id] = index;
+            this.nameToSettingIdx[setting.Name] = index;
+        }
+
+        private void UpdateSetting(int id, TimerViewSettings setting)
+        {
+            var index = this.idToSettingIdx[id];
+
+            // First check if this setting was under a different name
+            var oldName = this.savedSettings[index].Name;
+            if(oldName != setting.Name)
+            {
+                // Remove ties to old name
+                this.nameToSettingIdx.Remove(oldName);
+
+                // Add the new name
+                this.nameToSettingIdx.Add(setting.Name, index);
+            }
+
+            // Update setting
+            this.savedSettings[index] = setting;
+            this.nameToSettingIdx[setting.Name] = index;
         }
     }
 }

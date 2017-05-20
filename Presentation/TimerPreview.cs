@@ -164,32 +164,8 @@
         }
 
         private void SaveSettings()
-        {
-            var name = this.txtSettingsName.Text.Trim();
-            if (string.IsNullOrEmpty(name))
-            {
-                MessageBox.Show("The entered name cannot be null");
-                return;
-            }
-
-            if (name.Contains(","))
-            {
-                MessageBox.Show("Then entered name must not contain a comma ','");
-                return;
-            }
-
-            foreach (var c in System.IO.Path.GetInvalidFileNameChars())
-            {
-                if (name.Contains(c.ToString()))
-                {
-                    MessageBox.Show("The entered name contains an invalid character: " + c);
-                    return;
-                }
-            }
-
-            this.Settings.Name = name;
-            this.OnSaveRequested(name, this.Settings);
-
+        {            
+            this.OnSaveRequested(this.Settings);
             this.btnSave.BackgroundImage = ControlPanel.SaveImage;
         }
 
@@ -204,12 +180,12 @@
             }
         }
 
-        private void OnSaveRequested(string name, TimerViewSettings settings)
+        private void OnSaveRequested(TimerViewSettings settings)
         {
             var handler = this.SaveRequested;
             if (handler != null)
             {
-                handler.Invoke(this, new SettingIOEventArgs(name, settings));
+                handler.Invoke(this, new SettingIOEventArgs(settings.Name, settings));
             }
         }
 
@@ -240,17 +216,7 @@
             this.DisplayName = this.settings.Name;
             Util.SetWatermark(this.txtFinalMessage, "Time Up");
         }
-
-        private void btnDefaultSettings_Click(object sender, EventArgs e)
-        {
-            //var duration = this.settings.Duration;
-            //this.settings = TimerViewSettings.Default;
-            //this.settings.Duration = duration;
-            //this.InitSettings();
-            //this.OnSettingsChanged();
-            new SpeakerTimer.Presentation.VisualSettingsForm(TimerViewSettings.TimerVisualSettings.Default).Show();
-        }
-
+        
         #region Timer Message
 
         private void btnShowMessage_Click(object sender, EventArgs e)
@@ -274,6 +240,11 @@
             this.chbIndefiniteMessageDuration.Checked = messageDuration <= 0;
 
             this.Settings.MessageSettings.MessageDuration = messageDuration; // seconds
+        }
+
+        private void numMessageFont_ValueChanged(object sender, EventArgs e)
+        {
+            this.Settings.MessageSettings.MessageFontSize = (int)this.numMessageFont.Value;
         }
 
         private void chbIndefiniteMessageDuration_CheckedChanged(object sender, EventArgs e)
@@ -351,7 +322,7 @@
             this.Settings.FinalMessage = this.txtFinalMessage.Text;
             this.OnSettingsChanged();
         }
-
+        
         private void btnVisualSettings_Click(object sender, EventArgs e)
         {
             using (var form = new SpeakerTimer.Presentation.VisualSettingsForm(this.Settings.VisualSettings))
@@ -416,7 +387,31 @@
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                this.SaveSettings();
+                var name = this.txtSettingsName.Text.Trim();
+                if (string.IsNullOrEmpty(name))
+                {
+                    MessageBox.Show("The entered name cannot be null");
+                    return;
+                }
+
+                if (name.Contains(","))
+                {
+                    MessageBox.Show("Then entered name must not contain a comma ','");
+                    return;
+                }
+
+                foreach (var c in System.IO.Path.GetInvalidFileNameChars())
+                {
+                    if (name.Contains(c.ToString()))
+                    {
+                        MessageBox.Show("The entered name contains an invalid character: " + c);
+                        return;
+                    }
+                }
+
+                this.Settings.Name = name;
+                this.OnSettingsChanged();
+
                 e.Handled = true;
                 this.txtSettingsName.Enabled = false;
                 this.btnEditName.Enabled = true;
@@ -444,6 +439,11 @@
         {
             this.txtSettingsName.Enabled = true;
             this.btnEditName.Enabled = false;
+        }
+
+        private void btnNewSetting_Click(object sender, EventArgs e)
+        {
+            this.Settings = TimerViewSettings.Default;
         }
 
         private void btnSave_Click(object sender, EventArgs e)

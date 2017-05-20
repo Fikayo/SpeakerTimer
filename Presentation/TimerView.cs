@@ -100,7 +100,7 @@
             set
             {
                 this.TimerLabel.ForeColor = value;
-                this.lblCurrentTimer.ForeColor = value;
+                this.lblTimerTitle.ForeColor = value;
             }
         }
 
@@ -130,8 +130,8 @@
 
         public bool ShowLabel
         {
-            get { return this.lblCurrentTimer.Visible; }
-            set { this.lblCurrentTimer.Visible = value; }
+            get { return this.lblTimerTitle.Visible; }
+            set { this.lblTimerTitle.Visible = value; }
         }
 
         private Label TimerLabel
@@ -296,7 +296,10 @@
         {
             this.TimerFont = this.IsPreviewMode ? new Font(settings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : settings.TimerFont;
             int labelSize = this.IsPreviewMode ? TimerView.PreviewLabelSize : (int)Math.Max(settings.TimerFont.Size / 3, 10);
-            this.lblCurrentTimer.Font = new Font(settings.TimerFont.FontFamily.Name, labelSize);
+            this.lblTimerTitle.Font = new Font(settings.TimerFont.FontFamily.Name, labelSize);
+
+            // Keep the mini timer the same size as the title
+            this.lblMiniTimer.Font = new Font(settings.TimerFont.FontFamily.Name, labelSize);
 
             this.BackgroundColor = settings.BackgroundColor;
             this.TimerColor = settings.RunningColor;
@@ -304,12 +307,12 @@
             this.Settings = settings.Clone();
             this.Settings.SecondWarningColor = this.Settings.MessageColor;
 
-            if (!settings.BlinkOnExpired && this.blinkManager.IsBlinking)
+            if ((settings.BlinkOnExpired && this.CurrentTime > 0) || (!settings.BlinkOnExpired && this.blinkManager.IsBlinking))
             {
                 this.blinkManager.StopBlinking();
             }
 
-            this.lblCurrentTimer.Text = this.Settings.Title;
+            this.lblTimerTitle.Text = this.Settings.Title;
             this.RefreshTimerDisplay();
         }
 
@@ -331,16 +334,13 @@
 
         private void CancelTimerMessage()
         {
-            if (this.DisplayState == DisplayState.Message)
-            {
-                this.messageTimer.Stop();
-                this.DisplayState = DisplayState.Timer;
-                this.RefreshTimerDisplay(true);
-                this.lblMiniTimer.Visible = false;
-                this.ShowLabel = true;
+            this.messageTimer.Stop();
+            this.DisplayState = DisplayState.Timer;
+            this.RefreshTimerDisplay(true);
+            this.lblMiniTimer.Visible = false;
+            this.ShowLabel = true;
 
-                this.OnMessageFinished();
-            }
+            this.OnMessageFinished();
         }
 
         private bool DisplayFinalMessage()

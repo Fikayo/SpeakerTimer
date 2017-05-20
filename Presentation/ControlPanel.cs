@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Linq;
     using System.Resources;
 	using System.Windows.Forms;
 	using SpeakerTimer.Presentation;
@@ -663,10 +664,10 @@
                 MessageBox.Show("You may only open 2 settings at a time. Only the first two will be opened");
             }
 
-            this.timerPreview1.Settings = TimerViewSettings.ParseCsv(this.savedTimersToolStripItem.PresetManager[e.Names[0]]);
+            this.timerPreview1.Settings = this.savedTimersToolStripItem.PresetManager[e.Names[0]];
             if (e.Names.Count > 1)
             {
-                this.timerPreview2.Settings = TimerViewSettings.ParseCsv(this.savedTimersToolStripItem.PresetManager[e.Names[1]]);
+                this.timerPreview2.Settings = this.savedTimersToolStripItem.PresetManager[e.Names[1]];
             }
         }
         
@@ -715,36 +716,30 @@
             var success = true;
             try
             {
-                var name = e.SettingName;
+                var name = e.Settings.Name;
                 if (!TimerViewSettings.IsUntitled(name))
-                {
-                    ////if (this.ptsToolStrip.PresetManager.HasSetting(name))
-                    ////{
-                    ////var result = MessageBox.Show(
-                    ////    "A setting with the name '" + name + "' already exists.\r\n" +
-                    ////    "Do you wish to update the existing timer settings?\r\n\r\n" +
-                    ////    "Select 'Cancel' to choose a new name",
-                    ////    "Setting Already Exists",
-                    ////    MessageBoxButtons.OKCancel,
-                    ////    MessageBoxIcon.Information,
-                    ////    MessageBoxDefaultButton.Button2);
-
-                    ////if (result != System.Windows.Forms.DialogResult.OK)
-                    ////{
-                    ////    return;
-                    ////}
-                    ////}
-                    ////else
-                    if (!this.savedTimersToolStripItem.PresetManager.HasSetting(name))
+                {                    
+                    if(this.savedTimersToolStripItem.PresetManager.HasSetting(e.Settings.Id))
+                    {
+                        // Get the old name for this setting
+                        string oldName = this.savedTimersToolStripItem.PresetManager.LoadSetting(e.Settings.Id).Name;
+                        if(oldName != name)
+                        {
+                            // Removed the old name from the dropdowsn and add the new name in
+                            this.ClearPresetFromPreviews(oldName);
+                            this.AddPresetsToPreviews(name);
+                        }
+                    }
+                    else
                     {
                         this.AddPresetsToPreviews(name);
                     }
 
-                    success = this.savedTimersToolStripItem.PresetManager.AddOrUpdateSetting(new KeyValuePair<string, string>(name, e.Settings.SaveSettingsAsCsv()));
+                    success = this.savedTimersToolStripItem.PresetManager.AddOrUpdateSetting(new KeyValuePair<int, TimerViewSettings>(e.Settings.Id, e.Settings));
                     //preview.DisplayName = name;
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 success = false;
             }
@@ -757,13 +752,13 @@
 
         private void timerPreview_LoadRequested(object sender, SettingIOEventArgs e)
         {
-            string settingsCsv = this.savedTimersToolStripItem.PresetManager.LoadSetting(e.SettingName);
-            if (settingsCsv != string.Empty)
+            TimerViewSettings setting = this.savedTimersToolStripItem.PresetManager.LoadSetting(e.SettingName);
+            if (setting != null)
             {
                 var timerPreview = sender as TimerPreview;
                 if (timerPreview != null)
                 {
-                    timerPreview.Settings = TimerViewSettings.ParseCsv(settingsCsv);
+                    timerPreview.Settings = setting;
                 }
             }
         }

@@ -51,12 +51,12 @@ namespace SpeakerTimer
             }
         }
 
-        public void OnTimerAdded(string timerString)
+        public void OnTimerAdded(TimerViewSettings timerSetting)
         {
             var handler = this.TimerAdded;
             if (handler != null)
             {
-                handler.Invoke(this, new SettingsChangedEventArgs(TimerViewSettings.ParseCsv(timerString)));
+                handler.Invoke(this, new SettingsChangedEventArgs(timerSetting));
             }
         }
     }

@@ -14,8 +14,10 @@
         public TimerViewSettings()
         {
             this.SetDefaultSettings();
-            TimerViewSettings.count++;
+            this.Id = TimerViewSettings.count++;
         }
+
+        public int Id { get; private set; }
 
         public string Name
         {
@@ -213,7 +215,8 @@
 
         public string SaveSettingsAsCsv()
         {
-            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
+            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}",
+                this.Id,
                 this.Name,
                 this.Title,
                 this.Duration,
@@ -275,15 +278,19 @@
             try
             {
                 var values = csv.Split(new char[] { ',' });
-                settings.Name = values[0];
-                settings.Title = values[1];
-                settings.Duration = double.Parse(values[2]);
-                settings.WarningTime = double.Parse(values[3]);
-                settings.SecondWarningTime = double.Parse(values[4]);
-                settings.BlinkOnExpired = bool.Parse(values[5]);
-                settings.FinalMessage = values[6];
+                int id = TimerViewSettings.count;
+                int.TryParse(values[0], out id);
 
-                settings.VisualSettings = TimerVisualSettings.ParseCsv(csv, 7);
+                settings.Id = id;
+                settings.Name = values[1];
+                settings.Title = values[2];
+                settings.Duration = double.Parse(values[3]);
+                settings.WarningTime = double.Parse(values[4]);
+                settings.SecondWarningTime = double.Parse(values[5]);
+                settings.BlinkOnExpired = bool.Parse(values[6]);
+                settings.FinalMessage = values[7];
+
+                settings.VisualSettings = TimerVisualSettings.ParseCsv(csv, 8);
 
                 return settings;
             }
@@ -496,6 +503,8 @@
 
             public int MessageDuration { get; set; }
 
+            public int MessageFontSize { get; set; }
+
             public bool IsIndefiniteMessage { get; set; }
 
             public TimerMessageSettings Clone()
@@ -503,6 +512,7 @@
                 TimerMessageSettings settings = new TimerMessageSettings();
                 settings.TimerMessage = this.TimerMessage;
                 settings.MessageDuration = this.MessageDuration;
+                settings.MessageFontSize = this.MessageFontSize;
                 settings.IsIndefiniteMessage = this.IsIndefiniteMessage;
 
                 return settings;
@@ -512,6 +522,7 @@
             {
                 this.TimerMessage = string.Empty;
                 this.MessageDuration = 0;
+                this.MessageFontSize = 50;
                 this.IsIndefiniteMessage = true;
             }
         }
