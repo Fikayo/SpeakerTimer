@@ -702,6 +702,9 @@
         {
             this.timerPreview1.IsLive = false;
             this.timerPreview2.IsLive = false;
+
+            this.statusLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            this.statusLabel.Text = ControlPanel.ReadyStatus;
         }
 
         #endregion

@@ -74,9 +74,9 @@
 
             set
             {
-                this.UnHookEventHandlers();
+                this.UnHookCommandIssuerEventHandlers();
                 this.commandIssuer = value;
-                this.HookEventHandlers();
+                this.HookCommandIssuerEventHandlers();
             }
         }
 
@@ -253,7 +253,7 @@
 
         #region Internal Members
 
-        private void HookEventHandlers()
+        private void HookCommandIssuerEventHandlers()
         {
             if (this.commandIssuer != null)
             {
@@ -268,7 +268,7 @@
             }
         }
 
-        private void UnHookEventHandlers()
+        private void UnHookCommandIssuerEventHandlers()
         {
             if (this.commandIssuer != null)
             {
@@ -278,6 +278,7 @@
                 this.commandIssuer.ResetCommand -= CommandIssuer_ResetCommand;
                 this.commandIssuer.RefreshTimerDisplay -= CommandIssuer_RefreshTimerDisplay;
                 this.commandIssuer.TimerMessageChanged -= CommandIssuer_TimerMessageChanged;
+                this.commandIssuer.TimerMessageCancelled -= CommandIssuer_TimerMessageCancelled;
                 this.commandIssuer.SettingsChanged -= CommandIssuer_SettingsChanged;
             }
         }
@@ -310,7 +311,7 @@
             this.Settings = settings.Clone();
             this.Settings.SecondWarningColor = this.Settings.MessageColor;
 
-            if ((settings.BlinkOnExpired && this.CurrentTime > 0) || (!settings.BlinkOnExpired && this.blinkManager.IsBlinking))
+            if ((settings.BlinkOnExpired && this.Settings.Duration >= 0) || (!settings.BlinkOnExpired && this.blinkManager.IsBlinking))
             {
                 this.blinkManager.StopBlinking();
             }

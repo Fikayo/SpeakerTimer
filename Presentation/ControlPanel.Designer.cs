@@ -153,6 +153,7 @@
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(55, 17);
             this.statusLabel.Text = "Ready";
+            this.statusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.statusLabel.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
             // ControlPanel

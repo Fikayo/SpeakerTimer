@@ -299,6 +299,12 @@
                     this.CommandIssuer.IssueStopCommand();
                 }
 
+                if(!wasDisplayingMessage)
+                {
+                    // Stop any previously showing message on the screen
+                    this.CommandIssuer.CancelTimerMessage();
+                }
+
                 this.CommandIssuer.OnRefreshTimerDisplay(this.timerView.CurrentTime);
             }
 
