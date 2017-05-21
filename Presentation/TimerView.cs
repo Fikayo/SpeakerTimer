@@ -362,6 +362,8 @@
 
         private void ShowInputBox()
         {
+            this.TimerLabel.Visible = false;
+
             this.tibInput.Enabled = true;
             this.tibInput.Visible = true;
             this.tibInput.Font = this.TimerLabel.Font;
@@ -369,8 +371,6 @@
             {
                 this.tibInput.Size = this.TimerLabel.Size;
             }
-
-            this.TimerLabel.Visible = false;
 
             this.tlpOuterLayout.Controls.Add(this.tibInput, 1, 2);
 

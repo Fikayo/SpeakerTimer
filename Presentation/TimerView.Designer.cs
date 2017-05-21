@@ -43,7 +43,7 @@
             this.lblTimer.AutoSize = true;
             this.lblTimer.Font = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTimer.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblTimer.Location = new System.Drawing.Point(88, 71);
+            this.lblTimer.Location = new System.Drawing.Point(88, 73);
             this.lblTimer.Name = "lblTimer";
             this.lblTimer.Size = new System.Drawing.Size(174, 45);
             this.lblTimer.TabIndex = 0;
@@ -53,6 +53,7 @@
             // 
             // tlpOuterLayout
             // 
+            this.tlpOuterLayout.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.OutsetDouble;
             this.tlpOuterLayout.ColumnCount = 3;
             this.tlpOuterLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpOuterLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -77,7 +78,7 @@
             this.lblTimerTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTimerTitle.AutoSize = true;
             this.lblTimerTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimerTitle.Location = new System.Drawing.Point(88, 54);
+            this.lblTimerTitle.Location = new System.Drawing.Point(88, 53);
             this.lblTimerTitle.Name = "lblTimerTitle";
             this.lblTimerTitle.Size = new System.Drawing.Size(174, 17);
             this.lblTimerTitle.TabIndex = 1;
@@ -92,7 +93,7 @@
             this.tlpMiniTimerLayout.ColumnCount = 1;
             this.tlpMiniTimerLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpMiniTimerLayout.Controls.Add(this.lblMiniTimer, 0, 0);
-            this.tlpMiniTimerLayout.Location = new System.Drawing.Point(128, 135);
+            this.tlpMiniTimerLayout.Location = new System.Drawing.Point(128, 132);
             this.tlpMiniTimerLayout.Name = "tlpMiniTimerLayout";
             this.tlpMiniTimerLayout.RowCount = 2;
             this.tlpMiniTimerLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());

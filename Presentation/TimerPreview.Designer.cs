@@ -584,6 +584,8 @@
             // 
             // txtShowMessage
             // 
+            this.txtShowMessage.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.txtShowMessage.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
             this.txtShowMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtShowMessage.Location = new System.Drawing.Point(3, 3);
             this.txtShowMessage.Multiline = true;

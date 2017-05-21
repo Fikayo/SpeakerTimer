@@ -11,6 +11,7 @@
         public TimeInputBox()
         {
             this.TextAlign = HorizontalAlignment.Center;
+            this.SetAutoSizeMode(AutoSizeMode.GrowAndShrink);
             this.Init();
         }
 
