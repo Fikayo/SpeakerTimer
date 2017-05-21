@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
+    using MainApplication = System.Windows.Forms.Application;
 
     public static class Util
     {
@@ -55,6 +56,11 @@
             }
 
             return color;
+        }
+
+        public static string GetFormName(string name)
+        {
+            return MainApplication.ProductName + " - " + name;
         }
     }
 }

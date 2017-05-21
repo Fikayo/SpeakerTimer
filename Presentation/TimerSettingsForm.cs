@@ -16,6 +16,7 @@
         public TimerSettingsForm()
         {
             InitializeComponent();
+            this.Text = Util.GetFormName("Timer Settings");
 
             this.selectedSettings = new List<IdNamePair>();
         }

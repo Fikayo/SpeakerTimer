@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SpeakerTimer")]
+[assembly: AssemblyTitle("Church Presentation Timer")]
 [assembly: AssemblyDescription("A simple timer for presenters and speakers.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Pinno Productions")]
-[assembly: AssemblyProduct("SpeakerTimer")]
+[assembly: AssemblyProduct("Church Timer")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

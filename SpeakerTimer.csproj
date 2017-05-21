@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>1451759639_timer.ico</ApplicationIcon>
+    <ApplicationIcon>timer-icon-large.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -69,6 +69,12 @@
     <Compile Include="Application\RefreshDisplayEventArgs.cs" />
     <Compile Include="Application\SettingIOEventArgs.cs" />
     <Compile Include="Application\SettingsChangedEventArgs.cs" />
+    <Compile Include="Presentation\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\BlinkManager.cs" />
     <Compile Include="Presentation\DisplayToolStripItem.cs">
       <SubType>Component</SubType>
@@ -166,6 +172,9 @@
       <DependentUpon>TimeViewControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
+    <EmbeddedResource Include="Presentation\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\DisplayToolStripItem.resx">
       <DependentUpon>DisplayToolStripItem.cs</DependentUpon>
     </EmbeddedResource>
@@ -284,6 +293,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1451759639_timer.ico" />
+    <Content Include="timer-icon-64.ico" />
+    <Content Include="timer-icon-large.ico" />
+    <Content Include="timer-icon.ico" />
     <None Include="Resources\new.png" />
     <None Include="Resources\46729351-live-images.png" />
     <None Include="Resources\live-circle-32px.png" />

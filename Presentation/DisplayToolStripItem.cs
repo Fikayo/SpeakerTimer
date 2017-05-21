@@ -84,7 +84,7 @@ namespace SpeakerTimer.Presentation
                 this.LivePreviewForm = null;
                 //this.OnLivePreviewFormRequired();
                 this.LivePreviewForm = new PresentationTimerForm(this.FetchTimerView());
-                this.LivePreviewForm.Text = "Live Preview";
+                this.LivePreviewForm.Text = Util.GetFormName("Live Preview");
                 this.LivePreviewForm.IsPreviewForm = true;
                 this.LivePreviewForm.Size = this.previewFormSize;
                 this.LivePreviewForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;

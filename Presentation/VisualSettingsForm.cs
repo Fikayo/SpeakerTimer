@@ -16,6 +16,8 @@ namespace SpeakerTimer.Presentation
         {
             InitializeComponent();
 
+            this.Text = Util.GetFormName("Visual Settings");
+
             this.VisualSettings = visualSettings;
             this.InitSettings();
         }

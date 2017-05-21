@@ -36,6 +36,8 @@
             this.displayToolStripItem = new SpeakerTimer.Presentation.DisplayToolStripItem();
             this.savedTimersToolStripItem = new SpeakerTimer.Presentation.SavedTimersTSDDButton();
             this.tsbCreateSequence = new System.Windows.Forms.ToolStripButton();
+            this.tsdHelp = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsiAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tlpOuterLayout.SuspendLayout();
@@ -61,7 +63,7 @@
             // 
             // timerPreview2
             // 
-            this.timerPreview2.DisplayName = "Un-named5";
+            this.timerPreview2.DisplayName = "Un-named-7";
             this.timerPreview2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerPreview2.IsLive = true;
             this.timerPreview2.Location = new System.Drawing.Point(3, 274);
@@ -75,7 +77,7 @@
             // 
             // timerPreview1
             // 
-            this.timerPreview1.DisplayName = "Un-named6";
+            this.timerPreview1.DisplayName = "Un-named-7";
             this.timerPreview1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerPreview1.IsLive = true;
             this.timerPreview1.Location = new System.Drawing.Point(3, 23);
@@ -93,7 +95,8 @@
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.displayToolStripItem,
             this.savedTimersToolStripItem,
-            this.tsbCreateSequence});
+            this.tsbCreateSequence,
+            this.tsdHelp});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(1054, 25);
@@ -136,6 +139,24 @@
             this.tsbCreateSequence.Text = "Create Sequence";
             this.tsbCreateSequence.Click += new System.EventHandler(this.tsbCreateSequence_Click);
             // 
+            // tsdHelp
+            // 
+            this.tsdHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsdHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsiAbout});
+            this.tsdHelp.Image = ((System.Drawing.Image)(resources.GetObject("tsdHelp.Image")));
+            this.tsdHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsdHelp.Name = "tsdHelp";
+            this.tsdHelp.Size = new System.Drawing.Size(45, 22);
+            this.tsdHelp.Text = "Help";
+            // 
+            // tsiAbout
+            // 
+            this.tsiAbout.Name = "tsiAbout";
+            this.tsiAbout.Size = new System.Drawing.Size(152, 22);
+            this.tsiAbout.Text = "About";
+            this.tsiAbout.Click += new System.EventHandler(this.tsiAbout_Click);
+            // 
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -149,11 +170,11 @@
             // 
             // statusLabel
             // 
+            this.statusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.statusLabel.Image = global::SpeakerTimer.Properties.Resources._46729351_live_images;
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(55, 17);
+            this.statusLabel.Size = new System.Drawing.Size(39, 17);
             this.statusLabel.Text = "Ready";
-            this.statusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.statusLabel.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
             // ControlPanel
@@ -164,11 +185,12 @@
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.tlpOuterLayout);
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(1070, 500);
             this.Name = "ControlPanel";
-            this.Text = "Speaker Timer - Control Panel";
+            this.Text = "Control Panel";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ControlPanel_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ControlPanel_KeyDown);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.ControlPanel_PreviewKeyDown);
@@ -193,5 +215,7 @@
         private Presentation.SavedTimersTSDDButton savedTimersToolStripItem;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
+        private System.Windows.Forms.ToolStripDropDownButton tsdHelp;
+        private System.Windows.Forms.ToolStripMenuItem tsiAbout;
     }
 }

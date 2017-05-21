@@ -14,6 +14,7 @@
         public TimePlanForm()
         {
             InitializeComponent();
+            this.Text = Util.GetFormName("Time Plan");
 
             this.timePlanControl.IsLive = false;
 

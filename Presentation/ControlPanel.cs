@@ -8,6 +8,7 @@
 	using System.Windows.Forms;
 	using SpeakerTimer.Presentation;
 	using SpeakerTimer.Application;
+    using MainApplication = System.Windows.Forms.Application;
 
     ////    public partial class ControlPanel : Form
     ////    {
@@ -561,6 +562,9 @@
         {
             InitializeComponent();
 
+            this.Text = Util.GetFormName("Control Panel");
+            this.tsiAbout.Text = "About " + MainApplication.ProductName;
+
             this.timerPreview1.IsLive = false;
             this.timerPreview2.IsLive = false;
 
@@ -677,6 +681,14 @@
         private void tsbCreateSequence_Click(object sender, EventArgs e)
         {
             using (var form = new TimePlanForm())
+            {
+                form.ShowDialog();
+            }
+        }
+        
+        private void tsiAbout_Click(object sender, EventArgs e)
+        {
+            using (var form = new AboutBox())
             {
                 form.ShowDialog();
             }

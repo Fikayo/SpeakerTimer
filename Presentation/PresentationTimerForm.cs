@@ -21,6 +21,9 @@
         public PresentationTimerForm(TimeViewControl timeViewControl)
         {
             InitializeComponent();
+
+            this.Text = Util.GetFormName("Display Window");
+
             this.TimeViewControl = timeViewControl;
             this.TimeViewControl.Dock = DockStyle.Fill;
             this.TimeViewControl.IsPreviewMode = false;
