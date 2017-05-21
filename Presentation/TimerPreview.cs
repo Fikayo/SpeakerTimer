@@ -117,6 +117,7 @@
                 this.numMessageDuration.Enabled = true;
                 this.chbIndefiniteMessageDuration.Enabled = true;
                 this.numMessageFont.Enabled = true;
+                this.txtShowMessage.Enabled = true;
                 this.btnShowMessage.Text = "Show Message";
             };
 
@@ -151,6 +152,7 @@
             this.numMessageDuration.Enabled = false;
             this.chbIndefiniteMessageDuration.Enabled = false;
             this.numMessageFont.Enabled = false;
+            this.txtShowMessage.Enabled = false;
 
             this.btnShowMessage.Text = cancelMessageText;
             this.showingMessage = true;

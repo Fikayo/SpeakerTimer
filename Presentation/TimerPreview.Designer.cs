@@ -83,6 +83,7 @@
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.grbPreviewBox = new System.Windows.Forms.GroupBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tlpOuterLayout.SuspendLayout();
             this.tlpControlsLayout.SuspendLayout();
             this.flpIOayout.SuspendLayout();
@@ -206,6 +207,7 @@
             this.btnEditName.Size = new System.Drawing.Size(49, 22);
             this.btnEditName.TabIndex = 13;
             this.btnEditName.Text = "Edit...";
+            this.toolTip.SetToolTip(this.btnEditName, "Edit timer name");
             this.btnEditName.UseVisualStyleBackColor = false;
             this.btnEditName.Click += new System.EventHandler(this.btnEditName_Click);
             // 
@@ -232,6 +234,7 @@
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(157, 20);
             this.txtTitle.TabIndex = 10;
+            this.toolTip.SetToolTip(this.txtTitle, "Enter a title shown above the timer");
             this.txtTitle.TextChanged += new System.EventHandler(this.txtTitle_TextChanged);
             // 
             // lblTitle
@@ -279,6 +282,7 @@
             this.cmbLoadTimer.Name = "cmbLoadTimer";
             this.cmbLoadTimer.Size = new System.Drawing.Size(169, 21);
             this.cmbLoadTimer.TabIndex = 1;
+            this.toolTip.SetToolTip(this.cmbLoadTimer, "Select a previously saved timer");
             this.cmbLoadTimer.SelectedIndexChanged += new System.EventHandler(this.cmbLoadTimer_SelectedIndexChanged);
             // 
             // btnNewSetting
@@ -294,6 +298,7 @@
             this.btnNewSetting.Name = "btnNewSetting";
             this.btnNewSetting.Size = new System.Drawing.Size(26, 27);
             this.btnNewSetting.TabIndex = 13;
+            this.toolTip.SetToolTip(this.btnNewSetting, "Create new timer setting");
             this.btnNewSetting.UseVisualStyleBackColor = false;
             this.btnNewSetting.Click += new System.EventHandler(this.btnNewSetting_Click);
             // 
@@ -310,6 +315,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(30, 25);
             this.btnSave.TabIndex = 2;
+            this.toolTip.SetToolTip(this.btnSave, "Save changes to timer");
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -326,6 +332,7 @@
             this.btnVisualSettings.Name = "btnVisualSettings";
             this.btnVisualSettings.Size = new System.Drawing.Size(33, 27);
             this.btnVisualSettings.TabIndex = 1;
+            this.toolTip.SetToolTip(this.btnVisualSettings, "Open settings");
             this.btnVisualSettings.UseVisualStyleBackColor = false;
             this.btnVisualSettings.Click += new System.EventHandler(this.btnVisualSettings_Click);
             // 
@@ -380,6 +387,7 @@
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(23, 27);
             this.btnStart.TabIndex = 1;
+            this.toolTip.SetToolTip(this.btnStart, "Start");
             this.btnStart.UseVisualStyleBackColor = false;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
@@ -396,6 +404,7 @@
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(23, 27);
             this.btnStop.TabIndex = 2;
+            this.toolTip.SetToolTip(this.btnStop, "Stop");
             this.btnStop.UseVisualStyleBackColor = false;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
@@ -412,6 +421,7 @@
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(23, 27);
             this.btnReset.TabIndex = 3;
+            this.toolTip.SetToolTip(this.btnReset, "Reset");
             this.btnReset.UseVisualStyleBackColor = false;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
@@ -481,6 +491,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(98, 26);
             this.tableLayoutPanel2.TabIndex = 5;
+            this.tableLayoutPanel2.Visible = false;
             // 
             // numMessageFont
             // 
@@ -592,6 +603,7 @@
             this.txtShowMessage.Name = "txtShowMessage";
             this.txtShowMessage.Size = new System.Drawing.Size(249, 120);
             this.txtShowMessage.TabIndex = 0;
+            this.toolTip.SetToolTip(this.txtShowMessage, "Enter a broadcast message displayed for a time interval or indefintely");
             // 
             // lblMessageInfo
             // 
@@ -656,6 +668,7 @@
             this.tibWarningTime.TabIndex = 8;
             this.tibWarningTime.Text = "00:00:00";
             this.tibWarningTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip.SetToolTip(this.tibWarningTime, "Set the first warning time (optional)");
             this.tibWarningTime.TimeChanged += new System.EventHandler(this.txtWarningTime_TimeChanged);
             // 
             // lblWarningTime
@@ -707,6 +720,7 @@
             this.tibSecondWarningTime.TabIndex = 8;
             this.tibSecondWarningTime.Text = "00:00:00";
             this.tibSecondWarningTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip.SetToolTip(this.tibSecondWarningTime, "Set the second warning time (optional)");
             this.tibSecondWarningTime.TimeChanged += new System.EventHandler(this.txtAutoPauseTime_TimeChanged);
             // 
             // tlpFinalMessageLayout
@@ -780,6 +794,7 @@
             this.rdbLive.TabIndex = 6;
             this.rdbLive.TabStop = true;
             this.rdbLive.Text = "LIVE";
+            this.toolTip.SetToolTip(this.rdbLive, "Send timer live");
             this.rdbLive.UseVisualStyleBackColor = true;
             this.rdbLive.Click += new System.EventHandler(this.rdbLive_Click);
             // 
@@ -803,6 +818,7 @@
             this.chbBlink.Size = new System.Drawing.Size(115, 23);
             this.chbBlink.TabIndex = 8;
             this.chbBlink.Text = "Blink when expired";
+            this.toolTip.SetToolTip(this.chbBlink, "Blink the timer when the time is less than 0");
             this.chbBlink.UseVisualStyleBackColor = true;
             this.chbBlink.CheckedChanged += new System.EventHandler(this.chbBlink_CheckedChanged);
             // 
@@ -951,5 +967,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button btnNewSetting;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
