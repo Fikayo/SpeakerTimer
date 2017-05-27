@@ -60,7 +60,7 @@
             }
         }
 
-        public string SaveSettingsAsCsv()
+        public string ToCsv()
         {
             return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}",
                 this.TimerFont.FontFamily.Name,
@@ -80,12 +80,11 @@
 
         public TimerVisualSettings Clone()
         {
-            TimerVisualSettings clone = TimerVisualSettings.ParseCsv(this.SaveSettingsAsCsv());
+            TimerVisualSettings clone = TimerVisualSettings.ParseCsv(this.ToCsv());
 
             return clone;
         }
-
-        // override object.Equals
+        
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -110,8 +109,7 @@
                 && this.MessageColor.Equals(that.MessageColor)
                 && this.SecondWarningColor.Equals(that.SecondWarningColor);
         }
-
-        // override object.GetHashCode
+        
         public override int GetHashCode()
         {
             return base.GetHashCode();

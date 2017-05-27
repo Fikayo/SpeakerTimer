@@ -69,6 +69,7 @@
     <Compile Include="Application\RefreshDisplayEventArgs.cs" />
     <Compile Include="Application\SettingIOEventArgs.cs" />
     <Compile Include="Application\SettingsChangedEventArgs.cs" />
+    <Compile Include="Application\TimerDuration.cs" />
     <Compile Include="Application\TimerMessageSettings.cs" />
     <Compile Include="Application\TimerVisualSettings.cs" />
     <Compile Include="Presentation\AboutBox.cs">

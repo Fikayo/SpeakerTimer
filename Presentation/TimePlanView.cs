@@ -172,7 +172,7 @@
                 if (nextTimer != null)
                 {
                     this.timePlanCommandIssuer.NextTimerCommandIssuer.OnSettingsChanged(nextTimer);
-                    this.timePlanCommandIssuer.NextTimerCommandIssuer.OnRefreshTimerDisplay(nextTimer.Duration);
+                    this.timePlanCommandIssuer.NextTimerCommandIssuer.OnRefreshTimerDisplay(nextTimer.TimerDuration.Duration);
                 }
 
                 return;

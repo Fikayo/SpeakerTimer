@@ -1,8 +1,10 @@
 ﻿namespace SpeakerTimer
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Globalization;
+    using System.Linq;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
     using MainApplication = System.Windows.Forms.Application;
@@ -61,6 +63,11 @@
         public static string GetFormName(string name)
         {
             return MainApplication.ProductName + " - " + name;
+        }
+
+        public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable
+        {
+            return listToClone.Select(item => (T)item.Clone()).ToList();
         }
     }
 }

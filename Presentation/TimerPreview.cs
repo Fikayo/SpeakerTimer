@@ -79,14 +79,14 @@
         private void InitSettings()
         {
             // Title
-            this.txtTitle.Text = this.Settings.Title;
+            this.txtTitle.Text = this.Settings.TimerDuration.Title;
 
             // Final Message
             this.txtFinalMessage.Text = this.Settings.FinalMessage;
 
             // Special Times
-            this.tibWarningTime.SetTime(this.Settings.WarningTime);
-            this.tibSecondWarningTime.SetTime(this.Settings.SecondWarningTime);
+            this.tibWarningTime.SetTime(this.Settings.TimerDuration.WarningTime);
+            this.tibSecondWarningTime.SetTime(this.Settings.TimerDuration.SecondWarningTime);
 
             // Blinking
             this.chbBlink.Checked = this.Settings.BlinkOnExpired;
@@ -159,7 +159,7 @@
 
         private void ChangeTimerDuration(double duration)
         {
-            this.Settings.Duration = duration;
+            this.Settings.TimerDuration.Duration = duration;
             this.OnSettingsChanged();
             this.CommandIssuer.OnRefreshTimerDisplay(duration);
         }
@@ -208,7 +208,7 @@
         private void OnSettingsChanged()
         {
             this.CommandIssuer.OnSettingsChanged(this.Settings);
-            this.grbPreviewBox.Text = this.settings.Name + "*";
+            this.grbPreviewBox.Text = this.settings.Name;
             this.btnSave.BackgroundImage = ControlPanel.SaveAsterisk;
         }
 
@@ -265,7 +265,7 @@
 
         private void txtTitle_TextChanged(object sender, EventArgs e)
         {
-            this.Settings.Title = this.txtTitle.Text;
+            this.Settings.TimerDuration.Title = this.txtTitle.Text;
             this.OnSettingsChanged();
         }
 
@@ -354,11 +354,11 @@
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (this.settings.Duration == 0 && this.settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
+            if (this.settings.TimerDuration.Duration == 0 && this.settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
             {
                 this.ChangeTimerDuration(Util.MAX_INPUT_TIME_ALLOWED);
             }
-            else if (this.settings.Duration == 0)
+            else if (this.settings.TimerDuration.Duration == 0)
             {
                 MessageBox.Show("Please enter a non-zero duration.\r\n" +
                     "(Double click on the preview timer to set the timer duration).",
@@ -479,13 +479,13 @@
 
         private void txtWarningTime_TimeChanged(object sender, EventArgs e)
         {
-            this.Settings.WarningTime = this.tibWarningTime.InputTime;
+            this.Settings.TimerDuration.WarningTime = this.tibWarningTime.InputTime;
             this.OnSettingsChanged();
         }
 
         private void txtAutoPauseTime_TimeChanged(object sender, EventArgs e)
         {
-            this.Settings.SecondWarningTime = this.tibSecondWarningTime.InputTime;
+            this.Settings.TimerDuration.SecondWarningTime = this.tibSecondWarningTime.InputTime;
             this.OnSettingsChanged();
         }
 

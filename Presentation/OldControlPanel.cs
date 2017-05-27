@@ -37,7 +37,7 @@
             this.timerView.CommandIssuer = this.commandIssuer;
             this.timerView.DurationChanged += (_, e) =>
             {
-                this.settings.Duration = e.Duration;
+                this.settings.TimerDuration.Duration = e.Duration;
                 this.OnSettingsChanged();
                 this.commandIssuer.OnRefreshTimerDisplay();
             };
@@ -75,8 +75,8 @@
             this.btnMessageColor.BackColor = this.settings.VisualSettings.MessageColor;
 
             // Special Times
-            this.txtWarningTime.Text = TimeSpan.FromSeconds(this.settings.WarningTime).ToString();
-            this.txtAutoPauseTime.Text = TimeSpan.FromSeconds(this.settings.SecondWarningTime).ToString();
+            this.txtWarningTime.Text = TimeSpan.FromSeconds(this.settings.TimerDuration.WarningTime).ToString();
+            this.txtAutoPauseTime.Text = TimeSpan.FromSeconds(this.settings.TimerDuration.SecondWarningTime).ToString();
         }
 
         private void SetPlayButton()
@@ -302,7 +302,7 @@
             if (!string.IsNullOrEmpty(this.warningInput))
             {
                 var dt = DateTime.ParseExact(this.txtWarningTime.Text, "HH:mm:ss", CultureInfo.InvariantCulture);
-                this.settings.WarningTime = dt.TimeOfDay.TotalSeconds;
+                this.settings.TimerDuration.WarningTime = dt.TimeOfDay.TotalSeconds;
             }
         }
 
@@ -311,7 +311,7 @@
             if (!string.IsNullOrEmpty(this.autoPauseInput))
             {
                 var dt = DateTime.ParseExact(this.txtAutoPauseTime.Text, "HH:mm:ss", CultureInfo.InvariantCulture);
-                this.settings.SecondWarningTime = dt.TimeOfDay.TotalSeconds;
+                this.settings.TimerDuration.SecondWarningTime = dt.TimeOfDay.TotalSeconds;
             }
         }
 

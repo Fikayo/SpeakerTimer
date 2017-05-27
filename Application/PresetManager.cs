@@ -79,7 +79,7 @@
 
             // Append to file
             this.AddNewSetting(setting.Key, setting.Value);
-            var preset = setting.Value.SaveSettingsAsCsv() + Environment.NewLine;
+            var preset = setting.Value.ToCsv() + Environment.NewLine;
 
             try
             {
@@ -153,7 +153,7 @@
             StringBuilder sb = new StringBuilder();
             foreach (var setting in this.savedSettings)
             {
-                sb.AppendLine(setting.SaveSettingsAsCsv());
+                sb.AppendLine(setting.ToCsv());
             }
 
             try

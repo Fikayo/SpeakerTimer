@@ -36,6 +36,27 @@ namespace SpeakerTimer.Application
             return settings;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            TimerMessageSettings that = obj as TimerMessageSettings;
+            if (that == null) return false;
+
+            return this.TimerMessage.Equals(that.TimerMessage)
+                && this.MessageDuration.Equals(that.MessageDuration)
+                && this.MessageFontSize.Equals(that.MessageFontSize)
+                && this.IsIndefiniteMessage.Equals(that.IsIndefiniteMessage);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         private void SetDefaultSettings()
         {
             this.TimerMessage = string.Empty;

@@ -123,7 +123,7 @@
         {
             if (this.stopped && !forceCurrentTime)
             {
-                this.CurrentTime = this.settings.Duration;
+                this.CurrentTime = this.settings.TimerDuration.Duration;
                 if (this.settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
                 {
                     this.CurrentTime = 0;
@@ -158,7 +158,7 @@
         {
             this.timer.Stop();
             this.stopped = true;
-            this.DisplayTimeElapsed(this.settings.Duration);
+            this.DisplayTimeElapsed(this.settings.TimerDuration.Duration);
         }
 
         public void ApplySettings(TimerViewSettings settings)
@@ -170,7 +170,7 @@
             this.BackgroundColor = settings.VisualSettings.BackgroundColor;
             this.TimerColor = settings.VisualSettings.RunningColor;
 
-            this.settings = TimerViewSettings.ParseCsv(settings.SaveSettingsAsCsv());
+            this.settings = TimerViewSettings.ParseCsv(settings.ToCsv());
             this.lblCurrentTimer.Text = this.settings.Name;
             this.RefreshTimerDisplay();
         }
@@ -274,14 +274,14 @@
         {
             this.txtInput.Enabled = false;
             this.txtInput.Visible = false;
-            this.settings.Duration = this.txtInput.InputTime;
+            this.settings.TimerDuration.Duration = this.txtInput.InputTime;
 
             this.lblTimer.Visible = true;
             this.lblTimer.Focus();
             this.tlpOuterLayout.Controls.Add(this.lblTimer, 1, 1);
-            this.DisplayTimeElapsed(this.settings.Duration);
+            this.DisplayTimeElapsed(this.settings.TimerDuration.Duration);
 
-            this.OnDurationChanged(this.settings.Duration);
+            this.OnDurationChanged(this.settings.TimerDuration.Duration);
         }
 
         private void RefreshTimerDisplay(bool forceCurrentTime = false)
@@ -289,7 +289,7 @@
             var display = this.CurrentTime;
             if (this.stopped && !forceCurrentTime)
             {
-                display = this.settings.Duration;
+                display = this.settings.TimerDuration.Duration;
             }
 
             this.DisplayTimeElapsed(display);
@@ -383,7 +383,7 @@
             {
                 case TimerVisualSettings.TimerCounterMode.CountUp:
                     this.CurrentTime++;
-                    if (this.CurrentTime >= this.settings.Duration)
+                    if (this.CurrentTime >= this.settings.TimerDuration.Duration)
                     {
                         this.StopTimer();
                         if (!this.DisplayFinalMessage())
@@ -394,7 +394,7 @@
                         return;
                     }
 
-                    if (this.CurrentTime >= this.settings.WarningTime && this.settings.WarningTime > 0)
+                    if (this.CurrentTime >= this.settings.TimerDuration.WarningTime && this.settings.TimerDuration.WarningTime > 0)
                     {
                         this.TimerColor = this.settings.VisualSettings.WarningColor;
                     }
@@ -414,7 +414,7 @@
                         return;
                     }
 
-                    if (this.CurrentTime <= this.settings.WarningTime && this.settings.WarningTime > 0)
+                    if (this.CurrentTime <= this.settings.TimerDuration.WarningTime && this.settings.TimerDuration.WarningTime > 0)
                     {
                         this.TimerColor = this.settings.VisualSettings.WarningColor;
                     }
@@ -424,7 +424,7 @@
                 case TimerVisualSettings.TimerCounterMode.CountDownToMinus:
                 default:
                     this.CurrentTime--;
-                    if (this.CurrentTime <= this.settings.WarningTime && this.settings.WarningTime > 0)
+                    if (this.CurrentTime <= this.settings.TimerDuration.WarningTime && this.settings.TimerDuration.WarningTime > 0)
                     {
                         this.TimerColor = this.settings.VisualSettings.WarningColor;
                     }
@@ -451,7 +451,7 @@
 
             this.DisplayTimeElapsed(this.CurrentTime);
 
-            if (this.CurrentTime == this.settings.SecondWarningTime && this.CurrentTime > 0)
+            if (this.CurrentTime == this.settings.TimerDuration.SecondWarningTime && this.CurrentTime > 0)
             {
                 this.PauseTimer();
             }

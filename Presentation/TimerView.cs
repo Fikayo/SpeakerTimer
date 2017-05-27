@@ -162,7 +162,7 @@
         {
             if (this.stopped && !forceCurrentTime)
             {
-                this.CurrentTime = this.Settings.Duration;
+                this.CurrentTime = this.Settings.TimerDuration.Duration;
                 if (this.Settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
                 {
                     this.CurrentTime = 0;
@@ -208,7 +208,7 @@
             this.timer.Stop();
             this.stopped = true;
             this.TimerState = TimerState.Stopped;
-            this.DisplayTimeElapsed(this.Settings.Duration);
+            this.DisplayTimeElapsed(this.Settings.TimerDuration.Duration);
         }
 
         public void DisplayTimeElapsed(double counter)
@@ -321,12 +321,12 @@
             this.Settings = Settings.Clone();
             this.Settings.VisualSettings.SecondWarningColor = this.Settings.VisualSettings.MessageColor;
 
-            if ((Settings.BlinkOnExpired && this.Settings.Duration >= 0) || (!Settings.BlinkOnExpired && this.blinkManager.IsBlinking))
+            if ((Settings.BlinkOnExpired && this.Settings.TimerDuration.Duration >= 0) || (!Settings.BlinkOnExpired && this.blinkManager.IsBlinking))
             {
                 this.blinkManager.StopBlinking();
             }
 
-            this.lblTimerTitle.Text = this.Settings.Title;
+            this.lblTimerTitle.Text = this.Settings.TimerDuration.Title;
             this.RefreshTimerDisplay();
         }
 
@@ -422,14 +422,14 @@
         {
             this.tibInput.Enabled = false;
             this.tibInput.Visible = false;
-            this.Settings.Duration = this.tibInput.InputTime;
+            this.Settings.TimerDuration.Duration = this.tibInput.InputTime;
 
             this.TimerLabel.Visible = true;
             this.TimerLabel.Focus();
             this.tlpOuterLayout.Controls.Add(this.TimerLabel, 1, 2);
-            this.DisplayTimeElapsed(this.Settings.Duration);
+            this.DisplayTimeElapsed(this.Settings.TimerDuration.Duration);
 
-            this.OnDurationChanged(this.Settings.Duration);
+            this.OnDurationChanged(this.Settings.TimerDuration.Duration);
         }
 
         private void RefreshTimerDisplay(bool forceCurrentTime = false)
@@ -437,7 +437,7 @@
             var display = this.CurrentTime;
             if (this.stopped && !forceCurrentTime)
             {
-                display = this.Settings.Duration;
+                display = this.Settings.TimerDuration.Duration;
             }
 
             this.DisplayTimeElapsed(display);
@@ -471,7 +471,7 @@
             FadeItem init = new FadeItem
             {
                 Color = this.Settings.VisualSettings.RunningColor,
-                Time = this.Settings.Duration
+                Time = this.Settings.TimerDuration.Duration
             };
 
             FadeItem dest = new FadeItem
@@ -484,18 +484,18 @@
             {
                 case TimerState.Running:
                     {
-                        if (this.Settings.HasFirstWarning)
+                        if (this.Settings.TimerDuration.HasFirstWarning)
                         {
                             fade = true;
                             init.Color = this.Settings.VisualSettings.RunningColor;
-                            init.Time = this.Settings.Duration;
+                            init.Time = this.Settings.TimerDuration.Duration;
                             if (this.Settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
                             {
                                 init.Time = 0;
                             }
 
                             dest.Color = this.Settings.VisualSettings.WarningColor;
-                            dest.Time = this.Settings.WarningTime;
+                            dest.Time = this.Settings.TimerDuration.WarningTime;
                         }
 
                         break;
@@ -506,12 +506,12 @@
 
                         fade = true;
                         init.Color = this.Settings.VisualSettings.WarningColor;
-                        init.Time = this.Settings.WarningTime;
+                        init.Time = this.Settings.TimerDuration.WarningTime;
 
-                        if (this.Settings.HasSecondWarning)
+                        if (this.Settings.TimerDuration.HasSecondWarning)
                         {
                             dest.Color = this.Settings.VisualSettings.SecondWarningColor;
-                            dest.Time = this.Settings.SecondWarningTime;
+                            dest.Time = this.Settings.TimerDuration.SecondWarningTime;
                         }
                         else
                         {
@@ -519,7 +519,7 @@
                             dest.Time = 0;
                             if (this.Settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
                             {
-                                dest.Time = this.Settings.Duration;
+                                dest.Time = this.Settings.TimerDuration.Duration;
                             }
                         }
 
@@ -531,13 +531,13 @@
                     {
                         fade = true;
                         init.Color = this.Settings.VisualSettings.SecondWarningColor;
-                        init.Time = this.Settings.SecondWarningTime;
+                        init.Time = this.Settings.TimerDuration.SecondWarningTime;
 
                         dest.Color = this.Settings.VisualSettings.ExpiredColor;
                         dest.Time = 0;
                         if (this.Settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
                         {
-                            dest.Time = this.Settings.Duration;
+                            dest.Time = this.Settings.TimerDuration.Duration;
                         }
 
                         //					this.TimerColor = this.Settings.VisualSettings.WarningColor;
@@ -711,17 +711,17 @@
             {
                 case TimerVisualSettings.TimerCounterMode.CountUp:
                     this.CurrentTime++;
-                    if (this.CurrentTime >= this.Settings.Duration)
+                    if (this.CurrentTime >= this.Settings.TimerDuration.Duration)
                     {
                         this.TimerState = TimerState.Stopped;
                     }
 
-                    if (this.CurrentTime >= this.Settings.WarningTime && this.Settings.HasFirstWarning)
+                    if (this.CurrentTime >= this.Settings.TimerDuration.WarningTime && this.Settings.TimerDuration.HasFirstWarning)
                     {
                         this.TimerState = TimerState.FirstWarning;
                     }
 
-                    if (this.CurrentTime >= this.Settings.SecondWarningTime && this.Settings.HasSecondWarning)
+                    if (this.CurrentTime >= this.Settings.TimerDuration.SecondWarningTime && this.Settings.TimerDuration.HasSecondWarning)
                     {
                         this.TimerState = TimerState.SecondWarning;
                     }
@@ -735,12 +735,12 @@
                         this.TimerState = TimerState.Stopped;
                     }
 
-                    if (this.CurrentTime <= this.Settings.WarningTime && this.Settings.HasFirstWarning)
+                    if (this.CurrentTime <= this.Settings.TimerDuration.WarningTime && this.Settings.TimerDuration.HasFirstWarning)
                     {
                         this.TimerState = TimerState.FirstWarning;
                     }
 
-                    if (this.CurrentTime <= this.Settings.SecondWarningTime && this.Settings.HasSecondWarning)
+                    if (this.CurrentTime <= this.Settings.TimerDuration.SecondWarningTime && this.Settings.TimerDuration.HasSecondWarning)
                     {
                         this.TimerState = TimerState.SecondWarning;
                     }
@@ -750,12 +750,12 @@
                 case TimerVisualSettings.TimerCounterMode.CountDownToMinus:
                 default:
                     this.CurrentTime--;
-                    if (this.CurrentTime <= this.Settings.WarningTime && this.Settings.HasFirstWarning)
+                    if (this.CurrentTime <= this.Settings.TimerDuration.WarningTime && this.Settings.TimerDuration.HasFirstWarning)
                     {
                         this.TimerState = TimerState.FirstWarning;
                     }
 
-                    if (this.CurrentTime <= this.Settings.SecondWarningTime && this.Settings.HasSecondWarning)
+                    if (this.CurrentTime <= this.Settings.TimerDuration.SecondWarningTime && this.Settings.TimerDuration.HasSecondWarning)
                     {
                         this.TimerState = TimerState.SecondWarning;
                     }
