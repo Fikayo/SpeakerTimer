@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Presentation
 {
     partial class ControlPanel
     {
@@ -30,8 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlPanel));
             this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.timerPreview2 = new SpeakerTimer.TimerPreview();
-            this.timerPreview1 = new SpeakerTimer.TimerPreview();
+            this.timerPreview2 = new SpeakerTimer.Presentation.TimerPreview();
+            this.timerPreview1 = new SpeakerTimer.Presentation.TimerPreview();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.displayToolStripItem = new SpeakerTimer.Presentation.DisplayToolStripItem();
             this.savedTimersToolStripItem = new SpeakerTimer.Presentation.SavedTimersTSDDButton();
@@ -71,8 +71,8 @@
             this.timerPreview2.Name = "timerPreview2";
             this.timerPreview2.Size = new System.Drawing.Size(1048, 245);
             this.timerPreview2.TabIndex = 1;
-            this.timerPreview2.LoadRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_LoadRequested);
-            this.timerPreview2.SaveRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_SaveRequested);
+            this.timerPreview2.LoadRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_LoadRequested);
+            this.timerPreview2.SaveRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_SaveRequested);
             this.timerPreview2.LiveStateChanged += new System.EventHandler(this.timerPreview2_LiveStateChanged);
             // 
             // timerPreview1
@@ -85,8 +85,8 @@
             this.timerPreview1.Name = "timerPreview1";
             this.timerPreview1.Size = new System.Drawing.Size(1048, 245);
             this.timerPreview1.TabIndex = 0;
-            this.timerPreview1.LoadRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_LoadRequested);
-            this.timerPreview1.SaveRequested += new System.EventHandler<SpeakerTimer.SettingIOEventArgs>(this.timerPreview_SaveRequested);
+            this.timerPreview1.LoadRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_LoadRequested);
+            this.timerPreview1.SaveRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_SaveRequested);
             this.timerPreview1.LiveStateChanged += new System.EventHandler(this.timerPreview1_LiveStateChanged);
             // 
             // toolStrip

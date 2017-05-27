@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SpeakerTimer
+﻿namespace SpeakerTimer.Application
 {
+    using System.Collections.Generic;
+
     public class TimePlan
     {
         private const int CurrentTimerFontSize = 30;

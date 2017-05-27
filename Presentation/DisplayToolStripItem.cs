@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer.Presentation
 {
+    using System;
+    using System.Drawing;
+    using System.Windows.Forms;
+    using SpeakerTimer.Application;
+
     public partial class DisplayToolStripItem : ToolStripDropDownButton
     {
         private TimeViewControl previousimeViewControl;

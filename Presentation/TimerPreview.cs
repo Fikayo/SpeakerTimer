@@ -1,9 +1,9 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Presentation
 {
     using System;
     using System.Drawing;
     using System.Windows.Forms;
-    using SpeakerTimer;
+    using SpeakerTimer.Application;
     using System.ComponentModel;
     using TimerMessageSettings = TimerViewSettings.TimerMessageSettings;
 

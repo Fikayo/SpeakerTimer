@@ -1,15 +1,10 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Presentation
 {
-	using System;
-	using System.Collections.Generic;
-	using System.ComponentModel;
-	using System.Data;
-	using System.Drawing;
-	using System.Text;
-	using System.Windows.Forms;
-	using SpeakerTimer;
+    using System;
+    using System.Windows.Forms;
+    using SpeakerTimer.Application;
 
-	public partial class PresentationTimerForm : Form
+    public partial class PresentationTimerForm : Form
     {
         public const FormBorderStyle BorderStyle = FormBorderStyle.FixedSingle;
 

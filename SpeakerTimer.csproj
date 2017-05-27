@@ -75,7 +75,7 @@
     <Compile Include="Presentation\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\BlinkManager.cs" />
+    <Compile Include="Application\BlinkManager.cs" />
     <Compile Include="Presentation\DisplayToolStripItem.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -94,7 +94,7 @@
     <Compile Include="Presentation\ControlPanel.Designer.cs">
       <DependentUpon>ControlPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="OldTimerView.cs" />
+    <Compile Include="Presentation\OldTimerView.cs" />
     <Compile Include="Application\PresetManager.cs" />
     <Compile Include="Presentation\PresentationTimerForm.cs">
       <SubType>Form</SubType>
@@ -102,7 +102,7 @@
     <Compile Include="Presentation\PresentationTimerForm.Designer.cs">
       <DependentUpon>PresentationTimerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Application\Program.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Presentation\SavedTimersToolStripButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -121,7 +121,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\STimer.cs" />
     <Compile Include="Application\TimePlan.cs" />
     <Compile Include="Application\TimePlanCommandIssuer.cs" />
     <Compile Include="Presentation\TimePlanControl.cs">

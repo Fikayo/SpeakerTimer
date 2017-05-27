@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Presentation
 {
     partial class TimerPreview
     {
@@ -66,11 +66,11 @@
             this.flpMainLeftLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.flpWarningTimesLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.tlpFirstWarningLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.tibWarningTime = new SpeakerTimer.TimeInputBox();
+            this.tibWarningTime = new SpeakerTimer.Presentation.TimeInputBox();
             this.lblWarningTime = new System.Windows.Forms.Label();
             this.tlpSecondWarningLayout = new System.Windows.Forms.TableLayoutPanel();
             this.lblSecondWarning = new System.Windows.Forms.Label();
-            this.tibSecondWarningTime = new SpeakerTimer.TimeInputBox();
+            this.tibSecondWarningTime = new SpeakerTimer.Presentation.TimeInputBox();
             this.tlpFinalMessageLayout = new System.Windows.Forms.TableLayoutPanel();
             this.txtFinalMessage = new System.Windows.Forms.TextBox();
             this.lblFinalMessage = new System.Windows.Forms.Label();
@@ -79,7 +79,7 @@
             this.rdbLive = new System.Windows.Forms.RadioButton();
             this.pcbLiveIndicator = new System.Windows.Forms.PictureBox();
             this.chbBlink = new System.Windows.Forms.CheckBox();
-            this.timerView = new SpeakerTimer.TimerView();
+            this.timerView = new SpeakerTimer.Presentation.TimerView();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.grbPreviewBox = new System.Windows.Forms.GroupBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
@@ -836,7 +836,7 @@
             this.timerView.TabIndex = 2;
             this.timerView.TimerColor = System.Drawing.SystemColors.ControlText;
             this.timerView.TimerFont = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timerView.TimerState = SpeakerTimer.TimerState.Stopped;
+            this.timerView.TimerState = SpeakerTimer.Presentation.TimerState.Stopped;
             // 
             // grbPreviewBox
             // 

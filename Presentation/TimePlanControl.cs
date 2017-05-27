@@ -1,13 +1,9 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Presentation
 {
-	using System;
-	using System.Collections.Generic;
-	using System.ComponentModel;
-	using System.Drawing;
-	using System.Data;
-	using System.Linq;
-	using System.Text;
-	using System.Windows.Forms;
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Windows.Forms;
     using SpeakerTimer.Application;
     using MainApplication = System.Windows.Forms.Application;
 

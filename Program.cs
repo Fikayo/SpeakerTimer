@@ -2,7 +2,6 @@
 {
     using System;
 	using System.Windows.Forms;
-    using SpeakerTimer;
     using MainApplication = System.Windows.Forms.Application;
 
     public static class Program
@@ -17,7 +16,7 @@
 
             MainApplication.EnableVisualStyles();
             MainApplication.SetCompatibleTextRenderingDefault(false);
-            MainApplication.Run(new ControlPanel());
+            MainApplication.Run(new SpeakerTimer.Presentation.ControlPanel());
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

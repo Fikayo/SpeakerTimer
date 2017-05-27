@@ -1,13 +1,11 @@
-﻿namespace SpeakerTimer
+﻿namespace SpeakerTimer.Presentation
 {
     using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Linq;
     using System.Resources;
-	using System.Windows.Forms;
-	using SpeakerTimer.Presentation;
-	using SpeakerTimer.Application;
+    using System.Windows.Forms;
+    using SpeakerTimer.Application;
     using MainApplication = System.Windows.Forms.Application;
 
     ////    public partial class ControlPanel : Form
@@ -586,13 +584,13 @@
 
         private TimeViewControl CreateTimerView()
         {
-            TimerView timerView = new SpeakerTimer.TimerView();
+            TimerView timerView = new SpeakerTimer.Presentation.TimerView();
             timerView.BlinkInterval = 3000;
             timerView.ShowLabel = true;
             timerView.TimerColor = System.Drawing.SystemColors.ControlText;
             timerView.TimerFont = new System.Drawing.Font("Arial", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             timerView.BackgroundColor = System.Drawing.SystemColors.Control;
-            timerView.TimerState = SpeakerTimer.TimerState.Stopped;
+            timerView.TimerState = SpeakerTimer.Presentation.TimerState.Stopped;
 
             return timerView;
         }
