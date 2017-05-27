@@ -83,7 +83,7 @@
             }
         }
 
-        public void OnTimerMessageChanged(TimerViewSettings.TimerMessageSettings settings)
+        public void OnTimerMessageChanged(TimerMessageSettings settings)
         {
             var handler = this.TimerMessageChanged;
             if (handler != null)

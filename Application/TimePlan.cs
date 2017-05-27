@@ -54,8 +54,8 @@
 
         public void AddTimer(TimerViewSettings timer)
         {
-            timer.CounterMode = TimerViewSettings.TimerCounterMode.CountDownToMinus;
-            timer.DisplayMode = TimerViewSettings.TimerDisplayMode.FullWidth;
+            timer.VisualSettings.CounterMode = TimerVisualSettings.TimerCounterMode.CountDownToMinus;
+            timer.VisualSettings.DisplayMode = TimerVisualSettings.TimerDisplayMode.FullWidth;
 
             if (!this.plan.Contains(timer))
             {

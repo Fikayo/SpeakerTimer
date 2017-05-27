@@ -52,27 +52,27 @@
         private void Init()
         {
             this.running = false;
-            this.cmbDisplayMode.DataSource = Enum.GetValues(typeof(TimerViewSettings.TimerDisplayMode));
-            this.cmbCounterMode.DataSource = Enum.GetValues(typeof(TimerViewSettings.TimerCounterMode));
-            this.cmbDisplayMode.Text = this.settings.DisplayMode.ToString();
-            this.cmbCounterMode.Text = this.settings.CounterMode.ToString();
+            this.cmbDisplayMode.DataSource = Enum.GetValues(typeof(TimerVisualSettings.TimerDisplayMode));
+            this.cmbCounterMode.DataSource = Enum.GetValues(typeof(TimerVisualSettings.TimerCounterMode));
+            this.cmbDisplayMode.Text = this.settings.VisualSettings.DisplayMode.ToString();
+            this.cmbCounterMode.Text = this.settings.VisualSettings.CounterMode.ToString();
 
             foreach (FontFamily font in System.Drawing.FontFamily.Families)
             {
                 this.cmbFontFace.Items.Add(font.Name);
             }
 
-            this.cmbFontFace.Text = this.settings.TimerFont.FontFamily.Name;
-            this.numFontSize.Value = (decimal)this.settings.TimerFont.Size;
+            this.cmbFontFace.Text = this.settings.VisualSettings.TimerFont.FontFamily.Name;
+            this.numFontSize.Value = (decimal)this.settings.VisualSettings.TimerFont.Size;
             
             // Colors
-            this.btnRunningColor.BackColor = this.settings.RunningColor;
-            this.btnPausedColor.BackColor = this.settings.PausedColor;
-            this.btnWarningColor.BackColor = this.settings.WarningColor;
-            this.btnExpiredColor.BackColor = this.settings.ExpiredColor;
-            this.btnStoppedColor.BackColor = this.settings.StoppedColor;
-            this.btnBackColor.BackColor = this.settings.BackgroundColor;
-            this.btnMessageColor.BackColor = this.settings.MessageColor;
+            this.btnRunningColor.BackColor = this.settings.VisualSettings.RunningColor;
+            this.btnPausedColor.BackColor = this.settings.VisualSettings.PausedColor;
+            this.btnWarningColor.BackColor = this.settings.VisualSettings.WarningColor;
+            this.btnExpiredColor.BackColor = this.settings.VisualSettings.ExpiredColor;
+            this.btnStoppedColor.BackColor = this.settings.VisualSettings.StoppedColor;
+            this.btnBackColor.BackColor = this.settings.VisualSettings.BackgroundColor;
+            this.btnMessageColor.BackColor = this.settings.VisualSettings.MessageColor;
 
             // Special Times
             this.txtWarningTime.Text = TimeSpan.FromSeconds(this.settings.WarningTime).ToString();
@@ -121,7 +121,7 @@
 
         private void cmbDisplayMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.settings.DisplayMode = Util.ToEnum<TimerViewSettings.TimerDisplayMode>(this.cmbDisplayMode.SelectedItem.ToString());
+            this.settings.VisualSettings.DisplayMode = Util.ToEnum<TimerVisualSettings.TimerDisplayMode>(this.cmbDisplayMode.SelectedItem.ToString());
             if (!this.running)
             {
                 this.commandIssuer.OnRefreshTimerDisplay();
@@ -132,7 +132,7 @@
 
         private void cmbCounterMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.settings.CounterMode = Util.ToEnum<TimerViewSettings.TimerCounterMode>(this.cmbCounterMode.SelectedItem.ToString());
+            this.settings.VisualSettings.CounterMode = Util.ToEnum<TimerVisualSettings.TimerCounterMode>(this.cmbCounterMode.SelectedItem.ToString());
         }
 
         private void cmbFontFace_SelectedIndexChanged(object sender, EventArgs e)
@@ -205,7 +205,7 @@
         {
             var color = this.PickColor();
             this.btnRunningColor.BackColor = color;
-            this.settings.RunningColor = color;
+            this.settings.VisualSettings.RunningColor = color;
             this.OnSettingsChanged();
         }
 
@@ -213,7 +213,7 @@
         {
             var color = this.PickColor();
             this.btnPausedColor.BackColor = color;
-            this.settings.PausedColor = color;
+            this.settings.VisualSettings.PausedColor = color;
             this.OnSettingsChanged();
         }
 
@@ -221,7 +221,7 @@
         {
             var color = this.PickColor();
             this.btnWarningColor.BackColor = color;
-            this.settings.WarningColor = color;
+            this.settings.VisualSettings.WarningColor = color;
             this.OnSettingsChanged();
         }
 
@@ -229,7 +229,7 @@
         {
             var color = this.PickColor();
             this.btnExpiredColor.BackColor = color;
-            this.settings.ExpiredColor = color;
+            this.settings.VisualSettings.ExpiredColor = color;
             this.OnSettingsChanged();
         }
 
@@ -237,7 +237,7 @@
         {
             var color = this.PickColor();
             this.btnStoppedColor.BackColor = color;
-            this.settings.StoppedColor = color;
+            this.settings.VisualSettings.StoppedColor = color;
             this.OnSettingsChanged();
         }
 
@@ -245,7 +245,7 @@
         {
             var color = this.PickColor();
             this.btnBackColor.BackColor = color;
-            this.settings.BackgroundColor = color;
+            this.settings.VisualSettings.BackgroundColor = color;
             this.OnSettingsChanged();
         }
 
@@ -253,7 +253,7 @@
         {
             var color = this.PickColor();
             this.btnMessageColor.BackColor = color;
-            this.settings.MessageColor = color;
+            this.settings.VisualSettings.MessageColor = color;
             this.OnSettingsChanged();
         }
 

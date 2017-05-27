@@ -4,7 +4,6 @@
     using System.Drawing;
     using System.Windows.Forms;
     using SpeakerTimer.Application;
-    using TimerMessageSettings = TimerViewSettings.TimerMessageSettings;
 
     public partial class TimerView : TimeViewControl
     {
@@ -164,7 +163,7 @@
             if (this.stopped && !forceCurrentTime)
             {
                 this.CurrentTime = this.Settings.Duration;
-                if (this.Settings.CounterMode == TimerViewSettings.TimerCounterMode.CountUp)
+                if (this.Settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
                 {
                     this.CurrentTime = 0;
                 }
@@ -179,7 +178,7 @@
             this.TimerState = TimerState.Running;
             this.DisplayTimeElapsed(this.CurrentTime);
             this.timer.Start();
-            this.TimerColor = this.Settings.RunningColor;
+            this.TimerColor = this.Settings.VisualSettings.RunningColor;
             this.OnTimeStarted();
         }
 
@@ -189,7 +188,7 @@
 
             this.timer.Stop();
             this.TimerState = TimerState.Paused;
-            this.TimerColor = this.Settings.PausedColor;
+            this.TimerColor = this.Settings.VisualSettings.PausedColor;
             this.OnTimePaused();
         }
 
@@ -200,7 +199,7 @@
             this.timer.Stop();
             this.stopped = true;
             this.TimerState = TimerState.Stopped;
-            this.TimerColor = this.Settings.StoppedColor;
+            this.TimerColor = this.Settings.VisualSettings.StoppedColor;
             this.OnTimeStopped();
         }
 
@@ -216,18 +215,18 @@
         {
             string display = string.Empty;
 
-            switch (this.Settings.DisplayMode)
+            switch (this.Settings.VisualSettings.DisplayMode)
             {
-                case TimerViewSettings.TimerDisplayMode.DisplayInSeconds:
+                case TimerVisualSettings.TimerDisplayMode.DisplayInSeconds:
                     display = ((int)(counter)).ToString();
                     break;
 
-                case TimerViewSettings.TimerDisplayMode.SuppressLeadingZeros:
+                case TimerVisualSettings.TimerDisplayMode.SuppressLeadingZeros:
                     display = TimeSpan.FromSeconds(counter).ToString().TrimStart(new char[] { '0', ':' });
                     display = display.Length == 0 ? "0" : display;
                     break;
 
-                case TimerViewSettings.TimerDisplayMode.FullWidth:
+                case TimerVisualSettings.TimerDisplayMode.FullWidth:
                 default:
                     display = TimeSpan.FromSeconds(counter).ToString();
                     break;
@@ -241,22 +240,22 @@
             this.ShowLabel = false;
             this.lblTimer.Text = this.Settings.MessageSettings.TimerMessage;
 
-            //var messageFont = new Font(this.Settings.TimerFont.FontFamily.Name, this.Settings.MessageSettings.MessageFontSize);
-            //this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : messageFont;
+            //var messageFont = new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, this.Settings.MessageSettings.MessageFontSize);
+            //this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : messageFont;
             
             if (this.IsPreviewMode)
             {
-                this.TimerFont = new Font(this.Settings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize);
+                this.TimerFont = new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize);
             }
             else
             {
-                this.TimerFont = this.Settings.TimerFont;
+                this.TimerFont = this.Settings.VisualSettings.TimerFont;
                 this.ScaleMessageFont(this.lblTimer);
 
             }
 
             this.lblMiniTimer.Visible = true;
-            this.lblMiniTimer.ForeColor = this.Settings.RunningColor;
+            this.lblMiniTimer.ForeColor = this.Settings.VisualSettings.RunningColor;
             this.RefreshTimerDisplay(true);
         }
 
@@ -307,22 +306,22 @@
             this.tibInput.TimeChanged += this.txtInput_TimeChanged;
         }
 
-        private void ApplySettings(TimerViewSettings settings)
+        private void ApplySettings(TimerViewSettings Settings)
         {
-            this.TimerFont = this.IsPreviewMode ? new Font(settings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : settings.TimerFont;
-            int labelSize = this.IsPreviewMode ? TimerView.PreviewLabelSize : (int)Math.Max(settings.TimerFont.Size / 3, 10);
-            this.lblTimerTitle.Font = new Font(settings.TimerFont.FontFamily.Name, labelSize);
+            this.TimerFont = this.IsPreviewMode ? new Font(Settings.VisualSettings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : Settings.VisualSettings.TimerFont;
+            int labelSize = this.IsPreviewMode ? TimerView.PreviewLabelSize : (int)Math.Max(Settings.VisualSettings.TimerFont.Size / 3, 10);
+            this.lblTimerTitle.Font = new Font(Settings.VisualSettings.TimerFont.FontFamily.Name, labelSize);
 
             // Keep the mini timer the same size as the title
-            this.lblMiniTimer.Font = new Font(settings.TimerFont.FontFamily.Name, labelSize);
+            this.lblMiniTimer.Font = new Font(Settings.VisualSettings.TimerFont.FontFamily.Name, labelSize);
 
-            this.BackgroundColor = settings.BackgroundColor;
-            this.TimerColor = settings.RunningColor;
+            this.BackgroundColor = Settings.VisualSettings.BackgroundColor;
+            this.TimerColor = Settings.VisualSettings.RunningColor;
 
-            this.Settings = settings.Clone();
-            this.Settings.SecondWarningColor = this.Settings.MessageColor;
+            this.Settings = Settings.Clone();
+            this.Settings.VisualSettings.SecondWarningColor = this.Settings.VisualSettings.MessageColor;
 
-            if ((settings.BlinkOnExpired && this.Settings.Duration >= 0) || (!settings.BlinkOnExpired && this.blinkManager.IsBlinking))
+            if ((Settings.BlinkOnExpired && this.Settings.Duration >= 0) || (!Settings.BlinkOnExpired && this.blinkManager.IsBlinking))
             {
                 this.blinkManager.StopBlinking();
             }
@@ -354,7 +353,7 @@
             this.RefreshTimerDisplay(true);
             this.lblMiniTimer.Visible = false;
             this.ShowLabel = true;
-            this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : this.Settings.TimerFont;
+            this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : this.Settings.VisualSettings.TimerFont;
 
             this.OnMessageFinished();
         }
@@ -394,7 +393,7 @@
         {
             if (!string.IsNullOrEmpty(this.Settings.FinalMessage) && this.DisplayState == DisplayState.Timer)
             {
-                this.TimerLabel.ForeColor = this.Settings.MessageColor;
+                this.TimerLabel.ForeColor = this.Settings.VisualSettings.MessageColor;
                 this.TimerLabel.Text = this.Settings.FinalMessage;
                 return true;
             }
@@ -409,7 +408,7 @@
             this.tibInput.Enabled = true;
             this.tibInput.Visible = true;
             this.tibInput.Font = this.TimerLabel.Font;
-            if (this.Settings.DisplayMode == TimerViewSettings.TimerDisplayMode.FullWidth)
+            if (this.Settings.VisualSettings.DisplayMode == TimerVisualSettings.TimerDisplayMode.FullWidth)
             {
                 this.tibInput.Size = this.TimerLabel.Size;
             }
@@ -471,7 +470,7 @@
             bool fade = false;
             FadeItem init = new FadeItem
             {
-                Color = this.Settings.RunningColor,
+                Color = this.Settings.VisualSettings.RunningColor,
                 Time = this.Settings.Duration
             };
 
@@ -488,14 +487,14 @@
                         if (this.Settings.HasFirstWarning)
                         {
                             fade = true;
-                            init.Color = this.Settings.RunningColor;
+                            init.Color = this.Settings.VisualSettings.RunningColor;
                             init.Time = this.Settings.Duration;
-                            if (this.Settings.CounterMode == TimerViewSettings.TimerCounterMode.CountUp)
+                            if (this.Settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
                             {
                                 init.Time = 0;
                             }
 
-                            dest.Color = this.Settings.WarningColor;
+                            dest.Color = this.Settings.VisualSettings.WarningColor;
                             dest.Time = this.Settings.WarningTime;
                         }
 
@@ -506,42 +505,42 @@
                     {
 
                         fade = true;
-                        init.Color = this.Settings.WarningColor;
+                        init.Color = this.Settings.VisualSettings.WarningColor;
                         init.Time = this.Settings.WarningTime;
 
                         if (this.Settings.HasSecondWarning)
                         {
-                            dest.Color = this.Settings.SecondWarningColor;
+                            dest.Color = this.Settings.VisualSettings.SecondWarningColor;
                             dest.Time = this.Settings.SecondWarningTime;
                         }
                         else
                         {
-                            dest.Color = this.Settings.ExpiredColor;
+                            dest.Color = this.Settings.VisualSettings.ExpiredColor;
                             dest.Time = 0;
-                            if (this.Settings.CounterMode == TimerViewSettings.TimerCounterMode.CountUp)
+                            if (this.Settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
                             {
                                 dest.Time = this.Settings.Duration;
                             }
                         }
 
-                        //					this.TimerColor = this.settings.WarningColor;
+                        //					this.TimerColor = this.Settings.VisualSettings.WarningColor;
                         break;
                     }
 
                 case TimerState.SecondWarning:
                     {
                         fade = true;
-                        init.Color = this.Settings.SecondWarningColor;
+                        init.Color = this.Settings.VisualSettings.SecondWarningColor;
                         init.Time = this.Settings.SecondWarningTime;
 
-                        dest.Color = this.Settings.ExpiredColor;
+                        dest.Color = this.Settings.VisualSettings.ExpiredColor;
                         dest.Time = 0;
-                        if (this.Settings.CounterMode == TimerViewSettings.TimerCounterMode.CountUp)
+                        if (this.Settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
                         {
                             dest.Time = this.Settings.Duration;
                         }
 
-                        //					this.TimerColor = this.settings.WarningColor;
+                        //					this.TimerColor = this.Settings.VisualSettings.WarningColor;
                         break;
                     }
 
@@ -549,7 +548,7 @@
                     {
                         if (!this.Settings.BlinkOnExpired || !this.blinkManager.IsBlinking)
                         {
-                            this.TimerColor = this.Settings.ExpiredColor;
+                            this.TimerColor = this.Settings.VisualSettings.ExpiredColor;
                         }
 
                         if (this.Settings.BlinkOnExpired)
@@ -704,13 +703,13 @@
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            //            this.TimerLabel.ForeColor = this.settings.RunningColor;
+            //            this.TimerLabel.ForeColor = this.Settings.VisualSettings.RunningColor;
             //			this.FadeTimerColor ();
             this.TimerState = TimerState.Running;
 
-            switch (this.Settings.CounterMode)
+            switch (this.Settings.VisualSettings.CounterMode)
             {
-                case TimerViewSettings.TimerCounterMode.CountUp:
+                case TimerVisualSettings.TimerCounterMode.CountUp:
                     this.CurrentTime++;
                     if (this.CurrentTime >= this.Settings.Duration)
                     {
@@ -729,7 +728,7 @@
 
                     break;
 
-                case TimerViewSettings.TimerCounterMode.CountDownToZero:
+                case TimerVisualSettings.TimerCounterMode.CountDownToZero:
                     this.CurrentTime--;
                     if (this.CurrentTime <= 0)
                     {
@@ -748,7 +747,7 @@
 
                     break;
 
-                case TimerViewSettings.TimerCounterMode.CountDownToMinus:
+                case TimerVisualSettings.TimerCounterMode.CountDownToMinus:
                 default:
                     this.CurrentTime--;
                     if (this.CurrentTime <= this.Settings.WarningTime && this.Settings.HasFirstWarning)
@@ -796,7 +795,7 @@
 
         private void BlinkManager_Blink(object sender, EventArgs e)
         {
-            this.TimerLabel.ForeColor = this.blinkManager.BlinkOn ? this.Settings.ExpiredColor : this.Settings.BackgroundColor;
+            this.TimerLabel.ForeColor = this.blinkManager.BlinkOn ? this.Settings.VisualSettings.ExpiredColor : this.Settings.VisualSettings.BackgroundColor;
         }
 
         private void lblTimer_DoubleClick(object sender, EventArgs e)

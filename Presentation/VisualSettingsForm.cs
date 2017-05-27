@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using TimerVisualSettings = SpeakerTimer.TimerViewSettings.TimerVisualSettings;
-
-namespace SpeakerTimer.Presentation
+﻿namespace SpeakerTimer.Presentation
 {
+    using System;
+    using System.Drawing;
+    using System.Windows.Forms;
+    using SpeakerTimer.Application;
+
     public partial class VisualSettingsForm : Form
     {
         public VisualSettingsForm(TimerVisualSettings visualSettings)
@@ -29,8 +24,8 @@ namespace SpeakerTimer.Presentation
         private void InitSettings()
         {
             // Display Settings
-            this.cmbDisplayMode.DataSource = Enum.GetValues(typeof(TimerViewSettings.TimerDisplayMode));
-            this.cmbCounterMode.DataSource = Enum.GetValues(typeof(TimerViewSettings.TimerCounterMode));
+            this.cmbDisplayMode.DataSource = Enum.GetValues(typeof(TimerVisualSettings.TimerDisplayMode));
+            this.cmbCounterMode.DataSource = Enum.GetValues(typeof(TimerVisualSettings.TimerCounterMode));
             this.cmbDisplayMode.Text = this.VisualSettings.DisplayMode.ToString();
             this.cmbCounterMode.Text = this.VisualSettings.CounterMode.ToString();
 
@@ -83,7 +78,7 @@ namespace SpeakerTimer.Presentation
 
         private void cmbDisplayMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.VisualSettings.DisplayMode = Util.ToEnum<TimerViewSettings.TimerDisplayMode>(this.cmbDisplayMode.SelectedItem.ToString());
+            this.VisualSettings.DisplayMode = Util.ToEnum<TimerVisualSettings.TimerDisplayMode>(this.cmbDisplayMode.SelectedItem.ToString());
             //if (!this.running)
             //{
             //    this.CommandIssuer.OnRefreshTimerDisplay();
@@ -92,7 +87,7 @@ namespace SpeakerTimer.Presentation
 
         private void cmbCounterMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.VisualSettings.CounterMode = Util.ToEnum<TimerViewSettings.TimerCounterMode>(this.cmbCounterMode.SelectedItem.ToString());
+            this.VisualSettings.CounterMode = Util.ToEnum<TimerVisualSettings.TimerCounterMode>(this.cmbCounterMode.SelectedItem.ToString());
         }
 
         private void cmbFontFace_SelectedIndexChanged(object sender, EventArgs e)

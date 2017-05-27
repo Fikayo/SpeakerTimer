@@ -9,20 +9,20 @@
             this.Settings = settings;
         }
 
-        public SettingsChangedEventArgs(TimerViewSettings.TimerVisualSettings settings)
+        public SettingsChangedEventArgs(TimerVisualSettings settings)
         {
             this.VisualSettings = settings;
         }
 
-        public SettingsChangedEventArgs(TimerViewSettings.TimerMessageSettings settings)
+        public SettingsChangedEventArgs(TimerMessageSettings settings)
         {
             this.MessageSettings = settings;
         }
 
         public TimerViewSettings Settings { get; set; }
 
-        public TimerViewSettings.TimerVisualSettings VisualSettings { get; set; }
+        public TimerVisualSettings VisualSettings { get; set; }
 
-        public TimerViewSettings.TimerMessageSettings MessageSettings { get; set; }
+        public TimerMessageSettings MessageSettings { get; set; }
     }
 }

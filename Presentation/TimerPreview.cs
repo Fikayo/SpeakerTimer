@@ -1,11 +1,10 @@
 ﻿namespace SpeakerTimer.Presentation
 {
     using System;
+    using System.ComponentModel;
     using System.Drawing;
     using System.Windows.Forms;
     using SpeakerTimer.Application;
-    using System.ComponentModel;
-    using TimerMessageSettings = TimerViewSettings.TimerMessageSettings;
 
     public partial class TimerPreview : UserControl
     {
@@ -355,7 +354,7 @@
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (this.settings.Duration == 0 && this.settings.CounterMode == TimerViewSettings.TimerCounterMode.CountUp)
+            if (this.settings.Duration == 0 && this.settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
             {
                 this.ChangeTimerDuration(Util.MAX_INPUT_TIME_ALLOWED);
             }

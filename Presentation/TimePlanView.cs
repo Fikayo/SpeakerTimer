@@ -181,7 +181,7 @@
 
         private void LoadCurrentTimer()
         {
-            this.tlpOuterLayout.BackColor = this.TimePlan.CurrentTimer.BackgroundColor;
+            this.tlpOuterLayout.BackColor = this.TimePlan.CurrentTimer.VisualSettings.BackgroundColor;
         }
 
         #endregion
