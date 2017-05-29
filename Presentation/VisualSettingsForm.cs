@@ -7,11 +7,12 @@
 
     public partial class VisualSettingsForm : Form
     {
-        public VisualSettingsForm(TimerVisualSettings visualSettings)
+        public VisualSettingsForm(TimerVisualSettings visualSettings, string settingsName = null)
         {
             InitializeComponent();
 
-            this.Text = Util.GetFormName("Visual Settings");
+            const string formName = "Visual Settings";
+            this.Text = string.IsNullOrEmpty(settingsName) ? Util.GetFormName(formName) : settingsName.Trim() + " - " + formName;
 
             this.VisualSettings = visualSettings;
             this.InitSettings();

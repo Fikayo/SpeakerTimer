@@ -338,7 +338,7 @@
         
         private void btnVisualSettings_Click(object sender, EventArgs e)
         {
-            using (var form = new SpeakerTimer.Presentation.VisualSettingsForm(this.Settings.VisualSettings))
+            using (var form = new VisualSettingsForm(this.Settings.VisualSettings, this.Settings.Name))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {

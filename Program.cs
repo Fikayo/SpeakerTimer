@@ -1,6 +1,7 @@
 ﻿namespace SpeakerTimer
 {
     using System;
+    using System.IO;
 	using System.Windows.Forms;
     using MainApplication = System.Windows.Forms.Application;
 
@@ -12,6 +13,9 @@
         [STAThread]
         static void Main()
         {
+            string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string productDataDir = Directory.CreateDirectory(MainApplication.ProductName).Name;
+            AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(appdata, productDataDir));
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             MainApplication.EnableVisualStyles();

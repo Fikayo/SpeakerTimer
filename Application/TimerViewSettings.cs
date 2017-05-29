@@ -50,31 +50,9 @@
 
         public TimerMessageSettings MessageSettings { get; set; }
 
-        public TimerDuration TimerDuration { get; set; }
-
-        #region Time Duration
-
-        ////public string Title { get { return this.TimerDuration.Title; } set { this.TimerDuration.Title = value; } }
-
-        ////public double Duration { get { return this.TimerDuration.Duration; } set { this.TimerDuration.Duration = value; } }
-
-        ////public double WarningTime { get { return this.TimerDuration.WarningTime; } set { this.TimerDuration.WarningTime = value; } }
-
-        ////public double SecondWarningTime { get { return this.TimerDuration.SecondWarningTime; } set { this.TimerDuration.SecondWarningTime = value; } }
-
-        #endregion
-
+        public TimerDurationSettings TimerDuration { get; set; }
+        
         #region Propeties
-
-        ////public bool HasFirstWarning
-        ////{
-        ////    get { return this.WarningTime > 0; }
-        ////}
-
-        ////public bool HasSecondWarning
-        ////{
-        ////    get { return this.SecondWarningTime > 0; }
-        ////}
 
         public static TimerViewSettings Default
         {
@@ -142,7 +120,7 @@
 
         private void SetDefaultSettings()
         {
-            this.TimerDuration = TimerDuration.Default;
+            this.TimerDuration = TimerDurationSettings.Default;
             this.VisualSettings = TimerVisualSettings.Default;
             this.MessageSettings = TimerMessageSettings.Default;
             this.BlinkOnExpired = false;
@@ -178,7 +156,7 @@
                 ////settings.TimerDuration.WarningTime = double.Parse(values[4]);
                 ////settings.TimerDuration.SecondWarningTime = double.Parse(values[5]);
 
-                settings.TimerDuration = TimerDuration.ParseCsv(csv, 2);
+                settings.TimerDuration = TimerDurationSettings.ParseCsv(csv, 2);
 
                 settings.BlinkOnExpired = bool.Parse(values[6]);
                 settings.FinalMessage = values[7];

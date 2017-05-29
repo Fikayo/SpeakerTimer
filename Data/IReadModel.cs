@@ -1,0 +1,9 @@
+﻿namespace SpeakerTimer.Data
+{
+    using System.Data.SQLite;
+
+   public interface IReadModel : IModel
+    {
+        SQLiteDataReader Query(string query);
+    }
+}

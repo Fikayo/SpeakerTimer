@@ -1,10 +1,10 @@
 ﻿namespace SpeakerTimer.Application
 {
-    public class TimerDuration
+    public class TimerDurationSettings
     {
         private static readonly string DefaultTitle = "Untitled";
 
-        private TimerDuration()
+        private TimerDurationSettings()
         {
             this.SetDefaultSettings();
         }
@@ -21,9 +21,9 @@
 
         public bool HasSecondWarning { get { return this.SecondWarningTime > 0; } }
 
-        public static TimerDuration Default
+        public static TimerDurationSettings Default
         {
-            get { return new TimerDuration(); }
+            get { return new TimerDurationSettings(); }
         }
 
         public string ToCsv()
@@ -35,9 +35,9 @@
                 this.SecondWarningTime);
         }
 
-        public TimerDuration Clone()
+        public TimerDurationSettings Clone()
         {
-            TimerDuration clone = new TimerDuration();
+            TimerDurationSettings clone = new TimerDurationSettings();
             clone.Title = this.Title;
             clone.Duration = this.Duration;
             clone.WarningTime = this.WarningTime;
@@ -53,7 +53,7 @@
                 return false;
             }
 
-            TimerDuration that = obj as TimerDuration;
+            TimerDurationSettings that = obj as TimerDurationSettings;
             if (that == null) return false;
 
             return this.Title.Equals(that.Title)
@@ -69,12 +69,12 @@
 
         private void SetDefaultSettings()
         {
-            this.Title = TimerDuration.DefaultTitle;
+            this.Title = TimerDurationSettings.DefaultTitle;
         }
 
-        public static TimerDuration ParseCsv(string csv, int start = 0)
+        public static TimerDurationSettings ParseCsv(string csv, int start = 0)
         {
-            TimerDuration settings = new TimerDuration();
+            TimerDurationSettings settings = new TimerDurationSettings();
 
             try
             {
