@@ -2,22 +2,32 @@
 {
     using System.Drawing;
 
-    public class TimerViewSettings
+    public class SimpleTimerSettings
     {
         private static readonly string DefaultName = "Un-named";
 
         private string name;
         private static int count = 0;
 
-        private TimerViewSettings(bool isDefault = false)
+        public SimpleTimerSettings(int id, string name, string finalmessage, bool blinkOnExpired, TimerDurationSettings durationSettings, TimerVisualSettings visualSettings)
+        {
+            this.Id = id;
+            this.name = name;
+            this.FinalMessage = finalmessage;
+            this.BlinkOnExpired = blinkOnExpired;
+            this.TimerDuration = durationSettings;
+            this.VisualSettings = visualSettings;
+        }
+
+        private SimpleTimerSettings(bool isDefault = false)
         {
             this.SetDefaultSettings();
             if (isDefault)
             {
-                this.Id = TimerViewSettings.count++;
+                this.Id = SimpleTimerSettings.count++;
             }
         }
-
+        
         public int Id { get; private set; }
 
         public string Name
@@ -26,7 +36,7 @@
             {
                 if (string.IsNullOrEmpty(this.name))
                 {
-                    return TimerViewSettings.DefaultName + TimerViewSettings.count;
+                    return SimpleTimerSettings.DefaultName + SimpleTimerSettings.count;
                 }
 
                 return this.name;
@@ -37,7 +47,7 @@
                 this.name = value;
                 if (!string.IsNullOrEmpty(this.name))
                 {
-                    TimerViewSettings.count--;
+                    SimpleTimerSettings.count--;
                 }
             }
         }
@@ -54,14 +64,14 @@
         
         #region Propeties
 
-        public static TimerViewSettings Default
+        public static SimpleTimerSettings Default
         {
-            get { return new TimerViewSettings(true); }
+            get { return new SimpleTimerSettings(true); }
         }
 
-        private static TimerViewSettings Empty
+        private static SimpleTimerSettings Empty
         {
-            get { return new TimerViewSettings(); }
+            get { return new SimpleTimerSettings(); }
         }
 
         #endregion
@@ -87,9 +97,9 @@
                 this.VisualSettings.ToCsv());
         }
 
-        public TimerViewSettings Clone()
+        public SimpleTimerSettings Clone()
         {
-            TimerViewSettings clone = TimerViewSettings.ParseCsv(this.ToCsv());
+            SimpleTimerSettings clone = SimpleTimerSettings.ParseCsv(this.ToCsv());
             clone.VisualSettings = this.VisualSettings.Clone();
             clone.MessageSettings = this.MessageSettings.Clone();
 
@@ -103,7 +113,7 @@
                 return false;
             }
 
-            TimerViewSettings that = obj as TimerViewSettings;
+            SimpleTimerSettings that = obj as SimpleTimerSettings;
             if (that == null) return false;
 
             return this.Name.Equals(that.Name)
@@ -128,9 +138,9 @@
 
         public static bool IsUntitled(string name)
         {
-            if (name.StartsWith(TimerViewSettings.DefaultName))
+            if (name.StartsWith(SimpleTimerSettings.DefaultName))
             {
-                string remnant = name.Replace(TimerViewSettings.DefaultName, string.Empty);
+                string remnant = name.Replace(SimpleTimerSettings.DefaultName, string.Empty);
                 int value;
                 return int.TryParse(remnant, out value);
             }
@@ -138,14 +148,14 @@
             return false;
         }
 
-        public static TimerViewSettings ParseCsv(string csv)
+        public static SimpleTimerSettings ParseCsv(string csv)
         {
-            TimerViewSettings settings = TimerViewSettings.Empty;
+            SimpleTimerSettings settings = SimpleTimerSettings.Empty;
 
             try
             {
                 var values = csv.Split(new char[] { ',' });
-                int id = TimerViewSettings.count;
+                int id = SimpleTimerSettings.count;
                 int.TryParse(values[0], out id);
 
                 settings.Id = id;

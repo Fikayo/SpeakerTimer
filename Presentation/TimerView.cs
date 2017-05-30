@@ -35,7 +35,7 @@
             this.messageTimer = new Timer();
             this.messageTimer.Tick += MessageTimer_Tick;
 
-            this.ApplySettings(TimerViewSettings.Default);
+            this.ApplySettings(SimpleTimerSettings.Default);
             this.stopped = true;
             this.DisplayState = DisplayState.Timer;
             this.TimerState = TimerState.Stopped;
@@ -306,7 +306,7 @@
             this.tibInput.TimeChanged += this.txtInput_TimeChanged;
         }
 
-        private void ApplySettings(TimerViewSettings Settings)
+        private void ApplySettings(SimpleTimerSettings Settings)
         {
             this.TimerFont = this.IsPreviewMode ? new Font(Settings.VisualSettings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : Settings.VisualSettings.TimerFont;
             int labelSize = this.IsPreviewMode ? TimerView.PreviewLabelSize : (int)Math.Max(Settings.VisualSettings.TimerFont.Size / 3, 10);

@@ -4,7 +4,7 @@
 
     public class SettingsChangedEventArgs : EventArgs
     {
-        public SettingsChangedEventArgs(TimerViewSettings settings)
+        public SettingsChangedEventArgs(SimpleTimerSettings settings)
         {
             this.Settings = settings;
         }
@@ -19,7 +19,7 @@
             this.MessageSettings = settings;
         }
 
-        public TimerViewSettings Settings { get; set; }
+        public SimpleTimerSettings Settings { get; set; }
 
         public TimerVisualSettings VisualSettings { get; set; }
 

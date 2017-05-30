@@ -734,7 +734,7 @@
             {
                 var id = e.Settings.Id;
                 var name = e.Settings.Name;
-                if (!TimerViewSettings.IsUntitled(name))
+                if (!SimpleTimerSettings.IsUntitled(name))
                 {                    
                     if(this.savedTimersToolStripItem.PresetManager.HasSetting(id))
                     {
@@ -752,7 +752,7 @@
                         this.AddPresetsToPreviews(id, name);
                     }
 
-                    success = this.savedTimersToolStripItem.PresetManager.AddOrUpdateSetting(new KeyValuePair<int, TimerViewSettings>(id, e.Settings));
+                    success = this.savedTimersToolStripItem.PresetManager.AddOrUpdateSetting(new KeyValuePair<int, SimpleTimerSettings>(id, e.Settings));
                     //preview.DisplayName = name;
                 }
             }
@@ -769,7 +769,7 @@
 
         private void timerPreview_LoadRequested(object sender, SettingIOEventArgs e)
         {
-            TimerViewSettings setting = this.savedTimersToolStripItem.PresetManager.LoadSetting(e.SettingName);
+            SimpleTimerSettings setting = this.savedTimersToolStripItem.PresetManager.LoadSetting(e.SettingName);
             if (setting != null)
             {
                 var timerPreview = sender as TimerPreview;

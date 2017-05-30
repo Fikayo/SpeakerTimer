@@ -1,28 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SpeakerTimer.Data.Settings
+﻿namespace SpeakerTimer.Data.Settings
 {
+    using System.Text;
+    using System.Collections.Generic;
+    using System.Data.SQLite;
+    using SpeakerTimer.Application;
+
     public class DurationSettingsModel : DataModel
     {
+        public static readonly DbColumn IdCol = new DbColumn("Id", "INT");
+        public static readonly DbColumn TitleCol = new DbColumn("Title", "VARCHAR(255)");
+        public static readonly DbColumn DurationCol = new DbColumn("Duration", "REAL");
+        public static readonly DbColumn Warning1Col = new DbColumn("Warning1", "REAL");
+        public static readonly DbColumn Warning2Col = new DbColumn("Warning2", "REAL");
+
         public const string TableName = "Duration Settings";
-        private readonly DbColumn[] columns;
         
         public DurationSettingsModel() : base(DurationSettingsModel.TableName)
         {
-            this.columns = new DbColumn[] {
-                new DbColumn("Title", "VARCHAR(20)"),
-                new DbColumn("Duration", "REAL"),
-                new DbColumn("Warning1", "REAL"),
-                new DbColumn("Warning2", "REAL"),
-            };
         }
 
-        protected override DbColumn[] Columns
+        public override void CreateTable()
         {
-            get { return this.columns; }
+            StringBuilder tableColumns = new StringBuilder();
+            tableColumns.AppendFormat("[{0}] PRIMARY KEY AUTOINCREMENT, ", IdCol);
+            tableColumns.AppendFormat("[{0}] DEFAULT 'Untitled', ", TitleCol);
+            tableColumns.AppendFormat("[{0}] DEFAULT 0, ", DurationCol);
+            tableColumns.AppendFormat("[{0}] DEFAULT 0, ", Warning1Col);
+            tableColumns.AppendFormat("[{0}] DEFAULT 0", Warning2Col);
+
+            base.CreateTable(tableColumns.ToString());
+        }
+
+        public List<TimerDurationSettings> FetchAll()
+        {
+            var durationSettings = new List<TimerDurationSettings>();
+
+            var reader = this.Select();
+            while(reader.Read())
+            {
+                var setting = this.Parse(reader);
+                durationSettings.Add(setting);
+            }
+
+            return durationSettings;
+        }
+
+        private TimerDurationSettings Parse(SQLiteDataReader reader)
+        {
+            TimerDurationSettings setting = TimerDurationSettings.Default;
+            setting.Title = (string)reader[TitleCol.Name];
+            setting.Duration = (double)reader[DurationCol.Name];
+            setting.WarningTime = (double)reader[Warning1Col.Name];
+            setting.SecondWarningTime = (double)reader[Warning2Col.Name];
+
+            return setting;
         }
     }
 }

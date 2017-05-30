@@ -1,6 +1,7 @@
 ﻿namespace SpeakerTimer
 {
     using System;
+    using System.Configuration;
     using System.IO;
 	using System.Windows.Forms;
     using MainApplication = System.Windows.Forms.Application;
@@ -17,6 +18,8 @@
             string productDataDir = Directory.CreateDirectory(MainApplication.ProductName).Name;
             AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(appdata, productDataDir));
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
+            AppDomain.CurrentDomain.SetData("ConnectionString", ConfigurationManager.ConnectionStrings["SettingsDatabase"].ConnectionString);
 
             MainApplication.EnableVisualStyles();
             MainApplication.SetCompatibleTextRenderingDefault(false);

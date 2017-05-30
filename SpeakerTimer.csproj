@@ -57,8 +57,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite">
+    <Reference Include="System.Data.SQLite, Version=1.0.79.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>\\VBOXSVR\Shared\System.Data.SQLite_DLL\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
@@ -82,6 +84,11 @@
     <Compile Include="Data\IWriteModel.cs" />
     <Compile Include="Data\DataModel.cs" />
     <Compile Include="Data\Settings\DurationSettingsModel.cs" />
+    <Compile Include="Data\Settings\SimpleTimerModel.cs" />
+    <Compile Include="Data\Settings\SimpleTimerView.cs" />
+    <Compile Include="Data\Settings\TimerSettingsModel.cs" />
+    <Compile Include="Data\Settings\ViewModel.cs" />
+    <Compile Include="Data\Settings\VisualSettingsModel.cs" />
     <Compile Include="Presentation\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,7 +182,7 @@
     <Compile Include="Presentation\TimerView.Designer.cs">
       <DependentUpon>TimerView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Application\TimerViewSettings.cs" />
+    <Compile Include="Application\SimpleTimerSettings.cs" />
     <Compile Include="Application\TimerViewerCommand.cs" />
     <Compile Include="Presentation\TimeViewControl.cs">
       <SubType>UserControl</SubType>

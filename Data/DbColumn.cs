@@ -17,6 +17,9 @@ namespace SpeakerTimer.Data
 
         public string Type { get; private set; }
 
-        public string Index { get; private set; }
+        public override string ToString()
+        {
+            return this.Name + " " + this.Type;
+        }
     }
 }

@@ -20,10 +20,10 @@
 
         private bool running;
         private PresentationTimerForm timerForm;
-        private TimerViewSettings settings;
+        private SimpleTimerSettings settings;
         private TimerViewerCommandIssuer commandIssuer;
 
-        private Dictionary<string, TimerViewSettings> savedSettings;
+        private Dictionary<string, SimpleTimerSettings> savedSettings;
 
         public OldControlPanel()
         {
@@ -31,7 +31,7 @@
             new ControlPanel().Show();
             this.timerView.IsPreviewMode = true;
 
-            this.settings = TimerViewSettings.Default;
+            this.settings = SimpleTimerSettings.Default;
             this.commandIssuer = new TimerViewerCommandIssuer();
             this.timerForm = new PresentationTimerForm(this.commandIssuer);
             this.timerView.CommandIssuer = this.commandIssuer;
@@ -43,7 +43,7 @@
             };
 
             this.Init();
-            this.savedSettings = new Dictionary<string, TimerViewSettings>();
+            this.savedSettings = new Dictionary<string, SimpleTimerSettings>();
             this.LoadSavedTimers();
         }
 
@@ -104,7 +104,7 @@
                     var comma = line.IndexOf(',');
                     var name = line.Substring(0, comma);
                     var setting = line.Substring(comma + 1);
-                    this.savedSettings.Add(name, TimerViewSettings.ParseCsv(setting));
+                    this.savedSettings.Add(name, SimpleTimerSettings.ParseCsv(setting));
                     this.cmbLoadTimer.Items.Add(name);
                 }
             }
@@ -331,7 +331,7 @@
             this.commandIssuer.IssueStopCommand();
             this.running = false;
 
-            TimerViewSettings settings;
+            SimpleTimerSettings settings;
             if (this.savedSettings.TryGetValue(this.cmbLoadTimer.SelectedItem.ToString(), out settings))
             {
                 this.settings = settings;
@@ -348,7 +348,7 @@
 
         private void btnResetAll_Click(object sender, EventArgs e)
         {
-            this.settings = TimerViewSettings.Default;
+            this.settings = SimpleTimerSettings.Default;
             this.OnSettingsChanged();
             this.Init();
         }

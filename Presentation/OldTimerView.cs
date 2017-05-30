@@ -19,7 +19,7 @@
 
         private BlinkManager blinkManager;
         private TimeInputBox txtInput;
-        private TimerViewSettings settings;
+        private SimpleTimerSettings settings;
         private TimerViewerCommandIssuer commandIssuer;
 
         public OldTimerView()
@@ -32,7 +32,7 @@
             this.timer = new Timer();
             this.timer.Interval = 1000;
             this.timer.Tick += Timer_Tick;
-            this.settings = TimerViewSettings.Default;
+            this.settings = SimpleTimerSettings.Default;
             this.stopped = true;
 
             this.blinkManager = new BlinkManager();
@@ -161,7 +161,7 @@
             this.DisplayTimeElapsed(this.settings.TimerDuration.Duration);
         }
 
-        public void ApplySettings(TimerViewSettings settings)
+        public void ApplySettings(SimpleTimerSettings settings)
         {
             this.TimerFont = this.IsPreviewMode ? new Font(settings.VisualSettings.TimerFont.FontFamily.Name, OldTimerView.PreviewFontSize) : settings.VisualSettings.TimerFont;
             int labelSize = this.IsPreviewMode ? OldTimerView.PreviewLabelSize : (int)Math.Max(settings.VisualSettings.TimerFont.Size / 10, 10);
@@ -170,7 +170,7 @@
             this.BackgroundColor = settings.VisualSettings.BackgroundColor;
             this.TimerColor = settings.VisualSettings.RunningColor;
 
-            this.settings = TimerViewSettings.ParseCsv(settings.ToCsv());
+            this.settings = SimpleTimerSettings.ParseCsv(settings.ToCsv());
             this.lblCurrentTimer.Text = this.settings.Name;
             this.RefreshTimerDisplay();
         }

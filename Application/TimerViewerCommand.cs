@@ -74,7 +74,7 @@
             }
         }
 
-        public void OnSettingsChanged(TimerViewSettings settings)
+        public void OnSettingsChanged(SimpleTimerSettings settings)
         {
             var handler = this.SettingsChanged;
             if (handler != null)

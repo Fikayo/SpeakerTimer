@@ -4,6 +4,6 @@
 
    public interface IReadModel : IModel
     {
-        SQLiteDataReader Query(string query);
+        SQLiteDataReader Query(string query, params SQLiteParameter[] parameters);
     }
 }

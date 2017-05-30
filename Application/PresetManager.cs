@@ -19,13 +19,13 @@
 
         private Dictionary<int, int> idToSettingIdx;
         private Dictionary<string, int> nameToSettingIdx;
-        private List<TimerViewSettings> savedSettings;
+        private List<SimpleTimerSettings> savedSettings;
 
         public PresetManager()
         {
             this.idToSettingIdx = new Dictionary<int, int>();
             this.nameToSettingIdx = new Dictionary<string, int>();
-            this.savedSettings = new List<TimerViewSettings>();
+            this.savedSettings = new List<SimpleTimerSettings>();
             this.EnsureFileExists();
         }
 
@@ -48,12 +48,12 @@
             }
         }
 
-        public TimerViewSettings this[int settingId]
+        public SimpleTimerSettings this[int settingId]
         {
             get { return this.LoadSetting(settingId); }
         }
 
-        public TimerViewSettings this[string settingName]
+        public SimpleTimerSettings this[string settingName]
         {
             get { return this.LoadSetting(settingName); }
         }
@@ -68,7 +68,7 @@
             return this.idToSettingIdx.ContainsKey(id);
         }
 
-        public bool AddOrUpdateSetting(KeyValuePair<int, TimerViewSettings> setting)
+        public bool AddOrUpdateSetting(KeyValuePair<int, SimpleTimerSettings> setting)
         {
             if (this.idToSettingIdx.ContainsKey(setting.Key))
             {
@@ -93,7 +93,7 @@
             }
         }
 
-        public TimerViewSettings LoadSetting(string name)
+        public SimpleTimerSettings LoadSetting(string name)
         {
             int index;
             if (this.nameToSettingIdx.TryGetValue(name, out index))
@@ -104,7 +104,7 @@
             return null;
         }
 
-        public TimerViewSettings LoadSetting(int id)
+        public SimpleTimerSettings LoadSetting(int id)
         {
             int index;
             if (this.idToSettingIdx.TryGetValue(id, out index))
@@ -186,7 +186,7 @@
             var idNamePairs = new List<IdNamePair>();
             foreach (var line in lines)
             {
-                var setting = TimerViewSettings.ParseCsv(line);
+                var setting = SimpleTimerSettings.ParseCsv(line);
                 var id = setting.Id;
                 if (this.HasSetting(id))
                 {
@@ -236,7 +236,7 @@
             }
         }
 
-        private void AddNewSetting(int id, TimerViewSettings setting)
+        private void AddNewSetting(int id, SimpleTimerSettings setting)
         {
             this.savedSettings.Add(setting.Clone());
 
@@ -245,7 +245,7 @@
             this.nameToSettingIdx[setting.Name] = index;
         }
 
-        private void UpdateSetting(int id, TimerViewSettings setting)
+        private void UpdateSetting(int id, SimpleTimerSettings setting)
         {
             var index = this.idToSettingIdx[id];
 

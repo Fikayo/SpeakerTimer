@@ -10,7 +10,7 @@
     {
         private bool running;
         private bool showingMessage;
-        private TimerViewSettings settings;
+        private SimpleTimerSettings settings;
 
         public TimerPreview()
         {
@@ -21,7 +21,7 @@
             this.timerView.CommandIssuer = this.CommandIssuer;
             this.HookEventHandlers();
 
-            this.Settings = TimerViewSettings.Default;
+            this.Settings = SimpleTimerSettings.Default;
         }
 
         public event EventHandler<SettingIOEventArgs> LoadRequested;
@@ -29,7 +29,7 @@
         public event EventHandler LiveStateChanged;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public TimerViewSettings Settings
+        public SimpleTimerSettings Settings
         {
             get { return this.settings; }
 
@@ -187,7 +187,7 @@
             }
         }
 
-        private void OnSaveRequested(TimerViewSettings settings)
+        private void OnSaveRequested(SimpleTimerSettings settings)
         {
             var handler = this.SaveRequested;
             if (handler != null)
@@ -456,7 +456,7 @@
 
         private void btnNewSetting_Click(object sender, EventArgs e)
         {
-            this.Settings = TimerViewSettings.Default;
+            this.Settings = SimpleTimerSettings.Default;
         }
 
         private void btnSave_Click(object sender, EventArgs e)

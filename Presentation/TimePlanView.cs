@@ -60,7 +60,7 @@
 
         public override double CurrentTime { get { return this.tmvCurrentTimer.CurrentTime; } }
 
-        public override TimerViewSettings Settings { get { return this.tmvCurrentTimer.Settings; } }
+        public override SimpleTimerSettings Settings { get { return this.tmvCurrentTimer.Settings; } }
 
         #endregion
 

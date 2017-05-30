@@ -1,52 +1,39 @@
-﻿namespace SpeakerTimer.Data
+﻿namespace SpeakerTimer.Data.Settings
 {
     using System;
     using System.Data.SQLite;
 
-    public abstract class DataModel : IReadWrite
+    public abstract class ViewModel : IReadModel
     {
-        private readonly string tableName;
+        private readonly string viewName;
         private SQLiteConnection connection;
 
         private static readonly string connectionString;
-        static DataModel()
+        static ViewModel()
         {
             connectionString = (string)AppDomain.CurrentDomain.GetData("ConnectionString");
         }
 
-        public DataModel(string tableName)
+        public ViewModel(string viewName)
         {
-            this.tableName = tableName;
+            this.viewName = viewName;
             this.OpenConnection();
-            this.CreateTable();
+            this.CreateView();
         }
 
         public void OpenConnection()
         {
             if (this.connection == null)
             {
-                this.connection = new SQLiteConnection(DataModel.connectionString);
+                this.connection = new SQLiteConnection(ViewModel.connectionString);
             }
 
             this.connection.Open();
         }
 
-        public void ExecuteNonQuery(string nonQuery, params SQLiteParameter[] parameters)
+        public void CreateTable()
         {
-            if (this.connection == null) this.OpenConnection();
-
-            using (var command = new SQLiteCommand(nonQuery, this.connection))
-            {
-                if (parameters != null && parameters.Length > 0)
-                {
-                    foreach (var param in parameters)
-                    {
-                        command.Parameters.Add(param);
-                    }
-                }
-
-                command.ExecuteNonQuery();
-            }
+            throw new NotSupportedException();
         }
 
         public SQLiteDataReader Query(string query, params SQLiteParameter[] parameters)
@@ -67,11 +54,6 @@
             }
         }
 
-        public void Flush()
-        {
-            throw new NotImplementedException();
-        }
-
         public void CloseDatabase()
         {
             if (this.connection != null)
@@ -80,17 +62,19 @@
             }
         }
 
-        public abstract void CreateTable();
+        public abstract void CreateView();
 
-        protected void CreateTable(string createColumnList)
+        protected void CreateView(string createSql)
         {
-            var createString = "CREATE TABLE IF NOT EXISTS [" + this.tableName + "] (" + createColumnList + ");";
-            this.ExecuteNonQuery(createString);
+            using (var command = new SQLiteCommand(createSql, this.connection))
+            {
+                command.ExecuteNonQuery();
+            }
         }
 
         protected SQLiteDataReader Select(string condition = "")
         {
-            var sql = "SELECT * FROM [" + this.tableName + "] ";
+            var sql = "SELECT * FROM [" + this.viewName + "] ";
             if (!string.IsNullOrEmpty(condition))
             {
                 sql += condition.Trim();
@@ -106,7 +90,7 @@
             {
                 cols += ", [" + col.Name + "]";
             }
-            var sql = "SELECT " + cols + " FROM [" + this.tableName + "] ";
+            var sql = "SELECT " + cols + " FROM [" + this.viewName + "] ";
             if (!string.IsNullOrEmpty(condition))
             {
                 sql += condition.Trim();

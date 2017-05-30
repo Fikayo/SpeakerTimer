@@ -2,12 +2,10 @@
 {
     public interface IModel
     {
-        void CreateDb();
-
-        void OpenConnection(string connectionString);
+        void OpenConnection();
 
         void CreateTable();
 
-        void CloseDb();
+        void CloseDatabase();
     }
 }

@@ -7,15 +7,15 @@
         private const int CurrentTimerFontSize = 30;
         private const int NextTimerFontSize = 15;
 
-        private static readonly TimerViewSettings GeneralSetting = TimerViewSettings.Default;
+        private static readonly SimpleTimerSettings GeneralSetting = SimpleTimerSettings.Default;
 
         private int currentTimerIndex;
-        private readonly List<TimerViewSettings> plan;
+        private readonly List<SimpleTimerSettings> plan;
 
         public TimePlan()
         {
             this.currentTimerIndex = -1;
-            this.plan = new List<TimerViewSettings>();
+            this.plan = new List<SimpleTimerSettings>();
         }
 
         public int PlanLength
@@ -23,7 +23,7 @@
             get { return this.plan.Count; }
         }
 
-        public TimerViewSettings CurrentTimer
+        public SimpleTimerSettings CurrentTimer
         {
             get
             {
@@ -31,7 +31,7 @@
             }
         }
 
-        public TimerViewSettings NextTimer
+        public SimpleTimerSettings NextTimer
         {
             get
             {
@@ -49,10 +49,10 @@
 
         public void AddTimer(string timerString)
         {
-            this.AddTimer(TimerViewSettings.ParseCsv(timerString));
+            this.AddTimer(SimpleTimerSettings.ParseCsv(timerString));
         }
 
-        public void AddTimer(TimerViewSettings timer)
+        public void AddTimer(SimpleTimerSettings timer)
         {
             timer.VisualSettings.CounterMode = TimerVisualSettings.TimerCounterMode.CountDownToMinus;
             timer.VisualSettings.DisplayMode = TimerVisualSettings.TimerDisplayMode.FullWidth;
@@ -63,14 +63,14 @@
             }
         }
 
-        public bool RemoveTimer(TimerViewSettings timer)
+        public bool RemoveTimer(SimpleTimerSettings timer)
         {
             return this.plan.Remove(timer);
         }
 
         public bool RemoveTimer(string timerString)
         {
-            return this.RemoveTimer(TimerViewSettings.ParseCsv(timerString));
+            return this.RemoveTimer(SimpleTimerSettings.ParseCsv(timerString));
         }
 
         public void ClearPlan()

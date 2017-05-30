@@ -48,7 +48,7 @@
             }
         }
 
-        public void OnTimerAdded(TimerViewSettings timerSetting)
+        public void OnTimerAdded(SimpleTimerSettings timerSetting)
         {
             var handler = this.TimerAdded;
             if (handler != null)

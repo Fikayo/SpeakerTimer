@@ -129,7 +129,7 @@
             this.ExpiredColor = Color.Red;
             this.StoppedColor = Color.Silver;
             this.BackgroundColor = Color.Black;
-            this.MessageColor = Color.DodgerBlue;
+            this.MessageColor = Color.Red;
         }
 
         public static TimerVisualSettings ParseCsv(string csv, int start = 0)
