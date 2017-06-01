@@ -59,6 +59,8 @@
 
         public event EventHandler TimeExpired;
 
+        public event EventHandler DurationElapsed;
+
         public event EventHandler<DurationChangedEventArgs> DurationChanged;
 
         public event EventHandler MessageFinished;
@@ -576,6 +578,8 @@
                             this.DisplayTimeElapsed(this.CurrentTime);
                         }
 
+                        this.OnDurationElapsed();
+
                         break;
                     }
 
@@ -589,7 +593,9 @@
             }
         }
 
-        #region Event Signals
+        #endregion
+
+        #region Event Triggers
 
         private void OnTimeStarted()
         {
@@ -627,6 +633,15 @@
             }
         }
 
+        private void OnDurationElapsed()
+        {
+            var handler = this.DurationElapsed;
+            if (handler != null)
+            {
+                handler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         private void OnMessageFinished()
         {
             var handler = this.MessageFinished;
@@ -644,8 +659,6 @@
                 handler.Invoke(this, new DurationChangedEventArgs(duration));
             }
         }
-
-        #endregion
 
         #endregion
 
@@ -762,6 +775,7 @@
 
                     if (this.CurrentTime == 0)
                     {
+                        this.OnDurationElapsed();
                         if (this.DisplayFinalMessage())
                         {
                             return;

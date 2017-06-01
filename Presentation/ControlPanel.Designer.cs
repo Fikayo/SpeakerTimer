@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlPanel));
             this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
             this.timerPreview2 = new SpeakerTimer.Presentation.TimerPreview();
@@ -40,9 +41,13 @@
             this.tsiAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openControlPanelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tlpOuterLayout.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // tlpOuterLayout
@@ -63,7 +68,7 @@
             // 
             // timerPreview2
             // 
-            this.timerPreview2.DisplayName = "Un-named-7";
+            this.timerPreview2.DisplayName = "Un-named-2";
             this.timerPreview2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerPreview2.IsLive = true;
             this.timerPreview2.Location = new System.Drawing.Point(3, 274);
@@ -73,11 +78,12 @@
             this.timerPreview2.TabIndex = 1;
             this.timerPreview2.LoadRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_LoadRequested);
             this.timerPreview2.SaveRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_SaveRequested);
+            this.timerPreview2.TimeElapsed += new System.EventHandler(this.timerPreview_TimeElapsed);
             this.timerPreview2.LiveStateChanged += new System.EventHandler(this.timerPreview2_LiveStateChanged);
             // 
             // timerPreview1
             // 
-            this.timerPreview1.DisplayName = "Un-named-7";
+            this.timerPreview1.DisplayName = "Un-named-2";
             this.timerPreview1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerPreview1.IsLive = true;
             this.timerPreview1.Location = new System.Drawing.Point(3, 23);
@@ -87,6 +93,7 @@
             this.timerPreview1.TabIndex = 0;
             this.timerPreview1.LoadRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_LoadRequested);
             this.timerPreview1.SaveRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_SaveRequested);
+            this.timerPreview1.TimeElapsed += new System.EventHandler(this.timerPreview_TimeElapsed);
             this.timerPreview1.LiveStateChanged += new System.EventHandler(this.timerPreview1_LiveStateChanged);
             // 
             // toolStrip
@@ -153,7 +160,7 @@
             // tsiAbout
             // 
             this.tsiAbout.Name = "tsiAbout";
-            this.tsiAbout.Size = new System.Drawing.Size(152, 22);
+            this.tsiAbout.Size = new System.Drawing.Size(107, 22);
             this.tsiAbout.Text = "About";
             this.tsiAbout.Click += new System.EventHandler(this.tsiAbout_Click);
             // 
@@ -177,6 +184,28 @@
             this.statusLabel.Text = "Ready";
             this.statusLabel.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
+            // notifyIcon
+            // 
+            this.notifyIcon.ContextMenuStrip = this.contextMenuStrip;
+            this.notifyIcon.Text = "notifyIcon";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openControlPanelToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(179, 26);
+            // 
+            // openControlPanelToolStripMenuItem
+            // 
+            this.openControlPanelToolStripMenuItem.Name = "openControlPanelToolStripMenuItem";
+            this.openControlPanelToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.openControlPanelToolStripMenuItem.Text = "Open Control Panel";
+            this.openControlPanelToolStripMenuItem.Click += new System.EventHandler(this.openControlPanelToolStripMenuItem_Click);
+            // 
             // ControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,6 +228,7 @@
             this.toolStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -217,5 +247,8 @@
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripDropDownButton tsdHelp;
         private System.Windows.Forms.ToolStripMenuItem tsiAbout;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem openControlPanelToolStripMenuItem;
     }
 }

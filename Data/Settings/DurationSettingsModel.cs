@@ -38,14 +38,14 @@
             var reader = this.Select();
             while(reader.Read())
             {
-                var setting = this.Parse(reader);
+                var setting = DurationSettingsModel.Parse(reader);
                 durationSettings.Add(setting);
             }
 
             return durationSettings;
         }
 
-        private TimerDurationSettings Parse(SQLiteDataReader reader)
+        public static TimerDurationSettings Parse(SQLiteDataReader reader)
         {
             TimerDurationSettings setting = TimerDurationSettings.Default;
             setting.Title = (string)reader[TitleCol.Name];

@@ -4,9 +4,52 @@
 
     public class TimerVisualSettings
     {
-        public TimerVisualSettings()
+        public TimerVisualSettings(
+            TimerCounterMode counterMode,
+            TimerDisplayMode displayMode,
+            string fontFamily,
+            float fontSize,
+            Color timerColor,
+            Color runningColor,
+            Color pausedColor,
+            Color warningColor,
+            Color secondWarningColor,
+            Color expiredColor,
+            Color stoppedColor,
+            Color backgroundColor,
+            Color messageColor)
         {
-            this.SetDefaultSettings();
+            this.CounterMode = counterMode;
+            this.DisplayMode = displayMode;
+            this.TimerFont = new Font(fontFamily, fontSize, FontStyle.Regular, GraphicsUnit.Point, 0);
+            this.TimerColor = timerColor;
+            this.RunningColor = runningColor;
+            this.PausedColor = pausedColor;
+            this.WarningColor = warningColor;
+            this.SecondWarningColor = secondWarningColor;
+            this.ExpiredColor = expiredColor;
+            this.StoppedColor = stoppedColor;
+            this.BackgroundColor = backgroundColor;
+            this.MessageColor = messageColor;
+        }
+
+        private TimerVisualSettings() :
+            this(
+                TimerCounterMode.CountDownToMinus,
+                TimerDisplayMode.FullWidth,
+                "Arial", 
+                250f,
+                Color.White,
+                Color.White,
+                Color.Cyan,
+                Color.Yellow,
+                Color.Orange,
+                Color.Red,
+                Color.Silver,
+                Color.Black,
+                Color.Red
+                )
+        {
         }
 
         #region Display Settings
@@ -84,7 +127,7 @@
 
             return clone;
         }
-        
+
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -109,7 +152,7 @@
                 && this.MessageColor.Equals(that.MessageColor)
                 && this.SecondWarningColor.Equals(that.SecondWarningColor);
         }
-        
+
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -163,7 +206,7 @@
                 return settings;
             }
         }
-        
+
         public enum TimerCounterMode
         {
             CountDownToMinus, CountDownToZero, CountUp

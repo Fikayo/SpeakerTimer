@@ -615,7 +615,7 @@
             this.timerPreview1.SavedTimers.Remove(item);
             this.timerPreview2.SavedTimers.Remove(item);
         }
-        
+
         #endregion
 
         #region Event Handlers
@@ -625,8 +625,20 @@
             this.savedTimersToolStripItem.PresetManager.SaveAll();
         }
 
+        private void notifyIcon_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.BringToFront();
+        }
+
+        private void openControlPanelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.BringToFront();
+        }
+
         #region ToolStrip Menu Items Event Handlers
-        
+
         private void displayToolStripItem_PresentFormEventsRequired(object sender, EventArgs e)
         {
             this.HookPresentFormEvents();
@@ -636,7 +648,7 @@
         {
             this.HookPresentFormEvents();
         }
-                
+
         private void savedTimersToolStripItem_PresetsLoaded(object sender, PresetEventArgs e)
         {
             if (e != null)
@@ -675,7 +687,7 @@
                 this.timerPreview2.Settings = this.savedTimersToolStripItem.PresetManager[e.Pairs[1].Id];
             }
         }
-        
+
         private void tsbCreateSequence_Click(object sender, EventArgs e)
         {
             using (var form = new TimePlanForm())
@@ -683,7 +695,7 @@
                 form.ShowDialog();
             }
         }
-        
+
         private void tsiAbout_Click(object sender, EventArgs e)
         {
             using (var form = new AboutBox())
@@ -735,12 +747,12 @@
                 var id = e.Settings.Id;
                 var name = e.Settings.Name;
                 if (!SimpleTimerSettings.IsUntitled(name))
-                {                    
-                    if(this.savedTimersToolStripItem.PresetManager.HasSetting(id))
+                {
+                    if (this.savedTimersToolStripItem.PresetManager.HasSetting(id))
                     {
                         // Get the old name for this setting
                         string oldName = this.savedTimersToolStripItem.PresetManager.LoadSetting(id).Name;
-                        if(oldName != name)
+                        if (oldName != name)
                         {
                             // Removed the old name from the dropdowsn and add the new name in
                             this.ClearPresetFromPreviews(id, oldName);
@@ -778,6 +790,26 @@
                     timerPreview.Settings = setting;
                 }
             }
+        }
+
+        private void timerPreview_TimeElapsed(object sender, EventArgs e)
+        {
+            TimerPreview preview = sender as TimerPreview;
+            if (preview == null)
+            {
+                return;
+            }
+
+            string title = "Time Elapsed";
+            string text = preview.DisplayName + " has elapsed. Click to open the timer";
+            //this.notifyIcon.ShowBalloonTip(2000, title, text, ToolTipIcon.Info);
+
+            this.notifyIcon.Text = "Right click to open the Control Panel";
+            this.notifyIcon.BalloonTipText = text;
+            this.notifyIcon.BalloonTipTitle = title;
+            this.notifyIcon.Icon = SystemIcons.Application;
+            this.notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
+            this.notifyIcon.ShowBalloonTip(5000);
         }
 
         private void timerPreview1_LiveStateChanged(object sender, EventArgs e)
@@ -826,7 +858,7 @@
                 this.displayToolStripItem.LivePreviewForm.CommandIssuer = this.timerPreview2.CommandIssuer;
                 this.timerPreview1.IsLive = false;
                 this.displayToolStripItem.TogglePresentationForm(true);
-                if(this.displayToolStripItem.IsLivePreviewVisible)
+                if (this.displayToolStripItem.IsLivePreviewVisible)
                 {
                     this.displayToolStripItem.ToggleLivePreviewForm(true);
                 }
@@ -855,5 +887,10 @@
         #endregion
 
         #endregion
+
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("double clicked");
+        }
     }
 }

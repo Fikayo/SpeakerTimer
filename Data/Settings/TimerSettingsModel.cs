@@ -6,7 +6,7 @@
     {
         public static readonly DbColumn IdCol = new DbColumn("Id", "INT");
         public static readonly DbColumn NameCol = new DbColumn("Name", "VARCHAR(255)");
-        public static readonly DbColumn MessageCol = new DbColumn("Message", "VARCHAR(255)");
+        public static readonly DbColumn MessageCol = new DbColumn("FinalMessage", "VARCHAR(255)");
         public static readonly DbColumn BlinkCol = new DbColumn("Blink", "INT");
 
         public const string TableName = "Timers";

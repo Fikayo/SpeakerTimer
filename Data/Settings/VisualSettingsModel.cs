@@ -1,6 +1,9 @@
 ﻿namespace SpeakerTimer.Data.Settings
 {
     using System.Text;
+    using System.Data.SQLite;
+    using System.Drawing;
+    using SpeakerTimer.Application;
 
     public class VisualSettingsModel : DataModel
     {
@@ -44,6 +47,25 @@
             tableColumns.AppendFormat("[{0}] DEFAULT 'Red'", MessageColorCol);
 
             base.CreateTable(tableColumns.ToString());
+        }
+
+        public static TimerVisualSettings Parse(SQLiteDataReader reader)
+        {
+            var fontFamily = (string)reader[TimerFontFamilyCol.Name];
+            var fontSize = (float)reader[TimerFontSizeCol.Name];
+            var counterMode = Util.ToEnum<TimerVisualSettings.TimerCounterMode>((string)reader[CounterModeCol.Name]);
+            var displayMode = Util.ToEnum<TimerVisualSettings.TimerDisplayMode>((string)reader[DisplayModeCol.Name]);
+            var timerColor = Util.FromARGBString(Color.FromName((string)reader[TimerColorCol.Name]));
+            var runningColor = Util.FromARGBString(Color.FromName((string)reader[RunningColorCol.Name]));
+            var pausedColor = Util.FromARGBString(Color.FromName((string)reader[PausedColorCol.Name]));
+            var warningColor = Util.FromARGBString(Color.FromName((string)reader[WarningColorCol.Name]));
+            var warning2Coor = Util.FromARGBString(Color.FromName((string)reader[SecondWarningColorCol.Name]));
+            var stoppedColor = Util.FromARGBString(Color.FromName((string)reader[StoppedColorCol.Name]));
+            var expiredColor = Util.FromARGBString(Color.FromName((string)reader[ExpiredColorCol.Name]));
+            var backgroundColor = Util.FromARGBString(Color.FromName((string)reader[BackgroundColorCol.Name]));
+            var messageColor = Util.FromARGBString(Color.FromName((string)reader[MessageColorCol.Name]));
+
+            return new TimerVisualSettings(counterMode, displayMode, fontFamily, fontSize, timerColor, runningColor, pausedColor, warningColor, warningColor, expiredColor, stoppedColor, backgroundColor, messageColor);
         }
     }
 }

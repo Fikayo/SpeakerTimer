@@ -19,13 +19,14 @@
             this.IsLive = false;
             this.CommandIssuer = new TimerViewerCommandIssuer();
             this.timerView.CommandIssuer = this.CommandIssuer;
-            this.HookEventHandlers();
+            this.HookTimerViewEventHandlers();
 
             this.Settings = SimpleTimerSettings.Default;
         }
 
         public event EventHandler<SettingIOEventArgs> LoadRequested;
         public event EventHandler<SettingIOEventArgs> SaveRequested;
+        public event EventHandler TimeElapsed;
         public event EventHandler LiveStateChanged;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -104,11 +105,12 @@
             this.SaveSettings();
         }
 
-        private void HookEventHandlers()
+        private void HookTimerViewEventHandlers()
         {
             this.timerView.TimeStarted += (_, __) => this.ResetPausedButton();
             this.timerView.TimePaused += (_, __) => this.ResetPlayButton();
             this.timerView.TimeStopped += (_, __) => this.ResetPlayButton();
+            this.timerView.DurationElapsed += (_, __) => this.OnTimeElapsed();
 
             this.timerView.MessageFinished += (_, __) =>
             {
@@ -176,6 +178,8 @@
             this.btnSave.BackgroundImage = ControlPanel.SaveImage;
         }
 
+        #endregion
+
         #region Event Triggers
 
         private void OnLoadRequested(string name)
@@ -205,14 +209,21 @@
             }
         }
 
+        private void OnTimeElapsed()
+        {
+            var handler = this.TimeElapsed;
+            if (handler != null)
+            {
+                handler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         private void OnSettingsChanged()
         {
             this.CommandIssuer.OnSettingsChanged(this.Settings);
             this.grbPreviewBox.Text = this.settings.Name;
             this.btnSave.BackgroundImage = ControlPanel.SaveAsterisk;
         }
-
-        #endregion
 
         #endregion
 
