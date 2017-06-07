@@ -7,7 +7,7 @@
 
     public class VisualSettingsModel : DataModel
     {
-        public static readonly DbColumn IdCol = new DbColumn("Id", "INT");
+        public static readonly DbColumn IdCol = new DbColumn("Id", "INTEGER");
         public static readonly DbColumn TimerFontFamilyCol = new DbColumn("TimerFontFamily", "VARCHAR(255)");
         public static readonly DbColumn TimerFontSizeCol = new DbColumn("TimerFontSize", "REAL");
         public static readonly DbColumn CounterModeCol = new DbColumn("CounterMode", "VARCHAR(50)");
@@ -24,27 +24,39 @@
                
         public const string TableName = "Visual Settings";
 
-        public VisualSettingsModel() : base(TableName)
+        private static readonly VisualSettingsModel instance = null;
+
+        static VisualSettingsModel()
         {
+            instance = new VisualSettingsModel();
+        }
+
+        private VisualSettingsModel() : base(TableName)
+        {
+        }
+
+        public static VisualSettingsModel Instance
+        {
+            get { return instance; }
         }
 
         public override void CreateTable()
         {
             StringBuilder tableColumns = new StringBuilder();
-            tableColumns.AppendFormat("[{0}] PRIMARY KEY AUTOINCREMENT, ", IdCol);
-            tableColumns.AppendFormat("[{0}] DEFAULT 'Arial', ", TimerFontFamilyCol);
-            tableColumns.AppendFormat("[{0}] DEFAULT 250, ", TimerFontSizeCol);
-            tableColumns.AppendFormat("[{0}] DEFAULT 'CountDownToMinus', ", CounterModeCol);
-            tableColumns.AppendFormat("[{0}] DEFAULT 'FullWidth', ", DisplayModeCol);
-            tableColumns.AppendFormat("[{0}] DEFAULT 'White', ", TimerColorCol);
-            tableColumns.AppendFormat("[{0}] DEFAULT 'White', ", RunningColorCol);
-            tableColumns.AppendFormat("[{0}] DEFAULT 'Cyan', ", PausedColorCol);
-            tableColumns.AppendFormat("[{0}] DEFAULT 'Yellow', ", WarningColorCol);
-            tableColumns.AppendFormat("[{0}] DEFAULT 'Orange', ", SecondWarningColorCol);
-            tableColumns.AppendFormat("[{0}] DEFAULT 'Silver', ", StoppedColorCol);
-            tableColumns.AppendFormat("[{0}] DEFAULT 'Red', ", ExpiredColorCol);
-            tableColumns.AppendFormat("[{0}] DEFAULT 'Black', ", BackgroundColorCol);
-            tableColumns.AppendFormat("[{0}] DEFAULT 'Red'", MessageColorCol);
+            tableColumns.AppendFormat("{0} PRIMARY KEY AUTOINCREMENT, ", IdCol);
+            tableColumns.AppendFormat("{0} DEFAULT 'Arial', ", TimerFontFamilyCol);
+            tableColumns.AppendFormat("{0} DEFAULT 250, ", TimerFontSizeCol);
+            tableColumns.AppendFormat("{0} DEFAULT 'CountDownToMinus', ", CounterModeCol);
+            tableColumns.AppendFormat("{0} DEFAULT 'FullWidth', ", DisplayModeCol);
+            tableColumns.AppendFormat("{0} DEFAULT 'White', ", TimerColorCol);
+            tableColumns.AppendFormat("{0} DEFAULT 'White', ", RunningColorCol);
+            tableColumns.AppendFormat("{0} DEFAULT 'Cyan', ", PausedColorCol);
+            tableColumns.AppendFormat("{0} DEFAULT 'Yellow', ", WarningColorCol);
+            tableColumns.AppendFormat("{0} DEFAULT 'Orange', ", SecondWarningColorCol);
+            tableColumns.AppendFormat("{0} DEFAULT 'Silver', ", StoppedColorCol);
+            tableColumns.AppendFormat("{0} DEFAULT 'Red', ", ExpiredColorCol);
+            tableColumns.AppendFormat("{0} DEFAULT 'Black', ", BackgroundColorCol);
+            tableColumns.AppendFormat("{0} DEFAULT 'Red'", MessageColorCol);
 
             base.CreateTable(tableColumns.ToString());
         }

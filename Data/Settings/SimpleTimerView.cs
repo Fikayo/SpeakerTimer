@@ -4,7 +4,7 @@
     using System.Data.SQLite;
     using SpeakerTimer.Application;
 
-    public class SimpleTimerView : ViewModel
+    public class SimpleTimerView : DataView
     {
         public const string ViewName = "SimpleTimerView";
 
@@ -16,16 +16,16 @@
         {
             var sql = "CREATE VIEW IF NOT EXISTS [" + ViewName + "] AS " +
                 "SELECT " +
-                "t." + TimerSettingsModel.IdCol + ", t." + TimerSettingsModel.NameCol + ", t." + TimerSettingsModel.MessageCol + ", t." + TimerSettingsModel.BlinkCol + ", " +
-                "d." + DurationSettingsModel.TitleCol + ", d." + DurationSettingsModel.DurationCol + ", d." + DurationSettingsModel.Warning1Col + ", d." + DurationSettingsModel.Warning2Col + ", " +
-                "v." + VisualSettingsModel.TimerFontFamilyCol + ", v." + VisualSettingsModel.TimerFontSizeCol + ", v." + VisualSettingsModel.CounterModeCol + ", v." + VisualSettingsModel.DisplayModeCol + ", " +
-                "v." + VisualSettingsModel.TimerColorCol + ", v." + VisualSettingsModel.RunningColorCol + ", v." + VisualSettingsModel.PausedColorCol + ", v." + VisualSettingsModel.WarningColorCol + ", v." + VisualSettingsModel.SecondWarningColorCol + ", " +
-                "v." + VisualSettingsModel.StoppedColorCol + ", v." + VisualSettingsModel.ExpiredColorCol + ", v." + VisualSettingsModel.BackgroundColorCol + ", v." + VisualSettingsModel.MessageColorCol + " " +
+                "timer." + TimerSettingsModel.IdCol.Name + ", timer." + TimerSettingsModel.NameCol.Name + ", timer." + TimerSettingsModel.MessageCol.Name + ", timer." + TimerSettingsModel.BlinkCol.Name + ", " +
+                "dur." + DurationSettingsModel.TitleCol.Name + ", dur." + DurationSettingsModel.DurationCol.Name + ", dur." + DurationSettingsModel.Warning1Col.Name + ", dur." + DurationSettingsModel.Warning2Col.Name + ", " +
+                "vis." + VisualSettingsModel.TimerFontFamilyCol.Name + ", vis." + VisualSettingsModel.TimerFontSizeCol.Name + ", vis." + VisualSettingsModel.CounterModeCol.Name + ", vis." + VisualSettingsModel.DisplayModeCol.Name + ", " +
+                "vis." + VisualSettingsModel.TimerColorCol.Name + ", vis." + VisualSettingsModel.RunningColorCol.Name + ", vis." + VisualSettingsModel.PausedColorCol.Name + ", vis." + VisualSettingsModel.WarningColorCol.Name + ", vis." + VisualSettingsModel.SecondWarningColorCol.Name + ", " +
+                "vis." + VisualSettingsModel.StoppedColorCol.Name + ", vis." + VisualSettingsModel.ExpiredColorCol.Name + ", vis." + VisualSettingsModel.BackgroundColorCol.Name + ", vis." + VisualSettingsModel.MessageColorCol.Name + " " +
                 "FROM [" + TimerSettingsModel.TableName + "] timer " +
-                "LEFT JOIN [" + TimerDurationModel.TableName + "] td ON timer.Id = td.timerId " +
-                "LEFT JOIN [" + TimerVisualModel.TableName + "] tv ON timer.Id = tv.timerId" +
-                "LEFT JOIN [" + DurationSettingsModel.TableName + "] d ON t.durationId = d.Id" +
-                "LEFT JOIN [" + VisualSettingsModel.TableName + "] v ON tv.visualId = v.Id;";
+                "LEFT JOIN [" + TimerDurationModel.TableName + "] td ON timer.Id = td." + TimerDurationModel.TimerIdCol.Name + " " +
+                "LEFT JOIN [" + TimerVisualModel.TableName + "] tv ON timer.Id = tv." + TimerVisualModel.TimerIdCol.Name + " " +
+                "LEFT JOIN [" + DurationSettingsModel.TableName + "] dur ON td." + TimerDurationModel.DurationIdCol.Name + " = dur.Id" +
+                "LEFT JOIN [" + VisualSettingsModel.TableName + "] vis ON tv." + TimerVisualModel.VisualIdCol.Name + " = vis.Id;";
 
             base.CreateView(sql);
         }

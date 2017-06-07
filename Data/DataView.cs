@@ -1,21 +1,24 @@
-﻿namespace SpeakerTimer.Data.Settings
+﻿namespace SpeakerTimer.Data
 {
     using System;
     using System.Data.SQLite;
 
-    public abstract class ViewModel : IReadModel
+    public abstract class DataView : IReadModel
     {
         private readonly string viewName;
+        private bool isOpen;
         private SQLiteConnection connection;
 
         private static readonly string connectionString;
-        static ViewModel()
+
+        static DataView()
         {
             connectionString = (string)AppDomain.CurrentDomain.GetData("ConnectionString");
         }
 
-        public ViewModel(string viewName)
+        public DataView(string viewName)
         {
+            this.isOpen = false;
             this.viewName = viewName;
             this.OpenConnection();
             this.CreateView();
@@ -25,10 +28,14 @@
         {
             if (this.connection == null)
             {
-                this.connection = new SQLiteConnection(ViewModel.connectionString);
+                this.connection = new SQLiteConnection(DataView.connectionString);
             }
 
-            this.connection.Open();
+            if (!this.isOpen)
+            {
+                this.connection.Open();
+                this.isOpen = true;
+            }
         }
 
         public void CreateTable()
@@ -40,23 +47,30 @@
         {
             if (this.connection == null) this.OpenConnection();
 
-            using (var command = new SQLiteCommand(query, this.connection))
+            try
             {
-                if (parameters != null && parameters.Length > 0)
+                using (var command = new SQLiteCommand(query, this.connection))
                 {
-                    foreach (var param in parameters)
+                    if (parameters != null && parameters.Length > 0)
                     {
-                        command.Parameters.Add(param);
+                        foreach (var param in parameters)
+                        {
+                            command.Parameters.Add(param);
+                        }
                     }
-                }
 
-                return command.ExecuteReader();
+                    return command.ExecuteReader();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
         public void CloseDatabase()
         {
-            if (this.connection != null)
+            if (this.connection != null && this.isOpen)
             {
                 this.connection.Close();
             }

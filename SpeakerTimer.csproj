@@ -84,10 +84,11 @@
     <Compile Include="Data\IWriteModel.cs" />
     <Compile Include="Data\DataModel.cs" />
     <Compile Include="Data\Settings\DurationSettingsModel.cs" />
-    <Compile Include="Data\Settings\SimpleTimerModel.cs" />
+    <Compile Include="Data\Settings\TimerDurationModel.cs" />
     <Compile Include="Data\Settings\SimpleTimerView.cs" />
     <Compile Include="Data\Settings\TimerSettingsModel.cs" />
-    <Compile Include="Data\Settings\ViewModel.cs" />
+    <Compile Include="Data\Settings\TimerVisualModel.cs" />
+    <Compile Include="Data\DataView.cs" />
     <Compile Include="Data\Settings\VisualSettingsModel.cs" />
     <Compile Include="Presentation\AboutBox.cs">
       <SubType>Form</SubType>

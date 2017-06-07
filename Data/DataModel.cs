@@ -6,6 +6,7 @@
     public abstract class DataModel : IReadWrite
     {
         private readonly string tableName;
+        private bool isOpen;
         private SQLiteConnection connection;
 
         private static readonly string connectionString;
@@ -16,6 +17,7 @@
 
         public DataModel(string tableName)
         {
+            this.isOpen = false;
             this.tableName = tableName;
             this.OpenConnection();
             this.CreateTable();
@@ -28,24 +30,36 @@
                 this.connection = new SQLiteConnection(DataModel.connectionString);
             }
 
-            this.connection.Open();
+            if (!this.isOpen)
+            {
+                this.connection.Open();
+                this.isOpen = true;
+            }
         }
 
         public void ExecuteNonQuery(string nonQuery, params SQLiteParameter[] parameters)
         {
             if (this.connection == null) this.OpenConnection();
 
-            using (var command = new SQLiteCommand(nonQuery, this.connection))
+            try
             {
-                if (parameters != null && parameters.Length > 0)
+                using (var command = new SQLiteCommand(nonQuery, this.connection))
                 {
-                    foreach (var param in parameters)
+                    if (parameters != null && parameters.Length > 0)
                     {
-                        command.Parameters.Add(param);
+                        foreach (var param in parameters)
+                        {
+                            command.Parameters.Add(param);
+                        }
                     }
-                }
 
-                command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch(Exception ex)
+            {
+                int a = 10;
+                throw ex;
             }
         }
 
@@ -74,7 +88,7 @@
 
         public void CloseDatabase()
         {
-            if (this.connection != null)
+            if (this.connection != null && this.isOpen)
             {
                 this.connection.Close();
             }

@@ -4,22 +4,34 @@
 
     public class TimerVisualModel : DataModel
     {
-        public static readonly DbColumn TimerIdCol = new DbColumn("TimerId", "INT");
-        public static readonly DbColumn VisualId = new DbColumn("VisualId", "INT");
+        public static readonly DbColumn TimerIdCol = new DbColumn("TimerId", "INTEGER");
+        public static readonly DbColumn VisualIdCol = new DbColumn("VisualId", "INTEGER");
 
         public const string TableName = "Timers";
 
-        public TimerVisualModel() : base(TableName)
+        private static readonly TimerVisualModel instance = null;
+
+        static TimerVisualModel()
         {
+            instance = new TimerVisualModel();
+        }
+
+        private TimerVisualModel() : base(TableName)
+        {
+        }
+
+        public static TimerVisualModel Instance
+        {
+            get { return instance; }
         }
 
         public override void CreateTable()
         {
             StringBuilder tableColumns = new StringBuilder();
-            tableColumns.AppendFormat("[{0}] NOT NULL, ", TimerIdCol);
-            tableColumns.AppendFormat("[{0}] NOT NULL, ", VisualId);
-            tableColumns.AppendFormat("FOREIGN KEY([{0}]) REFERENCES [{1}]([{2}]), ", TimerIdCol, TimerSettingsModel.TableName, TimerSettingsModel.IdCol);
-            tableColumns.AppendFormat("FOREIGN KEY([{0}]) REFERENCES [{1}]([{2}])", VisualId, VisualSettingsModel.TableName, VisualSettingsModel.IdCol);
+            tableColumns.AppendFormat("{0} NOT NULL, ", TimerVisualModel.TimerIdCol);
+            tableColumns.AppendFormat("{0} NOT NULL, ", TimerVisualModel.VisualIdCol);
+            tableColumns.AppendFormat("FOREIGN KEY([{0}]) REFERENCES [{1}]([{2}]), ", TimerVisualModel.TimerIdCol.Name, TimerSettingsModel.TableName, TimerSettingsModel.IdCol.Name);
+            tableColumns.AppendFormat("FOREIGN KEY([{0}]) REFERENCES [{1}]([{2}])", TimerVisualModel.VisualIdCol.Name, VisualSettingsModel.TableName, VisualSettingsModel.IdCol.Name);
 
             base.CreateTable(tableColumns.ToString());
         }

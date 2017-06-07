@@ -16,10 +16,14 @@
         {
             string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string productDataDir = Directory.CreateDirectory(MainApplication.ProductName).Name;
-            AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(appdata, productDataDir));
+            string dataDir = Path.Combine(appdata, productDataDir);
+            Directory.CreateDirectory(dataDir);
+            AppDomain.CurrentDomain.SetData("DataDirectory", dataDir);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             AppDomain.CurrentDomain.SetData("ConnectionString", ConfigurationManager.ConnectionStrings["SettingsDatabase"].ConnectionString);
+
+            SpeakerTimer.Data.IModel simpleTimerModel = new SpeakerTimer.Data.Settings.SimpleTimerView();
 
             MainApplication.EnableVisualStyles();
             MainApplication.SetCompatibleTextRenderingDefault(false);
