@@ -50,6 +50,7 @@
         
         private Color PickColor(Color defaultColor)
         {
+            this.colorDialog.Color = defaultColor;
             var result = this.colorDialog.ShowDialog();
             return result == DialogResult.OK ? this.colorDialog.Color : defaultColor;
         }
@@ -73,8 +74,7 @@
             this.VisualSettings = TimerVisualSettings.Default;
             this.InitSettings();
         }
-
-
+        
         #region Display Settings Event Handlers
 
         private void cmbDisplayMode_SelectedIndexChanged(object sender, EventArgs e)
