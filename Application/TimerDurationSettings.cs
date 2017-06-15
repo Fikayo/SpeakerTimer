@@ -3,11 +3,24 @@
     public class TimerDurationSettings
     {
         private static readonly string DefaultTitle = "Untitled";
+        private readonly int id;
 
-        private TimerDurationSettings()
+        private TimerDurationSettings(int durationId)
         {
+            this.id = durationId;
             this.SetDefaultSettings();
         }
+
+        public TimerDurationSettings(int durationId, TimerDurationSettings copy)
+        {
+            this.id = durationId;
+            this.Title = copy.Title;
+            this.Duration = copy.Duration;
+            this.WarningTime = copy.WarningTime;
+            this.SecondWarningTime = copy.SecondWarningTime;
+        }
+
+        public int DurationId { get { return this.id; } }
 
         public string Title { get; set; }
 
@@ -23,7 +36,7 @@
 
         public static TimerDurationSettings Default
         {
-            get { return new TimerDurationSettings(); }
+            get { return new TimerDurationSettings(-1); }
         }
 
         public string ToCsv()
@@ -37,13 +50,7 @@
 
         public TimerDurationSettings Clone()
         {
-            TimerDurationSettings clone = new TimerDurationSettings();
-            clone.Title = this.Title;
-            clone.Duration = this.Duration;
-            clone.WarningTime = this.WarningTime;
-            clone.SecondWarningTime = this.SecondWarningTime;
-
-            return clone;
+            return new TimerDurationSettings(this.DurationId, this);
         }
 
         public override bool Equals(object obj)
@@ -74,22 +81,23 @@
 
         public static TimerDurationSettings ParseCsv(string csv, int start = 0)
         {
-            TimerDurationSettings settings = new TimerDurationSettings();
 
             try
             {
                 var values = csv.Split(new char[] { ',' });
 
-                settings.Title = values[start + 0];
-                settings.Duration = double.Parse(values[start + 1]);
-                settings.WarningTime = double.Parse(values[start + 2]);
-                settings.SecondWarningTime = double.Parse(values[start + 3]);
+                var settings = new TimerDurationSettings(int.Parse(values[start + 0]));
+
+                settings.Title = values[start + 1];
+                settings.Duration = double.Parse(values[start + 2]);
+                settings.WarningTime = double.Parse(values[start + 3]);
+                settings.SecondWarningTime = double.Parse(values[start + 4]);
 
                 return settings;
             }
             catch
             {
-                return settings;
+                return TimerDurationSettings.Default;
             }
         }
 

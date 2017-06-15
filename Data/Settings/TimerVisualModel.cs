@@ -7,7 +7,7 @@
         public static readonly DbColumn TimerIdCol = new DbColumn("TimerId", "INTEGER");
         public static readonly DbColumn VisualIdCol = new DbColumn("VisualId", "INTEGER");
 
-        public const string TableName = "Timers";
+        public const string TableName = "Timer Visuals";
 
         private static readonly TimerVisualModel instance = null;
 
@@ -30,8 +30,8 @@
             StringBuilder tableColumns = new StringBuilder();
             tableColumns.AppendFormat("{0} NOT NULL, ", TimerVisualModel.TimerIdCol);
             tableColumns.AppendFormat("{0} NOT NULL, ", TimerVisualModel.VisualIdCol);
-            tableColumns.AppendFormat("FOREIGN KEY([{0}]) REFERENCES [{1}]([{2}]), ", TimerVisualModel.TimerIdCol.Name, TimerSettingsModel.TableName, TimerSettingsModel.IdCol.Name);
-            tableColumns.AppendFormat("FOREIGN KEY([{0}]) REFERENCES [{1}]([{2}])", TimerVisualModel.VisualIdCol.Name, VisualSettingsModel.TableName, VisualSettingsModel.IdCol.Name);
+            tableColumns.AppendFormat("FOREIGN KEY([{0}]) REFERENCES [{1}]([{2}]) ON DELETE CASCADE, ", TimerVisualModel.TimerIdCol.Name, TimerSettingsModel.TableName, TimerSettingsModel.IdCol.Name);
+            tableColumns.AppendFormat("FOREIGN KEY([{0}]) REFERENCES [{1}]([{2}]) ON DELETE CASCADE", TimerVisualModel.VisualIdCol.Name, VisualSettingsModel.TableName, VisualSettingsModel.IdCol.Name);
 
             base.CreateTable(tableColumns.ToString());
         }

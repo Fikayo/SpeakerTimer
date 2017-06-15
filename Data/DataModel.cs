@@ -28,6 +28,7 @@
             if (this.connection == null)
             {
                 this.connection = new SQLiteConnection(DataModel.connectionString);
+                this.ExecuteNonQuery("PRAGMA foreign_keys = ON");
             }
 
             if (!this.isOpen)
@@ -127,6 +128,15 @@
             }
 
             return this.Query(sql);
+        }
+        
+        protected int Insert(string nonQuery, params SQLiteParameter[] parameters)
+        {
+            this.ExecuteNonQuery(nonQuery, parameters);
+            var reader = this.Query("SELECT last_insert_rowid();");
+
+            reader.Read();
+            return int.Parse((string)reader[0]);
         }
     }
 }

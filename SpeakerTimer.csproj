@@ -70,10 +70,14 @@
   <ItemGroup>
     <Compile Include="Application\IdNamePair.cs" />
     <Compile Include="Application\DurationChangedEventArgs.cs" />
+    <Compile Include="Application\ISettingsManager.cs" />
+    <Compile Include="Application\ITimerSettings.cs" />
+    <Compile Include="Application\NewSettingsManager.cs" />
     <Compile Include="Application\PresetEventArgs.cs" />
     <Compile Include="Application\RefreshDisplayEventArgs.cs" />
     <Compile Include="Application\SettingIOEventArgs.cs" />
     <Compile Include="Application\SettingsChangedEventArgs.cs" />
+    <Compile Include="Application\SettingsManager.cs" />
     <Compile Include="Application\TimerDurationSettings.cs" />
     <Compile Include="Application\TimerMessageSettings.cs" />
     <Compile Include="Application\TimerVisualSettings.cs" />
@@ -84,56 +88,57 @@
     <Compile Include="Data\IWriteModel.cs" />
     <Compile Include="Data\DataModel.cs" />
     <Compile Include="Data\Settings\DurationSettingsModel.cs" />
+    <Compile Include="Data\ISettingsModel.cs" />
     <Compile Include="Data\Settings\TimerDurationModel.cs" />
-    <Compile Include="Data\Settings\SimpleTimerView.cs" />
+    <Compile Include="Data\Settings\SimpleTimerModel.cs" />
     <Compile Include="Data\Settings\TimerSettingsModel.cs" />
     <Compile Include="Data\Settings\TimerVisualModel.cs" />
     <Compile Include="Data\DataView.cs" />
     <Compile Include="Data\Settings\VisualSettingsModel.cs" />
-    <Compile Include="Presentation\AboutBox.cs">
+    <Compile Include="Presentation\Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentation\AboutBox.Designer.cs">
+    <Compile Include="Presentation\Forms\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Application\BlinkManager.cs" />
-    <Compile Include="Presentation\DisplayToolStripItem.cs">
+    <Compile Include="Presentation\Controls\DisplayToolStripItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Presentation\DisplayToolStripItem.Designer.cs">
+    <Compile Include="Presentation\Controls\DisplayToolStripItem.Designer.cs">
       <DependentUpon>DisplayToolStripItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\OldControlPanel.cs">
+    <Compile Include="Presentation\Forms\OldControlPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentation\OldControlPanel.Designer.cs">
+    <Compile Include="Presentation\Forms\OldControlPanel.Designer.cs">
       <DependentUpon>OldControlPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\ControlPanel.cs">
+    <Compile Include="Presentation\Forms\ControlPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentation\ControlPanel.Designer.cs">
+    <Compile Include="Presentation\Forms\ControlPanel.Designer.cs">
       <DependentUpon>ControlPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\OldTimerView.cs" />
     <Compile Include="Application\PresetManager.cs" />
-    <Compile Include="Presentation\PresentationTimerForm.cs">
+    <Compile Include="Presentation\Forms\PresentationTimerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentation\PresentationTimerForm.Designer.cs">
+    <Compile Include="Presentation\Forms\PresentationTimerForm.Designer.cs">
       <DependentUpon>PresentationTimerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Presentation\SavedTimersToolStripButton.cs">
+    <Compile Include="Presentation\Controls\SavedTimersToolStripButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Presentation\SavedTimersToolStripButton.Designer.cs">
+    <Compile Include="Presentation\Controls\SavedTimersToolStripButton.Designer.cs">
       <DependentUpon>SavedTimersToolStripButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\VisualSettingsForm.cs">
+    <Compile Include="Presentation\Forms\VisualSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentation\VisualSettingsForm.Designer.cs">
+    <Compile Include="Presentation\Forms\VisualSettingsForm.Designer.cs">
       <DependentUpon>VisualSettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -144,70 +149,70 @@
     </Compile>
     <Compile Include="Application\TimePlan.cs" />
     <Compile Include="Application\TimePlanCommandIssuer.cs" />
-    <Compile Include="Presentation\TimePlanControl.cs">
+    <Compile Include="Presentation\Controls\TimePlanControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Presentation\TimePlanControl.Designer.cs">
+    <Compile Include="Presentation\Controls\TimePlanControl.Designer.cs">
       <DependentUpon>TimePlanControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\TimePlanForm.cs">
+    <Compile Include="Presentation\Forms\TimePlanForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentation\TimePlanForm.Designer.cs">
+    <Compile Include="Presentation\Forms\TimePlanForm.Designer.cs">
       <DependentUpon>TimePlanForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\TimePlanView.cs">
+    <Compile Include="Presentation\Controls\TimePlanView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Presentation\TimePlanView.Designer.cs">
+    <Compile Include="Presentation\Controls\TimePlanView.Designer.cs">
       <DependentUpon>TimePlanView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\TimerPreview.cs">
+    <Compile Include="Presentation\Controls\TimerPreview.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Presentation\TimerPreview.Designer.cs">
+    <Compile Include="Presentation\Controls\TimerPreview.Designer.cs">
       <DependentUpon>TimerPreview.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\TimeInputBox.cs">
+    <Compile Include="Presentation\Controls\TimeInputBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Presentation\TimerSettingsForm.cs">
+    <Compile Include="Presentation\Forms\TimerSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentation\TimerSettingsForm.Designer.cs">
+    <Compile Include="Presentation\Forms\TimerSettingsForm.Designer.cs">
       <DependentUpon>TimerSettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\TimerView.cs">
+    <Compile Include="Presentation\Controls\TimerView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Presentation\TimerView.Designer.cs">
+    <Compile Include="Presentation\Controls\TimerView.Designer.cs">
       <DependentUpon>TimerView.cs</DependentUpon>
     </Compile>
     <Compile Include="Application\SimpleTimerSettings.cs" />
     <Compile Include="Application\TimerViewerCommand.cs" />
-    <Compile Include="Presentation\TimeViewControl.cs">
+    <Compile Include="Presentation\Controls\TimeViewControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Presentation\TimeViewControl.Designer.cs">
+    <Compile Include="Presentation\Controls\TimeViewControl.Designer.cs">
       <DependentUpon>TimeViewControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
-    <EmbeddedResource Include="Presentation\AboutBox.resx">
+    <EmbeddedResource Include="Presentation\Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\DisplayToolStripItem.resx">
+    <EmbeddedResource Include="Presentation\Controls\DisplayToolStripItem.resx">
       <DependentUpon>DisplayToolStripItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\OldControlPanel.resx">
+    <EmbeddedResource Include="Presentation\Forms\OldControlPanel.resx">
       <DependentUpon>OldControlPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\ControlPanel.resx">
+    <EmbeddedResource Include="Presentation\Forms\ControlPanel.resx">
       <DependentUpon>ControlPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\PresentationTimerForm.resx">
+    <EmbeddedResource Include="Presentation\Forms\PresentationTimerForm.resx">
       <DependentUpon>PresentationTimerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\VisualSettingsForm.resx">
+    <EmbeddedResource Include="Presentation\Forms\VisualSettingsForm.resx">
       <DependentUpon>VisualSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -215,22 +220,22 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\TimePlanControl.resx">
+    <EmbeddedResource Include="Presentation\Controls\TimePlanControl.resx">
       <DependentUpon>TimePlanControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\TimePlanForm.resx">
+    <EmbeddedResource Include="Presentation\Forms\TimePlanForm.resx">
       <DependentUpon>TimePlanForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\TimePlanView.resx">
+    <EmbeddedResource Include="Presentation\Controls\TimePlanView.resx">
       <DependentUpon>TimePlanView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\TimerPreview.resx">
+    <EmbeddedResource Include="Presentation\Controls\TimerPreview.resx">
       <DependentUpon>TimerPreview.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\TimerSettingsForm.resx">
+    <EmbeddedResource Include="Presentation\Forms\TimerSettingsForm.resx">
       <DependentUpon>TimerSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\TimerView.resx">
+    <EmbeddedResource Include="Presentation\Controls\TimerView.resx">
       <DependentUpon>TimerView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />

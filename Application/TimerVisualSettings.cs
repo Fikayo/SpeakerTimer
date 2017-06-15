@@ -4,7 +4,10 @@
 
     public class TimerVisualSettings
     {
+        private readonly int id;
+
         public TimerVisualSettings(
+            int visualId,
             TimerCounterMode counterMode,
             TimerDisplayMode displayMode,
             string fontFamily,
@@ -19,6 +22,7 @@
             Color backgroundColor,
             Color messageColor)
         {
+            this.id = visualId;
             this.CounterMode = counterMode;
             this.DisplayMode = displayMode;
             this.TimerFont = new Font(fontFamily, fontSize, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -33,8 +37,29 @@
             this.MessageColor = messageColor;
         }
 
+        public TimerVisualSettings(int visualId, TimerVisualSettings copy):
+            this (
+                visualId, 
+                copy.CounterMode, 
+                copy.DisplayMode, 
+                copy.TimerFont.FontFamily.Name, 
+                copy.TimerFont.Size, 
+                copy.TimerColor, 
+                copy.RunningColor, 
+                copy.PausedColor, 
+                copy.WarningColor, 
+                copy.SecondWarningColor, 
+                copy.ExpiredColor, 
+                copy.StoppedColor, 
+                copy.BackgroundColor, 
+                copy.MessageColor
+                )
+        {
+        }
+
         private TimerVisualSettings() :
             this(
+                -1,
                 TimerCounterMode.CountDownToMinus,
                 TimerDisplayMode.FullWidth,
                 "Arial", 
@@ -51,6 +76,8 @@
                 )
         {
         }
+
+        public int VisualId { get { return this.id; } }
 
         #region Display Settings
 
@@ -123,9 +150,7 @@
 
         public TimerVisualSettings Clone()
         {
-            TimerVisualSettings clone = TimerVisualSettings.ParseCsv(this.ToCsv());
-
-            return clone;
+            return new TimerVisualSettings(this.VisualId, this);
         }
 
         public override bool Equals(object obj)

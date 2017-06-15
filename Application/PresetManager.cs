@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
+    using SpeakerTimer.Data;
 
     internal class PresetManager
     {
@@ -238,7 +239,7 @@
 
         private void AddNewSetting(int id, SimpleTimerSettings setting)
         {
-            this.savedSettings.Add(setting.Clone());
+            this.savedSettings.Add((SimpleTimerSettings)setting.Clone());
 
             var index = this.savedSettings.Count - 1;
             this.idToSettingIdx[id] = index;
@@ -261,7 +262,7 @@
             }
 
             // Update setting
-            this.savedSettings[index] = setting.Clone();
+            this.savedSettings[index] = setting.Clone() as SimpleTimerSettings;
             this.nameToSettingIdx[setting.Name] = index;
         }
     }

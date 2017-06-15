@@ -320,7 +320,7 @@
             this.BackgroundColor = Settings.VisualSettings.BackgroundColor;
             this.TimerColor = Settings.VisualSettings.RunningColor;
 
-            this.Settings = Settings.Clone();
+            this.Settings = Settings.Clone() as SimpleTimerSettings;
             this.Settings.VisualSettings.SecondWarningColor = this.Settings.VisualSettings.MessageColor;
 
             if ((Settings.BlinkOnExpired && this.Settings.TimerDuration.Duration >= 0) || (!Settings.BlinkOnExpired && this.blinkManager.IsBlinking))

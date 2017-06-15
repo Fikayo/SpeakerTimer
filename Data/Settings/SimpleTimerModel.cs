@@ -1,18 +1,19 @@
 ﻿namespace SpeakerTimer.Data.Settings
 {
+    using System;
     using System.Collections.Generic;
     using System.Data.SQLite;
     using SpeakerTimer.Application;
 
-    public class SimpleTimerView : DataView
+    public class SimpleTimerModel : DataModel, ISettingsModel<SimpleTimerSettings>
     {
-        public const string ViewName = "SimpleTimerView";
+        public const string ViewName = "SimpleTimer";
 
-        public SimpleTimerView() : base(ViewName)
+        public SimpleTimerModel() : base(ViewName)
         {
         }
 
-        public override void CreateView()
+        public override void CreateTable()
         {
             var sql = "CREATE VIEW IF NOT EXISTS [" + ViewName + "] AS " +
                 "SELECT " +
@@ -24,10 +25,10 @@
                 "FROM [" + TimerSettingsModel.TableName + "] timer " +
                 "LEFT JOIN [" + TimerDurationModel.TableName + "] td ON timer.Id = td." + TimerDurationModel.TimerIdCol.Name + " " +
                 "LEFT JOIN [" + TimerVisualModel.TableName + "] tv ON timer.Id = tv." + TimerVisualModel.TimerIdCol.Name + " " +
-                "LEFT JOIN [" + DurationSettingsModel.TableName + "] dur ON td." + TimerDurationModel.DurationIdCol.Name + " = dur.Id" +
+                "LEFT JOIN [" + DurationSettingsModel.TableName + "] dur ON td." + TimerDurationModel.DurationIdCol.Name + " = dur.Id " +
                 "LEFT JOIN [" + VisualSettingsModel.TableName + "] vis ON tv." + TimerVisualModel.VisualIdCol.Name + " = vis.Id;";
 
-            base.CreateView(sql);
+            base.CreateTable(sql);
         }
 
         public List<SimpleTimerSettings> FetchAll()
@@ -42,6 +43,42 @@
             }
 
             return durationSettings;
+        }
+
+        public SimpleTimerSettings Fetch(int timerId)
+        {
+            var sql = "SELECT * FROM [" + ViewName + "] WHERE [" + TimerSettingsModel.TableName + "]." + TimerSettingsModel.IdCol.Name + " = ?";
+            var param = new SQLiteParameter();
+            param.Value = timerId;
+
+            var reader = this.Query(sql, param);
+            return this.Parse(reader);
+        }
+
+        public void Save(SimpleTimerSettings timer)
+        {
+            TimerSettingsModel.Instance.Save(timer);
+            DurationSettingsModel.Instance.Save(timer.TimerDuration);
+            VisualSettingsModel.Instance.Save(timer.VisualSettings);
+        }
+
+        public bool Delete(int timerId)
+        {
+            var sql = "DELETE FROM [" + TimerSettingsModel.TableName + "] WHERE [" + TimerSettingsModel.TableName + "]." + TimerSettingsModel.IdCol.Name + " = ?";
+            var param = new SQLiteParameter();
+            param.Value = timerId;
+
+            bool success = true;
+            try
+            {
+                this.ExecuteNonQuery(sql, param);
+            }
+            catch (Exception)
+            {
+                success = false;
+            }
+
+            return success;
         }
 
         private SimpleTimerSettings Parse(SQLiteDataReader reader)

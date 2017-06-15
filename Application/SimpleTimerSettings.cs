@@ -2,7 +2,7 @@
 {
     using System.Drawing;
 
-    public class SimpleTimerSettings
+    public class SimpleTimerSettings : ITimerSettings
     {
         private static readonly string DefaultName = "Un-named";
 
@@ -15,9 +15,13 @@
             this.name = name;
             this.FinalMessage = finalmessage;
             this.BlinkOnExpired = blinkOnExpired;
-            this.TimerDuration = durationSettings;
-            this.VisualSettings = visualSettings;
+            this.TimerDuration = new TimerDurationSettings(durationSettings.DurationId, durationSettings);
+            this.VisualSettings = new TimerVisualSettings(visualSettings.VisualId, visualSettings);
         }
+
+        public SimpleTimerSettings(int id, SimpleTimerSettings copy) :
+            this(id, copy.name, copy.FinalMessage, copy.BlinkOnExpired, copy.TimerDuration, copy.VisualSettings)
+        { }
 
         private SimpleTimerSettings(bool isDefault = false)
         {
@@ -27,7 +31,7 @@
                 this.Id = SimpleTimerSettings.count++;
             }
         }
-        
+
         public int Id { get; private set; }
 
         public string Name
@@ -61,7 +65,7 @@
         public TimerMessageSettings MessageSettings { get; set; }
 
         public TimerDurationSettings TimerDuration { get; set; }
-        
+
         #region Propeties
 
         public static SimpleTimerSettings Default
@@ -97,15 +101,11 @@
                 this.VisualSettings.ToCsv());
         }
 
-        public SimpleTimerSettings Clone()
+        public ITimerSettings Clone()
         {
-            SimpleTimerSettings clone = SimpleTimerSettings.ParseCsv(this.ToCsv());
-            clone.VisualSettings = this.VisualSettings.Clone();
-            clone.MessageSettings = this.MessageSettings.Clone();
-
-            return clone;
+            return new SimpleTimerSettings(this.Id, this);
         }
-        
+
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -122,7 +122,7 @@
                 && this.FinalMessage.Equals(that.FinalMessage)
                 && this.VisualSettings.Equals(that.VisualSettings);
         }
-        
+
         public override int GetHashCode()
         {
             return base.GetHashCode();

@@ -1,6 +1,10 @@
 ﻿namespace SpeakerTimer.Data.Settings
 {
     using System.Text;
+    using System.Collections.Generic;
+    using System.Data.SQLite;
+    using System.Drawing;
+    using SpeakerTimer.Application;
 
     public class TimerSettingsModel : DataModel
     {
@@ -37,5 +41,33 @@
 
             base.CreateTable(tableColumns.ToString());
         }
+
+        public SimpleTimerSettings Save(SimpleTimerSettings simpleTimer)
+        {
+            var parameters = new List<SQLiteParameter>
+            {
+                    new SQLiteParameter() { ParameterName = "Name", Value = simpleTimer.Name},
+                    new SQLiteParameter() { ParameterName = "Message", Value = simpleTimer.FinalMessage},
+                    new SQLiteParameter() { ParameterName = "Blink", Value = simpleTimer.BlinkOnExpired},
+            };
+
+            if (simpleTimer.Id < 0)
+            {
+                var sql = "INSERT INTO [" + TableName + "]";
+                var newId = this.Insert(sql, parameters.ToArray());
+                return new SimpleTimerSettings(newId, simpleTimer);
+            }
+
+            var update = "UPDATE [" + TableName + "] SET " +
+                "[" + NameCol + "] = @Name," +
+                "[" + MessageCol + "] = @Message," +
+                "[" + BlinkCol + "] = @Blink," +
+                "WHERE [" + IdCol + "] = @Id";
+
+            parameters.Add(new SQLiteParameter("Id", simpleTimer.Id));
+            this.ExecuteNonQuery(update, parameters.ToArray());
+            return simpleTimer;
+        }
+
     }
 }

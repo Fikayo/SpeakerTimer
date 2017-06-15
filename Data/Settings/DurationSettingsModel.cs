@@ -48,13 +48,42 @@
             var durationSettings = new List<TimerDurationSettings>();
 
             var reader = this.Select();
-            while(reader.Read())
+            while (reader.Read())
             {
                 var setting = DurationSettingsModel.Parse(reader);
                 durationSettings.Add(setting);
             }
 
             return durationSettings;
+        }
+
+        public TimerDurationSettings Save(TimerDurationSettings timerDuration)
+        {
+            var parameters = new List<SQLiteParameter>
+            {
+                    new SQLiteParameter() { Value = timerDuration.Title },
+                    new SQLiteParameter() { Value = timerDuration.Duration },
+                    new SQLiteParameter() { Value = timerDuration.WarningTime },
+                    new SQLiteParameter() { Value = timerDuration.SecondWarningTime }
+            };
+
+            if (timerDuration.DurationId < 0)
+            {
+                var sql = "INSERT INTO [" + TableName + "] VALUES (?, ?, ?, ?)";
+                var newId = this.Insert(sql, parameters.ToArray());
+                return new TimerDurationSettings(newId, timerDuration);
+            }
+
+            var update = "UPDATE [" + TableName + "] SET " +
+                "[" + TitleCol + "] = ?," +
+                "[" + DurationCol + "] = ?," +
+                "[" + Warning1Col + "] = ?," +
+                "[" + Warning2Col + "] = ?" +
+                "WHERE [" + IdCol + "] = ?";
+
+            parameters.Add(new SQLiteParameter() { Value = timerDuration.DurationId });
+            this.ExecuteNonQuery(update, parameters.ToArray());
+            return timerDuration;
         }
 
         public static TimerDurationSettings Parse(SQLiteDataReader reader)

@@ -23,7 +23,7 @@
 
             AppDomain.CurrentDomain.SetData("ConnectionString", ConfigurationManager.ConnectionStrings["SettingsDatabase"].ConnectionString);
 
-            SpeakerTimer.Data.IModel simpleTimerModel = new SpeakerTimer.Data.Settings.SimpleTimerView();
+            SpeakerTimer.Data.IModel simpleTimerModel = new SpeakerTimer.Data.Settings.SimpleTimerModel();
 
             MainApplication.EnableVisualStyles();
             MainApplication.SetCompatibleTextRenderingDefault(false);
