@@ -2,121 +2,149 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using SpeakerTimer.Data;
 
-    internal class SettingsManager<T>  where T : ITimerSettings
+    public class SettingsManager<T> : ISettingsManager<T> where T : ITimerSettings
     {
+        private const int MaxActionBeforeFlush = 5;
+
+        private int actionCount;
+        private readonly Dictionary<int, T> localDb;
+        private readonly List<int> deletedTimers;
+        private readonly HashSet<int> modifiedTimers;
         private readonly ISettingsModel<T> settingsModel;
-        private Dictionary<int, int> idToSettingIdx;
-        private Dictionary<string, int> nameToSettingIdx;
-        private List<T> savedSettings;
+
+        private readonly object objectLock = new object();
 
         public SettingsManager(ISettingsModel<T> settingsModel)
         {
             this.settingsModel = settingsModel;
-        }
-        
-        public List<IdNamePair> SettingsIdNamePairs => throw new NotImplementedException();
 
-        public List<string> SettingsNames => throw new NotImplementedException();
+            this.localDb = new Dictionary<int, T>();
+            this.deletedTimers = new List<int>();
+            this.modifiedTimers = new HashSet<int>();
 
-        public bool AddOrUpdateSetting(KeyValuePair<int, T> setting)
-        {
-            throw new NotImplementedException();
+            this.actionCount = 0;
         }
 
-        public bool DeleteAll()
-        {
-            throw new NotImplementedException();
-        }
+        #region External Members
 
-        public bool DeleteSetting(string name, bool flush = true)
+        public void AddOrUpdate(T timer)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteSettings(List<string> names, bool flush = true)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool HasSetting(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool HasSetting(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<IdNamePair> FetchAll()
-        {
-            var timers = this.settingsModel.FetchAll();
-            this.savedSettings.Clear();
-            var idNamePairs = new List<IdNamePair>();
-            foreach (var timer in timers)
+            int timerId = timer.Id;
+            if (this.localDb.ContainsKey(timerId))
             {
-                var id = timer.Id;
-                if (this.HasSetting(id))
-                {
-                    this.UpdateTimer(id, timer);
-                }
-                else
-                {
-                    this.AddNewTimer(id, timer);
-                }
-
-                idNamePairs.Add(new IdNamePair(id, timer.Name));
+                this.localDb[timerId] = (T)timer.Clone();
+            }
+            else
+            {
+                this.localDb.Add(timerId, timer);
             }
 
-            return idNamePairs;
+            this.modifiedTimers.Add(timerId);
+            this.ConsiderFlush();
         }
 
-        public T Fetch(int id)
+        public T Fetch(int timerId)
         {
-            int index;
-            if (this.idToSettingIdx.TryGetValue(id, out index))
+            if (this.localDb.ContainsKey(timerId))
             {
-                return this.savedSettings[index];
+                return (T)this.localDb[timerId].Clone();
             }
 
             return default(T);
         }
 
-        public bool SaveAll()
+        public T Delete(int timerId)
         {
-            throw new NotImplementedException();
-        }
-
-        private void AddNewTimer(int id, T timer)
-        {
-            this.savedSettings.Add((T)timer.Clone());
-
-            var index = this.savedSettings.Count - 1;
-            this.idToSettingIdx[id] = index;
-            this.nameToSettingIdx[timer.Name] = index;
-        }
-
-        private void UpdateTimer(int id, T timer)
-        {
-            var index = this.idToSettingIdx[id];
-
-            // First check if this setting was under a different name
-            var oldName = this.savedSettings[index].Name;
-            if (oldName != timer.Name)
+            if (this.localDb.ContainsKey(timerId))
             {
-                // Remove ties to old name
-                this.nameToSettingIdx.Remove(oldName);
+                var old = this.localDb[timerId];
+                this.localDb.Remove(timerId);
 
-                // Add the new name
-                this.nameToSettingIdx.Add(timer.Name, index);
+                this.deletedTimers.Add(timerId);
+                this.ConsiderFlush();
+                return old;
             }
 
-            // Update setting
-            this.savedSettings[index] = (T)timer.Clone();
-            this.nameToSettingIdx[timer.Name] = index;
+            return default(T);
         }
 
+        public ReadOnlyCollection<T> FetchAll()
+        {
+            var timers = new List<T>();
+            foreach(var timer in this.localDb.Values)
+            {
+                timers.Add(timer);
+            }
+
+            return new ReadOnlyCollection<T>(timers);
+        }
+
+        public void DeleteAll()
+        {
+            this.deletedTimers.AddRange(this.localDb.Keys);
+            this.localDb.Clear();
+
+            this.ConsiderFlush();
+        }
+
+        public bool SaveAll()
+        {
+            return this.Flush();
+        }
+
+        #endregion
+
+        #region Internal Members
+
+        private void ConsiderFlush()
+        {
+            var flush = false;
+            lock (this.objectLock)
+            {
+                this.actionCount++;
+                if (this.actionCount >= MaxActionBeforeFlush)
+                {
+                    flush = true;
+                }
+            }
+
+            if (flush)
+            {
+                this.Flush();
+            }
+        }
+
+        private bool Flush()
+        {
+            try
+            {
+                // Save modified timers
+                foreach (var id in this.modifiedTimers)
+                {
+                    this.settingsModel.Save(this.localDb[id]);
+                }
+
+                this.modifiedTimers.Clear();
+
+                // Delete timers marked for deletion
+                foreach(var id in this.deletedTimers)
+                {
+                    this.settingsModel.Delete(id);
+                }
+
+                this.deletedTimers.Clear();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        #endregion
     }
 }
