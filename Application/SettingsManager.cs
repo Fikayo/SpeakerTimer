@@ -17,6 +17,15 @@
 
         private readonly object objectLock = new object();
 
+        private static SettingsManager<SimpleTimerSettings> simpleSettingsManager;
+        private static SettingsManager<SequenceTimerSettings> sequenceSettingsManager;
+
+        static SettingsManager()
+        {
+            simpleSettingsManager = new SettingsManager<SimpleTimerSettings>(new Data.Settings.SimpleTimerModel());
+            sequenceSettingsManager = new SettingsManager<SequenceTimerSettings>(new Data.Settings.SequenceTimerModel());
+        }
+
         public SettingsManager(ISettingsModel<T> settingsModel)
         {
             this.settingsModel = settingsModel;
@@ -26,6 +35,16 @@
             this.modifiedTimers = new HashSet<int>();
 
             this.actionCount = 0;
+        }
+
+        public static SettingsManager<SimpleTimerSettings> SimpleSettingsManager
+        {
+            get { return simpleSettingsManager; }
+        }
+
+        public static SettingsManager<SequenceTimerSettings> SequenceSettingsManager
+        {
+            get { return sequenceSettingsManager; }
         }
 
         #region External Members

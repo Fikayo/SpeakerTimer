@@ -20,6 +20,8 @@
 
         public event EventHandler<SettingsChangedEventArgs> SettingsChanged;
 
+        public event EventHandler<SettingsUpdatedEventArgs> SettingsUpdated;
+
         public void IssueStartCommand(double? currentTime = null)
         {
             var handler = this.StartCommand;
@@ -74,12 +76,21 @@
             }
         }
 
-        public void OnSettingsChanged(SimpleTimerSettings settings)
+        ////public void OnSettingsChanged(SimpleTimerSettings settings)
+        ////{
+        ////    var handler = this.SettingsChanged;
+        ////    if (handler != null)
+        ////    {
+        ////        handler.Invoke(this, new SettingsChangedEventArgs(settings));
+        ////    }
+        ////}
+
+        public void OnSettingsUpdated(int timerId)
         {
-            var handler = this.SettingsChanged;
+            var handler = this.SettingsUpdated;
             if (handler != null)
             {
-                handler.Invoke(this, new SettingsChangedEventArgs(settings));
+                handler.Invoke(this, new SettingsUpdatedEventArgs(timerId));
             }
         }
 

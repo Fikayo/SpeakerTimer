@@ -5,28 +5,28 @@
     using System.Windows.Forms;
     using SpeakerTimer.Application;
 
-    public partial class SavedTimersTSDDButton : ToolStripDropDownButton
+    public partial class SavedTimersTSDDButton<T> : ToolStripDropDownButton where T : TimerSettings
     {
-        public SavedTimersTSDDButton()
+        public SavedTimersTSDDButton(SettingsManager<T> settingsManager)
         {
             InitializeComponent();
-            
-            this.PresetManager = new PresetManager();
+
+            this.SettingsManager = settingsManager;
         }
 
         #region Events
 
-        public event EventHandler<PresetEventArgs> PresetsLoaded;
+        public event EventHandler<PresetEventArgs<T>> PresetsLoaded;
 
-        public event EventHandler<PresetEventArgs> TimersSettingsOpened;
+        public event EventHandler<PresetEventArgs<T>> TimersSettingsOpened;
 
-        public event EventHandler<PresetEventArgs> TimersSettingsDeleted;
+        public event EventHandler<PresetEventArgs<T>> TimersSettingsDeleted;
 
         #endregion
 
         #region Properties
 
-        internal PresetManager PresetManager { get; private set; }
+        internal SettingsManager<T> SettingsManager { get; private set; }
 
         #endregion
 
@@ -43,10 +43,10 @@
 
         private void LoadSavedTimers()
         {
-            var settings = this.PresetManager.LoadAll();
+            var settings = this.SettingsManager.FetchAll();
             if (settings != null)
             {
-                this.OnPresetsLoaded(settings);
+                this.OnPresetsLoaded(new List<T>(settings));
             }
             else
             {
@@ -58,30 +58,30 @@
 
         #region Event Triggers
 
-        private void OnPresetsLoaded(List<IdNamePair> names)
+        private void OnPresetsLoaded(List<T> names)
         {
             var handler = this.PresetsLoaded;
             if (handler != null)
             {
-                handler.Invoke(this, new PresetEventArgs(names));
+                handler.Invoke(this, new PresetEventArgs<T>(names));
             }
         }
 
-        private void OnTimersSettingsOpened(List<IdNamePair> selections)
+        private void OnTimersSettingsOpened(List<T> selections)
         {
             var handler = this.TimersSettingsOpened;
             if (handler != null)
             {
-                handler.Invoke(this, new PresetEventArgs(selections));
+                handler.Invoke(this, new PresetEventArgs<T>(selections));
             }
         }
 
-        private void OnTimerSettingsDeleted(List<IdNamePair> selections)
+        private void OnTimerSettingsDeleted(List<T> selections)
         {
             var handler = this.TimersSettingsDeleted;
             if (handler != null)
             {
-                handler.Invoke(this, new PresetEventArgs(selections));
+                handler.Invoke(this, new PresetEventArgs<T>(selections));
             }
         }
 
@@ -93,7 +93,7 @@
         {
             using (var form = new TimerSettingsForm())
             {
-                form.TimerSettings = this.PresetManager.SettingsIdNamePairs;
+                form.TimerSettings = new List<T>(this.SettingsManager.FetchAll()) as List<TimerSettings>;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     var selections = form.TimerSettings;
@@ -101,7 +101,7 @@
                     {
                         case TimerSettingsForm.Action.Open:
                             {
-                                this.OnTimersSettingsOpened(selections as List<IdNamePair>);
+                                this.OnTimersSettingsOpened(selections as List<T>);
                                 break;
                             }
 
@@ -110,10 +110,14 @@
                                 var result = MessageBox.Show("Are you sure you want to to delete selected timer settings?", Application.ProductName, MessageBoxButtons.YesNo);
                                 if (result == System.Windows.Forms.DialogResult.Yes)
                                 {
-                                    this.PresetManager.DeleteSettings(selections as List<string>, false);
-                                    this.OnTimerSettingsDeleted(selections as List<IdNamePair>);
+                                    foreach (var timer in selections)
+                                    {
+                                        this.SettingsManager.Delete(timer.Id);
+                                    }
 
-                                    this.PresetManager.SaveAll();
+                                    this.OnTimerSettingsDeleted(selections as List<T>);
+
+                                    this.SettingsManager.SaveAll();
                                 }
 
                                 break;
@@ -131,9 +135,13 @@
             var result = MessageBox.Show("All pre-saved timer settings will be deleted permanently.\r\nProceed?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
-                if (!this.PresetManager.DeleteAll())
+                try
                 {
-                    MessageBox.Show("An error occurred. Could not clear settings.");
+                    this.SettingsManager.DeleteAll();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred. Could not clear settings.\n" + ex);
                     return;
                 }
 

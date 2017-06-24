@@ -72,14 +72,16 @@
     <Compile Include="Application\DurationChangedEventArgs.cs" />
     <Compile Include="Application\ISettingsManager.cs" />
     <Compile Include="Application\ITimerSettings.cs" />
-    <Compile Include="Application\NewSettingsManager.cs" />
+    <Compile Include="Application\SequenceTimerSettings.cs" />
+    <Compile Include="Application\SettingsManager.cs" />
     <Compile Include="Application\PresetEventArgs.cs" />
     <Compile Include="Application\RefreshDisplayEventArgs.cs" />
     <Compile Include="Application\SettingIOEventArgs.cs" />
     <Compile Include="Application\SettingsChangedEventArgs.cs" />
-    <Compile Include="Application\SettingsManager.cs" />
     <Compile Include="Application\TimerDurationSettings.cs" />
     <Compile Include="Application\TimerMessageSettings.cs" />
+    <Compile Include="Application\TimerSettings.cs" />
+    <Compile Include="Application\SettingsUpdatedEventArgs.cs" />
     <Compile Include="Application\TimerVisualSettings.cs" />
     <Compile Include="Data\DbColumn.cs" />
     <Compile Include="Data\IModel.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="Data\DataModel.cs" />
     <Compile Include="Data\Settings\DurationSettingsModel.cs" />
     <Compile Include="Data\ISettingsModel.cs" />
+    <Compile Include="Data\Settings\SequenceTimerModel.cs" />
     <Compile Include="Data\Settings\TimerDurationModel.cs" />
     <Compile Include="Data\Settings\SimpleTimerModel.cs" />
     <Compile Include="Data\Settings\TimerSettingsModel.cs" />
@@ -108,19 +111,12 @@
     <Compile Include="Presentation\Controls\DisplayToolStripItem.Designer.cs">
       <DependentUpon>DisplayToolStripItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Forms\OldControlPanel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Presentation\Forms\OldControlPanel.Designer.cs">
-      <DependentUpon>OldControlPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Presentation\Forms\ControlPanel.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Presentation\Forms\ControlPanel.Designer.cs">
       <DependentUpon>ControlPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\OldTimerView.cs" />
     <Compile Include="Application\PresetManager.cs" />
     <Compile Include="Presentation\Forms\PresentationTimerForm.cs">
       <SubType>Form</SubType>
@@ -182,11 +178,11 @@
     <Compile Include="Presentation\Forms\TimerSettingsForm.Designer.cs">
       <DependentUpon>TimerSettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Controls\TimerView.cs">
+    <Compile Include="Presentation\Controls\SimpleTimerView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Presentation\Controls\TimerView.Designer.cs">
-      <DependentUpon>TimerView.cs</DependentUpon>
+    <Compile Include="Presentation\Controls\SimpleTimerView.Designer.cs">
+      <DependentUpon>SimpleTimerView.cs</DependentUpon>
     </Compile>
     <Compile Include="Application\SimpleTimerSettings.cs" />
     <Compile Include="Application\TimerViewerCommand.cs" />
@@ -202,9 +198,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation\Controls\DisplayToolStripItem.resx">
       <DependentUpon>DisplayToolStripItem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\Forms\OldControlPanel.resx">
-      <DependentUpon>OldControlPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation\Forms\ControlPanel.resx">
       <DependentUpon>ControlPanel.cs</DependentUpon>
@@ -235,8 +228,8 @@
     <EmbeddedResource Include="Presentation\Forms\TimerSettingsForm.resx">
       <DependentUpon>TimerSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\Controls\TimerView.resx">
-      <DependentUpon>TimerView.cs</DependentUpon>
+    <EmbeddedResource Include="Presentation\Controls\SimpleTimerView.resx">
+      <DependentUpon>SimpleTimerView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

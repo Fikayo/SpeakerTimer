@@ -79,7 +79,7 @@
             this.rdbLive = new System.Windows.Forms.RadioButton();
             this.pcbLiveIndicator = new System.Windows.Forms.PictureBox();
             this.chbBlink = new System.Windows.Forms.CheckBox();
-            this.timerView = new SpeakerTimer.Presentation.TimerView();
+            this.timerView = new SpeakerTimer.Presentation.SimpleTimerView();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.grbPreviewBox = new System.Windows.Forms.GroupBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
@@ -930,7 +930,7 @@
         private System.Windows.Forms.Label lblFinalMessage;
         private System.Windows.Forms.TableLayoutPanel tlpGoLiveLayout;
         private System.Windows.Forms.RadioButton rdbLive;
-        private TimerView timerView;
+        private SimpleTimerView timerView;
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.GroupBox grbPreviewBox;
         private System.Windows.Forms.PictureBox pcbLiveIndicator;

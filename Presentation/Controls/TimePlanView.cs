@@ -60,7 +60,7 @@
 
         public override double CurrentTime { get { return this.tmvCurrentTimer.CurrentTime; } }
 
-        public override SimpleTimerSettings Settings { get { return this.tmvCurrentTimer.Settings; } }
+        public new SimpleTimerSettings Settings { get { return this.tmvCurrentTimer.Settings; } }
 
         #endregion
 
@@ -70,13 +70,15 @@
         {
             this.TimePlan.Advance();
 
-            this.timePlanCommandIssuer.CurrentTimerCommandIssuer.OnSettingsChanged(this.TimePlan.CurrentTimer);
+            this.timePlanCommandIssuer.CurrentTimerCommandIssuer.OnSettingsUpdated(this.TimePlan.CurrentTimer.Id);
+            ////this.timePlanCommandIssuer.CurrentTimerCommandIssuer.OnSettingsChanged(this.TimePlan.CurrentTimer);
             this.timePlanCommandIssuer.CurrentTimerCommandIssuer.OnRefreshTimerDisplay();
 
             var nextTimerSettings = this.TimePlan.NextTimer;
             if (nextTimerSettings != null)
             {
-                this.timePlanCommandIssuer.NextTimerCommandIssuer.OnSettingsChanged(nextTimerSettings);
+                this.timePlanCommandIssuer.NextTimerCommandIssuer.OnSettingsUpdated(nextTimerSettings.Id);
+                ////this.timePlanCommandIssuer.NextTimerCommandIssuer.OnSettingsChanged(nextTimerSettings);
                 this.timePlanCommandIssuer.NextTimerCommandIssuer.OnRefreshTimerDisplay();
             }
 
@@ -136,7 +138,8 @@
                 this.timePlanCommandIssuer.ResetCommand += TimePlanCommandIssuer_ResetCommand;
                 this.timePlanCommandIssuer.ClearCommand += TimePlanCommandIssuer_ClearCommand;
                 this.timePlanCommandIssuer.TimerAdded += TimePlanCommandIssuer_TimerAdded;
-                this.timePlanCommandIssuer.SettingsChanged += TimePlanCommandIssuer_SettingsChanged;
+                ////this.timePlanCommandIssuer.SettingsChanged += TimePlanCommandIssuer_SettingsChanged;
+                this.timePlanCommandIssuer.SettingsUpdated += TimePlanCommandIssuer_SettingsUpdated;
             }
         }
 
@@ -152,7 +155,8 @@
                 this.timePlanCommandIssuer.ResetCommand -= TimePlanCommandIssuer_ResetCommand;
                 this.timePlanCommandIssuer.ClearCommand -= TimePlanCommandIssuer_ClearCommand;
                 this.timePlanCommandIssuer.TimerAdded -= TimePlanCommandIssuer_TimerAdded;
-                this.timePlanCommandIssuer.SettingsChanged -= TimePlanCommandIssuer_SettingsChanged;
+                ////this.timePlanCommandIssuer.SettingsChanged -= TimePlanCommandIssuer_SettingsChanged;
+                this.timePlanCommandIssuer.SettingsUpdated -= TimePlanCommandIssuer_SettingsUpdated;
             }
         }
 
@@ -164,14 +168,16 @@
                 this.timePlanCommandIssuer.NextTimerCommandIssuer.IssuePauseCommand();
                 var ongoingTime = this.tmvNextTimer.CurrentTime;
 
-                this.timePlanCommandIssuer.CurrentTimerCommandIssuer.OnSettingsChanged(this.TimePlan.CurrentTimer);
+                this.timePlanCommandIssuer.CurrentTimerCommandIssuer.OnSettingsUpdated(this.TimePlan.CurrentTimer.Id);
+                ////this.timePlanCommandIssuer.CurrentTimerCommandIssuer.OnSettingsChanged(this.TimePlan.CurrentTimer);
                 this.timePlanCommandIssuer.CurrentTimerCommandIssuer.OnRefreshTimerDisplay(ongoingTime);
                 this.timePlanCommandIssuer.CurrentTimerCommandIssuer.IssueStartCommand(ongoingTime);
 
                 var nextTimer = this.TimePlan.NextTimer;
                 if (nextTimer != null)
                 {
-                    this.timePlanCommandIssuer.NextTimerCommandIssuer.OnSettingsChanged(nextTimer);
+                    this.timePlanCommandIssuer.NextTimerCommandIssuer.OnSettingsUpdated(nextTimer.Id);
+                    ////this.timePlanCommandIssuer.NextTimerCommandIssuer.OnSettingsChanged(nextTimer);
                     this.timePlanCommandIssuer.NextTimerCommandIssuer.OnRefreshTimerDisplay(nextTimer.TimerDuration.Duration);
                 }
 
@@ -233,10 +239,16 @@
             this.TimePlan.AddTimer(e.Settings);
         }
 
-        private void TimePlanCommandIssuer_SettingsChanged(object sender, SettingsChangedEventArgs e)
+        //private void TimePlanCommandIssuer_SettingsChanged(object sender, SettingsChangedEventArgs e)
+        //{
+        //    //this.timePlanCommandIssuer.CurrentTimerCommandIssuer.OnSettingsChanged(e.Settings);
+        //    //this.timePlanCommandIssuer.NextTimerCommandIssuer.OnSettingsChanged(e.Settings);
+        //}
+
+        private void TimePlanCommandIssuer_SettingsUpdated(object sender, SettingsUpdatedEventArgs e)
         {
-            this.timePlanCommandIssuer.CurrentTimerCommandIssuer.OnSettingsChanged(e.Settings);
-            this.timePlanCommandIssuer.NextTimerCommandIssuer.OnSettingsChanged(e.Settings);
+            this.timePlanCommandIssuer.CurrentTimerCommandIssuer.OnSettingsUpdated(e.TimerId);
+            this.timePlanCommandIssuer.NextTimerCommandIssuer.OnSettingsUpdated(e.TimerId);
         }
 
         #endregion

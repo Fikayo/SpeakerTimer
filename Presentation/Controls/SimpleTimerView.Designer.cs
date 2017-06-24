@@ -1,6 +1,6 @@
 ﻿namespace SpeakerTimer.Presentation
 {
-    partial class TimerView
+    partial class SimpleTimerView
     {
         /// <summary> 
         /// Required designer variable.
@@ -114,12 +114,12 @@
             this.lblMiniTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblMiniTimer.Visible = false;
             // 
-            // TimerView
+            // SimpleTimerView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tlpOuterLayout);
-            this.Name = "TimerView";
+            this.Name = "SimpleTimerView";
             this.Size = new System.Drawing.Size(350, 171);
             this.Leave += new System.EventHandler(this.TimerView_Leave);
             this.tlpOuterLayout.ResumeLayout(false);

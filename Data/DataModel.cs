@@ -59,7 +59,6 @@
             }
             catch(Exception ex)
             {
-                int a = 10;
                 throw ex;
             }
         }

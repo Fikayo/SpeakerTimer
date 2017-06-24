@@ -3,13 +3,13 @@
 	using System;
 	using System.Collections.Generic;
 
-    public class PresetEventArgs : EventArgs
+    public class PresetEventArgs<T> : EventArgs where T : TimerSettings
     {
-        public PresetEventArgs(List<IdNamePair> pairs)
+        public PresetEventArgs(List<T> pairs)
         {
             this.Pairs = pairs;
         }
 
-        public List<IdNamePair> Pairs { get; private set; }
+        public List<T> Pairs { get; private set; }
     }
 }

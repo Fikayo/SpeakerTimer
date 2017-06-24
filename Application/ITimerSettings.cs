@@ -5,12 +5,10 @@ using System.Text;
 
 namespace SpeakerTimer.Application
 {
-    public interface ITimerSettings
+    public interface ITimerSettings : ICloneable
     {
         int Id { get; }
 
         string Name { get; set; }
-
-        ITimerSettings Clone();
     }
 }

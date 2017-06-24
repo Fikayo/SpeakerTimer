@@ -8,7 +8,8 @@
     {
         public TimePlanForm()
         {
-            InitializeComponent();
+            InitializeComponent(SettingsManager<SequenceTimerSettings>.SequenceSettingsManager);
+
             this.Text = Util.GetFormName("Time Plan");
 
             this.timePlanControl.IsLive = false;
@@ -45,12 +46,12 @@
             this.UnHookPresentFormEvents();
         }
         
-        private void savedTimersTSDDButton_TimersSettingsOpened(object sender, PresetEventArgs e)
+        private void savedTimersTSDDButton_TimersSettingsOpened(object sender, PresetEventArgs<SequenceTimerSettings> e)
         {
-            if(e != null && e.Pairs != null)
-            {
-                this.timePlanControl.OpenTimerSettings(e.Pairs);
-            }
+            ////if (e != null && e.Pairs != null)
+            ////{
+            ////    this.timePlanControl.OpenTimerSettings(e.Pairs);
+            ////}
         }
 
         private void timePlanControl_LiveStateChanged(object sender, EventArgs e)

@@ -27,6 +27,6 @@
 
         public virtual double CurrentTime { get; protected set; }
 
-        public virtual SimpleTimerSettings Settings { get; protected set; }
+        public virtual TimerSettings Settings { get; protected set; }
     }
 }

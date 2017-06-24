@@ -220,7 +220,10 @@
 
         private void OnSettingsChanged()
         {
-            this.CommandIssuer.OnSettingsChanged(this.Settings);
+            SettingsManager<SimpleTimerSettings>.SimpleSettingsManager.AddOrUpdate(this.Settings);
+
+            this.CommandIssuer.OnSettingsUpdated(this.Settings.Id);
+            ////this.CommandIssuer.OnSettingsChanged(this.Settings);
             this.grbPreviewBox.Text = this.settings.Name;
             this.btnSave.BackgroundImage = ControlPanel.SaveAsterisk;
         }

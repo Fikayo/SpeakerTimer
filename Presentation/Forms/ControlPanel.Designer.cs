@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        private void InitializeComponent(SpeakerTimer.Application.SettingsManager<SpeakerTimer.Application.SimpleTimerSettings> settingsManager)
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlPanel));
@@ -35,7 +35,7 @@
             this.timerPreview1 = new SpeakerTimer.Presentation.TimerPreview();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.displayToolStripItem = new SpeakerTimer.Presentation.DisplayToolStripItem();
-            this.savedTimersToolStripItem = new SpeakerTimer.Presentation.SavedTimersTSDDButton();
+            this.savedTimersToolStripItem = new SpeakerTimer.Presentation.SavedTimersTSDDButton<Application.SimpleTimerSettings>(settingsManager);
             this.tsbCreateSequence = new System.Windows.Forms.ToolStripButton();
             this.tsdHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsiAbout = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,9 +131,9 @@
             this.savedTimersToolStripItem.Name = "savedTimersToolStripItem";
             this.savedTimersToolStripItem.Size = new System.Drawing.Size(56, 22);
             this.savedTimersToolStripItem.Text = "Timers";
-            this.savedTimersToolStripItem.PresetsLoaded += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs>(this.savedTimersToolStripItem_PresetsLoaded);
-            this.savedTimersToolStripItem.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs>(this.savedTimersToolStripItem_TimersSettingsOpened);
-            this.savedTimersToolStripItem.TimersSettingsDeleted += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs>(this.savedTimersToolStripItem_TimersSettingsDeleted);
+            this.savedTimersToolStripItem.PresetsLoaded += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs<Application.SimpleTimerSettings>>(this.savedTimersToolStripItem_PresetsLoaded);
+            this.savedTimersToolStripItem.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs<Application.SimpleTimerSettings>>(this.savedTimersToolStripItem_TimersSettingsOpened);
+            this.savedTimersToolStripItem.TimersSettingsDeleted += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs<Application.SimpleTimerSettings>>(this.savedTimersToolStripItem_TimersSettingsDeleted);
             // 
             // tsbCreateSequence
             // 
@@ -242,7 +242,7 @@
         private System.Windows.Forms.ToolStrip toolStrip;
         private Presentation.DisplayToolStripItem displayToolStripItem;
         private System.Windows.Forms.ToolStripButton tsbCreateSequence;
-        private Presentation.SavedTimersTSDDButton savedTimersToolStripItem;
+        private Presentation.SavedTimersTSDDButton<Application.SimpleTimerSettings> savedTimersToolStripItem;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripDropDownButton tsdHelp;

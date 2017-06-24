@@ -90,7 +90,8 @@
                 if (this.IsMainDisplayVisible)
                 {
                     this.LivePreviewForm.CommandIssuer = this.PresentForm.CommandIssuer;
-                    this.LivePreviewForm.CommandIssuer.OnSettingsChanged(this.PresentForm.TimeViewControl.Settings);
+                    this.LivePreviewForm.CommandIssuer.OnSettingsUpdated(this.PresentForm.TimeViewControl.Settings.Id);
+                    ////this.LivePreviewForm.CommandIssuer.OnSettingsChanged(this.PresentForm.TimeViewControl.Settings);
                     if (!wasRunning)
                     {
                         // Stop any previously running timer on the live screen

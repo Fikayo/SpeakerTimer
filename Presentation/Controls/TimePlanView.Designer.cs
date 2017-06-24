@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.tmvCurrentTimer = new SpeakerTimer.Presentation.TimerView();
-            this.tmvNextTimer = new SpeakerTimer.Presentation.TimerView();
+            this.tmvCurrentTimer = new SpeakerTimer.Presentation.SimpleTimerView();
+            this.tmvNextTimer = new SpeakerTimer.Presentation.SimpleTimerView();
             this.tlpOuterLayout.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,8 +100,8 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tlpOuterLayout;
-        private TimerView tmvCurrentTimer;
-        private TimerView tmvNextTimer;
+        private SimpleTimerView tmvCurrentTimer;
+        private SimpleTimerView tmvNextTimer;
 
     }
 }

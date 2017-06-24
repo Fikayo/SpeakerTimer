@@ -7,26 +7,26 @@
 
     public partial class TimerSettingsForm : Form
     {
-        private List<IdNamePair> selectedSettings;
+        private List<TimerSettings> selectedSettings;
 
         public TimerSettingsForm()
         {
             InitializeComponent();
             this.Text = Util.GetFormName("Timer Settings");
 
-            this.selectedSettings = new List<IdNamePair>();
+            this.selectedSettings = new List<TimerSettings>();
         }
 
         public Action SelectedAction { get; private set; }
 
-        public IList<IdNamePair> TimerSettings
+        public IList<TimerSettings> TimerSettings
         {
             get { return this.selectedSettings; }
 
             set
             {
                 this.clbTimerSettings.Items.Clear();
-                IdNamePair[] array = new IdNamePair[value.Count];
+                var array = new TimerSettings[value.Count];
                 value.CopyTo(array, 0);
                 this.clbTimerSettings.Items.AddRange(array);
             }
@@ -44,7 +44,7 @@
             {
                 foreach (var selection in this.clbTimerSettings.CheckedItems)
                 {
-                    this.selectedSettings.Add(selection as IdNamePair);
+                    this.selectedSettings.Add(selection as TimerSettings);
                 }
 
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;

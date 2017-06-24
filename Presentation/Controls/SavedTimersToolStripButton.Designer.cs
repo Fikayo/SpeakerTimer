@@ -1,6 +1,6 @@
 ﻿namespace SpeakerTimer.Presentation
 {
-    partial class SavedTimersTSDDButton
+    partial class SavedTimersTSDDButton<T>
     {
         /// <summary> 
         /// Required designer variable.

@@ -5,7 +5,7 @@
     using System.Windows.Forms;
     using SpeakerTimer.Application;
 
-    public partial class TimerView : TimeViewControl
+    public partial class SimpleTimerView : TimeViewControl
     {
         private const int PreviewFontSize = 30;
         private const int PreviewLabelSize = 10;
@@ -18,7 +18,7 @@
         private TimeInputBox tibInput;
         private TimerViewerCommandIssuer commandIssuer;
 
-        public TimerView()
+        public SimpleTimerView()
         {
             InitializeComponent();
 
@@ -43,7 +43,7 @@
             this.SizeChanged += (_, __) => this.lblTimer.MaximumSize = new Size(this.Width, 0);
         }
 
-        public TimerView(TimerViewerCommandIssuer commandIssuer)
+        public SimpleTimerView(TimerViewerCommandIssuer commandIssuer)
             : this()
         {
             this.CommandIssuer = commandIssuer;
@@ -80,6 +80,8 @@
                 this.HookCommandIssuerEventHandlers();
             }
         }
+
+        public new SimpleTimerSettings Settings { get; protected set; }
 
         public Font TimerFont
         {
@@ -247,7 +249,7 @@
             
             if (this.IsPreviewMode)
             {
-                this.TimerFont = new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize);
+                this.TimerFont = new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, SimpleTimerView.PreviewFontSize);
             }
             else
             {
@@ -276,7 +278,8 @@
                 this.commandIssuer.RefreshTimerDisplay += CommandIssuer_RefreshTimerDisplay;
                 this.commandIssuer.TimerMessageChanged += CommandIssuer_TimerMessageChanged;
                 this.commandIssuer.TimerMessageCancelled += CommandIssuer_TimerMessageCancelled;
-                this.commandIssuer.SettingsChanged += CommandIssuer_SettingsChanged;
+                ////this.commandIssuer.SettingsChanged += CommandIssuer_SettingsChanged;
+                this.commandIssuer.SettingsUpdated += CommandIssuer_SettingsUpdated;
             }
         }
 
@@ -291,7 +294,8 @@
                 this.commandIssuer.RefreshTimerDisplay -= CommandIssuer_RefreshTimerDisplay;
                 this.commandIssuer.TimerMessageChanged -= CommandIssuer_TimerMessageChanged;
                 this.commandIssuer.TimerMessageCancelled -= CommandIssuer_TimerMessageCancelled;
-                this.commandIssuer.SettingsChanged -= CommandIssuer_SettingsChanged;
+                ////this.commandIssuer.SettingsChanged -= CommandIssuer_SettingsChanged;
+                this.commandIssuer.SettingsUpdated -= CommandIssuer_SettingsUpdated;
             }
         }
 
@@ -308,22 +312,22 @@
             this.tibInput.TimeChanged += this.txtInput_TimeChanged;
         }
 
-        private void ApplySettings(SimpleTimerSettings Settings)
+        private void ApplySettings(SimpleTimerSettings settings)
         {
-            this.TimerFont = this.IsPreviewMode ? new Font(Settings.VisualSettings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : Settings.VisualSettings.TimerFont;
-            int labelSize = this.IsPreviewMode ? TimerView.PreviewLabelSize : (int)Math.Max(Settings.VisualSettings.TimerFont.Size / 3, 10);
-            this.lblTimerTitle.Font = new Font(Settings.VisualSettings.TimerFont.FontFamily.Name, labelSize);
+            this.TimerFont = this.IsPreviewMode ? new Font(settings.VisualSettings.TimerFont.FontFamily.Name, SimpleTimerView.PreviewFontSize) : settings.VisualSettings.TimerFont;
+            int labelSize = this.IsPreviewMode ? SimpleTimerView.PreviewLabelSize : (int)Math.Max(settings.VisualSettings.TimerFont.Size / 3, 10);
+            this.lblTimerTitle.Font = new Font(settings.VisualSettings.TimerFont.FontFamily.Name, labelSize);
 
             // Keep the mini timer the same size as the title
-            this.lblMiniTimer.Font = new Font(Settings.VisualSettings.TimerFont.FontFamily.Name, labelSize);
+            this.lblMiniTimer.Font = new Font(settings.VisualSettings.TimerFont.FontFamily.Name, labelSize);
 
-            this.BackgroundColor = Settings.VisualSettings.BackgroundColor;
-            this.TimerColor = Settings.VisualSettings.RunningColor;
+            this.BackgroundColor = settings.VisualSettings.BackgroundColor;
+            this.TimerColor = settings.VisualSettings.RunningColor;
 
-            this.Settings = Settings.Clone() as SimpleTimerSettings;
+            this.Settings = settings;
             this.Settings.VisualSettings.SecondWarningColor = this.Settings.VisualSettings.MessageColor;
 
-            if ((Settings.BlinkOnExpired && this.Settings.TimerDuration.Duration >= 0) || (!Settings.BlinkOnExpired && this.blinkManager.IsBlinking))
+            if ((settings.BlinkOnExpired && this.Settings.TimerDuration.Duration >= 0) || (!settings.BlinkOnExpired && this.blinkManager.IsBlinking))
             {
                 this.blinkManager.StopBlinking();
             }
@@ -355,7 +359,7 @@
             this.RefreshTimerDisplay(true);
             this.lblMiniTimer.Visible = false;
             this.ShowLabel = true;
-            this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : this.Settings.VisualSettings.TimerFont;
+            this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, SimpleTimerView.PreviewFontSize) : this.Settings.VisualSettings.TimerFont;
 
             this.OnMessageFinished();
         }
@@ -712,6 +716,12 @@
         private void CommandIssuer_SettingsChanged(object sender, SettingsChangedEventArgs e)
         {
             this.ApplySettings(e.Settings);
+        }
+
+        private void CommandIssuer_SettingsUpdated(object sender, SettingsUpdatedEventArgs e)
+        {
+            var timerSettings = SettingsManager<SimpleTimerSettings>.SimpleSettingsManager.Fetch(e.TimerId);
+            this.ApplySettings(timerSettings);
         }
 
         private void Timer_Tick(object sender, EventArgs e)

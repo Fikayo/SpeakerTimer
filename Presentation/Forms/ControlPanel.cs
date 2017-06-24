@@ -558,7 +558,7 @@
 
         public ControlPanel()
         {
-            InitializeComponent();
+            InitializeComponent(SettingsManager<SimpleTimerSettings>.SimpleSettingsManager);
 
             this.Text = Util.GetFormName("Control Panel");
             this.tsiAbout.Text = "About " + MainApplication.ProductName;
@@ -584,7 +584,7 @@
 
         private TimeViewControl CreateTimerView()
         {
-            TimerView timerView = new SpeakerTimer.Presentation.TimerView();
+            SimpleTimerView timerView = new SimpleTimerView();
             timerView.BlinkInterval = 3000;
             timerView.ShowLabel = true;
             timerView.TimerColor = System.Drawing.SystemColors.ControlText;
@@ -622,7 +622,7 @@
 
         private void ControlPanel_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.savedTimersToolStripItem.PresetManager.SaveAll();
+            this.savedTimersToolStripItem.SettingsManager.SaveAll();
         }
 
         private void notifyIcon_Click(object sender, EventArgs e)
@@ -637,6 +637,11 @@
             this.BringToFront();
         }
 
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("double clicked");
+        }
+
         #region ToolStrip Menu Items Event Handlers
 
         private void displayToolStripItem_PresentFormEventsRequired(object sender, EventArgs e)
@@ -649,7 +654,7 @@
             this.HookPresentFormEvents();
         }
 
-        private void savedTimersToolStripItem_PresetsLoaded(object sender, PresetEventArgs e)
+        private void savedTimersToolStripItem_PresetsLoaded(object sender, PresetEventArgs<SimpleTimerSettings> e)
         {
             if (e != null)
             {
@@ -660,7 +665,7 @@
             }
         }
 
-        private void savedTimersToolStripItem_TimersSettingsDeleted(object sender, PresetEventArgs e)
+        private void savedTimersToolStripItem_TimersSettingsDeleted(object sender, PresetEventArgs<SimpleTimerSettings> e)
         {
             if (e.Pairs == null)
             {
@@ -674,17 +679,17 @@
             }
         }
 
-        private void savedTimersToolStripItem_TimersSettingsOpened(object sender, PresetEventArgs e)
+        private void savedTimersToolStripItem_TimersSettingsOpened(object sender, PresetEventArgs<SimpleTimerSettings> e)
         {
             if (e.Pairs.Count > 2)
             {
                 MessageBox.Show("You may only open 2 settings at a time. Only the first two will be opened");
             }
 
-            this.timerPreview1.Settings = this.savedTimersToolStripItem.PresetManager[e.Pairs[0].Id];
+            this.timerPreview1.Settings = this.savedTimersToolStripItem.SettingsManager.Fetch(e.Pairs[0].Id);
             if (e.Pairs.Count > 1)
             {
-                this.timerPreview2.Settings = this.savedTimersToolStripItem.PresetManager[e.Pairs[1].Id];
+                this.timerPreview2.Settings = this.savedTimersToolStripItem.SettingsManager.Fetch(e.Pairs[1].Id);
             }
         }
 
@@ -746,15 +751,15 @@
             {
                 var id = e.Settings.Id;
                 var name = e.Settings.Name;
-                if (!SimpleTimerSettings.IsUntitled(name))
+                if (!TimerSettings.IsUntitled(name))
                 {
-                    if (this.savedTimersToolStripItem.PresetManager.HasSetting(id))
+                    if (this.savedTimersToolStripItem.SettingsManager.Fetch(id) != null)
                     {
                         // Get the old name for this setting
-                        string oldName = this.savedTimersToolStripItem.PresetManager.LoadSetting(id).Name;
+                        string oldName = this.savedTimersToolStripItem.SettingsManager.Fetch(id).Name;
                         if (oldName != name)
                         {
-                            // Removed the old name from the dropdowsn and add the new name in
+                            // Removed the old name from the dropdown and add the new name in
                             this.ClearPresetFromPreviews(id, oldName);
                             this.AddPresetsToPreviews(id, name);
                         }
@@ -764,11 +769,11 @@
                         this.AddPresetsToPreviews(id, name);
                     }
 
-                    success = this.savedTimersToolStripItem.PresetManager.AddOrUpdateSetting(new KeyValuePair<int, SimpleTimerSettings>(id, e.Settings));
-                    //preview.DisplayName = name;
+                    ////success = this.savedTimersToolStripItem.SettingsManager.AddOrUpdateSetting(new KeyValuePair<int, SimpleTimerSettings>(id, e.Settings));
+                    this.savedTimersToolStripItem.SettingsManager.AddOrUpdate(e.Settings);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 success = false;
             }
@@ -781,7 +786,7 @@
 
         private void timerPreview_LoadRequested(object sender, SettingIOEventArgs e)
         {
-            SimpleTimerSettings setting = this.savedTimersToolStripItem.PresetManager.LoadSetting(e.SettingName);
+            SimpleTimerSettings setting = this.savedTimersToolStripItem.SettingsManager.Fetch(e.Settings.Id);
             if (setting != null)
             {
                 var timerPreview = sender as TimerPreview;
@@ -886,11 +891,6 @@
 
         #endregion
 
-        #endregion
-
-        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            MessageBox.Show("double clicked");
-        }
+        #endregion}
     }
 }

@@ -2,16 +2,11 @@
 {
     using System.Drawing;
 
-    public class SimpleTimerSettings : ITimerSettings
+    public class SimpleTimerSettings : TimerSettings
     {
-        private static readonly string DefaultName = "Un-named";
-
-        private string name;
-        private static int count = 0;
-
         public SimpleTimerSettings(int id, string name, string finalmessage, bool blinkOnExpired, TimerDurationSettings durationSettings, TimerVisualSettings visualSettings)
+            : base(id)
         {
-            this.Id = id;
             this.name = name;
             this.FinalMessage = finalmessage;
             this.BlinkOnExpired = blinkOnExpired;
@@ -23,42 +18,10 @@
             this(id, copy.name, copy.FinalMessage, copy.BlinkOnExpired, copy.TimerDuration, copy.VisualSettings)
         { }
 
-        private SimpleTimerSettings(bool isDefault = false)
+        private SimpleTimerSettings(int id) : base(id)
         {
             this.SetDefaultSettings();
-            if (isDefault)
-            {
-                this.Id = SimpleTimerSettings.count++;
-            }
         }
-
-        public int Id { get; private set; }
-
-        public string Name
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(this.name))
-                {
-                    return SimpleTimerSettings.DefaultName + SimpleTimerSettings.count;
-                }
-
-                return this.name;
-            }
-
-            set
-            {
-                this.name = value;
-                if (!string.IsNullOrEmpty(this.name))
-                {
-                    SimpleTimerSettings.count--;
-                }
-            }
-        }
-
-        public string FinalMessage { get; set; }
-
-        public bool BlinkOnExpired { get; set; }
 
         public TimerVisualSettings VisualSettings { get; set; }
 
@@ -70,12 +33,7 @@
 
         public static SimpleTimerSettings Default
         {
-            get { return new SimpleTimerSettings(true); }
-        }
-
-        private static SimpleTimerSettings Empty
-        {
-            get { return new SimpleTimerSettings(); }
+            get { return new SimpleTimerSettings(-1); }
         }
 
         #endregion
@@ -101,7 +59,7 @@
                 this.VisualSettings.ToCsv());
         }
 
-        public ITimerSettings Clone()
+        public override object Clone()
         {
             return new SimpleTimerSettings(this.Id, this);
         }
@@ -136,29 +94,16 @@
             this.BlinkOnExpired = false;
         }
 
-        public static bool IsUntitled(string name)
-        {
-            if (name.StartsWith(SimpleTimerSettings.DefaultName))
-            {
-                string remnant = name.Replace(SimpleTimerSettings.DefaultName, string.Empty);
-                int value;
-                return int.TryParse(remnant, out value);
-            }
-
-            return false;
-        }
-
         public static SimpleTimerSettings ParseCsv(string csv)
         {
-            SimpleTimerSettings settings = SimpleTimerSettings.Empty;
-
             try
             {
                 var values = csv.Split(new char[] { ',' });
-                int id = SimpleTimerSettings.count;
+                int id = -1;
                 int.TryParse(values[0], out id);
 
-                settings.Id = id;
+                SimpleTimerSettings settings = new SimpleTimerSettings(id);
+
                 settings.Name = values[1];
 
                 ////settings.TimerDuration.Title = values[2];
@@ -177,7 +122,7 @@
             }
             catch
             {
-                return settings;
+                return SimpleTimerSettings.Default;
             }
         }
     }

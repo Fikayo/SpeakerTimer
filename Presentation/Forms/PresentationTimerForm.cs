@@ -9,7 +9,7 @@
         public const FormBorderStyle BorderStyle = FormBorderStyle.FixedSingle;
 
         public PresentationTimerForm() :
-            this(new TimerView())
+            this(new SimpleTimerView())
         {
         }
 
