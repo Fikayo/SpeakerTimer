@@ -35,9 +35,9 @@
         {
             StringBuilder tableColumns = new StringBuilder();
             tableColumns.AppendFormat("{0} PRIMARY KEY AUTOINCREMENT, ", IdCol);
-            tableColumns.AppendFormat("{0} DEFAULT 'Un-named', ", NameCol);
-            tableColumns.AppendFormat("{0} DEFAULT 0, ", MessageCol);
-            tableColumns.AppendFormat("{0} DEFAULT 1", BlinkCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 'Un-named', ", NameCol);
+            tableColumns.AppendFormat("{0} DEFAULT 'Time Up', ", MessageCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 1", BlinkCol);
 
             base.CreateTable(tableColumns.ToString());
         }
@@ -46,28 +46,35 @@
         {
             var parameters = new List<SQLiteParameter>
             {
-                    new SQLiteParameter() { ParameterName = "Name", Value = simpleTimer.Name},
-                    new SQLiteParameter() { ParameterName = "Message", Value = simpleTimer.FinalMessage},
-                    new SQLiteParameter() { ParameterName = "Blink", Value = simpleTimer.BlinkOnExpired},
+                new SQLiteParameter() { ParameterName = NameCol.ParameterName , Value = simpleTimer.Name},
+                new SQLiteParameter() { ParameterName = MessageCol.ParameterName , Value = simpleTimer.FinalMessage},
+                new SQLiteParameter() { ParameterName = BlinkCol.ParameterName , Value = simpleTimer.BlinkOnExpired},
             };
 
             if (simpleTimer.Id < 0)
             {
-                var sql = "INSERT INTO [" + TableName + "]";
-                var newId = this.Insert(sql, parameters.ToArray());
+                var sql = "INSERT INTO [" + TableName + "](" +
+                    "[" + NameCol.Name + "], " +
+                    "[" + MessageCol.Name + "], " +
+                    "[" + BlinkCol.Name + "]" +
+                    ") VALUES (" +
+                    "@" + NameCol.ParameterName + ", " +
+                    "@" + MessageCol.ParameterName + ", " +
+                    "@" + BlinkCol.ParameterName + ");";
+
+                int newId = (int)this.Insert(sql, parameters.ToArray());
                 return new SimpleTimerSettings(newId, simpleTimer);
             }
 
             var update = "UPDATE [" + TableName + "] SET " +
-                "[" + NameCol + "] = @Name," +
-                "[" + MessageCol + "] = @Message," +
-                "[" + BlinkCol + "] = @Blink," +
-                "WHERE [" + IdCol + "] = @Id";
+                "[" + NameCol.Name + "] = @" + NameCol.ParameterName + "," +
+                "[" + MessageCol.Name + "] = @" + MessageCol.ParameterName + "," +
+                "[" + BlinkCol.Name + "] = @" + BlinkCol.ParameterName + "," +
+                "WHERE [" + IdCol.Name + "] = @Id;";
 
             parameters.Add(new SQLiteParameter("Id", simpleTimer.Id));
             this.ExecuteNonQuery(update, parameters.ToArray());
             return simpleTimer;
         }
-
     }
 }

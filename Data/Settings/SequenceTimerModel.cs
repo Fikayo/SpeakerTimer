@@ -37,7 +37,7 @@
             throw new NotImplementedException();
         }
 
-        public void Save(SequenceTimerSettings timer)
+        public SequenceTimerSettings Save(SequenceTimerSettings timer)
         {
             throw new NotImplementedException();
         }

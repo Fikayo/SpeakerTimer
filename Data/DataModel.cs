@@ -28,13 +28,14 @@
             if (this.connection == null)
             {
                 this.connection = new SQLiteConnection(DataModel.connectionString);
-                this.ExecuteNonQuery("PRAGMA foreign_keys = ON");
             }
 
             if (!this.isOpen)
             {
                 this.connection.Open();
                 this.isOpen = true;
+
+                this.ExecuteNonQuery("PRAGMA foreign_keys = ON");
             }
         }
 
@@ -129,13 +130,13 @@
             return this.Query(sql);
         }
         
-        protected int Insert(string nonQuery, params SQLiteParameter[] parameters)
+        protected long Insert(string nonQuery, params SQLiteParameter[] parameters)
         {
             this.ExecuteNonQuery(nonQuery, parameters);
             var reader = this.Query("SELECT last_insert_rowid();");
 
             reader.Read();
-            return int.Parse((string)reader[0]);
+            return reader.GetInt64(0);
         }
     }
 }

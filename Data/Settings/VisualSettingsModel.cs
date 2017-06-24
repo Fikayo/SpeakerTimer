@@ -1,5 +1,6 @@
 ﻿namespace SpeakerTimer.Data.Settings
 {
+    using System;
     using System.Text;
     using System.Collections.Generic;
     using System.Data.SQLite;
@@ -8,7 +9,7 @@
 
     public class VisualSettingsModel : DataModel
     {
-        public static readonly DbColumn IdCol = new DbColumn("Id", "INTEGER");
+        public static readonly DbColumn IdCol = new DbColumn("Id", "INTEGER", "VisualId");
         public static readonly DbColumn TimerFontFamilyCol = new DbColumn("TimerFontFamily", "VARCHAR(255)");
         public static readonly DbColumn TimerFontSizeCol = new DbColumn("TimerFontSize", "REAL");
         public static readonly DbColumn CounterModeCol = new DbColumn("CounterMode", "VARCHAR(50)");
@@ -22,7 +23,7 @@
         public static readonly DbColumn ExpiredColorCol = new DbColumn("ExpiredColor", "VARCHAR(50)");
         public static readonly DbColumn BackgroundColorCol = new DbColumn("BackgroundColor", "VARCHAR(50)");
         public static readonly DbColumn MessageColorCol = new DbColumn("MessageColor", "VARCHAR(50)");
-               
+
         public const string TableName = "Visual Settings";
 
         private static readonly VisualSettingsModel instance = null;
@@ -45,86 +46,114 @@
         {
             StringBuilder tableColumns = new StringBuilder();
             tableColumns.AppendFormat("{0} PRIMARY KEY AUTOINCREMENT, ", IdCol);
-            tableColumns.AppendFormat("{0} DEFAULT 'Arial', ", TimerFontFamilyCol);
-            tableColumns.AppendFormat("{0} DEFAULT 250, ", TimerFontSizeCol);
-            tableColumns.AppendFormat("{0} DEFAULT 'CountDownToMinus', ", CounterModeCol);
-            tableColumns.AppendFormat("{0} DEFAULT 'FullWidth', ", DisplayModeCol);
-            tableColumns.AppendFormat("{0} DEFAULT 'White', ", TimerColorCol);
-            tableColumns.AppendFormat("{0} DEFAULT 'White', ", RunningColorCol);
-            tableColumns.AppendFormat("{0} DEFAULT 'Cyan', ", PausedColorCol);
-            tableColumns.AppendFormat("{0} DEFAULT 'Yellow', ", WarningColorCol);
-            tableColumns.AppendFormat("{0} DEFAULT 'Orange', ", SecondWarningColorCol);
-            tableColumns.AppendFormat("{0} DEFAULT 'Silver', ", StoppedColorCol);
-            tableColumns.AppendFormat("{0} DEFAULT 'Red', ", ExpiredColorCol);
-            tableColumns.AppendFormat("{0} DEFAULT 'Black', ", BackgroundColorCol);
-            tableColumns.AppendFormat("{0} DEFAULT 'Red'", MessageColorCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 'Arial', ", TimerFontFamilyCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 250, ", TimerFontSizeCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 'CountDownToMinus', ", CounterModeCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 'FullWidth', ", DisplayModeCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 'White', ", TimerColorCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 'White', ", RunningColorCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 'Cyan', ", PausedColorCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 'Yellow', ", WarningColorCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 'Orange', ", SecondWarningColorCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 'Silver', ", StoppedColorCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 'Red', ", ExpiredColorCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 'Black', ", BackgroundColorCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 'Red'", MessageColorCol);
 
             base.CreateTable(tableColumns.ToString());
         }
-        
+
         public TimerVisualSettings Save(TimerVisualSettings timerVisual)
         {
             var parameters = new List<SQLiteParameter>
             {
-                    new SQLiteParameter() { ParameterName = "TimerFontFamily", Value = timerVisual.TimerFont.FontFamily},
-                    new SQLiteParameter() { ParameterName = "TimerFontSize", Value = timerVisual.TimerFont.Size},
-                    new SQLiteParameter() { ParameterName = "CounterMode", Value = timerVisual.CounterMode},
-                    new SQLiteParameter() { ParameterName = "DisplayMode", Value = timerVisual.DisplayMode},
-                    new SQLiteParameter() { ParameterName = "TimerColor", Value = timerVisual.TimerColor},
-                    new SQLiteParameter() { ParameterName = "RunningColor", Value = timerVisual.RunningColor},
-                    new SQLiteParameter() { ParameterName = "PausedColor", Value = timerVisual.PausedColor},
-                    new SQLiteParameter() { ParameterName = "WarningColor", Value = timerVisual.WarningColor},
-                    new SQLiteParameter() { ParameterName = "SecondWarningColor", Value = timerVisual.SecondWarningColor},
-                    new SQLiteParameter() { ParameterName = "StoppedColor", Value = timerVisual.StoppedColor},
-                    new SQLiteParameter() { ParameterName = "ExpiredColor", Value = timerVisual.ExpiredColor},
-                    new SQLiteParameter() { ParameterName = "BackgroundColor", Value = timerVisual.BackgroundColor},
-                    new SQLiteParameter() { ParameterName = "MessageColor", Value = timerVisual.MessageColor},
+                    new SQLiteParameter() { ParameterName = TimerFontFamilyCol.ParameterName , Value = timerVisual.TimerFont.FontFamily},
+                    new SQLiteParameter() { ParameterName = TimerFontSizeCol.ParameterName , Value = timerVisual.TimerFont.Size},
+                    new SQLiteParameter() { ParameterName = CounterModeCol.ParameterName , Value = timerVisual.CounterMode},
+                    new SQLiteParameter() { ParameterName = DisplayModeCol.ParameterName , Value = timerVisual.DisplayMode},
+                    new SQLiteParameter() { ParameterName = TimerColorCol.ParameterName , Value = timerVisual.TimerColor},
+                    new SQLiteParameter() { ParameterName = RunningColorCol.ParameterName , Value = timerVisual.RunningColor},
+                    new SQLiteParameter() { ParameterName = PausedColorCol.ParameterName , Value = timerVisual.PausedColor},
+                    new SQLiteParameter() { ParameterName = WarningColorCol.ParameterName , Value = timerVisual.WarningColor},
+                    new SQLiteParameter() { ParameterName = SecondWarningColorCol.ParameterName , Value = timerVisual.SecondWarningColor},
+                    new SQLiteParameter() { ParameterName = StoppedColorCol.ParameterName , Value = timerVisual.StoppedColor},
+                    new SQLiteParameter() { ParameterName = ExpiredColorCol.ParameterName , Value = timerVisual.ExpiredColor},
+                    new SQLiteParameter() { ParameterName = BackgroundColorCol.ParameterName , Value = timerVisual.BackgroundColor},
+                    new SQLiteParameter() { ParameterName = MessageColorCol.ParameterName , Value = timerVisual.MessageColor},
             };
 
             if (timerVisual.VisualId < 0)
             {
-                var sql = "INSERT INTO [" + TableName + "]";
-                var newId = this.Insert(sql, parameters.ToArray());
+                var sql = "INSERT INTO [" + TableName + "] (" +
+                    "[" + TimerFontFamilyCol.Name + "], " +
+                    "[" + TimerFontSizeCol.Name + "], " +
+                    "[" + CounterModeCol.Name + "], " +
+                    "[" + DisplayModeCol.Name + "], " +
+                    "[" + TimerColorCol.Name + "], " +
+                    "[" + RunningColorCol.Name + "], " +
+                    "[" + PausedColorCol.Name + "], " +
+                    "[" + WarningColorCol.Name + "], " +
+                    "[" + SecondWarningColorCol.Name + "], " +
+                    "[" + StoppedColorCol.Name + "], " +
+                    "[" + ExpiredColorCol.Name + "], " +
+                    "[" + BackgroundColorCol.Name + "], " +
+                    "[" + MessageColorCol.Name + "]" +
+                    ") VALUES (" +
+                    "@" + TimerFontFamilyCol.ParameterName + ", " +
+                    "@" + TimerFontSizeCol.ParameterName + ", " +
+                    "@" + CounterModeCol.ParameterName + ", " +
+                    "@" + DisplayModeCol.ParameterName + ", " +
+                    "@" + TimerColorCol.ParameterName + ", " +
+                    "@" + RunningColorCol.ParameterName + ", " +
+                    "@" + PausedColorCol.ParameterName + ", " +
+                    "@" + WarningColorCol.ParameterName + ", " +
+                    "@" + SecondWarningColorCol.ParameterName + ", " +
+                    "@" + StoppedColorCol.ParameterName + ", " +
+                    "@" + ExpiredColorCol.ParameterName + ", " +
+                    "@" + BackgroundColorCol.ParameterName + ", " +
+                    "@" + MessageColorCol.ParameterName + ");";
+
+                var newId = (int)this.Insert(sql, parameters.ToArray());
                 return new TimerVisualSettings(newId, timerVisual);
             }
 
             var update = "UPDATE [" + TableName + "] SET " +
-                "[" + TimerFontFamilyCol + "] = @TimerFontFamily," +
-                "[" + TimerFontSizeCol + "] = @TimerFontSize," +
-                "[" + CounterModeCol + "] = @CounterMode," +
-                "[" + DisplayModeCol + "] = @DisplayMode," +
-                "[" + TimerColorCol + "] = @TimerColor," +
-                "[" + RunningColorCol + "] = @RunningColor," +
-                "[" + PausedColorCol + "] = @PausedColor," +
-                "[" + WarningColorCol + "] = @WarningColor," +
-                "[" + SecondWarningColorCol + "] = @SecondWarningColor," +
-                "[" + StoppedColorCol + "] = @StoppedColor," +
-                "[" + ExpiredColorCol + "] = @ExpiredColor," +
-                "[" + BackgroundColorCol + "] = @BackgroundColor," +
-                "[" + MessageColorCol + "] = @MessageColor" +
-                "WHERE [" + IdCol + "] = @VisualId";
+                "[" + TimerFontFamilyCol.Name + "] = @" + TimerFontFamilyCol.ParameterName + "," +
+                "[" + TimerFontSizeCol.Name + "] = @" + TimerFontSizeCol.ParameterName + "," +
+                "[" + CounterModeCol.Name + "] = @" + CounterModeCol.ParameterName + "," +
+                "[" + DisplayModeCol.Name + "] = @" + DisplayModeCol.ParameterName + "," +
+                "[" + TimerColorCol.Name + "] = @" + TimerColorCol.ParameterName + "," +
+                "[" + RunningColorCol.Name + "] = @" + RunningColorCol.ParameterName + "," +
+                "[" + PausedColorCol.Name + "] = @" + PausedColorCol.ParameterName + "," +
+                "[" + WarningColorCol.Name + "] = @" + WarningColorCol.ParameterName + "," +
+                "[" + SecondWarningColorCol.Name + "] = @" + SecondWarningColorCol.ParameterName + "," +
+                "[" + StoppedColorCol.Name + "] = @" + StoppedColorCol.ParameterName + "," +
+                "[" + ExpiredColorCol.Name + "] = @" + ExpiredColorCol.ParameterName + "," +
+                "[" + BackgroundColorCol.Name + "] = @" + BackgroundColorCol.ParameterName + "," +
+                "[" + MessageColorCol.Name + "] = @" + MessageColorCol.ParameterName +
+                "WHERE [" + IdCol.Name + "] = @" + IdCol.ParameterName + ";";
 
-            parameters.Add(new SQLiteParameter("VisualId", timerVisual.VisualId));
+            parameters.Add(new SQLiteParameter(IdCol.ParameterName, timerVisual.VisualId));
             this.ExecuteNonQuery(update, parameters.ToArray());
             return timerVisual;
         }
 
         public static TimerVisualSettings Parse(SQLiteDataReader reader)
         {
-            var id = (int)reader[IdCol.Name];
-            var fontFamily = (string)reader[TimerFontFamilyCol.Name];
-            var fontSize = (float)reader[TimerFontSizeCol.Name];
-            var counterMode = Util.ToEnum<TimerVisualSettings.TimerCounterMode>((string)reader[CounterModeCol.Name]);
-            var displayMode = Util.ToEnum<TimerVisualSettings.TimerDisplayMode>((string)reader[DisplayModeCol.Name]);
-            var timerColor = Util.FromARGBString(Color.FromName((string)reader[TimerColorCol.Name]));
-            var runningColor = Util.FromARGBString(Color.FromName((string)reader[RunningColorCol.Name]));
-            var pausedColor = Util.FromARGBString(Color.FromName((string)reader[PausedColorCol.Name]));
-            var warningColor = Util.FromARGBString(Color.FromName((string)reader[WarningColorCol.Name]));
-            var warning2Color = Util.FromARGBString(Color.FromName((string)reader[SecondWarningColorCol.Name]));
-            var stoppedColor = Util.FromARGBString(Color.FromName((string)reader[StoppedColorCol.Name]));
-            var expiredColor = Util.FromARGBString(Color.FromName((string)reader[ExpiredColorCol.Name]));
-            var backgroundColor = Util.FromARGBString(Color.FromName((string)reader[BackgroundColorCol.Name]));
-            var messageColor = Util.FromARGBString(Color.FromName((string)reader[MessageColorCol.Name]));
+            var id = Convert.ToInt32(reader[IdCol.Name]);
+            var fontFamily = Convert.ToString(reader[TimerFontFamilyCol.Name]);
+            var fontSize = Convert.ToSingle(reader[TimerFontSizeCol.Name]);
+            var counterMode = Util.ToEnum<TimerVisualSettings.TimerCounterMode>(Convert.ToString(reader[CounterModeCol.Name]));
+            var displayMode = Util.ToEnum<TimerVisualSettings.TimerDisplayMode>(Convert.ToString(reader[DisplayModeCol.Name]));
+            var timerColor = Util.FromARGBString(Color.FromName(Convert.ToString(reader[TimerColorCol.Name])));
+            var runningColor = Util.FromARGBString(Color.FromName(Convert.ToString(reader[RunningColorCol.Name])));
+            var pausedColor = Util.FromARGBString(Color.FromName(Convert.ToString(reader[PausedColorCol.Name])));
+            var warningColor = Util.FromARGBString(Color.FromName(Convert.ToString(reader[WarningColorCol.Name])));
+            var warning2Color = Util.FromARGBString(Color.FromName(Convert.ToString(reader[SecondWarningColorCol.Name])));
+            var stoppedColor = Util.FromARGBString(Color.FromName(Convert.ToString(reader[StoppedColorCol.Name])));
+            var expiredColor = Util.FromARGBString(Color.FromName(Convert.ToString(reader[ExpiredColorCol.Name])));
+            var backgroundColor = Util.FromARGBString(Color.FromName(Convert.ToString(reader[BackgroundColorCol.Name])));
+            var messageColor = Util.FromARGBString(Color.FromName(Convert.ToString(reader[MessageColorCol.Name])));
 
             return new TimerVisualSettings(id, counterMode, displayMode, fontFamily, fontSize, timerColor, runningColor, pausedColor, warningColor, warning2Color, expiredColor, stoppedColor, backgroundColor, messageColor);
         }

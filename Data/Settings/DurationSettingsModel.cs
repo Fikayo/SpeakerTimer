@@ -1,5 +1,6 @@
 ﻿namespace SpeakerTimer.Data.Settings
 {
+    using System;
     using System.Text;
     using System.Collections.Generic;
     using System.Data.SQLite;
@@ -7,11 +8,11 @@
 
     public class DurationSettingsModel : DataModel
     {
-        public static readonly DbColumn IdCol = new DbColumn("Id", "INTEGER");
-        public static readonly DbColumn TitleCol = new DbColumn("Title", "VARCHAR(255)");
-        public static readonly DbColumn DurationCol = new DbColumn("Duration", "REAL");
-        public static readonly DbColumn Warning1Col = new DbColumn("Warning1", "REAL");
-        public static readonly DbColumn Warning2Col = new DbColumn("Warning2", "REAL");
+        public static readonly DbColumn IdCol = new DbColumn("Id", "INTEGER", "DurationId");
+        public static readonly DbColumn TitleCol = new DbColumn("Title", "VARCHAR(255)", "Title");
+        public static readonly DbColumn DurationCol = new DbColumn("Duration", "REAL", "Duration");
+        public static readonly DbColumn Warning1Col = new DbColumn("Warning1", "REAL", "Warning");
+        public static readonly DbColumn Warning2Col = new DbColumn("Warning2", "REAL", "SecondWarning");
 
         public const string TableName = "Duration Settings";
 
@@ -36,9 +37,9 @@
             StringBuilder tableColumns = new StringBuilder();
             tableColumns.AppendFormat("{0} PRIMARY KEY AUTOINCREMENT, ", IdCol);
             tableColumns.AppendFormat("{0} DEFAULT 'Untitled', ", TitleCol);
-            tableColumns.AppendFormat("{0} DEFAULT 0, ", DurationCol);
-            tableColumns.AppendFormat("{0} DEFAULT 0, ", Warning1Col);
-            tableColumns.AppendFormat("{0} DEFAULT 0", Warning2Col);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 0, ", DurationCol);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 0, ", Warning1Col);
+            tableColumns.AppendFormat("{0} NOT NULL DEFAULT 0", Warning2Col);
 
             base.CreateTable(tableColumns.ToString());
         }
@@ -61,27 +62,37 @@
         {
             var parameters = new List<SQLiteParameter>
             {
-                    new SQLiteParameter() { Value = timerDuration.Title },
-                    new SQLiteParameter() { Value = timerDuration.Duration },
-                    new SQLiteParameter() { Value = timerDuration.WarningTime },
-                    new SQLiteParameter() { Value = timerDuration.SecondWarningTime }
+                    new SQLiteParameter() { ParameterName = TitleCol.ParameterName, Value = timerDuration.Title },
+                    new SQLiteParameter() { ParameterName = DurationCol.ParameterName, Value = timerDuration.Duration },
+                    new SQLiteParameter() { ParameterName = Warning1Col.ParameterName, Value = timerDuration.WarningTime },
+                    new SQLiteParameter() { ParameterName = Warning2Col.ParameterName, Value = timerDuration.SecondWarningTime }
             };
 
             if (timerDuration.DurationId < 0)
             {
-                var sql = "INSERT INTO [" + TableName + "] VALUES (?, ?, ?, ?)";
-                var newId = this.Insert(sql, parameters.ToArray());
+                var sql = "INSERT INTO [" + TableName + "](" +
+                    "[" + TitleCol.Name + "], " +
+                    "[" + DurationCol.Name + "], " +
+                    "[" + Warning1Col.Name + "], " +
+                    "[" + Warning2Col.Name + "]" +
+                    ") VALUES (" +
+                    "@" + TitleCol.ParameterName + ", " +
+                    "@" + DurationCol.ParameterName + ", " +
+                    "@" + Warning1Col.ParameterName + ", " +
+                    "@" + Warning2Col.ParameterName + ");";
+
+                var newId = (int)this.Insert(sql, parameters.ToArray());
                 return new TimerDurationSettings(newId, timerDuration);
             }
 
             var update = "UPDATE [" + TableName + "] SET " +
-                "[" + TitleCol + "] = ?," +
-                "[" + DurationCol + "] = ?," +
-                "[" + Warning1Col + "] = ?," +
-                "[" + Warning2Col + "] = ?" +
-                "WHERE [" + IdCol + "] = ?";
+                "[" + TitleCol.Name+ "] = @" + TitleCol.ParameterName + "," +
+                "[" + DurationCol.Name + "] = @" + DurationCol.ParameterName + "," +
+                "[" + Warning1Col.Name + "] = @" + Warning1Col.ParameterName + "," +
+                "[" + Warning2Col .Name+ "] = @" + Warning2Col.ParameterName + "," +
+                "WHERE [" + IdCol.Name + "] = @" + IdCol.ParameterName + ";";
 
-            parameters.Add(new SQLiteParameter() { Value = timerDuration.DurationId });
+            parameters.Add(new SQLiteParameter() { ParameterName = IdCol.ParameterName, Value = timerDuration.DurationId });
             this.ExecuteNonQuery(update, parameters.ToArray());
             return timerDuration;
         }
@@ -89,10 +100,10 @@
         public static TimerDurationSettings Parse(SQLiteDataReader reader)
         {
             TimerDurationSettings setting = TimerDurationSettings.Default;
-            setting.Title = (string)reader[TitleCol.Name];
-            setting.Duration = (double)reader[DurationCol.Name];
-            setting.WarningTime = (double)reader[Warning1Col.Name];
-            setting.SecondWarningTime = (double)reader[Warning2Col.Name];
+            setting.Title = Convert.ToString(reader[TitleCol.Name]);
+            setting.Duration = Convert.ToDouble(reader[DurationCol.Name]);
+            setting.WarningTime = Convert.ToDouble(reader[Warning1Col.Name]);
+            setting.SecondWarningTime = Convert.ToDouble(reader[Warning2Col.Name]);
 
             return setting;
         }

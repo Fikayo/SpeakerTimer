@@ -28,7 +28,7 @@
                 "LEFT JOIN [" + DurationSettingsModel.TableName + "] dur ON td." + TimerDurationModel.DurationIdCol.Name + " = dur.Id " +
                 "LEFT JOIN [" + VisualSettingsModel.TableName + "] vis ON tv." + TimerVisualModel.VisualIdCol.Name + " = vis.Id;";
 
-            base.CreateTable(sql);
+            base.ExecuteNonQuery(sql);
         }
 
         public List<SimpleTimerSettings> FetchAll()
@@ -55,11 +55,17 @@
             return this.Parse(reader);
         }
 
-        public void Save(SimpleTimerSettings timer)
+        public SimpleTimerSettings Save(SimpleTimerSettings timer)
         {
-            TimerSettingsModel.Instance.Save(timer);
-            DurationSettingsModel.Instance.Save(timer.TimerDuration);
-            VisualSettingsModel.Instance.Save(timer.VisualSettings);
+            var savedTimer = TimerSettingsModel.Instance.Save(timer);
+            savedTimer.TimerDuration = DurationSettingsModel.Instance.Save(timer.TimerDuration);
+            savedTimer.VisualSettings = VisualSettingsModel.Instance.Save(timer.VisualSettings);
+
+            // Insert into the link up tables
+            TimerDurationModel.Instance.Insert(savedTimer.Id, savedTimer.TimerDuration.DurationId);
+            TimerVisualModel.Instance.Insert(savedTimer.Id, savedTimer.VisualSettings.VisualId);
+
+            return savedTimer;
         }
 
         public bool Delete(int timerId)
@@ -83,10 +89,10 @@
 
         private SimpleTimerSettings Parse(SQLiteDataReader reader)
         {
-            int id = (int)reader[TimerSettingsModel.IdCol.Name];
-            string name = (string)reader[TimerSettingsModel.NameCol.Name];
-            string finalMessage = (string)reader[TimerSettingsModel.MessageCol.Name];
-            bool blinkOnExpired = (int)reader[TimerSettingsModel.BlinkCol.Name] > 0;
+            int id = Convert.ToInt32(reader[TimerSettingsModel.IdCol.Name]);
+            string name = Convert.ToString(reader[TimerSettingsModel.NameCol.Name]);
+            string finalMessage = Convert.ToString(reader[TimerSettingsModel.MessageCol.Name]);
+            bool blinkOnExpired = Convert.ToInt32(reader[TimerSettingsModel.BlinkCol.Name]) > 0;
 
             TimerDurationSettings durationSettings = DurationSettingsModel.Parse(reader);
             TimerVisualSettings visualSettings = VisualSettingsModel.Parse(reader);

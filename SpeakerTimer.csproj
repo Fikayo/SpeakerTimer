@@ -328,7 +328,9 @@
     <None Include="Resources\1494315729_10.Folder.png" />
     <None Include="Resources\1494315762_Noun_Project_100Icon_10px_grid-38.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Tests\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

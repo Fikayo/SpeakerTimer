@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakerTimer", "SpeakerTimer.csproj", "{FC1A67E3-5BAB-407B-A8BB-D411C4A6FF1B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakerTimerTests", "..\SpeakerTimerTests1\SpeakerTimerTests.csproj", "{50CD4E99-D057-47BF-8615-E5FABE66386C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FC1A67E3-5BAB-407B-A8BB-D411C4A6FF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC1A67E3-5BAB-407B-A8BB-D411C4A6FF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC1A67E3-5BAB-407B-A8BB-D411C4A6FF1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50CD4E99-D057-47BF-8615-E5FABE66386C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50CD4E99-D057-47BF-8615-E5FABE66386C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50CD4E99-D057-47BF-8615-E5FABE66386C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50CD4E99-D057-47BF-8615-E5FABE66386C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
