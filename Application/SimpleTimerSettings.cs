@@ -74,7 +74,8 @@
             SimpleTimerSettings that = obj as SimpleTimerSettings;
             if (that == null) return false;
 
-            return this.Name.Equals(that.Name)
+            return this.id.Equals(that.id)
+                && this.Name.Equals(that.Name)
                 && this.TimerDuration.Equals(that.TimerDuration)
                 && this.BlinkOnExpired.Equals(that.BlinkOnExpired)
                 && this.FinalMessage.Equals(that.FinalMessage)

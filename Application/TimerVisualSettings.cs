@@ -163,7 +163,8 @@
             TimerVisualSettings that = obj as TimerVisualSettings;
             if (that == null) return false;
 
-            return this.TimerFont.FontFamily.Name.Equals(that.TimerFont.FontFamily.Name)
+            return this.id.Equals(that.id)
+                && this.TimerFont.FontFamily.Name.Equals(that.TimerFont.FontFamily.Name)
                 && this.TimerFont.Size.Equals(that.TimerFont.Size)
                 && this.CounterMode.Equals(that.CounterMode)
                 && this.DisplayMode.Equals(that.DisplayMode)

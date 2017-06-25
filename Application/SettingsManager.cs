@@ -7,9 +7,13 @@
 
     public class SettingsManager<T> : ISettingsManager<T> where T : ITimerSettings
     {
-        private const int MaxActionBeforeFlush = 5;
+        private const int MaxActionBeforeFlush = 0;
 
         private int actionCount;
+
+        /// <summary>
+        /// A local map of Id to timer
+        /// </summary>
         private readonly Dictionary<int, T> localDb;
         private readonly List<int> deletedTimers;
         private readonly HashSet<int> modifiedTimers;
@@ -34,7 +38,7 @@
             this.deletedTimers = new List<int>();
             this.modifiedTimers = new HashSet<int>();
 
-            this.actionCount = 0;
+            this.Refresh();
         }
 
         public static SettingsManager<SimpleTimerSettings> SimpleSettingsManager
@@ -48,6 +52,20 @@
         }
 
         #region External Members
+
+        public void Refresh()
+        {
+            this.localDb.Clear();
+            this.modifiedTimers.Clear();
+            this.deletedTimers.Clear();
+
+            foreach (T timer in this.settingsModel.FetchAll())
+            {
+                this.localDb.Add(timer.Id, timer);
+            }
+
+            this.actionCount = 0;
+        }
 
         public void AddOrUpdate(T timer)
         {
@@ -114,6 +132,12 @@
             return this.Flush();
         }
 
+        public void Close()
+        {
+            this.SaveAll();
+            this.settingsModel.Dispose();
+        }
+
         #endregion
 
         #region Internal Members
@@ -127,6 +151,7 @@
                 if (this.actionCount >= MaxActionBeforeFlush)
                 {
                     flush = true;
+                    this.actionCount = 0;
                 }
             }
 

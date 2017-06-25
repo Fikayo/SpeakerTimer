@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using SpeakerTimer.Application;
 
-    public interface ISettingsModel<T> where T : ITimerSettings
+    public interface ISettingsModel<T> : System.IDisposable where T : ITimerSettings
     {
         /// <summary>
         /// Returns a list of all timers stored in this model.

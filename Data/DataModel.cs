@@ -3,7 +3,7 @@
     using System;
     using System.Data.SQLite;
 
-    public abstract class DataModel : IReadWrite
+    public abstract class DataModel : IReadWrite, IDisposable
     {
         private readonly string tableName;
         private bool isOpen;
@@ -93,6 +93,11 @@
             {
                 this.connection.Close();
             }
+        }
+
+        public void Dispose()
+        {
+            this.CloseDatabase();
         }
 
         public abstract void CreateTable();

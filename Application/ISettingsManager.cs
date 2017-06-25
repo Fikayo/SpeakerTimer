@@ -4,6 +4,8 @@
 
     internal interface ISettingsManager<T> where T : ITimerSettings
     {
+        void Refresh();
+
         void AddOrUpdate(T timer);
 
         T Delete(int timerId);
@@ -15,5 +17,7 @@
         T Fetch(int timerId);
 
         bool SaveAll();
+
+        void Close();
     }
 }

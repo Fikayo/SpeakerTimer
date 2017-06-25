@@ -12,10 +12,12 @@ namespace SpeakerTimer.Data
         {
         }
 
-        public DbColumn(string name, string type, string paramName)
+        public DbColumn(string name, string type, string parameterName)
         {
             this.Name = name;
             this.Type = type;
+
+            var paramName = string.IsNullOrWhiteSpace(parameterName) ? name : parameterName;
             this.ParameterName = paramName.Replace(" ", string.Empty);
         }
 

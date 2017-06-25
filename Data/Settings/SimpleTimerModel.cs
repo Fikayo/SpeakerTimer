@@ -17,16 +17,17 @@
         {
             var sql = "CREATE VIEW IF NOT EXISTS [" + ViewName + "] AS " +
                 "SELECT " +
-                "timer." + TimerSettingsModel.IdCol.Name + ", timer." + TimerSettingsModel.NameCol.Name + ", timer." + TimerSettingsModel.MessageCol.Name + ", timer." + TimerSettingsModel.BlinkCol.Name + ", " +
+                "timer." + TimerSettingsModel.IdCol.Name + ", dur." + DurationSettingsModel.IdCol.Name + ", vis." + VisualSettingsModel.IdCol.Name + ", " +
+                "timer." + TimerSettingsModel.NameCol.Name + ", timer." + TimerSettingsModel.MessageCol.Name + ", timer." + TimerSettingsModel.BlinkCol.Name + ", " +
                 "dur." + DurationSettingsModel.TitleCol.Name + ", dur." + DurationSettingsModel.DurationCol.Name + ", dur." + DurationSettingsModel.Warning1Col.Name + ", dur." + DurationSettingsModel.Warning2Col.Name + ", " +
                 "vis." + VisualSettingsModel.TimerFontFamilyCol.Name + ", vis." + VisualSettingsModel.TimerFontSizeCol.Name + ", vis." + VisualSettingsModel.CounterModeCol.Name + ", vis." + VisualSettingsModel.DisplayModeCol.Name + ", " +
                 "vis." + VisualSettingsModel.TimerColorCol.Name + ", vis." + VisualSettingsModel.RunningColorCol.Name + ", vis." + VisualSettingsModel.PausedColorCol.Name + ", vis." + VisualSettingsModel.WarningColorCol.Name + ", vis." + VisualSettingsModel.SecondWarningColorCol.Name + ", " +
                 "vis." + VisualSettingsModel.StoppedColorCol.Name + ", vis." + VisualSettingsModel.ExpiredColorCol.Name + ", vis." + VisualSettingsModel.BackgroundColorCol.Name + ", vis." + VisualSettingsModel.MessageColorCol.Name + " " +
                 "FROM [" + TimerSettingsModel.TableName + "] timer " +
-                "LEFT JOIN [" + TimerDurationModel.TableName + "] td ON timer.Id = td." + TimerDurationModel.TimerIdCol.Name + " " +
-                "LEFT JOIN [" + TimerVisualModel.TableName + "] tv ON timer.Id = tv." + TimerVisualModel.TimerIdCol.Name + " " +
-                "LEFT JOIN [" + DurationSettingsModel.TableName + "] dur ON td." + TimerDurationModel.DurationIdCol.Name + " = dur.Id " +
-                "LEFT JOIN [" + VisualSettingsModel.TableName + "] vis ON tv." + TimerVisualModel.VisualIdCol.Name + " = vis.Id;";
+                "LEFT JOIN [" + TimerDurationModel.TableName + "] td ON timer." + TimerSettingsModel.IdCol.Name + " = td." + TimerDurationModel.TimerIdCol.Name + " " +
+                "LEFT JOIN [" + TimerVisualModel.TableName + "] tv ON timer." + TimerSettingsModel.IdCol.Name + " = tv." + TimerVisualModel.TimerIdCol.Name + " " +
+                "LEFT JOIN [" + DurationSettingsModel.TableName + "] dur ON td." + TimerDurationModel.DurationIdCol.Name + " = dur." + DurationSettingsModel.IdCol.Name + " " +
+                "LEFT JOIN [" + VisualSettingsModel.TableName + "] vis ON tv." + TimerVisualModel.VisualIdCol.Name + " = vis." + VisualSettingsModel.IdCol.Name + ";" ;
 
             base.ExecuteNonQuery(sql);
         }
@@ -47,11 +48,11 @@
 
         public SimpleTimerSettings Fetch(int timerId)
         {
-            var sql = "SELECT * FROM [" + ViewName + "] WHERE [" + TimerSettingsModel.TableName + "]." + TimerSettingsModel.IdCol.Name + " = ?";
-            var param = new SQLiteParameter();
-            param.Value = timerId;
+            var sql = "SELECT * FROM [" + ViewName + "] WHERE " + TimerSettingsModel.IdCol.Name + " = @" + TimerSettingsModel.IdCol.ParameterName + ";";
 
-            var reader = this.Query(sql, param);
+            var reader = this.Query(sql, new SQLiteParameter(TimerSettingsModel.IdCol.ParameterName, timerId));
+            reader.Read();
+
             return this.Parse(reader);
         }
 
@@ -70,14 +71,12 @@
 
         public bool Delete(int timerId)
         {
-            var sql = "DELETE FROM [" + TimerSettingsModel.TableName + "] WHERE [" + TimerSettingsModel.TableName + "]." + TimerSettingsModel.IdCol.Name + " = ?";
-            var param = new SQLiteParameter();
-            param.Value = timerId;
+            var sql = "DELETE FROM [" + TimerSettingsModel.TableName + "] WHERE " + TimerSettingsModel.IdCol.Name + " = @" + TimerSettingsModel.IdCol.ParameterName + ";";
 
             bool success = true;
             try
             {
-                this.ExecuteNonQuery(sql, param);
+                this.ExecuteNonQuery(sql, new SQLiteParameter(TimerSettingsModel.IdCol.ParameterName, timerId));
             }
             catch (Exception)
             {
@@ -89,11 +88,13 @@
 
         private SimpleTimerSettings Parse(SQLiteDataReader reader)
         {
+            if (reader[TimerSettingsModel.IdCol.Name] is DBNull) return null;
+
             int id = Convert.ToInt32(reader[TimerSettingsModel.IdCol.Name]);
             string name = Convert.ToString(reader[TimerSettingsModel.NameCol.Name]);
             string finalMessage = Convert.ToString(reader[TimerSettingsModel.MessageCol.Name]);
             bool blinkOnExpired = Convert.ToInt32(reader[TimerSettingsModel.BlinkCol.Name]) > 0;
-
+            
             TimerDurationSettings durationSettings = DurationSettingsModel.Parse(reader);
             TimerVisualSettings visualSettings = VisualSettingsModel.Parse(reader);
 

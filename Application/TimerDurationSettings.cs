@@ -11,13 +11,18 @@
             this.SetDefaultSettings();
         }
 
-        public TimerDurationSettings(int durationId, TimerDurationSettings copy)
+        public TimerDurationSettings(int durationId, string title, double duration, double warningTime, double secondWarningTime)
         {
             this.id = durationId;
-            this.Title = copy.Title;
-            this.Duration = copy.Duration;
-            this.WarningTime = copy.WarningTime;
-            this.SecondWarningTime = copy.SecondWarningTime;
+            this.Title = title;
+            this.Duration = duration;
+            this.WarningTime = warningTime;
+            this.SecondWarningTime = secondWarningTime;
+        }
+
+        public TimerDurationSettings(int durationId, TimerDurationSettings copy) :
+            this(durationId, copy.Title, copy.Duration, copy.WarningTime, copy.SecondWarningTime)
+        {
         }
 
         public int DurationId { get { return this.id; } }
@@ -63,12 +68,13 @@
             TimerDurationSettings that = obj as TimerDurationSettings;
             if (that == null) return false;
 
-            return this.Title.Equals(that.Title)
+            return this.id.Equals(that.id)
+                && this.Title.Equals(that.Title)
                 && this.Duration.Equals(that.Duration)
                 && this.WarningTime.Equals(that.WarningTime)
                 && this.SecondWarningTime.Equals(that.SecondWarningTime);
         }
-        
+
         public override int GetHashCode()
         {
             return base.GetHashCode();

@@ -8,7 +8,7 @@
 
     public class DurationSettingsModel : DataModel
     {
-        public static readonly DbColumn IdCol = new DbColumn("Id", "INTEGER", "DurationId");
+        public static readonly DbColumn IdCol = new DbColumn("DurationId", "INTEGER");
         public static readonly DbColumn TitleCol = new DbColumn("Title", "VARCHAR(255)", "Title");
         public static readonly DbColumn DurationCol = new DbColumn("Duration", "REAL", "Duration");
         public static readonly DbColumn Warning1Col = new DbColumn("Warning1", "REAL", "Warning");
@@ -86,10 +86,10 @@
             }
 
             var update = "UPDATE [" + TableName + "] SET " +
-                "[" + TitleCol.Name+ "] = @" + TitleCol.ParameterName + "," +
+                "[" + TitleCol.Name + "] = @" + TitleCol.ParameterName + "," +
                 "[" + DurationCol.Name + "] = @" + DurationCol.ParameterName + "," +
                 "[" + Warning1Col.Name + "] = @" + Warning1Col.ParameterName + "," +
-                "[" + Warning2Col .Name+ "] = @" + Warning2Col.ParameterName + "," +
+                "[" + Warning2Col.Name + "] = @" + Warning2Col.ParameterName + " " +
                 "WHERE [" + IdCol.Name + "] = @" + IdCol.ParameterName + ";";
 
             parameters.Add(new SQLiteParameter() { ParameterName = IdCol.ParameterName, Value = timerDuration.DurationId });
@@ -99,13 +99,18 @@
 
         public static TimerDurationSettings Parse(SQLiteDataReader reader)
         {
-            TimerDurationSettings setting = TimerDurationSettings.Default;
-            setting.Title = Convert.ToString(reader[TitleCol.Name]);
-            setting.Duration = Convert.ToDouble(reader[DurationCol.Name]);
-            setting.WarningTime = Convert.ToDouble(reader[Warning1Col.Name]);
-            setting.SecondWarningTime = Convert.ToDouble(reader[Warning2Col.Name]);
+            if(reader[DurationCol.Name] is DBNull)
+            {
+                int a = 5;
+            }
 
-            return setting;
+            var id = Convert.ToInt32(reader[IdCol.Name]);
+            var title = Convert.ToString(reader[TitleCol.Name]);
+            var duration = Convert.ToDouble(reader[DurationCol.Name]);
+            var warningTime = Convert.ToDouble(reader[Warning1Col.Name]);
+            var secondWarningTime = Convert.ToDouble(reader[Warning2Col.Name]);
+
+            return new TimerDurationSettings(id, title, duration, warningTime, secondWarningTime);
         }
     }
 }

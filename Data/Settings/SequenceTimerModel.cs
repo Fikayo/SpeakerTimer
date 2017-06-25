@@ -14,7 +14,7 @@
 
         public override void CreateTable()
         {
-            throw new NotImplementedException();
+            ////throw new NotImplementedException();
         }
 
         public bool Delete(int timerId)
@@ -39,17 +39,20 @@
 
         public SequenceTimerSettings Save(SequenceTimerSettings timer)
         {
-            throw new NotImplementedException();
+            return null;
+            ////throw new NotImplementedException();
         }
 
         SequenceTimerSettings ISettingsModel<SequenceTimerSettings>.Fetch(int timerId)
         {
-            throw new NotImplementedException();
+            return null;
+            ////throw new NotImplementedException();
         }
 
         List<SequenceTimerSettings> ISettingsModel<SequenceTimerSettings>.FetchAll()
         {
-            throw new NotImplementedException();
+            return new List<SequenceTimerSettings>();
+            ////throw new NotImplementedException();
         }
     }
 }

@@ -69,7 +69,7 @@
             var update = "UPDATE [" + TableName + "] SET " +
                 "[" + NameCol.Name + "] = @" + NameCol.ParameterName + "," +
                 "[" + MessageCol.Name + "] = @" + MessageCol.ParameterName + "," +
-                "[" + BlinkCol.Name + "] = @" + BlinkCol.ParameterName + "," +
+                "[" + BlinkCol.Name + "] = @" + BlinkCol.ParameterName + " " +
                 "WHERE [" + IdCol.Name + "] = @Id;";
 
             parameters.Add(new SQLiteParameter("Id", simpleTimer.Id));

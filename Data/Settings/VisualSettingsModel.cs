@@ -9,7 +9,7 @@
 
     public class VisualSettingsModel : DataModel
     {
-        public static readonly DbColumn IdCol = new DbColumn("Id", "INTEGER", "VisualId");
+        public static readonly DbColumn IdCol = new DbColumn("VisualId", "INTEGER");
         public static readonly DbColumn TimerFontFamilyCol = new DbColumn("TimerFontFamily", "VARCHAR(255)");
         public static readonly DbColumn TimerFontSizeCol = new DbColumn("TimerFontSize", "REAL");
         public static readonly DbColumn CounterModeCol = new DbColumn("CounterMode", "VARCHAR(50)");
@@ -130,7 +130,7 @@
                 "[" + StoppedColorCol.Name + "] = @" + StoppedColorCol.ParameterName + "," +
                 "[" + ExpiredColorCol.Name + "] = @" + ExpiredColorCol.ParameterName + "," +
                 "[" + BackgroundColorCol.Name + "] = @" + BackgroundColorCol.ParameterName + "," +
-                "[" + MessageColorCol.Name + "] = @" + MessageColorCol.ParameterName +
+                "[" + MessageColorCol.Name + "] = @" + MessageColorCol.ParameterName + " " + 
                 "WHERE [" + IdCol.Name + "] = @" + IdCol.ParameterName + ";";
 
             parameters.Add(new SQLiteParameter(IdCol.ParameterName, timerVisual.VisualId));
