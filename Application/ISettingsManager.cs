@@ -2,7 +2,7 @@
 {
     using System.Collections.ObjectModel;
 
-    internal interface ISettingsManager<T> where T : ITimerSettings
+    public interface ISettingsManager<T> where T : ITimerSettings
     {
         void Refresh();
 
@@ -15,6 +15,8 @@
         ReadOnlyCollection<T> FetchAll();
 
         T Fetch(int timerId);
+
+        T Save(int timerId);
 
         bool SaveAll();
 

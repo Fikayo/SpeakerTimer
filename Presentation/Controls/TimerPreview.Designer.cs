@@ -196,6 +196,7 @@
             this.txtSettingsName.Size = new System.Drawing.Size(118, 20);
             this.txtSettingsName.TabIndex = 0;
             this.txtSettingsName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSettingsName_KeyPress);
+            this.txtSettingsName.Leave += new System.EventHandler(this.txtSettingsName_Leave);
             // 
             // btnEditName
             // 
@@ -820,7 +821,7 @@
             this.chbBlink.Text = "Blink when expired";
             this.toolTip.SetToolTip(this.chbBlink, "Blink the timer when the time is less than 0");
             this.chbBlink.UseVisualStyleBackColor = true;
-            this.chbBlink.CheckedChanged += new System.EventHandler(this.chbBlink_CheckedChanged);
+            this.chbBlink.CheckStateChanged += new System.EventHandler(this.chbBlink_CheckStateChanged);
             // 
             // timerView
             // 

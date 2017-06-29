@@ -65,6 +65,11 @@
                 return false;
             }
 
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
             TimerDurationSettings that = obj as TimerDurationSettings;
             if (that == null) return false;
 
@@ -92,12 +97,13 @@
             {
                 var values = csv.Split(new char[] { ',' });
 
-                var settings = new TimerDurationSettings(int.Parse(values[start + 0]));
-
-                settings.Title = values[start + 1];
-                settings.Duration = double.Parse(values[start + 2]);
-                settings.WarningTime = double.Parse(values[start + 3]);
-                settings.SecondWarningTime = double.Parse(values[start + 4]);
+                var settings = new TimerDurationSettings(int.Parse(values[start + 0]))
+                {
+                    Title = values[start + 1],
+                    Duration = double.Parse(values[start + 2]),
+                    WarningTime = double.Parse(values[start + 3]),
+                    SecondWarningTime = double.Parse(values[start + 4]),
+                };
 
                 return settings;
             }

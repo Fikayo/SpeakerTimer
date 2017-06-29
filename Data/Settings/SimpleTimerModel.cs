@@ -71,19 +71,7 @@
 
         public bool Delete(int timerId)
         {
-            var sql = "DELETE FROM [" + TimerSettingsModel.TableName + "] WHERE " + TimerSettingsModel.IdCol.Name + " = @" + TimerSettingsModel.IdCol.ParameterName + ";";
-
-            bool success = true;
-            try
-            {
-                this.ExecuteNonQuery(sql, new SQLiteParameter(TimerSettingsModel.IdCol.ParameterName, timerId));
-            }
-            catch (Exception)
-            {
-                success = false;
-            }
-
-            return success;
+            return TimerSettingsModel.Instance.Delete(timerId);
         }
 
         private SimpleTimerSettings Parse(SQLiteDataReader reader)
@@ -98,7 +86,7 @@
             TimerDurationSettings durationSettings = DurationSettingsModel.Parse(reader);
             TimerVisualSettings visualSettings = VisualSettingsModel.Parse(reader);
 
-            return new SimpleTimerSettings(id, name, finalMessage, blinkOnExpired, durationSettings, visualSettings);
+            return new SimpleTimerSettings(id, name, finalMessage, blinkOnExpired, durationSettings, visualSettings, null);
         }
     }
 }

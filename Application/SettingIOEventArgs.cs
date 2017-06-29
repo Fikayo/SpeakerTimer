@@ -4,13 +4,17 @@
 
     public class SettingIOEventArgs : EventArgs
     {
-        public SettingIOEventArgs(string name, SimpleTimerSettings settings = null)
+        public SettingIOEventArgs(IdNamePair settingPair)
         {
-            this.SettingName = name;
-            this.Settings = settings;
+            this.SettingPair = settingPair;
         }
 
-        public string SettingName { get; private set; }
+        public SettingIOEventArgs(SimpleTimerSettings settings)
+        {
+            this.Settings = settings;
+        }
+        
+        public IdNamePair SettingPair { get; private set; }
 
         public SimpleTimerSettings Settings { get; private set; }
     }

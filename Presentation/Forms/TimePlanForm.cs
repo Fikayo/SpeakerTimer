@@ -8,7 +8,7 @@
     {
         public TimePlanForm()
         {
-            InitializeComponent(SettingsManager<SequenceTimerSettings>.SequenceSettingsManager);
+            InitializeComponent(SettingsManager.SequenceSettingsManager);
 
             this.Text = Util.GetFormName("Time Plan");
 

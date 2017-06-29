@@ -42,10 +42,11 @@
             this.btnRunningColor.BackColor = this.VisualSettings.RunningColor;
             this.btnPausedColor.BackColor = this.VisualSettings.PausedColor;
             this.btnWarningColor.BackColor = this.VisualSettings.WarningColor;
+            this.btnSecondWarning.BackColor = this.VisualSettings.SecondWarningColor;
             this.btnExpiredColor.BackColor = this.VisualSettings.ExpiredColor;
             this.btnStoppedColor.BackColor = this.VisualSettings.StoppedColor;
             this.btnBackColor.BackColor = this.VisualSettings.BackgroundColor;
-            this.btnMessageColor.BackColor = this.VisualSettings.SecondWarningColor;
+            this.btnMessageColor.BackColor = this.VisualSettings.MessageColor;
         }
         
         private Color PickColor(Color defaultColor)
@@ -124,6 +125,13 @@
             var color = this.PickColor(this.VisualSettings.WarningColor);
             this.btnWarningColor.BackColor = color;
             this.VisualSettings.WarningColor = color;
+        }
+
+        private void btnSecondWarning_Click(object sender, EventArgs e)
+        {
+            var color = this.PickColor(this.VisualSettings.SecondWarningColor);
+            this.btnSecondWarning.BackColor = color;
+            this.VisualSettings.SecondWarningColor = color;
         }
 
         private void btnStoppedColor_Click(object sender, EventArgs e)

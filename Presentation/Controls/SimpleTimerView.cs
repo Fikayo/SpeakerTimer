@@ -28,8 +28,11 @@
             this.tibInput = new TimeInputBox();
             this.InitialiseTxtInput();
 
-            this.timer = new Timer();
-            this.timer.Interval = 1000;
+            this.timer = new Timer()
+            {
+                Interval = 1000,
+            };
+
             this.timer.Tick += Timer_Tick;
 
             this.messageTimer = new Timer();
@@ -678,7 +681,7 @@
 
         private void CommandIssuer_StartCommand(object sender, CurrentTimeEventArgs e)
         {
-            this.CurrentTime = e.CurrentTime.HasValue ? e.CurrentTime.Value : this.CurrentTime;
+            this.CurrentTime = e.CurrentTime ?? this.CurrentTime;
             this.StartTimer(e.CurrentTime.HasValue);
         }
 
@@ -699,7 +702,7 @@
 
         private void CommandIssuer_RefreshTimerDisplay(object sender, CurrentTimeEventArgs e)
         {
-            this.CurrentTime = e.CurrentTime.HasValue ? e.CurrentTime.Value : this.CurrentTime;
+            this.CurrentTime = e.CurrentTime ?? this.CurrentTime;
             this.RefreshTimerDisplay(e.CurrentTime.HasValue);
         }
 
@@ -720,7 +723,7 @@
 
         private void CommandIssuer_SettingsUpdated(object sender, SettingsUpdatedEventArgs e)
         {
-            var timerSettings = SettingsManager<SimpleTimerSettings>.SimpleSettingsManager.Fetch(e.TimerId);
+            var timerSettings = SettingsManager.SimpleSettingsManager.Fetch(e.TimerId);
             this.ApplySettings(timerSettings);
         }
 

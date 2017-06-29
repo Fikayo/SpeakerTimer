@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent(SpeakerTimer.Application.SettingsManager<SpeakerTimer.Application.SimpleTimerSettings> settingsManager)
+        private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlPanel));
@@ -35,7 +35,7 @@
             this.timerPreview1 = new SpeakerTimer.Presentation.TimerPreview();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.displayToolStripItem = new SpeakerTimer.Presentation.DisplayToolStripItem();
-            this.savedTimersToolStripItem = new SpeakerTimer.Presentation.SavedTimersTSDDButton<Application.SimpleTimerSettings>(settingsManager);
+            this.savedTimersToolStripItem = new SpeakerTimer.Presentation.SavedTimersTSDDButton<Application.SimpleTimerSettings>(this.settingsManager);
             this.tsbCreateSequence = new System.Windows.Forms.ToolStripButton();
             this.tsdHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsiAbout = new System.Windows.Forms.ToolStripMenuItem();

@@ -68,7 +68,7 @@
                 Color.White,
                 Color.Cyan,
                 Color.Yellow,
-                Color.Orange,
+                Color.FromName("ffff8000") /* Basically Orange */,
                 Color.Red,
                 Color.Silver,
                 Color.Black,
@@ -160,6 +160,11 @@
                 return false;
             }
 
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
             TimerVisualSettings that = obj as TimerVisualSettings;
             if (that == null) return false;
 
@@ -168,7 +173,7 @@
                 && this.TimerFont.Size.Equals(that.TimerFont.Size)
                 && this.CounterMode.Equals(that.CounterMode)
                 && this.DisplayMode.Equals(that.DisplayMode)
-                && this.TimerColor.Name.Equals(that.TimerColor)
+                && this.TimerColor.Equals(that.TimerColor)
                 && this.RunningColor.Equals(that.RunningColor)
                 && this.PausedColor.Equals(that.PausedColor)
                 && this.WarningColor.Equals(that.WarningColor)

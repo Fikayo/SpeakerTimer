@@ -4,18 +4,19 @@
 
     public class SimpleTimerSettings : TimerSettings
     {
-        public SimpleTimerSettings(int id, string name, string finalmessage, bool blinkOnExpired, TimerDurationSettings durationSettings, TimerVisualSettings visualSettings)
+        public SimpleTimerSettings(int id, string name, string finalmessage, bool blinkOnExpired, TimerDurationSettings durationSettings, TimerVisualSettings visualSettings, TimerMessageSettings messageSettings)
             : base(id)
         {
-            this.name = name;
-            this.FinalMessage = finalmessage;
+            this.name = name ?? TimerSettings.DefaultName;
+            this.FinalMessage = finalmessage ?? string.Empty;
             this.BlinkOnExpired = blinkOnExpired;
             this.TimerDuration = new TimerDurationSettings(durationSettings.DurationId, durationSettings);
             this.VisualSettings = new TimerVisualSettings(visualSettings.VisualId, visualSettings);
+            this.MessageSettings = messageSettings ?? TimerMessageSettings.Default;
         }
 
         public SimpleTimerSettings(int id, SimpleTimerSettings copy) :
-            this(id, copy.name, copy.FinalMessage, copy.BlinkOnExpired, copy.TimerDuration, copy.VisualSettings)
+            this(id, copy.name, copy.FinalMessage, copy.BlinkOnExpired, copy.TimerDuration, copy.VisualSettings, copy.MessageSettings)
         { }
 
         private SimpleTimerSettings(int id) : base(id)
@@ -31,9 +32,10 @@
 
         #region Propeties
 
+        private static System.Random rand = new System.Random();
         public static SimpleTimerSettings Default
         {
-            get { return new SimpleTimerSettings(-1); }
+            get { return new SimpleTimerSettings(-1 * rand.Next()); }
         }
 
         #endregion
@@ -71,6 +73,11 @@
                 return false;
             }
 
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
             SimpleTimerSettings that = obj as SimpleTimerSettings;
             if (that == null) return false;
 
@@ -87,8 +94,14 @@
             return base.GetHashCode();
         }
 
-        private void SetDefaultSettings()
+        public override string ToString()
         {
+            return string.Format("{0}: {1}", this.id, this.name);
+        }
+
+        protected override void SetDefaultSettings()
+        {
+            base.SetDefaultSettings();
             this.TimerDuration = TimerDurationSettings.Default;
             this.VisualSettings = TimerVisualSettings.Default;
             this.MessageSettings = TimerMessageSettings.Default;
@@ -103,21 +116,14 @@
                 int id = -1;
                 int.TryParse(values[0], out id);
 
-                SimpleTimerSettings settings = new SimpleTimerSettings(id);
-
-                settings.Name = values[1];
-
-                ////settings.TimerDuration.Title = values[2];
-                ////settings.TimerDuration.Duration = double.Parse(values[3]);
-                ////settings.TimerDuration.WarningTime = double.Parse(values[4]);
-                ////settings.TimerDuration.SecondWarningTime = double.Parse(values[5]);
-
-                settings.TimerDuration = TimerDurationSettings.ParseCsv(csv, 2);
-
-                settings.BlinkOnExpired = bool.Parse(values[6]);
-                settings.FinalMessage = values[7];
-
-                settings.VisualSettings = TimerVisualSettings.ParseCsv(csv, 8);
+                var settings = new SimpleTimerSettings(id)
+                {
+                    Name = values[1],
+                    TimerDuration = TimerDurationSettings.ParseCsv(csv, 2),
+                    BlinkOnExpired = bool.Parse(values[6]),
+                    FinalMessage = values[7],
+                    VisualSettings = TimerVisualSettings.ParseCsv(csv, 8),
+                };
 
                 return settings;
             }

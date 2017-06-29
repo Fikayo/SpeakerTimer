@@ -19,7 +19,7 @@
         T Fetch(int timerId);
 
         /// <summary>
-        /// Updates the given timer or inserts if its id doesn't exist.
+        /// Updates the given timer or inserts if its id doesn't exist. Returns the saved timer
         /// </summary>
         /// <param name="timer">The timer to save</param>
         /// <returns>Returns the saved timer with an updated Id if it was inserted.</returns>

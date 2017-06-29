@@ -76,5 +76,21 @@
             this.ExecuteNonQuery(update, parameters.ToArray());
             return simpleTimer;
         }
+        public bool Delete(int timerId)
+        {
+            var sql = "DELETE FROM [" + TableName + "] WHERE " + IdCol.Name + " = @" + IdCol.ParameterName + ";";
+
+            bool success = true;
+            try
+            {
+                this.ExecuteNonQuery(sql, new SQLiteParameter(IdCol.ParameterName, timerId));
+            }
+            catch (System.Exception ex)
+            {
+                success = false;
+            }
+
+            return success;
+        }
     }
 }

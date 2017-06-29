@@ -7,7 +7,7 @@ namespace SpeakerTimer.Application
 {
     public abstract class TimerSettings : ITimerSettings
     {
-        private static readonly string DefaultName = "Un-named";
+        protected static readonly string DefaultName = "Un-named";
 
         protected readonly int id;
         protected string name; 
@@ -42,16 +42,14 @@ namespace SpeakerTimer.Application
 
         public static bool IsUntitled(string name)
         {
-            if (name.StartsWith(TimerSettings.DefaultName))
-            {
-                string remnant = name.Replace(TimerSettings.DefaultName, string.Empty);
-                int value;
-                return int.TryParse(remnant, out value);
-            }
-
-            return false;
+            return name != null && name.Equals(TimerSettings.DefaultName);
         }
 
         public abstract object Clone();
+
+        protected virtual void SetDefaultSettings()
+        {
+            this.name = DefaultName;
+        }
     }
 }

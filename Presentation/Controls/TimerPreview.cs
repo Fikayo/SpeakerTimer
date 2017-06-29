@@ -10,18 +10,29 @@
     {
         private bool running;
         private bool showingMessage;
+        private bool savePending;
         private SimpleTimerSettings settings;
+
+        private bool initialising;
+        ////private readonly bool allowSaveIndicator;
 
         public TimerPreview()
         {
             InitializeComponent();
+
+            this.initialising = true;
+            ////this.allowSaveIndicator = false;
 
             this.IsLive = false;
             this.CommandIssuer = new TimerViewerCommandIssuer();
             this.timerView.CommandIssuer = this.CommandIssuer;
             this.HookTimerViewEventHandlers();
 
-            this.Settings = SimpleTimerSettings.Default;
+            ////this.Settings = SimpleTimerSettings.Default;
+
+            ////this.initialising = false;
+            ////this.OnSettingsUpdated();
+            ////this.allowSaveIndicator = true;
         }
 
         public event EventHandler<SettingIOEventArgs> LoadRequested;
@@ -37,7 +48,7 @@
             set
             {
                 this.settings = value;
-                this.OnSettingsChanged();
+                this.ReportSettingsUpdate();
                 this.InitSettings();
             }
         }
@@ -79,6 +90,8 @@
 
         private void InitSettings()
         {
+            this.initialising = true;
+
             // Title
             this.txtTitle.Text = this.Settings.TimerDuration.Title;
 
@@ -102,7 +115,7 @@
             this.txtSettingsName.Text = this.Settings.Name;
             Util.SetWatermark(this.txtSettingsName, this.Settings.Name);
 
-            this.SaveSettings();
+            this.initialising = false;
         }
 
         private void HookTimerViewEventHandlers()
@@ -162,7 +175,7 @@
         private void ChangeTimerDuration(double duration)
         {
             this.Settings.TimerDuration.Duration = duration;
-            this.OnSettingsChanged();
+            this.OnSettingsUpdated();
             this.CommandIssuer.OnRefreshTimerDisplay(duration);
         }
 
@@ -172,22 +185,73 @@
             return result == DialogResult.OK ? this.colorDialog.Color : defaultColor;
         }
 
+        private bool ValidateNameChange()
+        {
+            var name = this.txtSettingsName.Text.Trim();
+            if (this.Settings.Name.Equals(name)) return true;
+
+            if (string.IsNullOrEmpty(name))
+            {
+                MessageBox.Show("The entered name cannot be null");
+                return false;
+            }
+
+            if (name.Contains(","))
+            {
+                MessageBox.Show("Then entered name must not contain a comma ','");
+                return false;
+            }
+
+            foreach (var c in System.IO.Path.GetInvalidFileNameChars())
+            {
+                if (name.Contains(c.ToString()))
+                {
+                    MessageBox.Show("The entered name contains an invalid character: " + c);
+                    return false;
+                }
+            }
+
+            this.Settings.Name = name;
+            this.OnSettingsUpdated();
+            this.txtSettingsName.Enabled = false;
+            this.btnEditName.Enabled = true;
+
+            return true;
+        }
+
         private void SaveSettings()
-        {            
-            this.OnSaveRequested(this.Settings);
-            this.btnSave.BackgroundImage = ControlPanel.SaveImage;
+        {
+            var name = this.Settings.Name;
+            if (name != null && !TimerSettings.IsUntitled(name))
+            {
+                this.OnSaveRequested(this.Settings);
+                this.btnSave.BackgroundImage = ControlPanel.SaveImage;
+                this.savePending = false;
+            }
+            else
+            {
+                MessageBox.Show("Please enter a name for this timer");
+            }
+        }
+
+        private void ReportSettingsUpdate()
+        {
+            SettingsManager.SimpleSettingsManager.AddOrUpdate(this.Settings);
+
+            this.CommandIssuer.OnSettingsUpdated(this.Settings.Id);
+            ////this.CommandIssuer.OnSettingsChanged(this.Settings);
         }
 
         #endregion
 
         #region Event Triggers
 
-        private void OnLoadRequested(string name)
+        private void OnLoadRequested(IdNamePair selection)
         {
             var handler = this.LoadRequested;
             if (handler != null)
             {
-                handler.Invoke(this, new SettingIOEventArgs(name));
+                handler.Invoke(this, new SettingIOEventArgs(selection));
             }
         }
 
@@ -196,7 +260,7 @@
             var handler = this.SaveRequested;
             if (handler != null)
             {
-                handler.Invoke(this, new SettingIOEventArgs(settings.Name, settings));
+                handler.Invoke(this, new SettingIOEventArgs(settings));
             }
         }
 
@@ -218,14 +282,17 @@
             }
         }
 
-        private void OnSettingsChanged()
+        private void OnSettingsUpdated()
         {
-            SettingsManager<SimpleTimerSettings>.SimpleSettingsManager.AddOrUpdate(this.Settings);
+            if (!this.initialising)
+            {
+                this.ReportSettingsUpdate();
+                this.grbPreviewBox.Text = this.settings.Name;
 
-            this.CommandIssuer.OnSettingsUpdated(this.Settings.Id);
-            ////this.CommandIssuer.OnSettingsChanged(this.Settings);
-            this.grbPreviewBox.Text = this.settings.Name;
-            this.btnSave.BackgroundImage = ControlPanel.SaveAsterisk;
+                /*if (this.allowSaveIndicator)*/
+                this.btnSave.BackgroundImage = ControlPanel.SaveAsterisk;
+                this.savePending = true;
+            }
         }
 
         #endregion
@@ -237,7 +304,7 @@
             this.DisplayName = this.settings.Name;
             Util.SetWatermark(this.txtFinalMessage, "Time Up");
         }
-        
+
         #region Timer Message
 
         private void btnShowMessage_Click(object sender, EventArgs e)
@@ -280,7 +347,7 @@
         private void txtTitle_TextChanged(object sender, EventArgs e)
         {
             this.Settings.TimerDuration.Title = this.txtTitle.Text;
-            this.OnSettingsChanged();
+            this.OnSettingsUpdated();
         }
 
         private void rdbLive_Click(object sender, EventArgs e)
@@ -296,7 +363,7 @@
 
             var wasDisplayingMessage = this.showingMessage;
             var messageSettings = TimerMessageSettings.Default;
-            if(wasDisplayingMessage)
+            if (wasDisplayingMessage)
             {
                 this.CommandIssuer.CancelTimerMessage();
                 messageSettings = this.timerView.Settings.MessageSettings.Clone();
@@ -306,7 +373,7 @@
 
             if (this.IsLive)
             {
-                this.OnSettingsChanged();
+                this.OnSettingsUpdated();
 
                 if (!wasRunning)
                 {
@@ -314,7 +381,7 @@
                     this.CommandIssuer.IssueStopCommand();
                 }
 
-                if(!wasDisplayingMessage)
+                if (!wasDisplayingMessage)
                 {
                     // Stop any previously showing message on the screen
                     this.CommandIssuer.CancelTimerMessage();
@@ -329,7 +396,7 @@
                 this.CommandIssuer.IssueStartCommand(this.timerView.CurrentTime);
             }
 
-            if(wasDisplayingMessage)
+            if (wasDisplayingMessage)
             {
                 this.FreezeMessageInput();
 
@@ -337,19 +404,19 @@
                 this.CommandIssuer.OnTimerMessageChanged(messageSettings);
             }
         }
-
-        private void chbBlink_CheckedChanged(object sender, EventArgs e)
+        
+        private void chbBlink_CheckStateChanged(object sender, EventArgs e)
         {
-            this.settings.BlinkOnExpired = this.chbBlink.Checked;
-            this.OnSettingsChanged();
+            this.settings.BlinkOnExpired = this.chbBlink.CheckState == CheckState.Checked;
+            this.OnSettingsUpdated();
         }
 
         private void txtFinalMessage_TextChanged(object sender, EventArgs e)
         {
             this.Settings.FinalMessage = this.txtFinalMessage.Text;
-            this.OnSettingsChanged();
+            this.OnSettingsUpdated();
         }
-        
+
         private void btnVisualSettings_Click(object sender, EventArgs e)
         {
             using (var form = new VisualSettingsForm(this.Settings.VisualSettings, this.Settings.Name))
@@ -357,7 +424,7 @@
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     this.Settings.VisualSettings = form.VisualSettings;
-                    this.OnSettingsChanged();
+                    this.OnSettingsUpdated();
                 }
             }
         }
@@ -414,34 +481,11 @@
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                var name = this.txtSettingsName.Text.Trim();
-                if (string.IsNullOrEmpty(name))
+                if (this.ValidateNameChange())
                 {
-                    MessageBox.Show("The entered name cannot be null");
-                    return;
+                    e.Handled = true;
                 }
 
-                if (name.Contains(","))
-                {
-                    MessageBox.Show("Then entered name must not contain a comma ','");
-                    return;
-                }
-
-                foreach (var c in System.IO.Path.GetInvalidFileNameChars())
-                {
-                    if (name.Contains(c.ToString()))
-                    {
-                        MessageBox.Show("The entered name contains an invalid character: " + c);
-                        return;
-                    }
-                }
-
-                this.Settings.Name = name;
-                this.OnSettingsChanged();
-
-                e.Handled = true;
-                this.txtSettingsName.Enabled = false;
-                this.btnEditName.Enabled = true;
                 return;
             }
 
@@ -462,14 +506,29 @@
             }
         }
 
+        private void txtSettingsName_Leave(object sender, EventArgs e)
+        {
+            if (!this.ValidateNameChange())
+            {
+                this.txtSettingsName.Focus();
+            }
+        }
+
         private void btnEditName_Click(object sender, EventArgs e)
         {
             this.txtSettingsName.Enabled = true;
             this.btnEditName.Enabled = false;
+
+            this.txtSettingsName.Focus();
         }
 
         private void btnNewSetting_Click(object sender, EventArgs e)
         {
+            if (this.savePending)
+            {
+                this.SaveSettings();
+            }
+
             this.Settings = SimpleTimerSettings.Default;
         }
 
@@ -484,7 +543,9 @@
             this.CommandIssuer.IssueStopCommand();
             this.running = false;
 
-            this.OnLoadRequested(this.cmbLoadTimer.SelectedItem.ToString());
+            var selectedSetting = this.cmbLoadTimer.SelectedItem as IdNamePair;
+            ////this.Settings = SettingsManager.SimpleSettingsManager.Fetch(selectedSetting.Id);
+            this.OnLoadRequested(selectedSetting);
         }
 
         #endregion
@@ -494,13 +555,13 @@
         private void txtWarningTime_TimeChanged(object sender, EventArgs e)
         {
             this.Settings.TimerDuration.WarningTime = this.tibWarningTime.InputTime;
-            this.OnSettingsChanged();
+            this.OnSettingsUpdated();
         }
 
         private void txtAutoPauseTime_TimeChanged(object sender, EventArgs e)
         {
             this.Settings.TimerDuration.SecondWarningTime = this.tibSecondWarningTime.InputTime;
-            this.OnSettingsChanged();
+            this.OnSettingsUpdated();
         }
 
         #endregion

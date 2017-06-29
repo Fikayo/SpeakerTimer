@@ -61,6 +61,8 @@
             this.btnDefaultSettings = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnSecondWarning = new System.Windows.Forms.Button();
             this.tlpOuterLayout.SuspendLayout();
             this.tlpMainLayout.SuspendLayout();
             this.grbDisplaySettings.SuspendLayout();
@@ -86,7 +88,7 @@
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpOuterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tlpOuterLayout.Size = new System.Drawing.Size(411, 284);
+            this.tlpOuterLayout.Size = new System.Drawing.Size(411, 306);
             this.tlpOuterLayout.TabIndex = 0;
             // 
             // tlpMainLayout
@@ -103,7 +105,7 @@
             this.tlpMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 213F));
             this.tlpMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 213F));
-            this.tlpMainLayout.Size = new System.Drawing.Size(395, 213);
+            this.tlpMainLayout.Size = new System.Drawing.Size(395, 235);
             this.tlpMainLayout.TabIndex = 3;
             // 
             // grbDisplaySettings
@@ -112,7 +114,7 @@
             this.grbDisplaySettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbDisplaySettings.Location = new System.Drawing.Point(3, 3);
             this.grbDisplaySettings.Name = "grbDisplaySettings";
-            this.grbDisplaySettings.Size = new System.Drawing.Size(274, 207);
+            this.grbDisplaySettings.Size = new System.Drawing.Size(274, 229);
             this.grbDisplaySettings.TabIndex = 0;
             this.grbDisplaySettings.TabStop = false;
             this.grbDisplaySettings.Text = "Display Settings";
@@ -141,7 +143,7 @@
             this.tlpDisplaySettings.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpDisplaySettings.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpDisplaySettings.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpDisplaySettings.Size = new System.Drawing.Size(268, 188);
+            this.tlpDisplaySettings.Size = new System.Drawing.Size(268, 210);
             this.tlpDisplaySettings.TabIndex = 0;
             // 
             // cmbDisplayMode
@@ -235,12 +237,13 @@
             this.tlpColorsLayout.ColumnCount = 2;
             this.tlpColorsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpColorsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpColorsLayout.Controls.Add(this.btnSecondWarning, 1, 6);
+            this.tlpColorsLayout.Controls.Add(this.label2, 0, 7);
             this.tlpColorsLayout.Controls.Add(this.label4, 0, 6);
             this.tlpColorsLayout.Controls.Add(this.label6, 0, 3);
             this.tlpColorsLayout.Controls.Add(this.btnExpiredColor, 1, 4);
             this.tlpColorsLayout.Controls.Add(this.btnRunningColor, 1, 0);
             this.tlpColorsLayout.Controls.Add(this.btnPausedColor, 1, 1);
-            this.tlpColorsLayout.Controls.Add(this.btnMessageColor, 1, 6);
             this.tlpColorsLayout.Controls.Add(this.label1, 0, 0);
             this.tlpColorsLayout.Controls.Add(this.label9, 0, 1);
             this.tlpColorsLayout.Controls.Add(this.btnStoppedColor, 1, 3);
@@ -249,6 +252,7 @@
             this.tlpColorsLayout.Controls.Add(this.btnBackColor, 1, 2);
             this.tlpColorsLayout.Controls.Add(this.label5, 0, 2);
             this.tlpColorsLayout.Controls.Add(this.label3, 0, 5);
+            this.tlpColorsLayout.Controls.Add(this.btnMessageColor, 1, 7);
             this.tlpColorsLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpColorsLayout.Location = new System.Drawing.Point(283, 3);
             this.tlpColorsLayout.Name = "tlpColorsLayout";
@@ -263,7 +267,7 @@
             this.tlpColorsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpColorsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpColorsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpColorsLayout.Size = new System.Drawing.Size(109, 207);
+            this.tlpColorsLayout.Size = new System.Drawing.Size(109, 229);
             this.tlpColorsLayout.TabIndex = 1;
             // 
             // label4
@@ -319,9 +323,9 @@
             // btnMessageColor
             // 
             this.btnMessageColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMessageColor.Location = new System.Drawing.Point(74, 177);
+            this.btnMessageColor.Location = new System.Drawing.Point(74, 206);
             this.btnMessageColor.Name = "btnMessageColor";
-            this.btnMessageColor.Size = new System.Drawing.Size(32, 23);
+            this.btnMessageColor.Size = new System.Drawing.Size(32, 20);
             this.btnMessageColor.TabIndex = 10;
             this.btnMessageColor.UseVisualStyleBackColor = true;
             this.btnMessageColor.Click += new System.EventHandler(this.btnMessageColor_Click);
@@ -417,7 +421,7 @@
             this.tlpButtonLayout.Controls.Add(this.btnDefaultSettings, 2, 1);
             this.tlpButtonLayout.Controls.Add(this.btnOk, 0, 1);
             this.tlpButtonLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpButtonLayout.Location = new System.Drawing.Point(8, 227);
+            this.tlpButtonLayout.Location = new System.Drawing.Point(8, 249);
             this.tlpButtonLayout.Name = "tlpButtonLayout";
             this.tlpButtonLayout.RowCount = 2;
             this.tlpButtonLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -461,11 +465,31 @@
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 209);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 13);
+            this.label2.TabIndex = 22;
+            this.label2.Text = "Message";
+            // 
+            // btnSecondWarning
+            // 
+            this.btnSecondWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSecondWarning.Location = new System.Drawing.Point(74, 177);
+            this.btnSecondWarning.Name = "btnSecondWarning";
+            this.btnSecondWarning.Size = new System.Drawing.Size(32, 23);
+            this.btnSecondWarning.TabIndex = 15;
+            this.btnSecondWarning.UseVisualStyleBackColor = true;
+            this.btnSecondWarning.Click += new System.EventHandler(this.btnSecondWarning_Click);
+            // 
             // VisualSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 284);
+            this.ClientSize = new System.Drawing.Size(411, 306);
             this.Controls.Add(this.tlpOuterLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -523,5 +547,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ColorDialog colorDialog;
+        private System.Windows.Forms.Button btnSecondWarning;
+        private System.Windows.Forms.Label label2;
     }
 }

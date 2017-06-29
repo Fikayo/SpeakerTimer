@@ -556,9 +556,12 @@
         private const string ReadyStatus = "Ready";
         private const string LiveStatus = "LIVE";
 
+        private ISettingsManager<SimpleTimerSettings> settingsManager;
+
         public ControlPanel()
         {
-            InitializeComponent(SettingsManager<SimpleTimerSettings>.SimpleSettingsManager);
+            this.settingsManager = SettingsManager.SimpleSettingsManager;
+            InitializeComponent();
 
             this.Text = Util.GetFormName("Control Panel");
             this.tsiAbout.Text = "About " + MainApplication.ProductName;
@@ -568,6 +571,11 @@
 
             this.displayToolStripItem.FetchTimerView = this.CreateTimerView;
             this.savedTimersToolStripItem.Init();
+
+            var allTimers = this.savedTimersToolStripItem.SettingsManager.FetchAll();
+            var loadedTimer = allTimers.Count > 0 ? allTimers[0] : null;
+            this.timerPreview1.Settings = loadedTimer ?? SimpleTimerSettings.Default;
+            this.timerPreview2.Settings = loadedTimer ?? SimpleTimerSettings.Default;
         }
 
         #region Internal Members
@@ -723,7 +731,7 @@
 
         #endregion
 
-        #region Present Form Event Handlers        
+        #region Live Form Event Handlers        
 
         private void presentForm_FormClosed(object sender, EventArgs e)
         {
@@ -750,27 +758,31 @@
             try
             {
                 var id = e.Settings.Id;
-                var name = e.Settings.Name;
-                if (!TimerSettings.IsUntitled(name))
-                {
-                    if (this.savedTimersToolStripItem.SettingsManager.Fetch(id) != null)
-                    {
-                        // Get the old name for this setting
-                        string oldName = this.savedTimersToolStripItem.SettingsManager.Fetch(id).Name;
-                        if (oldName != name)
-                        {
-                            // Removed the old name from the dropdown and add the new name in
-                            this.ClearPresetFromPreviews(id, oldName);
-                            this.AddPresetsToPreviews(id, name);
-                        }
-                    }
-                    else
-                    {
-                        this.AddPresetsToPreviews(id, name);
-                    }
 
-                    ////success = this.savedTimersToolStripItem.SettingsManager.AddOrUpdateSetting(new KeyValuePair<int, SimpleTimerSettings>(id, e.Settings));
-                    this.savedTimersToolStripItem.SettingsManager.AddOrUpdate(e.Settings);
+                // Fetch the current name for the timer to be saved
+                var currentName = e.Settings.Name;
+                if (currentName != null && !TimerSettings.IsUntitled(currentName))
+                {
+                    var settingsManager = this.savedTimersToolStripItem.SettingsManager;
+
+                    // Fetch the old name for this timer in case it has been changed
+                    var oldName = settingsManager.Fetch(id).Name;
+
+                    // Update and save this timer
+                    settingsManager.AddOrUpdate(e.Settings);
+                    preview.Settings = settingsManager.Save(id);
+
+                    // Now, get the possible new Id
+                    var newId = preview.Settings.Id;
+                    
+                    // If the name has changed, remove it from the preview lists
+                    if (!oldName.Equals(currentName))
+                    {
+                        // Removed the old name from the dropdown and add the new name in
+                        this.ClearPresetFromPreviews(id, oldName);
+                        this.AddPresetsToPreviews(newId, currentName);
+                    }
+                    
                 }
             }
             catch (Exception)
@@ -786,7 +798,7 @@
 
         private void timerPreview_LoadRequested(object sender, SettingIOEventArgs e)
         {
-            SimpleTimerSettings setting = this.savedTimersToolStripItem.SettingsManager.Fetch(e.Settings.Id);
+            var setting = this.savedTimersToolStripItem.SettingsManager.Fetch(e.SettingPair.Id);
             if (setting != null)
             {
                 var timerPreview = sender as TimerPreview;
@@ -891,6 +903,6 @@
 
         #endregion
 
-        #endregion}
+        #endregion    
     }
 }

@@ -7,7 +7,7 @@
 
     public partial class SavedTimersTSDDButton<T> : ToolStripDropDownButton where T : TimerSettings
     {
-        public SavedTimersTSDDButton(SettingsManager<T> settingsManager)
+        public SavedTimersTSDDButton(ISettingsManager<T> settingsManager)
         {
             InitializeComponent();
 
@@ -26,7 +26,7 @@
 
         #region Properties
 
-        internal SettingsManager<T> SettingsManager { get; private set; }
+        internal ISettingsManager<T> SettingsManager { get; private set; }
 
         #endregion
 
