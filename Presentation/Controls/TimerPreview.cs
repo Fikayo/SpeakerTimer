@@ -1,6 +1,7 @@
 ﻿namespace SpeakerTimer.Presentation
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Drawing;
     using System.Windows.Forms;
@@ -85,7 +86,7 @@
         }
 
         public TimerViewerCommandIssuer CommandIssuer { get; private set; }
-
+        
         #region Internal Members
 
         private void InitSettings()
@@ -404,7 +405,7 @@
                 this.CommandIssuer.OnTimerMessageChanged(messageSettings);
             }
         }
-        
+
         private void chbBlink_CheckStateChanged(object sender, EventArgs e)
         {
             this.settings.BlinkOnExpired = this.chbBlink.CheckState == CheckState.Checked;

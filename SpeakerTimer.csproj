@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\ColorFader.cs" />
     <Compile Include="Application\IdNamePair.cs" />
     <Compile Include="Application\DurationChangedEventArgs.cs" />
     <Compile Include="Application\ISettingsManager.cs" />
