@@ -44,7 +44,7 @@
                 var destR = dest.Color.R;
                 var destG = dest.Color.G;
                 var destB = dest.Color.B;
-
+                
                 var r = (int)((initR - destR) * exp + destR);
                 var g = (int)((initG - destG) * exp + destG);
                 var b = (int)((initB - destB) * exp + destB);
@@ -61,5 +61,4 @@
         public Color Color { get; set; }
         public double Time { get; set; }
     }
-
 }

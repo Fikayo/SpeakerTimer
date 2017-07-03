@@ -108,13 +108,7 @@
             if (this.localDb.ContainsKey(timerId))
             {
                 var savedTimer = this.settingsModel.Save(this.localDb[timerId]);
-
-                var a = this.localDb[timerId];
-                if (!savedTimer.Equals(a))
-                {
-                    int b =5;
-                }
-
+                
                 // If Id updated then replace the old timer with the saved tiemr
                 if (savedTimer.Id != timerId)
                 {

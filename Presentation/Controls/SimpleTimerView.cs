@@ -363,6 +363,7 @@
             this.lblMiniTimer.Visible = false;
             this.ShowLabel = true;
             this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, SimpleTimerView.PreviewFontSize) : this.Settings.VisualSettings.TimerFont;
+            this.lblTimer.ForeColor = this.TimerColor;
 
             this.OnMessageFinished();
         }

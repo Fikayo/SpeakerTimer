@@ -556,12 +556,15 @@
         private const string ReadyStatus = "Ready";
         private const string LiveStatus = "LIVE";
 
+        private readonly Dictionary<int, string> savedTimers;
         private ISettingsManager<SimpleTimerSettings> settingsManager;
 
         public ControlPanel()
         {
             this.settingsManager = SettingsManager.SimpleSettingsManager;
             InitializeComponent();
+
+            this.savedTimers = new Dictionary<int, string>();
 
             this.Text = Util.GetFormName("Control Panel");
             this.tsiAbout.Text = "About " + MainApplication.ProductName;
@@ -603,25 +606,84 @@
             return timerView;
         }
 
-        private void AddPresetsToPreviews(int id, string name)
+        ////private void AddPresetsToPreviews(int id, string name)
+        ////{
+        ////    var item = new IdNamePair(id, name);
+        ////    this.timerPreview1.SavedTimers.Add(item);
+        ////    this.timerPreview2.SavedTimers.Add(item);
+        ////}
+
+        ////private void ClearPresetFromPreviews(int id = -1, string name = null)
+        ////{
+        ////    if (string.IsNullOrEmpty(name))
+        ////    {
+        ////        this.timerPreview1.SavedTimers.Clear();
+        ////        this.timerPreview2.SavedTimers.Clear();
+        ////        return;
+        ////    }
+
+        ////    var item = new IdNamePair(id, name);
+        ////    this.timerPreview1.SavedTimers.Remove(item);
+        ////    this.timerPreview2.SavedTimers.Remove(item);
+        ////}
+
+
+        private void AddSavedTimersToPreviews(int id, string name)
         {
-            var item = new IdNamePair(id, name);
-            this.timerPreview1.SavedTimers.Add(item);
-            this.timerPreview2.SavedTimers.Add(item);
+            var items1 = this.timerPreview1.SavedTimers;
+            var items2 = this.timerPreview2.SavedTimers;
+
+            var namePair = new IdNamePair(id, name);
+            if (this.savedTimers.ContainsKey(id))
+            {
+                var oldName = this.savedTimers[id];
+                if (oldName != name)
+                {
+                    // Remove old name before adding the new name
+                    var oldPair = new IdNamePair(id, oldName);
+                    items1.Remove(oldPair);
+                    items2.Remove(oldPair);
+
+                    // Add the new name to the list
+                    items1.Add(namePair);
+                    items2.Add(namePair);
+
+                    // Register the new name 
+                    this.savedTimers[id] = name;
+                }
+            }
+            else
+            {
+                // Add the name to the list
+                items1.Add(namePair);
+                items2.Add(namePair);
+
+                // Register the name 
+                this.savedTimers[id] = name;
+            }
         }
 
-        private void ClearPresetFromPreviews(int id = -1, string name = null)
+        private void RemoveSavedTimer(int id, string name)
         {
-            if (string.IsNullOrEmpty(name))
+            var items1 = this.timerPreview1.SavedTimers;
+            var items2 = this.timerPreview1.SavedTimers;
+            if (this.savedTimers.ContainsKey(id))
             {
-                this.timerPreview1.SavedTimers.Clear();
-                this.timerPreview2.SavedTimers.Clear();
-                return;
+                // Remove the associated name
+                items1.Remove(this.savedTimers[id]);
+                items2.Remove(this.savedTimers[id]);
             }
 
-            var item = new IdNamePair(id, name);
-            this.timerPreview1.SavedTimers.Remove(item);
-            this.timerPreview2.SavedTimers.Remove(item);
+            // Remove the supplied name
+            items1.Remove(name);
+            items2.Remove(name);
+        }
+
+        private void ClearSavedTimers()
+        {
+            this.timerPreview1.SavedTimers.Clear();
+            this.timerPreview2.SavedTimers.Clear();
+            this.savedTimers.Clear();
         }
 
         #endregion
@@ -668,7 +730,7 @@
             {
                 foreach (var pair in e.Pairs)
                 {
-                    AddPresetsToPreviews(pair.Id, pair.Name);
+                    AddSavedTimersToPreviews(pair.Id, pair.Name);
                 }
             }
         }
@@ -677,13 +739,13 @@
         {
             if (e.Pairs == null)
             {
-                this.ClearPresetFromPreviews();
+                this.ClearSavedTimers();
                 return;
             }
 
             foreach (var setting in e.Pairs)
             {
-                this.ClearPresetFromPreviews(setting.Id, setting.Name);
+                this.RemoveSavedTimer(setting.Id, setting.Name);
             }
         }
 
@@ -766,22 +828,24 @@
                     var settingsManager = this.savedTimersToolStripItem.SettingsManager;
 
                     // Fetch the old name for this timer in case it has been changed
-                    var oldName = settingsManager.Fetch(id).Name;
+                    ////var oldName = settingsManager.Fetch(id).Name;
 
                     // Update and save this timer
                     settingsManager.AddOrUpdate(e.Settings);
                     preview.Settings = settingsManager.Save(id);
 
-                    // Now, get the possible new Id
-                    var newId = preview.Settings.Id;
+                    this.AddSavedTimersToPreviews(preview.Settings.Id, preview.Settings.Name);
+
+                    ////// Now, get the possible new Id
+                    ////var newId = preview.Settings.Id;
                     
-                    // If the name has changed, remove it from the preview lists
-                    if (!oldName.Equals(currentName))
-                    {
-                        // Removed the old name from the dropdown and add the new name in
-                        this.ClearPresetFromPreviews(id, oldName);
-                        this.AddPresetsToPreviews(newId, currentName);
-                    }
+                    ////// If the name has changed, remove it from the preview lists
+                    ////if (!oldName.Equals(currentName))
+                    ////{
+                    ////    // Removed the old name from the dropdown and add the new name in
+                    ////    this.ClearPresetFromPreviews(id, oldName);
+                    ////    this.AddSavedTimersToPreviews(newId, currentName);
+                    ////}
                     
                 }
             }
