@@ -86,7 +86,7 @@
             }
             else
             {
-                this.localDb.Add(timerId, timer);
+                this.localDb.Add(timerId, (T)timer.Clone());
                 this.modifiedTimers.Add(timerId);
             }
 

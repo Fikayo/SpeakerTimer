@@ -38,10 +38,10 @@
             this.messageTimer = new Timer();
             this.messageTimer.Tick += MessageTimer_Tick;
 
-            this.ApplySettings(SimpleTimerSettings.Default);
             this.stopped = true;
             this.DisplayState = DisplayState.Timer;
             this.TimerState = TimerState.Stopped;
+            this.ApplySettings(SimpleTimerSettings.Default);
 
             this.SizeChanged += (_, __) => this.lblTimer.MaximumSize = new Size(this.Width, 0);
         }
@@ -119,12 +119,13 @@
 
         public override bool IsPreviewMode
         {
-            get { return this.TimerLabel.Cursor == Cursors.Hand; }
+            get { return base.IsPreviewMode; }
 
             set
             {
-                var preview = value;
-                this.TimerLabel.Cursor = preview ? Cursors.Hand : Cursors.Default;
+                base.IsPreviewMode = value;
+                this.TimerLabel.Cursor = value ? Cursors.Hand : Cursors.Default;
+                this.SetFonts();
             }
         }
 
@@ -293,17 +294,23 @@
 
         private void ApplySettings(SimpleTimerSettings settings)
         {
-            this.TimerFont = this.IsPreviewMode ? new Font(settings.VisualSettings.TimerFont.FontFamily.Name, SimpleTimerView.PreviewFontSize) : settings.VisualSettings.TimerFont;
-            int labelSize = this.IsPreviewMode ? SimpleTimerView.PreviewLabelSize : (int)Math.Max(settings.VisualSettings.TimerFont.Size / 3, 10);
-            this.lblTimerTitle.Font = new Font(settings.VisualSettings.TimerFont.FontFamily.Name, labelSize);
+            this.Settings = settings;
+
+            this.SetFonts();
+
+            ////this.TimerFont = this.IsPreviewMode ? new Font(settings.VisualSettings.TimerFont.FontFamily.Name, SimpleTimerView.PreviewFontSize) : settings.VisualSettings.TimerFont;
+            ////int labelSize = this.IsPreviewMode ? SimpleTimerView.PreviewLabelSize : (int)Math.Max(settings.VisualSettings.TimerFont.Size / 3, 10);
+            ////this.lblTimerTitle.Font = new Font(settings.VisualSettings.TimerFont.FontFamily.Name, labelSize);
+
+            ////// Keep the mini timer the same size as the title
+            ////this.lblMiniTimer.Font = new Font(settings.VisualSettings.TimerFont.FontFamily.Name, labelSize);
 
             // Keep the mini timer the same size as the title
-            this.lblMiniTimer.Font = new Font(settings.VisualSettings.TimerFont.FontFamily.Name, labelSize);
+            this.lblMiniTimer.Font = this.lblTimerTitle.Font;
 
             this.BackgroundColor = settings.VisualSettings.BackgroundColor;
             this.TimerColor = settings.VisualSettings.RunningColor;
 
-            this.Settings = settings;
             this.Settings.VisualSettings.SecondWarningColor = this.Settings.VisualSettings.SecondWarningColor;
 
             if ((settings.BlinkOnExpired && this.Settings.TimerDuration.Duration >= 0) || (!settings.BlinkOnExpired && this.blinkManager.IsBlinking))
@@ -331,6 +338,25 @@
             }
         }
 
+        private void SetFonts()
+        {
+            var settings = this.Settings;
+
+            if (this.IsPreviewMode)
+            {
+                this.TimerFont = new Font(settings.VisualSettings.TimerFont.FontFamily.Name, SimpleTimerView.PreviewFontSize);
+                this.lblTimerTitle.Font = new Font(settings.VisualSettings.TimerFont.FontFamily.Name, SimpleTimerView.PreviewLabelSize);
+            }
+            else
+            {
+                this.TimerFont = settings.VisualSettings.TimerFont;
+
+                int labelSize = (int)Math.Max(settings.VisualSettings.TimerFont.Size / 3, 10);
+                this.lblTimerTitle.Font = new Font(settings.VisualSettings.TimerFont.FontFamily.Name, labelSize);
+            }
+
+        }
+
         private void DisplayTimerMessage()
         {
             this.ShowLabel = false;
@@ -340,13 +366,9 @@
             //var messageFont = new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, this.Settings.MessageSettings.MessageFontSize);
             //this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : messageFont;
 
-            if (this.IsPreviewMode)
+            this.SetFonts();
+            if (!this.IsPreviewMode)
             {
-                this.TimerFont = new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, SimpleTimerView.PreviewFontSize);
-            }
-            else
-            {
-                this.TimerFont = this.Settings.VisualSettings.TimerFont;
                 this.ScaleMessageFont(this.lblTimer);
             }
 
@@ -362,8 +384,9 @@
             this.RefreshTimerDisplay(true);
             this.lblMiniTimer.Visible = false;
             this.ShowLabel = true;
-            this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, SimpleTimerView.PreviewFontSize) : this.Settings.VisualSettings.TimerFont;
+            ////this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, SimpleTimerView.PreviewFontSize) : this.Settings.VisualSettings.TimerFont;
             this.lblTimer.ForeColor = this.TimerColor;
+            this.SetFonts();
 
             this.OnMessageFinished();
         }
@@ -381,11 +404,11 @@
             while (lab.Height > availableHeight)
             {
                 float ratio = lab.Height / availableHeight;
-                if(ratio == 1)
+                if (ratio == 1)
                 {
                     ratio = 1.1f;
                 }
-                
+
                 float newSize = ratio != 0 ? (lab.Font.Size / ratio) : lab.Font.Size;
 
                 lab.Font = new Font(lab.Font.FontFamily, newSize, lab.Font.Style);

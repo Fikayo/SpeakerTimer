@@ -21,15 +21,18 @@
 
             //this.OnPresentFormEventsRequired();
             this.AddAllScreens();
+
+            this.ToggleDisplayOnTop();
+            this.TogglePreviewOnTop();
         }
 
         #region Events
-        
+
 
         public event EventHandler PresentFormEventsRequired;
 
         public event EventHandler PresentFormEventsRemoved;
-        
+
         public event EventHandler LivePreviewFormEventsRequired;
 
         public event EventHandler LivePreviewFormEventsRemoved;
@@ -58,6 +61,7 @@
             {
                 this.PresentForm = null;
                 this.PresentForm = new PresentationTimerForm(this.FetchTimerView());
+                this.PresentForm.TopMost = this.tsmKeepOnTop.Checked;
                 this.HookPresentFormEvents();
                 //this.OnPresentFormRequired();
                 this.OnPresentFormEventsRequired();
@@ -84,6 +88,7 @@
                 this.LivePreviewForm.IsPreviewForm = true;
                 this.LivePreviewForm.Size = this.previewFormSize;
                 this.LivePreviewForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;
+                this.LivePreviewForm.TopMost = this.tsmKeepPreviewOnTop.Checked;
                 this.HookLivePreviewFormEvents();
                 this.OnLivePreviewFormEventsRequired();
 
@@ -188,6 +193,28 @@
             };
         }
 
+        private void ToggleDisplayOnTop()
+        {
+            this.tsmKeepOnTop.Checked = !this.tsmKeepOnTop.Checked;
+
+            var displayTopMost = this.tsmKeepOnTop.Checked;
+            if (this.PresentForm != null && !this.PresentForm.IsDisposed)
+            {
+                this.PresentForm.TopMost = displayTopMost;
+            }
+        }
+
+        private void TogglePreviewOnTop()
+        {
+            this.tsmKeepPreviewOnTop.Checked = !this.tsmKeepPreviewOnTop.Checked;
+
+            var previewTopMost = this.tsmKeepPreviewOnTop.Checked;
+            if (this.LivePreviewForm != null && !this.LivePreviewForm.IsDisposed)
+            {
+                this.LivePreviewForm.TopMost = previewTopMost;
+            }
+        }
+
         private void AddAllScreens()
         {
             this.tsmChangeDisplayScreen.DropDownItems.Clear();
@@ -244,7 +271,7 @@
                 handler.Invoke(this, EventArgs.Empty);
             }
         }
-        
+
         #endregion
 
         #region ToolStrip Menu Items Event Handlers
@@ -252,13 +279,6 @@
         private void tsmShowDisplay_Click(object sender, EventArgs e)
         {
             this.TogglePresentationForm();
-        }
-
-        private void tsmKeepPreviewOnTop_Click(object sender, EventArgs e)
-        {
-            this.EnsureLivePreviewFormActive();
-            this.tsmKeepPreviewOnTop.Checked = !this.tsmKeepPreviewOnTop.Checked;
-            this.LivePreviewForm.TopMost = this.tsmKeepPreviewOnTop.Checked;
         }
 
         private void tsmShowLivePreview_Click(object sender, EventArgs e)
@@ -269,8 +289,19 @@
         private void tsmKeepOnTop_Click(object sender, EventArgs e)
         {
             this.EnsureDisplayFormActive();
-            this.tsmKeepOnTop.Checked = !this.tsmKeepOnTop.Checked;
-            this.PresentForm.TopMost = this.tsmKeepOnTop.Checked;
+            ////this.tsmKeepOnTop.Checked = !this.tsmKeepOnTop.Checked;
+            ////this.PresentForm.TopMost = this.tsmKeepOnTop.Checked;
+
+            this.ToggleDisplayOnTop();
+        }
+
+        private void tsmKeepPreviewOnTop_Click(object sender, EventArgs e)
+        {
+            this.EnsureLivePreviewFormActive();
+            ////this.tsmKeepPreviewOnTop.Checked = !this.tsmKeepPreviewOnTop.Checked;
+            ////this.LivePreviewForm.TopMost = this.tsmKeepPreviewOnTop.Checked;
+
+            this.TogglePreviewOnTop();
         }
 
         private void tsmFullScreen_Click(object sender, EventArgs e)
@@ -345,7 +376,7 @@
         {
             this.AddAllScreens();
         }
-        
+
         #endregion
 
         #region Present Form Event Handlers
