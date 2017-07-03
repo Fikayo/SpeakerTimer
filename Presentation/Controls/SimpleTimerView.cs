@@ -242,30 +242,6 @@
             this.TimerLabel.Text = display;
         }
 
-        public void DisplayTimerMessage()
-        {
-            this.ShowLabel = false;
-            this.lblTimer.Text = this.Settings.MessageSettings.TimerMessage;
-
-            //var messageFont = new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, this.Settings.MessageSettings.MessageFontSize);
-            //this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : messageFont;
-            
-            if (this.IsPreviewMode)
-            {
-                this.TimerFont = new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, SimpleTimerView.PreviewFontSize);
-            }
-            else
-            {
-                this.TimerFont = this.Settings.VisualSettings.TimerFont;
-                this.ScaleMessageFont(this.lblTimer);
-
-            }
-
-            this.lblMiniTimer.Visible = true;
-            this.lblMiniTimer.ForeColor = this.Settings.VisualSettings.RunningColor;
-            this.RefreshTimerDisplay(true);
-        }
-
         #endregion
 
         #region Internal Members
@@ -328,7 +304,7 @@
             this.TimerColor = settings.VisualSettings.RunningColor;
 
             this.Settings = settings;
-            this.Settings.VisualSettings.SecondWarningColor = this.Settings.VisualSettings.MessageColor;
+            this.Settings.VisualSettings.SecondWarningColor = this.Settings.VisualSettings.SecondWarningColor;
 
             if ((settings.BlinkOnExpired && this.Settings.TimerDuration.Duration >= 0) || (!settings.BlinkOnExpired && this.blinkManager.IsBlinking))
             {
@@ -353,6 +329,30 @@
                     this.messageTimer.Start();
                 }
             }
+        }
+
+        private void DisplayTimerMessage()
+        {
+            this.ShowLabel = false;
+            this.lblTimer.Text = this.Settings.MessageSettings.TimerMessage;
+            this.lblTimer.ForeColor = this.Settings.VisualSettings.RunningColor;
+
+            //var messageFont = new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, this.Settings.MessageSettings.MessageFontSize);
+            //this.TimerFont = this.IsPreviewMode ? new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, TimerView.PreviewFontSize) : messageFont;
+
+            if (this.IsPreviewMode)
+            {
+                this.TimerFont = new Font(this.Settings.VisualSettings.TimerFont.FontFamily.Name, SimpleTimerView.PreviewFontSize);
+            }
+            else
+            {
+                this.TimerFont = this.Settings.VisualSettings.TimerFont;
+                this.ScaleMessageFont(this.lblTimer);
+            }
+
+            this.lblMiniTimer.Visible = true;
+            this.lblMiniTimer.ForeColor = this.Settings.VisualSettings.RunningColor;
+            this.RefreshTimerDisplay(true);
         }
 
         private void CancelTimerMessage()
@@ -454,24 +454,9 @@
 
         private void FadeTimerColor(FadeItem init, FadeItem dest)
         {
-            int fadeIndex = (int)(init.Time - this.CurrentTime);
-            int steps = (int)(init.Time - dest.Time);
-            if (fadeIndex < steps && steps > 1)
-            {
-                var oldR = init.Color.R;
-                var oldG = init.Color.G;
-                var oldB = init.Color.B;
-
-                var newR = dest.Color.R;
-                var newG = dest.Color.G;
-                var newB = dest.Color.B;
-
-                var r = oldR + ((fadeIndex * (newR - oldR)) / (steps - 1));
-                var g = oldG + ((fadeIndex * (newG - oldG)) / (steps - 1));
-                var b = oldB + ((fadeIndex * (newB - oldB)) / (steps - 1));
-
-                this.TimerColor = Color.FromArgb(r, g, b);
-            }
+            var current = new FadeItem() { Time = this.CurrentTime, Color = this.TimerColor };
+            ////this.TimerColor = ColorFader.Linear(init, dest, current);
+            this.TimerColor = ColorFader.BoundedExponential(init, dest, current);
         }
 
         private void TimerTickState()
@@ -850,12 +835,6 @@
         }
 
         #endregion
-    }
-
-    public class FadeItem
-    {
-        public Color Color { get; set; }
-        public double Time { get; set; }
     }
 
     public enum TimerState

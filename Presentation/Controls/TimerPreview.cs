@@ -148,6 +148,10 @@
             //this.btnStart.ForeColor = Color.RoyalBlue;
             //this.btnStart.BackColor = Color.Silver;
             this.running = false;
+
+            // Enbable appropriate functions
+            this.cmbLoadTimer.Enabled = true;
+            this.btnNewSetting.Enabled = true;
         }
 
         private void ResetPausedButton()
@@ -157,6 +161,10 @@
             //this.btnStart.ForeColor = Color.Green;
             //this.btnStart.BackColor = Color.LightCyan;
             this.running = true;
+
+            // Disable appropriate functions
+            this.cmbLoadTimer.Enabled = false;
+            this.btnNewSetting.Enabled = false;
         }
 
         private void FreezeMessageInput()
@@ -340,9 +348,54 @@
             this.Settings.MessageSettings.IsIndefiniteMessage = this.chbIndefiniteMessageDuration.Checked;
         }
 
-        #endregion 
+        #endregion
 
         #region Settings Event Handlers
+
+        private void txtSettingsName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                if (this.ValidateNameChange())
+                {
+                    e.Handled = true;
+                }
+
+                return;
+            }
+
+            var invalidChars = System.IO.Path.GetInvalidFileNameChars();
+            var handled = Array.Exists(invalidChars, x => x == e.KeyChar) && !char.IsControl(e.KeyChar);
+            handled = handled || e.KeyChar == ',';
+            e.Handled = handled;
+
+            if (this.SavedTimers.Contains(this.txtSettingsName.Text))
+            {
+                this.txtSettingsName.BackColor = Color.LightPink;
+                this.errorProvider.SetError(this.txtSettingsName, "Setting name already exists");
+            }
+            else
+            {
+                this.txtSettingsName.BackColor = Color.White;
+                this.errorProvider.SetError(this.txtSettingsName, string.Empty);
+            }
+        }
+
+        private void txtSettingsName_Leave(object sender, EventArgs e)
+        {
+            if (!this.ValidateNameChange())
+            {
+                this.txtSettingsName.Focus();
+            }
+        }
+
+        private void btnEditName_Click(object sender, EventArgs e)
+        {
+            this.txtSettingsName.Enabled = true;
+            this.btnEditName.Enabled = false;
+
+            this.txtSettingsName.Focus();
+        }
 
         private void txtTitle_TextChanged(object sender, EventArgs e)
         {
@@ -441,6 +494,7 @@
             }
             else if (this.settings.TimerDuration.Duration == 0)
             {
+                // Not counting up but duration is 0
                 MessageBox.Show("Please enter a non-zero duration.\r\n" +
                     "(Double click on the preview timer to set the timer duration).",
                     "Invalid Duration",
@@ -476,51 +530,6 @@
         #endregion
 
         #region IO Event Handlers
-
-        private void txtSettingsName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                if (this.ValidateNameChange())
-                {
-                    e.Handled = true;
-                }
-
-                return;
-            }
-
-            var invalidChars = System.IO.Path.GetInvalidFileNameChars();
-            var handled = Array.Exists(invalidChars, x => x == e.KeyChar) && !char.IsControl(e.KeyChar);
-            handled = handled || e.KeyChar == ',';
-            e.Handled = handled;
-
-            if (this.SavedTimers.Contains(this.txtSettingsName.Text))
-            {
-                this.txtSettingsName.BackColor = Color.LightPink;
-                this.errorProvider.SetError(this.txtSettingsName, "Setting name already exists");
-            }
-            else
-            {
-                this.txtSettingsName.BackColor = Color.White;
-                this.errorProvider.SetError(this.txtSettingsName, string.Empty);
-            }
-        }
-
-        private void txtSettingsName_Leave(object sender, EventArgs e)
-        {
-            if (!this.ValidateNameChange())
-            {
-                this.txtSettingsName.Focus();
-            }
-        }
-
-        private void btnEditName_Click(object sender, EventArgs e)
-        {
-            this.txtSettingsName.Enabled = true;
-            this.btnEditName.Enabled = false;
-
-            this.txtSettingsName.Focus();
-        }
 
         private void btnNewSetting_Click(object sender, EventArgs e)
         {

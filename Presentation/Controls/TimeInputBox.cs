@@ -7,6 +7,7 @@
     public class TimeInputBox : TextBox
     {
         private bool firsttouch;
+        private string currentInput = "00:00:00";
 
         public TimeInputBox()
         {
@@ -21,7 +22,8 @@
 
         public void SetTime(double time)
         {
-            this.Text = TimeSpan.FromSeconds(time).ToString();
+            this.currentInput = TimeSpan.FromSeconds(time).ToString();
+            this.Text = this.currentInput;
         }
 
         protected override void OnEnter(EventArgs e)
@@ -48,6 +50,7 @@
             if (this.firsttouch)
             {
                 this.Text = "00:00:00";
+                ////this.Text = this.currentInput;
                 this.firsttouch = false;
             }
 
@@ -134,6 +137,7 @@
         {
             this.firsttouch = true;
             this.Text = "00:00:00";
+            ////this.SetTime(0);
         }
 
         private void SetTimeFromInput()
