@@ -864,6 +864,9 @@
             this.Name = "TimerPreview";
             this.Size = new System.Drawing.Size(1048, 237);
             this.Load += new System.EventHandler(this.TimerPreview_Load);
+            this.Enter += new System.EventHandler(this.TimerPreview_Enter);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TimerPreview_KeyUp);
+            this.Leave += new System.EventHandler(this.TimerPreview_Leave);
             this.tlpOuterLayout.ResumeLayout(false);
             this.tlpOuterLayout.PerformLayout();
             this.tlpControlsLayout.ResumeLayout(false);

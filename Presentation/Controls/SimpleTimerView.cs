@@ -43,7 +43,7 @@
             this.TimerState = TimerState.Stopped;
             this.ApplySettings(SimpleTimerSettings.Default);
 
-            this.SizeChanged += (_, __) => this.lblTimer.MaximumSize = new Size(this.Width, 0);
+            this.SizeChanged += (_, __) => this.lblTimer.MaximumSize = new Size(this.Width - 30, 0);
         }
 
         public SimpleTimerView(TimerViewerCommandIssuer commandIssuer)
@@ -304,10 +304,7 @@
 
             ////// Keep the mini timer the same size as the title
             ////this.lblMiniTimer.Font = new Font(settings.VisualSettings.TimerFont.FontFamily.Name, labelSize);
-
-            // Keep the mini timer the same size as the title
-            this.lblMiniTimer.Font = this.lblTimerTitle.Font;
-
+            
             this.BackgroundColor = settings.VisualSettings.BackgroundColor;
             this.TimerColor = settings.VisualSettings.RunningColor;
 
@@ -355,6 +352,8 @@
                 this.lblTimerTitle.Font = new Font(settings.VisualSettings.TimerFont.FontFamily.Name, labelSize);
             }
 
+            // Keep the mini timer the same size as the title
+            this.lblMiniTimer.Font = this.lblTimerTitle.Font;
         }
 
         private void DisplayTimerMessage()
@@ -400,7 +399,8 @@
 
             ////SizeF extent = graphics.MeasureString(lab.Text, lab.Font);
 
-            int availableHeight = this.Height - this.lblMiniTimer.Height;
+            int padding = 10;
+            int availableHeight = this.Height - this.lblMiniTimer.Height - padding;
             while (lab.Height > availableHeight)
             {
                 float ratio = lab.Height / availableHeight;

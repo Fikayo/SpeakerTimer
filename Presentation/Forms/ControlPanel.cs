@@ -581,6 +581,23 @@
             this.timerPreview2.Settings = loadedTimer ?? SimpleTimerSettings.Default;
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (this.timerPreview1.IsFocused)
+            {
+                this.timerPreview1.CheckKeyPress(keyData);
+            }
+            else if (this.timerPreview2.IsFocused)
+            {
+                this.timerPreview2.CheckKeyPress(keyData);
+            }
+
+            this.displayToolStripItem.EnsureDisplayFormActive();
+            this.displayToolStripItem.PresentForm.CheckKeyPress(keyData);
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         #region Internal Members
 
         private void HookPresentFormEvents()
@@ -695,6 +712,28 @@
             this.savedTimersToolStripItem.SettingsManager.SaveAll();
         }
 
+        ////private void ControlPanel_KeyDown(object sender, KeyEventArgs e)
+        ////{
+        ////    if (this.timerPreview1.IsFocused)
+        ////    {
+        ////        this.timerPreview1.CheckKeyPress(e.KeyCode);
+        ////    }
+        ////    else if (this.timerPreview2.IsFocused)
+        ////    {
+        ////        this.timerPreview2.CheckKeyPress(e.KeyCode);
+        ////    }
+
+        ////    this.displayToolStripItem.EnsureDisplayFormActive();
+        ////    this.displayToolStripItem.PresentForm.CheckKeyPress(e.KeyCode);
+        ////}
+
+        ////private void ControlPanel_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        ////{
+        ////    this.displayToolStripItem.EnsureDisplayFormActive();
+        ////    this.displayToolStripItem.PresentForm.CheckKeyPress(e.KeyCode);
+        ////}
+
+
         private void notifyIcon_Click(object sender, EventArgs e)
         {
             this.Show();
@@ -779,18 +818,6 @@
             }
         }
 
-        private void ControlPanel_KeyDown(object sender, KeyEventArgs e)
-        {
-            this.displayToolStripItem.EnsureDisplayFormActive();
-            this.displayToolStripItem.PresentForm.CheckKeyPress(e.KeyCode);
-        }
-
-        private void ControlPanel_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            this.displayToolStripItem.EnsureDisplayFormActive();
-            this.displayToolStripItem.PresentForm.CheckKeyPress(e.KeyCode);
-        }
-
         #endregion
 
         #region Live Form Event Handlers        
@@ -838,7 +865,7 @@
 
                     ////// Now, get the possible new Id
                     ////var newId = preview.Settings.Id;
-                    
+
                     ////// If the name has changed, remove it from the preview lists
                     ////if (!oldName.Equals(currentName))
                     ////{
@@ -846,7 +873,7 @@
                     ////    this.ClearPresetFromPreviews(id, oldName);
                     ////    this.AddSavedTimersToPreviews(newId, currentName);
                     ////}
-                    
+
                 }
             }
             catch (Exception)

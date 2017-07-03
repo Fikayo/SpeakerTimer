@@ -80,13 +80,70 @@
             }
         }
 
+        public bool IsFocused { get; private set; }
+
         public ComboBox.ObjectCollection SavedTimers
         {
             get { return this.cmbLoadTimer.Items; }
         }
 
         public TimerViewerCommandIssuer CommandIssuer { get; private set; }
-        
+
+        public void CheckKeyPress(Keys key)
+        {
+            switch (key)
+            {
+                case Keys.P:
+                    {
+                        // Play/Pause
+                        this.PlayPause();
+                        break;
+                    }
+
+                case Keys.S:
+                    {
+                        // Stop
+                        this.Stop();
+                        break;
+                    }
+
+                case Keys.R:
+                    {
+                        // Reset
+                        this.Reset();
+                        break;
+                    }
+
+                case Keys.F:
+                    {
+                        // Find setting
+                        this.cmbLoadTimer.DroppedDown = !this.cmbLoadTimer.DroppedDown;
+                        break;
+                    }
+
+                case Keys.Control | Keys.S:
+                    {
+                        // Save
+                        this.SaveSettings();
+                        break;
+                    }
+
+                case Keys.Control | Keys.N:
+                    {
+                        // New Settings
+                        if (!this.running)
+                        {
+                            this.NewSetting();
+                        }
+
+                        break;
+                    }
+
+                default:
+                    break;
+            }
+        }
+
         #region Internal Members
 
         private void InitSettings()
@@ -140,32 +197,6 @@
             {
                 ChangeTimerDuration(e.Duration);
             };
-        }
-
-        private void ResetPlayButton()
-        {
-            //this.btnStart.Text = "Start";
-            this.btnStart.Image = ControlPanel.PlayImage;
-            //this.btnStart.ForeColor = Color.RoyalBlue;
-            //this.btnStart.BackColor = Color.Silver;
-            this.running = false;
-
-            // Enbable appropriate functions
-            this.cmbLoadTimer.Enabled = true;
-            this.btnNewSetting.Enabled = true;
-        }
-
-        private void ResetPausedButton()
-        {
-            //this.btnStart.Text = "Pause";
-            this.btnStart.Image = ControlPanel.PauseImage;
-            //this.btnStart.ForeColor = Color.Green;
-            //this.btnStart.BackColor = Color.LightCyan;
-            this.running = true;
-
-            // Disable appropriate functions
-            this.cmbLoadTimer.Enabled = false;
-            this.btnNewSetting.Enabled = false;
         }
 
         private void FreezeMessageInput()
@@ -228,6 +259,17 @@
             return true;
         }
 
+        private void NewSetting()
+        {
+            if (this.savePending)
+            {
+                this.SaveSettings();
+            }
+
+            this.Settings = SimpleTimerSettings.Default;
+            this.Reset();
+        }
+
         private void SaveSettings()
         {
             var name = this.Settings.Name;
@@ -250,6 +292,77 @@
             this.CommandIssuer.OnSettingsUpdated(this.Settings.Id);
             ////this.CommandIssuer.OnSettingsChanged(this.Settings);
         }
+
+        #region Functions
+
+        private void PlayPause()
+        {
+            if (this.settings.TimerDuration.Duration == 0 && this.settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
+            {
+                this.ChangeTimerDuration(Util.MAX_INPUT_TIME_ALLOWED);
+            }
+            else if (this.settings.TimerDuration.Duration == 0)
+            {
+                // Not counting up but duration is 0
+                MessageBox.Show("Please enter a non-zero duration.\r\n" +
+                    "(Double click on the preview timer to set the timer duration).",
+                    "Invalid Duration",
+                    MessageBoxButtons.OK);
+
+                return;
+            }
+
+            if (this.running)
+            {
+                this.ResetPlayButton();
+                this.CommandIssuer.IssuePauseCommand();
+            }
+            else
+            {
+                this.ResetPausedButton();
+                this.CommandIssuer.IssueStartCommand();
+            }
+        }
+
+        private void Stop()
+        {
+            this.ResetPlayButton();
+            this.CommandIssuer.IssueStopCommand();
+        }
+
+        private void Reset()
+        {
+            this.ResetPlayButton();
+            this.CommandIssuer.IssueResetCommand();
+        }
+
+        private void ResetPlayButton()
+        {
+            //this.btnStart.Text = "Start";
+            this.btnStart.Image = ControlPanel.PlayImage;
+            //this.btnStart.ForeColor = Color.RoyalBlue;
+            //this.btnStart.BackColor = Color.Silver;
+            this.running = false;
+
+            // Enbable appropriate functions
+            this.cmbLoadTimer.Enabled = true;
+            this.btnNewSetting.Enabled = true;
+        }
+
+        private void ResetPausedButton()
+        {
+            //this.btnStart.Text = "Pause";
+            this.btnStart.Image = ControlPanel.PauseImage;
+            //this.btnStart.ForeColor = Color.Green;
+            //this.btnStart.BackColor = Color.LightCyan;
+            this.running = true;
+
+            // Disable appropriate functions
+            this.cmbLoadTimer.Enabled = false;
+            this.btnNewSetting.Enabled = false;
+        }
+
+        #endregion
 
         #endregion
 
@@ -310,8 +423,23 @@
 
         private void TimerPreview_Load(object sender, EventArgs e)
         {
-            this.DisplayName = this.settings.Name;
+            this.DisplayName = this.settings != null ? this.settings.Name : string.Empty;
             Util.SetWatermark(this.txtFinalMessage, "Time Up");
+        }
+
+        private void TimerPreview_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.CheckKeyPress(e.KeyCode);
+        }
+
+        private void TimerPreview_Leave(object sender, EventArgs e)
+        {
+            this.IsFocused = false;
+        }
+
+        private void TimerPreview_Enter(object sender, EventArgs e)
+        {
+            this.IsFocused = true;
         }
 
         #region Timer Message
@@ -489,43 +617,17 @@
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (this.settings.TimerDuration.Duration == 0 && this.settings.VisualSettings.CounterMode == TimerVisualSettings.TimerCounterMode.CountUp)
-            {
-                this.ChangeTimerDuration(Util.MAX_INPUT_TIME_ALLOWED);
-            }
-            else if (this.settings.TimerDuration.Duration == 0)
-            {
-                // Not counting up but duration is 0
-                MessageBox.Show("Please enter a non-zero duration.\r\n" +
-                    "(Double click on the preview timer to set the timer duration).",
-                    "Invalid Duration",
-                    MessageBoxButtons.OK);
-
-                return;
-            }
-
-            if (this.running)
-            {
-                this.ResetPlayButton();
-                this.CommandIssuer.IssuePauseCommand();
-            }
-            else
-            {
-                this.ResetPausedButton();
-                this.CommandIssuer.IssueStartCommand();
-            }
+            this.PlayPause();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            this.ResetPlayButton();
-            this.CommandIssuer.IssueStopCommand();
+            this.Stop();
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            this.ResetPlayButton();
-            this.CommandIssuer.IssueResetCommand();
+            this.Reset();
         }
 
         #endregion
@@ -534,12 +636,7 @@
 
         private void btnNewSetting_Click(object sender, EventArgs e)
         {
-            if (this.savePending)
-            {
-                this.SaveSettings();
-            }
-
-            this.Settings = SimpleTimerSettings.Default;
+            this.NewSetting();
         }
 
         private void btnSave_Click(object sender, EventArgs e)

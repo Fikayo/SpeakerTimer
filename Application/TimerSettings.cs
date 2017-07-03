@@ -10,11 +10,13 @@ namespace SpeakerTimer.Application
         protected static readonly string DefaultName = "Un-named";
 
         protected readonly int id;
-        protected string name; 
-
+        protected string name;
+        private string finalMessage;
+        
         protected TimerSettings(int id)
         {
             this.id = id;
+            this.finalMessage = string.Empty;
         }
 
         public int Id { get { return id; } }
@@ -36,7 +38,16 @@ namespace SpeakerTimer.Application
             }
         }
 
-        public string FinalMessage { get; set; }
+        public string FinalMessage
+        {
+            get { return this.finalMessage; }
+
+            set
+            {
+                var message = value;
+                this.finalMessage = string.IsNullOrEmpty(message) ? string.Empty : message;
+            }
+        }
 
         public bool BlinkOnExpired { get; set; }
 
