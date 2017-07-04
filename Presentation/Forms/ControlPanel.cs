@@ -571,6 +571,7 @@
 
             this.timerPreview1.IsLive = false;
             this.timerPreview2.IsLive = false;
+            this.timerPreview1.Click += TimerPreview_Click;
 
             this.displayToolStripItem.FetchTimerView = this.CreateTimerView;
             this.savedTimersToolStripItem.Init();
@@ -918,6 +919,15 @@
             this.notifyIcon.Icon = SystemIcons.Application;
             this.notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
             this.notifyIcon.ShowBalloonTip(5000);
+        }
+
+        private void TimerPreview_Click(object sender, EventArgs e)
+        {
+            if (sender is TimerPreview)
+            {
+                TimerPreview preview = sender as TimerPreview;
+                preview.Focus();
+            }
         }
 
         private void timerPreview1_LiveStateChanged(object sender, EventArgs e)
