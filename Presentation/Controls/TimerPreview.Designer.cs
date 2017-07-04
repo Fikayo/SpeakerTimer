@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace ChurchTimer.Presentation
 {
     partial class TimerPreview
     {
@@ -66,11 +66,11 @@
             this.flpMainLeftLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.flpWarningTimesLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.tlpFirstWarningLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.tibWarningTime = new SpeakerTimer.Presentation.TimeInputBox();
+            this.tibWarningTime = new ChurchTimer.Presentation.TimeInputBox();
             this.lblWarningTime = new System.Windows.Forms.Label();
             this.tlpSecondWarningLayout = new System.Windows.Forms.TableLayoutPanel();
             this.lblSecondWarning = new System.Windows.Forms.Label();
-            this.tibSecondWarningTime = new SpeakerTimer.Presentation.TimeInputBox();
+            this.tibSecondWarningTime = new ChurchTimer.Presentation.TimeInputBox();
             this.tlpFinalMessageLayout = new System.Windows.Forms.TableLayoutPanel();
             this.txtFinalMessage = new System.Windows.Forms.TextBox();
             this.lblFinalMessage = new System.Windows.Forms.Label();
@@ -79,7 +79,7 @@
             this.rdbLive = new System.Windows.Forms.RadioButton();
             this.pcbLiveIndicator = new System.Windows.Forms.PictureBox();
             this.chbBlink = new System.Windows.Forms.CheckBox();
-            this.timerView = new SpeakerTimer.Presentation.SimpleTimerView();
+            this.timerView = new ChurchTimer.Presentation.SimpleTimerView();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.grbPreviewBox = new System.Windows.Forms.GroupBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
@@ -267,7 +267,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::SpeakerTimer.Properties.Resources._1494315729_10_Folder;
+            this.pictureBox1.Image = global::ChurchTimer.Properties.Resources._1494315729_10_Folder;
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(29, 22);
@@ -290,7 +290,7 @@
             // 
             this.btnNewSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNewSetting.BackColor = System.Drawing.Color.Transparent;
-            this.btnNewSetting.BackgroundImage = global::SpeakerTimer.Properties.Resources._new;
+            this.btnNewSetting.BackgroundImage = global::ChurchTimer.Properties.Resources._new;
             this.btnNewSetting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnNewSetting.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNewSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -307,7 +307,7 @@
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.BackColor = System.Drawing.Color.Transparent;
-            this.btnSave.BackgroundImage = global::SpeakerTimer.Properties.Resources.save_2;
+            this.btnSave.BackgroundImage = global::ChurchTimer.Properties.Resources.save_2;
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -324,7 +324,7 @@
             // 
             this.btnVisualSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVisualSettings.BackColor = System.Drawing.Color.Transparent;
-            this.btnVisualSettings.BackgroundImage = global::SpeakerTimer.Properties.Resources.settings;
+            this.btnVisualSettings.BackgroundImage = global::ChurchTimer.Properties.Resources.settings;
             this.btnVisualSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnVisualSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVisualSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -383,7 +383,7 @@
             this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStart.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnStart.Image = global::SpeakerTimer.Properties.Resources.play;
+            this.btnStart.Image = global::ChurchTimer.Properties.Resources.play;
             this.btnStart.Location = new System.Drawing.Point(3, 33);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(23, 27);
@@ -400,7 +400,7 @@
             this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStop.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnStop.Image = global::SpeakerTimer.Properties.Resources.stop_sm1;
+            this.btnStop.Image = global::ChurchTimer.Properties.Resources.stop_sm1;
             this.btnStop.Location = new System.Drawing.Point(3, 66);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(23, 27);
@@ -417,7 +417,7 @@
             this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReset.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnReset.Image = global::SpeakerTimer.Properties.Resources.refresh;
+            this.btnReset.Image = global::ChurchTimer.Properties.Resources.refresh;
             this.btnReset.Location = new System.Drawing.Point(3, 99);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(23, 27);
@@ -802,7 +802,7 @@
             // pcbLiveIndicator
             // 
             this.pcbLiveIndicator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pcbLiveIndicator.Image = global::SpeakerTimer.Properties.Resources.wpid_gfgffh;
+            this.pcbLiveIndicator.Image = global::ChurchTimer.Properties.Resources.wpid_gfgffh;
             this.pcbLiveIndicator.Location = new System.Drawing.Point(57, 3);
             this.pcbLiveIndicator.Name = "pcbLiveIndicator";
             this.pcbLiveIndicator.Size = new System.Drawing.Size(39, 17);
@@ -837,7 +837,7 @@
             this.timerView.TabIndex = 2;
             this.timerView.TimerColor = System.Drawing.SystemColors.ControlText;
             this.timerView.TimerFont = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timerView.TimerState = SpeakerTimer.Presentation.TimerState.Stopped;
+            this.timerView.TimerState = ChurchTimer.Presentation.TimerState.Stopped;
             // 
             // grbPreviewBox
             // 

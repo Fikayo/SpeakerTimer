@@ -1,10 +1,10 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace ChurchTimer.Presentation
 {
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
-    using SpeakerTimer.Application;
+    using ChurchTimer.Application;
     using MainApplication = System.Windows.Forms.Application;
 
     public partial class TimePlanControl : UserControl

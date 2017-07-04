@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace ChurchTimer.Presentation
 {
     partial class TimePlanControl
     {
@@ -38,7 +38,7 @@
             this.btnNext = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
-            this.tpvTimer = new SpeakerTimer.Presentation.TimePlanView();
+            this.tpvTimer = new ChurchTimer.Presentation.TimePlanView();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.tlpOuterLayout.SuspendLayout();
@@ -142,7 +142,7 @@
             // pcbLiveIndicator
             // 
             this.pcbLiveIndicator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pcbLiveIndicator.Image = global::SpeakerTimer.Properties.Resources.wpid_gfgffh;
+            this.pcbLiveIndicator.Image = global::ChurchTimer.Properties.Resources.wpid_gfgffh;
             this.pcbLiveIndicator.Location = new System.Drawing.Point(57, 3);
             this.pcbLiveIndicator.Name = "pcbLiveIndicator";
             this.pcbLiveIndicator.Size = new System.Drawing.Size(57, 20);
@@ -202,7 +202,7 @@
             this.btnStop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStop.ForeColor = System.Drawing.Color.Crimson;
-            this.btnStop.Image = global::SpeakerTimer.Properties.Resources.stop_sm1;
+            this.btnStop.Image = global::ChurchTimer.Properties.Resources.stop_sm1;
             this.btnStop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnStop.Location = new System.Drawing.Point(3, 195);
             this.btnStop.Name = "btnStop";
@@ -218,7 +218,7 @@
             this.btnReset.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReset.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnReset.Image = global::SpeakerTimer.Properties.Resources.reset_2;
+            this.btnReset.Image = global::ChurchTimer.Properties.Resources.reset_2;
             this.btnReset.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReset.Location = new System.Drawing.Point(3, 259);
             this.btnReset.Name = "btnReset";

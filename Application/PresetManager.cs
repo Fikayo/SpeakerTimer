@@ -1,10 +1,10 @@
-﻿namespace SpeakerTimer.Application
+﻿namespace ChurchTimer.Application
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
-    using SpeakerTimer.Data;
+    using ChurchTimer.Data;
 
     internal class PresetManager
     {

@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace ChurchTimer.Presentation
 {
     partial class TimePlanForm
     {
@@ -29,11 +29,11 @@
         private void InitializeComponent(Application.SettingsManager<Application.SequenceTimerSettings> settingsManager)
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TimePlanForm));
-            this.timePlanControl = new SpeakerTimer.Presentation.TimePlanControl();
+            this.timePlanControl = new ChurchTimer.Presentation.TimePlanControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.displayToolStripItem = new SpeakerTimer.Presentation.DisplayToolStripItem();
-            this.savedTimersTSDDButton = new SpeakerTimer.Presentation.SavedTimersTSDDButton<Application.SequenceTimerSettings>(settingsManager);
+            this.displayToolStripItem = new ChurchTimer.Presentation.DisplayToolStripItem();
+            this.savedTimersTSDDButton = new ChurchTimer.Presentation.SavedTimersTSDDButton<Application.SequenceTimerSettings>(settingsManager);
             this.tableLayoutPanel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -94,7 +94,7 @@
             this.savedTimersTSDDButton.Name = "savedTimersTSDDButton";
             this.savedTimersTSDDButton.Size = new System.Drawing.Size(56, 22);
             this.savedTimersTSDDButton.Text = "Timers";
-            this.savedTimersTSDDButton.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs<Application.SequenceTimerSettings>>(this.savedTimersTSDDButton_TimersSettingsOpened);
+            this.savedTimersTSDDButton.TimersSettingsOpened += new System.EventHandler<ChurchTimer.Application.PresetEventArgs<Application.SequenceTimerSettings>>(this.savedTimersTSDDButton_TimersSettingsOpened);
             // 
             // TimePlanForm
             // 

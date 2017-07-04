@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace ChurchTimer.Presentation
 {
     partial class AboutBox
     {

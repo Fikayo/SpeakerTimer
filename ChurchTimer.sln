@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakerTimer", "SpeakerTimer.csproj", "{FC1A67E3-5BAB-407B-A8BB-D411C4A6FF1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurchTimer", "ChurchTimer.csproj", "{FC1A67E3-5BAB-407B-A8BB-D411C4A6FF1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakerTimerTests", "..\SpeakerTimerTests1\SpeakerTimerTests.csproj", "{50CD4E99-D057-47BF-8615-E5FABE66386C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurchTimerTests", "..\ChurchTimerTests\ChurchTimerTests.csproj", "{50CD4E99-D057-47BF-8615-E5FABE66386C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

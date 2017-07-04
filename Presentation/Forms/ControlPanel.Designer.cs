@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace ChurchTimer.Presentation
 {
     partial class ControlPanel
     {
@@ -31,11 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlPanel));
             this.tlpOuterLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.timerPreview2 = new SpeakerTimer.Presentation.TimerPreview();
-            this.timerPreview1 = new SpeakerTimer.Presentation.TimerPreview();
+            this.timerPreview2 = new ChurchTimer.Presentation.TimerPreview();
+            this.timerPreview1 = new ChurchTimer.Presentation.TimerPreview();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.displayToolStripItem = new SpeakerTimer.Presentation.DisplayToolStripItem();
-            this.savedTimersToolStripItem = new SpeakerTimer.Presentation.SavedTimersTSDDButton<Application.SimpleTimerSettings>(this.settingsManager);
+            this.displayToolStripItem = new ChurchTimer.Presentation.DisplayToolStripItem();
+            this.savedTimersToolStripItem = new ChurchTimer.Presentation.SavedTimersTSDDButton<Application.SimpleTimerSettings>(this.settingsManager);
             this.tsbCreateSequence = new System.Windows.Forms.ToolStripButton();
             this.tsdHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsiAbout = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,8 +76,8 @@
             this.timerPreview2.Name = "timerPreview2";
             this.timerPreview2.Size = new System.Drawing.Size(1048, 245);
             this.timerPreview2.TabIndex = 1;
-            this.timerPreview2.LoadRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_LoadRequested);
-            this.timerPreview2.SaveRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_SaveRequested);
+            this.timerPreview2.LoadRequested += new System.EventHandler<ChurchTimer.Application.SettingIOEventArgs>(this.timerPreview_LoadRequested);
+            this.timerPreview2.SaveRequested += new System.EventHandler<ChurchTimer.Application.SettingIOEventArgs>(this.timerPreview_SaveRequested);
             this.timerPreview2.TimeElapsed += new System.EventHandler(this.timerPreview_TimeElapsed);
             this.timerPreview2.LiveStateChanged += new System.EventHandler(this.timerPreview2_LiveStateChanged);
             // 
@@ -91,8 +91,8 @@
             this.timerPreview1.Name = "timerPreview1";
             this.timerPreview1.Size = new System.Drawing.Size(1048, 245);
             this.timerPreview1.TabIndex = 0;
-            this.timerPreview1.LoadRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_LoadRequested);
-            this.timerPreview1.SaveRequested += new System.EventHandler<SpeakerTimer.Application.SettingIOEventArgs>(this.timerPreview_SaveRequested);
+            this.timerPreview1.LoadRequested += new System.EventHandler<ChurchTimer.Application.SettingIOEventArgs>(this.timerPreview_LoadRequested);
+            this.timerPreview1.SaveRequested += new System.EventHandler<ChurchTimer.Application.SettingIOEventArgs>(this.timerPreview_SaveRequested);
             this.timerPreview1.TimeElapsed += new System.EventHandler(this.timerPreview_TimeElapsed);
             this.timerPreview1.LiveStateChanged += new System.EventHandler(this.timerPreview1_LiveStateChanged);
             // 
@@ -131,9 +131,9 @@
             this.savedTimersToolStripItem.Name = "savedTimersToolStripItem";
             this.savedTimersToolStripItem.Size = new System.Drawing.Size(56, 22);
             this.savedTimersToolStripItem.Text = "Timers";
-            this.savedTimersToolStripItem.PresetsLoaded += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs<Application.SimpleTimerSettings>>(this.savedTimersToolStripItem_PresetsLoaded);
-            this.savedTimersToolStripItem.TimersSettingsOpened += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs<Application.SimpleTimerSettings>>(this.savedTimersToolStripItem_TimersSettingsOpened);
-            this.savedTimersToolStripItem.TimersSettingsDeleted += new System.EventHandler<SpeakerTimer.Application.PresetEventArgs<Application.SimpleTimerSettings>>(this.savedTimersToolStripItem_TimersSettingsDeleted);
+            this.savedTimersToolStripItem.PresetsLoaded += new System.EventHandler<ChurchTimer.Application.PresetEventArgs<Application.SimpleTimerSettings>>(this.savedTimersToolStripItem_PresetsLoaded);
+            this.savedTimersToolStripItem.TimersSettingsOpened += new System.EventHandler<ChurchTimer.Application.PresetEventArgs<Application.SimpleTimerSettings>>(this.savedTimersToolStripItem_TimersSettingsOpened);
+            this.savedTimersToolStripItem.TimersSettingsDeleted += new System.EventHandler<ChurchTimer.Application.PresetEventArgs<Application.SimpleTimerSettings>>(this.savedTimersToolStripItem_TimersSettingsDeleted);
             // 
             // tsbCreateSequence
             // 
@@ -178,7 +178,7 @@
             // statusLabel
             // 
             this.statusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.statusLabel.Image = global::SpeakerTimer.Properties.Resources._46729351_live_images;
+            this.statusLabel.Image = global::ChurchTimer.Properties.Resources._46729351_live_images;
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(39, 17);
             this.statusLabel.Text = "Ready";

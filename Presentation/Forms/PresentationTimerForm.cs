@@ -1,8 +1,8 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace ChurchTimer.Presentation
 {
     using System;
     using System.Windows.Forms;
-    using SpeakerTimer.Application;
+    using ChurchTimer.Application;
 
     public partial class PresentationTimerForm : Form
     {

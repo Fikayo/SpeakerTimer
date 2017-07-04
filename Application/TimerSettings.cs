@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SpeakerTimer.Application
+namespace ChurchTimer.Application
 {
     public abstract class TimerSettings : ITimerSettings
     {

@@ -1,8 +1,8 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace ChurchTimer.Presentation
 {
     using System;
     using System.Windows.Forms;
-    using SpeakerTimer.Application;
+    using ChurchTimer.Application;
 
     public partial class TimePlanForm : Form
     {
@@ -21,7 +21,7 @@
 
         private TimeViewControl CreateTimerView()
         {
-            return new SpeakerTimer.Presentation.TimePlanView();
+            return new ChurchTimer.Presentation.TimePlanView();
         }
 
         private void HookPresentFormEvents()

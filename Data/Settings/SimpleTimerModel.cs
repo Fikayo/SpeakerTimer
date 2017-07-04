@@ -1,9 +1,9 @@
-﻿namespace SpeakerTimer.Data.Settings
+﻿namespace ChurchTimer.Data.Settings
 {
     using System;
     using System.Collections.Generic;
     using System.Data.SQLite;
-    using SpeakerTimer.Application;
+    using ChurchTimer.Application;
 
     public class SimpleTimerModel : DataModel, ISettingsModel<SimpleTimerSettings>
     {

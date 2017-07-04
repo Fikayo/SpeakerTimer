@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Application
+﻿namespace ChurchTimer.Application
 {
     public class TimerDurationSettings
     {

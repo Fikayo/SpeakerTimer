@@ -1,9 +1,9 @@
-﻿namespace SpeakerTimer.Application
+﻿namespace ChurchTimer.Application
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using SpeakerTimer.Data;
+    using ChurchTimer.Data;
 
     public static class SettingsManager
     {

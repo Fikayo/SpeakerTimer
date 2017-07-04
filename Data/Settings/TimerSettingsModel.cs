@@ -1,10 +1,10 @@
-﻿namespace SpeakerTimer.Data.Settings
+﻿namespace ChurchTimer.Data.Settings
 {
     using System.Text;
     using System.Collections.Generic;
     using System.Data.SQLite;
     using System.Drawing;
-    using SpeakerTimer.Application;
+    using ChurchTimer.Application;
 
     public class TimerSettingsModel : DataModel
     {

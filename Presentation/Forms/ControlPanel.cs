@@ -1,16 +1,16 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace ChurchTimer.Presentation
 {
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Resources;
     using System.Windows.Forms;
-    using SpeakerTimer.Application;
+    using ChurchTimer.Application;
     using MainApplication = System.Windows.Forms.Application;
 
     ////    public partial class ControlPanel : Form
     ////    {
-    ////        public static readonly ResourceManager rm = SpeakerTimer.Properties.Resources.ResourceManager;
+    ////        public static readonly ResourceManager rm = ChurchTimer.Properties.Resources.ResourceManager;
     ////        public static readonly Image PlayImage = (Bitmap)rm.GetObject("play-sm");
     ////        public static readonly Image PauseImage = (Bitmap)rm.GetObject("pause-sm");
 
@@ -547,7 +547,7 @@
 
     public partial class ControlPanel : Form
     {
-        public static readonly ResourceManager rm = SpeakerTimer.Properties.Resources.ResourceManager;
+        public static readonly ResourceManager rm = ChurchTimer.Properties.Resources.ResourceManager;
         public static readonly Image PlayImage = (Bitmap)rm.GetObject("play-sm");
         public static readonly Image PauseImage = (Bitmap)rm.GetObject("pause-sm");
         public static readonly Image SaveImage = (Bitmap)rm.GetObject("save-2");
@@ -619,7 +619,7 @@
             timerView.TimerColor = System.Drawing.SystemColors.ControlText;
             timerView.TimerFont = new System.Drawing.Font("Arial", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             timerView.BackgroundColor = System.Drawing.SystemColors.Control;
-            timerView.TimerState = SpeakerTimer.Presentation.TimerState.Stopped;
+            timerView.TimerState = ChurchTimer.Presentation.TimerState.Stopped;
 
             return timerView;
         }

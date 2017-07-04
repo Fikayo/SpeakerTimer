@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Data.Settings
+﻿namespace ChurchTimer.Data.Settings
 {
     using System.Text;
     using System.Data.SQLite;

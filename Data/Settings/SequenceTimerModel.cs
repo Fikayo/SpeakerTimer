@@ -1,8 +1,8 @@
-﻿namespace SpeakerTimer.Data.Settings
+﻿namespace ChurchTimer.Data.Settings
 {
     using System;
     using System.Collections.Generic;
-    using SpeakerTimer.Application;
+    using ChurchTimer.Application;
 
     public class SequenceTimerModel : DataModel, ISettingsModel<SequenceTimerSettings>
     {

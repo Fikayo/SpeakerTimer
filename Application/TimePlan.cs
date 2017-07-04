@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Application
+﻿namespace ChurchTimer.Application
 {
     using System.Collections.Generic;
 

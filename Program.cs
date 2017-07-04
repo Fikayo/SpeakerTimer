@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer
+﻿namespace ChurchTimer
 {
     using System;
     using System.Configuration;
@@ -21,11 +21,23 @@
             AppDomain.CurrentDomain.SetData("DataDirectory", dataDir);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
-            AppDomain.CurrentDomain.SetData("ConnectionString", ConfigurationManager.ConnectionStrings["SettingsDatabase"].ConnectionString);
-            
-            MainApplication.EnableVisualStyles();
-            MainApplication.SetCompatibleTextRenderingDefault(false);
-            MainApplication.Run(new SpeakerTimer.Presentation.ControlPanel());
+            var success = true;
+            try
+            {
+                AppDomain.CurrentDomain.SetData("ConnectionString", ConfigurationManager.ConnectionStrings["SettingsDatabase"].ConnectionString);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("There was a problem while loading the config file: " + ex.Message);
+                success = false;
+            }
+
+            if (success)
+            {
+                MainApplication.EnableVisualStyles();
+                MainApplication.SetCompatibleTextRenderingDefault(false);
+                MainApplication.Run(new ChurchTimer.Presentation.ControlPanel());
+            }
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

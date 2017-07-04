@@ -1,7 +1,7 @@
-﻿namespace SpeakerTimer.Presentation
+﻿namespace ChurchTimer.Presentation
 {
     using System;
-    using SpeakerTimer.Application;
+    using ChurchTimer.Application;
 
     public partial class TimePlanView : TimeViewControl
     {

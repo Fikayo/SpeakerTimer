@@ -1,7 +1,7 @@
-﻿namespace SpeakerTimer.Data
+﻿namespace ChurchTimer.Data
 {
     using System.Collections.Generic;
-    using SpeakerTimer.Application;
+    using ChurchTimer.Application;
 
     public interface ISettingsModel<T> : System.IDisposable where T : ITimerSettings
     {

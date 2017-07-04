@@ -7,8 +7,8 @@
     <ProjectGuid>{FC1A67E3-5BAB-407B-A8BB-D411C4A6FF1B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpeakerTimer</RootNamespace>
-    <AssemblyName>SpeakerTimer</AssemblyName>
+    <RootNamespace>ChurchTimer</RootNamespace>
+    <AssemblyName>ChurchTimer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>

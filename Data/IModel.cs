@@ -1,4 +1,4 @@
-﻿namespace SpeakerTimer.Data
+﻿namespace ChurchTimer.Data
 {
     public interface IModel
     {
