@@ -31,6 +31,10 @@
 
         public event EventHandler TimeExpired;
 
+        public event EventHandler StartBlinking;
+
+        public event EventHandler StopBlinking;
+
         public event EventHandler<BroadcastReadyEventArgs> BroadcastReady;
 
         public event EventHandler<SettingsChangedEventArgs> SettingsUpdated;
@@ -201,6 +205,24 @@
         private void OnTimeExpiredAsync()
         {
             var handler = this.TimeExpired;
+            if (handler != null)
+            {
+                handler.BeginInvoke(this, EventArgs.Empty, this.EndAsyncEvent, null);
+            }
+        }
+
+        private void OnBlinkingStartedAsync()
+        {
+            var handler = this.StartBlinking;
+            if (handler != null)
+            {
+                handler.BeginInvoke(this, EventArgs.Empty, this.EndAsyncEvent, null);
+            }
+        }
+
+        private void OnBlinkingStoppedAsync()
+        {
+            var handler = this.StopBlinking;
             if (handler != null)
             {
                 handler.BeginInvoke(this, EventArgs.Empty, this.EndAsyncEvent, null);
