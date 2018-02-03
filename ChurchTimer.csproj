@@ -36,7 +36,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -74,19 +74,32 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SQLite.Designer">
+      <HintPath>..\sqlite-netFx40-binary-x64-2010-1.0.106.0\SQLite.Designer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.79.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+    <Reference Include="System.Data.SQLite, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>\\VBOXSVR\Shared\System.Data.SQLite_DLL\System.Data.SQLite.dll</HintPath>
+      <HintPath>..\sqlite-netFx40-binary-x64-2010-1.0.106.0\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Application\ColorFader.cs" />
+    <Compile Include="Application\Controllers\BroadcastReadyEventArgs.cs" />
+    <Compile Include="Application\Controllers\TimerState.cs" />
+    <Compile Include="Application\Controllers\TimerViewController.cs" />
     <Compile Include="Application\IdNamePair.cs" />
     <Compile Include="Application\DurationChangedEventArgs.cs" />
     <Compile Include="Application\ISettingsManager.cs" />
@@ -117,6 +130,12 @@
     <Compile Include="Data\Settings\TimerVisualModel.cs" />
     <Compile Include="Data\DataView.cs" />
     <Compile Include="Data\Settings\VisualSettingsModel.cs" />
+    <Compile Include="Presentation\Controls\BasicTimerView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Presentation\Controls\BasicTimerView.Designer.cs">
+      <DependentUpon>BasicTimerView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +161,12 @@
     </Compile>
     <Compile Include="Presentation\Forms\PresentationTimerForm.Designer.cs">
       <DependentUpon>PresentationTimerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\WPF\Views\BasicTimerView.xaml.cs">
+      <DependentUpon>BasicTimerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\WPF\Windows\PresentationWindow.xaml.cs">
+      <DependentUpon>PresentationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Presentation\Controls\SavedTimersToolStripButton.cs">
@@ -350,7 +375,25 @@
   <ItemGroup>
     <Folder Include="Tests\" />
   </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Presentation\WPF\Views\BasicTimerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Presentation\WPF\Windows\PresentationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

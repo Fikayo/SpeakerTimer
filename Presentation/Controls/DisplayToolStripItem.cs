@@ -74,7 +74,7 @@
         {
             if (this.LivePreviewForm == null || this.LivePreviewForm.IsDisposed)
             {
-                bool wasRunning = (this.PresentForm != null && !this.PresentForm.IsDisposed) && this.PresentForm.TimeViewControl.TimerState == TimerState.Running;
+                bool wasRunning = (this.PresentForm != null && !this.PresentForm.IsDisposed) && ((ChurchTimer.Presentation.TimeViewControl)this.PresentForm.TimeViewControl).TimerState == TimerState.Running;
                 if (wasRunning)
                 {
                     // Pause an ongoing timer
@@ -85,7 +85,7 @@
                 //this.OnLivePreviewFormRequired();
                 this.LivePreviewForm = new PresentationTimerForm(this.FetchTimerView());
                 this.LivePreviewForm.Text = Util.GetFormName("Live Preview");
-                this.LivePreviewForm.IsPreviewForm = true;
+                //this.LivePreviewForm.IsPreviewForm = true;
                 this.LivePreviewForm.Size = this.previewFormSize;
                 this.LivePreviewForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;
                 this.LivePreviewForm.TopMost = this.tsmKeepPreviewOnTop.Checked;
@@ -95,7 +95,7 @@
                 if (this.IsMainDisplayVisible)
                 {
                     this.LivePreviewForm.CommandIssuer = this.PresentForm.CommandIssuer;
-                    this.LivePreviewForm.CommandIssuer.OnSettingsUpdated(this.PresentForm.TimeViewControl.Settings.Id);
+                    this.LivePreviewForm.CommandIssuer.OnSettingsUpdated(((ChurchTimer.Presentation.TimeViewControl)this.PresentForm.TimeViewControl).Settings.Id);
                     ////this.LivePreviewForm.CommandIssuer.OnSettingsChanged(this.PresentForm.TimeViewControl.Settings);
                     if (!wasRunning)
                     {
@@ -103,7 +103,7 @@
                         this.LivePreviewForm.CommandIssuer.IssueStopCommand();
                     }
 
-                    this.LivePreviewForm.CommandIssuer.OnRefreshTimerDisplay(this.PresentForm.TimeViewControl.CurrentTime);
+                    this.LivePreviewForm.CommandIssuer.OnRefreshTimerDisplay(((ChurchTimer.Presentation.TimeViewControl) this.PresentForm.TimeViewControl).CurrentTime);
                 }
 
                 if (wasRunning)
@@ -188,7 +188,7 @@
             {
                 this.tsmShowLivePreview.Checked = false;
                 this.OnUnhookLivePreviewFormEvents();
-                this.previousimeViewControl = this.LivePreviewForm.TimeViewControl;
+                this.previousimeViewControl = ((ChurchTimer.Presentation.TimeViewControl)this.LivePreviewForm.TimeViewControl);
                 this.previousCommandIssuer = this.LivePreviewForm.CommandIssuer;
             };
         }

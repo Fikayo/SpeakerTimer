@@ -12,31 +12,39 @@
         /// The main entry newLocation for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void House()
         {
-            string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string productDataDir = Directory.CreateDirectory(MainApplication.ProductName).Name;
-            string dataDir = Path.Combine(appdata, productDataDir);
-            Directory.CreateDirectory(dataDir);
-            AppDomain.CurrentDomain.SetData("DataDirectory", dataDir);
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            //string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            //string productDataDir = Directory.CreateDirectory(MainApplication.ProductName).Name;
+            //string dataDir = Path.Combine(appdata, productDataDir);
+            //Directory.CreateDirectory(dataDir);
+            //AppDomain.CurrentDomain.SetData("DataDirectory", dataDir);
+            //AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             var success = true;
-            try
-            {
-                AppDomain.CurrentDomain.SetData("ConnectionString", ConfigurationManager.ConnectionStrings["SettingsDatabase"].ConnectionString);
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("There was a problem while loading the config file: " + ex.Message);
-                success = false;
-            }
+            //try
+            //{
+            //    AppDomain.CurrentDomain.SetData("ConnectionString", ConfigurationManager.ConnectionStrings["SettingsDatabase"].ConnectionString);
+            //}
+            //catch(Exception ex)
+            //{
+            //    MessageBox.Show("There was a problem while loading the config file: " + ex.Message);
+            //    success = false;
+            //}
 
             if (success)
             {
                 MainApplication.EnableVisualStyles();
                 MainApplication.SetCompatibleTextRenderingDefault(false);
-                MainApplication.Run(new ChurchTimer.Presentation.ControlPanel());
+                ////MainApplication.Run(new ChurchTimer.Presentation.ControlPanel());
+
+                var controller = new ChurchTimer.Application.Controllers.TimerViewController();
+                controller.Settings = ChurchTimer.Application.SimpleTimerSettings.Default;
+                controller.Settings.TimerDuration.Duration = 300;
+
+                var timerView = new ChurchTimer.Presentation.BasicTimerView(controller);
+                controller.StartTimer();
+                MainApplication.Run(new ChurchTimer.Presentation.PresentationTimerForm(timerView));
             }
         }
 

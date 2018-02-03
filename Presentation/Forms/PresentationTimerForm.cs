@@ -13,7 +13,7 @@
         {
         }
 
-        public PresentationTimerForm(TimeViewControl timeViewControl)
+        public PresentationTimerForm(Control timeViewControl)
         {
             InitializeComponent();
 
@@ -21,7 +21,7 @@
 
             this.TimeViewControl = timeViewControl;
             this.TimeViewControl.Dock = DockStyle.Fill;
-            this.TimeViewControl.IsPreviewMode = false;
+            ////this.TimeViewControl.IsPreviewMode = false;
             this.TimeViewControl.Location = new System.Drawing.Point(0, 0);
             this.TimeViewControl.Name = "timerView";
             this.TimeViewControl.Size = new System.Drawing.Size(484, 249);
@@ -33,31 +33,35 @@
         public PresentationTimerForm(TimerViewerCommandIssuer commandIssuer)
             : this()
         {
-            this.CommandIssuer = commandIssuer;
+            ////this.CommandIssuer = commandIssuer;
         }
 
         public event EventHandler WindowStateChanged;
 
         public bool IsFullScreen { get; private set; }
 
-        public TimeViewControl TimeViewControl { get; private set; }
+        public Control TimeViewControl { get; private set; }
 
         public TimerViewerCommandIssuer CommandIssuer
         {
-            get { return this.TimeViewControl.CommandIssuer; }
+            ////get { return this.TimeViewControl.CommandIssuer; }
 
-            set { this.TimeViewControl.CommandIssuer = value; }
+            ////set { this.TimeViewControl.CommandIssuer = value; }
+
+            get { return null; }
+            set { }
         }
 
         public bool IsPreviewForm
         {
-            get { return this.TimeViewControl.IsPreviewMode; }
+            get { return false; }
+            ////get { return this.TimeViewControl.IsPreviewMode; }
 
-            set
-            {
-                this.TimeViewControl.IsPreviewMode = value;
-                this.MaximizeBox = !value;
-            }
+            ////set
+            ////{
+            ////    this.TimeViewControl.IsPreviewMode = value;
+            ////    this.MaximizeBox = !value;
+            ////}
         }
 
         public void ToggleFullScreen()

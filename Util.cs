@@ -7,6 +7,8 @@
     using System.Linq;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
+    using DColor = System.Drawing.Color;
+    using MColor = System.Windows.Media.Color;
     using MainApplication = System.Windows.Forms.Application;
 
     public static class Util
@@ -45,7 +47,7 @@
             //return Enum.TryParse<TEnum>(value, true, out result) ? result : defaultValue;
         }
 
-        public static Color FromARGBString(this Color color)
+        public static DColor FromARGBString(this DColor color)
         {
             if (!color.IsKnownColor && color.A == 0 && color.R == 0 && color.G == 0 && color.B == 0)
             {
@@ -58,6 +60,11 @@
             }
 
             return color;
+        }
+
+        public static MColor ToMediaColor(this DColor color)
+        {
+            return MColor.FromArgb(color.A, color.R, color.G, color.B);
         }
 
         public static string GetFormName(string name)

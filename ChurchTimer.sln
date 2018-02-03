@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurchTimer", "ChurchTimer.csproj", "{FC1A67E3-5BAB-407B-A8BB-D411C4A6FF1B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurchTimerTests", "..\ChurchTimerTests\ChurchTimerTests.csproj", "{50CD4E99-D057-47BF-8615-E5FABE66386C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,16 +21,11 @@ Global
 		{FC1A67E3-5BAB-407B-A8BB-D411C4A6FF1B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC1A67E3-5BAB-407B-A8BB-D411C4A6FF1B}.Release|x86.ActiveCfg = Release|x86
 		{FC1A67E3-5BAB-407B-A8BB-D411C4A6FF1B}.Release|x86.Build.0 = Release|x86
-		{50CD4E99-D057-47BF-8615-E5FABE66386C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50CD4E99-D057-47BF-8615-E5FABE66386C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50CD4E99-D057-47BF-8615-E5FABE66386C}.Debug|x86.ActiveCfg = Debug|x86
-		{50CD4E99-D057-47BF-8615-E5FABE66386C}.Debug|x86.Build.0 = Debug|x86
-		{50CD4E99-D057-47BF-8615-E5FABE66386C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50CD4E99-D057-47BF-8615-E5FABE66386C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50CD4E99-D057-47BF-8615-E5FABE66386C}.Release|x86.ActiveCfg = Release|x86
-		{50CD4E99-D057-47BF-8615-E5FABE66386C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF231315-669E-465C-8A77-D2C21F901BA0}
 	EndGlobalSection
 EndGlobal

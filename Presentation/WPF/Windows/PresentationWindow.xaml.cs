@@ -1,0 +1,30 @@
+﻿namespace ChurchTimer.Presentation.WPF.Windows
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+    using System.Windows.Documents;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+    using System.Windows.Navigation;
+    using System.Windows.Shapes;
+    using ChurchTimer.Application.Controllers;
+
+    /// <summary>
+    /// Interaction logic for UserControl1.xaml
+    /// </summary>
+    public partial class PresentationWindow : Window
+    {
+        public PresentationWindow(TimerViewController controller)
+        {
+            InitializeComponent();
+
+            this.AddChild(new BasicTimerView(controller));
+        }
+    }
+}
