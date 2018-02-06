@@ -18,6 +18,8 @@ namespace ChurchTimer.Presentation.ViewModels
         /// </summary>
         private Window window;
 
+        private int innerContentPaddingSize = 4;
+
         private int outerMarginSize = 0;
 
         private int windowRadius = 1;
@@ -27,6 +29,7 @@ namespace ChurchTimer.Presentation.ViewModels
         private int titleHeight = 30;
 
         private int minimumSize = 150;
+
 
         public WindowViewModel(Window window)
         {
@@ -38,6 +41,9 @@ namespace ChurchTimer.Presentation.ViewModels
             this.MinimizeCommand = new CommandHandler(() => this.window.WindowState = WindowState.Minimized);
             this.CloseCommand = new CommandHandler(() => this.window.Close());
             this.SystemMenuCommand = new CommandHandler(() => SystemCommands.ShowSystemMenu(this.window, Utils.GetMousePosition()));
+
+            // Fix window resize issue
+            var resizer = new WindowResizer(this.window);
         }
 
         #region Properties
@@ -178,7 +184,18 @@ namespace ChurchTimer.Presentation.ViewModels
         }
 
         /// <summary>
-        /// Gets the outer margine size Thickness value
+        /// Gets the inner padding size Thickness value
+        /// </summary>
+        public Thickness InnerContentPaddingThickness
+        {
+            get
+            {
+                return new Thickness(this.innerContentPaddingSize);
+            }
+        }
+
+        /// <summary>
+        /// Gets the outer margin size Thickness value
         /// </summary>
         public Thickness OuterMarginSizeThickness
         {

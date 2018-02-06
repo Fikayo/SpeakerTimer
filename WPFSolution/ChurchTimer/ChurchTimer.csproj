@@ -115,6 +115,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presentation\WindowResizer.cs" />
     <Compile Include="Presentation\Utils.cs" />
     <Compile Include="Presentation\ViewModels\BasicTimerViewModel.cs" />
     <Compile Include="Application\SettingsChangedEventArgs.cs" />
