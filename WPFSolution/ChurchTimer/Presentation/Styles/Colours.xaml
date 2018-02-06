@@ -2,7 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ChurchTimer.Presentation">
 
-    <Color x:Key="BackgroundLight">#efefef</Color>
+    <Color x:Key="White">#fff</Color>
+    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}" />
+    
+    <Color x:Key="BackgroundLight">#dfdfdf</Color>
     <SolidColorBrush x:Key="BackgroundLightBrush" Color="{StaticResource BackgroundLight}" />
 
     <Color x:Key="BackgroundDark">#1E1E1E</Color>
@@ -13,5 +16,15 @@
 
     <Color x:Key="ForegroundDark">#1E1E1E</Color>
     <SolidColorBrush x:Key="ForegroundDarkBrush" Color="{StaticResource ForegroundDark}" />
-    
+
+    <Color x:Key="VeryLightBlue">#d8e7ff</Color>
+    <SolidColorBrush x:Key="VeryLightBlueBrush" Color="{StaticResource VeryLightBlue}" />
+
+    <Color x:Key="WarmRed">#fc6150</Color>
+    <SolidColorBrush x:Key="WarmRedBrush" Color="{StaticResource WarmRed}" />
+
+    <Color x:Key="WarmBlue">#008af4</Color>
+    <SolidColorBrush x:Key="WarmBlueBrush" Color="{StaticResource WarmBlue}" />
+
+
 </ResourceDictionary>

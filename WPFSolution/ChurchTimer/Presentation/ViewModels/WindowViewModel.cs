@@ -26,6 +26,8 @@ namespace ChurchTimer.Presentation.ViewModels
         
         private int titleHeight = 30;
 
+        private int minimumSize = 150;
+
         public WindowViewModel(Window window)
         {
             this.window = window;
@@ -39,6 +41,40 @@ namespace ChurchTimer.Presentation.ViewModels
         }
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the minimum width of the window
+        /// </summary>
+        public int MinimumWidth
+        {
+            get { return this.minimumSize; }
+
+            set
+            {
+                if (this.minimumSize != value)
+                {
+                    this.minimumSize = value;
+                    this.OnPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the minimum height of the window
+        /// </summary>
+        public int MinimumHeight
+        {
+            get { return this.minimumSize; }
+
+            set
+            {
+                if (this.minimumSize != value)
+                {
+                    this.minimumSize = value;
+                    this.OnPropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// The thickness of the border used to resize the window
@@ -108,6 +144,9 @@ namespace ChurchTimer.Presentation.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the GridLength for the title height
+        /// </summary>
         public GridLength TitleHeightGridLength
         {
             get
@@ -116,6 +155,9 @@ namespace ChurchTimer.Presentation.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the window CornerRadius value
+        /// </summary>
         public CornerRadius WindowCornerRadius
         {
             get
@@ -124,6 +166,9 @@ namespace ChurchTimer.Presentation.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the resize border Thickness value
+        /// </summary>
         public Thickness ResizeBorderThickness
         {
             get
@@ -132,6 +177,9 @@ namespace ChurchTimer.Presentation.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the outer margine size Thickness value
+        /// </summary>
         public Thickness OuterMarginSizeThickness
         {
             get

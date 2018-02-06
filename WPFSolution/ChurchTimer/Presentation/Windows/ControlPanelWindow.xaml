@@ -7,8 +7,11 @@
         xmlns:Views="clr-namespace:ChurchTimer.Presentation.Views" x:Class="ChurchTimer.Presentation.Windows.ControlPanelWindow"
         mc:Ignorable="d"
         WindowStyle="None"
+        AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
-        Title="Control Panel" Height="300" Width="800">
+        Title="Control Panel" Height="300" Width="800"
+        MinWidth="{Binding MinimumWidth}"
+        MinHeight="{Binding MinimumHeight}">
 
     <Window.Resources>
         <Style TargetType="{x:Type local:ControlPanelWindow}">
@@ -18,14 +21,17 @@
 
                         <!-- Outer border with the dropshadow margin -->
                         <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=0}">
-                            
+
                             <!-- Window outline  -->
                             <Grid>
 
                                 <!-- Window border and dropshadow -->
-                                <Border CornerRadius="{Binding WindowCornerRadius}" Background="{StaticResource BackgroundDarkBrush}">
+                                <Border CornerRadius="{Binding WindowCornerRadius}" 
+                                        Background="{StaticResource WhiteBrush}"
+                                        BorderThickness="1"
+                                        BorderBrush="{StaticResource WarmBlueBrush}">
                                     <Border.Effect>
-                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2"/>
+                                        <DropShadowEffect ShadowDepth="0" Opacity="0.8" Color="{StaticResource WarmBlue}"/>
                                     </Border.Effect>
                                 </Border>
 
@@ -41,36 +47,38 @@
                                         <RowDefinition Height="*" />
 
                                     </Grid.RowDefinitions>
-                                    
+
                                     <!-- Title bar -->
                                     <Grid Grid.Row="0" Panel.ZIndex="1">
+
+                                        <Grid.InputBindings>
+                                            <MouseBinding Gesture="RightClick" Command="{Binding SystemMenuCommand}" />
+                                        </Grid.InputBindings>
 
                                         <Grid.ColumnDefinitions>
 
                                             <!-- Icon -->
                                             <ColumnDefinition Width="Auto" />
-                                            
+
                                             <!-- Title -->
                                             <ColumnDefinition Width="*" />
-                                            
+
                                             <!-- Window controls -->
                                             <ColumnDefinition Width="Auto"/>
 
                                         </Grid.ColumnDefinitions>
-                                        
+
                                         <!-- Window icon -->
                                         <Button Grid.Column="0" Style="{StaticResource SystemIconButton}" Command="{Binding SystemMenuCommand}">
-                                            <Button.InputBindings>
-                                                <MouseBinding Gesture="RightClick" Command="{Binding SystemMenuCommand}" />
-                                            </Button.InputBindings>
                                             <Image Source="/Presentation/Images/icon-24.png" />
                                         </Button>
-                                        
+
                                         <!-- Title -->
-                                        <Viewbox Grid.Column="1" Margin="0">
-                                            <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='Church Timer'}" />
+                                        <Viewbox Grid.Column="1" Margin="0" Stretch="Uniform">
+                                            <TextBlock Style="{StaticResource HeaderText}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='Church Timer'}" />
                                         </Viewbox>
-                                        
+                                        <!--<TextBlock  Grid.Column="1" Style="{StaticResource HeaderText}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='Church Timer'}" />-->
+
                                         <!-- Window controls -->
                                         <Grid Grid.Column="2">
 
@@ -79,26 +87,39 @@
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            
-                                            
-                                            
+
+                                            <Button Grid.Column="0" Style="{StaticResource WindowControlButton}" Command="{Binding MinimizeCommand}">
+                                                <!--<Image Source="/Presentation/Images/minimize.png" />-->
+                                                <Button.Content>_</Button.Content>
+                                            </Button>
+
+                                            <Button Grid.Column="1" Style="{StaticResource WindowControlButton}" Command="{Binding MaximizeCommand}">
+                                                <!--<Image Source="/Presentation/Images/maximize.png" />-->
+                                                <Button.Content>[ ]</Button.Content>
+                                            </Button>
+
+                                            <Button Grid.Column="2" Style="{StaticResource WindowCloseButton}" Command="{Binding CloseCommand}">
+                                                <!--<Image Source="/Presentation/Images/close.png" />-->
+                                                <Button.Content>X</Button.Content>
+                                            </Button>
+
                                         </Grid>
-                                        
-                                    </Grid>
 
                                     </Grid>
-                                
+
+                                </Grid>
+
                             </Grid>
-                                                        
+
                         </Border>
 
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            
+
         </Style>
     </Window.Resources>
-    
+
     <WindowChrome.WindowChrome>
 
         <WindowChrome 

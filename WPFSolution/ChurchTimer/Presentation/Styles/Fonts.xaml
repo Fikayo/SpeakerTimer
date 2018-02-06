@@ -6,5 +6,19 @@
     <FontFamily x:Key="LatoThin">pack://application;,,,/Presentation/Fonts/#Lato Thin</FontFamily>
     <FontFamily x:Key="LatoSemibold">pack://application;,,,/Presentation/Fonts/#Lato Semibold</FontFamily>
     <FontFamily x:Key="LatoBold">pack://application;,,,/Presentation/Fonts/#Lato Bold</FontFamily>
-    
+
+    <Style x:Key="BaseStyle" TargetType="{x:Type Control}">
+        <Setter Property="FontFamily" Value="{StaticResource LatoThin}" />
+    </Style>
+
+    <Style x:Key="BaseTextBlockStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="{StaticResource LatoThin}" />
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
+    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}" />
+
 </ResourceDictionary>
