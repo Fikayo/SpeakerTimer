@@ -8,10 +8,8 @@ using ChurchTimer.Application.Controllers;
 
 namespace ChurchTimer.Presentation.ViewModels
 {
-    public class TimerControlViewModel : ViewModelBase
+    public class TimerControlViewModel : BaseViewModel
     {
-        private bool isLive;
-
         public TimerControlViewModel()
         {
             this.PlayCommand = new CommandHandler(this.PlayTimer);
@@ -30,19 +28,7 @@ namespace ChurchTimer.Presentation.ViewModels
 
         public TimerViewController Controller { get; internal set; }
 
-        public bool IsLive
-        {
-            get { return this.isLive; }
-
-            internal set
-            {
-                if (this.isLive != value)
-                {
-                    this.isLive = value;
-                    this.OnPropertyChanged();
-                }
-            }
-        }
+        public bool IsLive { get; set; }
         
         #region Commands
 

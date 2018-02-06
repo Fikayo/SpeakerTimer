@@ -6,10 +6,18 @@
         xmlns:local="clr-namespace:ChurchTimer.Presentation.Windows"
         xmlns:Views="clr-namespace:ChurchTimer.Presentation.Views" x:Class="ChurchTimer.Presentation.Windows.PresentationWindow"
         mc:Ignorable="d"
-        Title="Presentation Window" Height="500" Width="1000" WindowState="Maximized">
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Title="Live! Church Timer" Height="500" Width="1000" WindowState="Maximized">
+
+    <WindowChrome.WindowChrome>
+
+        <WindowChrome />
+
+    </WindowChrome.WindowChrome>
+    
     <Grid>
 
         <Views:BasicTimerView x:Name="timerView"/>
-        <!--<Label Name="lblTimer" Content="{Binding Timer}" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>-->
     </Grid>
 </Window>

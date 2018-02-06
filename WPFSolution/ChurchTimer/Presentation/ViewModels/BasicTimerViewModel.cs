@@ -13,7 +13,7 @@
     using ChurchTimer.Application.Controllers;
     using ChurchTimer.Application.Settings;
 
-    public class BasicTimerViewModel : ViewModelBase
+    public class BasicTimerViewModel : BaseViewModel
     {
         private string timer;
         private string message;

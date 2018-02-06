@@ -14,6 +14,7 @@
     using System.Windows.Media.Imaging;
     using System.Windows.Shapes;
     using ChurchTimer.Application.Controllers;
+    using ChurchTimer.Presentation.ViewModels;
 
     /// <summary>
     /// Interaction logic for PresentationWindow.xaml
@@ -23,6 +24,7 @@
         public PresentationWindow(TimerViewController controller)
         {
             InitializeComponent();
+            this.DataContext = new WindowViewModel(this);
             this.timerView.ViewModel.Controller = controller;
         }
     }

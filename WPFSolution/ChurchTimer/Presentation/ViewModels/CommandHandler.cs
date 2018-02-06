@@ -30,6 +30,8 @@ namespace ChurchTimer.Presentation.ViewModels
             this.canExecuteFunc = canExecuteFunc;
         }
 
+        public event EventHandler CanExecuteChanged;
+
         public bool CanExecute(object parameter)
         {
             if (this.canExecuteFunc != null)
@@ -39,8 +41,6 @@ namespace ChurchTimer.Presentation.ViewModels
 
             return this.canExecute;
         }
-
-        public event EventHandler CanExecuteChanged;
 
         public void Execute(object parameter)
         {

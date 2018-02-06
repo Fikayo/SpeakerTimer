@@ -1,4 +1,5 @@
 ﻿using ChurchTimer.Application.Controllers;
+using ChurchTimer.Presentation.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace ChurchTimer.Presentation.Windows
         public ControlPanelWindow(TimerViewController controller)
         {
             InitializeComponent();
+            this.DataContext = new WindowViewModel(this);
             this.timerControl.Controller = controller;
         }
     }
