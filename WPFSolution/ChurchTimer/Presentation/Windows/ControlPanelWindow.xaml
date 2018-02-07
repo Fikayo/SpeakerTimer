@@ -31,7 +31,7 @@
                                         BorderThickness="1"
                                         BorderBrush="{StaticResource WarmBlueBrush}">
                                     <Border.Effect>
-                                        <DropShadowEffect ShadowDepth="0" Opacity="0.8" Color="{StaticResource WarmBlue}"/>
+                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2" BlurRadius="10"/>
                                     </Border.Effect>
                                 </Border>
 
