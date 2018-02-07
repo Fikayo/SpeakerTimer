@@ -20,7 +20,7 @@ namespace ChurchTimer.Presentation.ViewModels
 
         private int innerContentPaddingSize = 4;
 
-        private int outerMarginSize = 0;
+        private int outerMarginSize = 10;
 
         private int windowRadius = 1;
 

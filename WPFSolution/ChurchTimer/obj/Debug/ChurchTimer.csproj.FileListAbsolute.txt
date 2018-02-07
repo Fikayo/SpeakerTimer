@@ -97,3 +97,4 @@ C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\
 C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\ChurchTimer.exe
 C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\ChurchTimer.pdb
 C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Styles\Buttons.baml
+C:\Users\Potter's House\Documents\Development\Church Timer\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Styles\Buttons.baml
