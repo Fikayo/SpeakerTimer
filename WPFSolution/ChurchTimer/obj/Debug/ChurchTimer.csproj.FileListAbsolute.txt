@@ -66,35 +66,3 @@ C:\Users\Potter's House\Documents\Development\Church Timer\SpeakerTimer\WPFSolut
 C:\Users\Potter's House\Documents\Development\Church Timer\SpeakerTimer\WPFSolution\ChurchTimer\bin\Debug\Microsoft.Windows.Shell.dll
 C:\Users\Potter's House\Documents\Development\Church Timer\SpeakerTimer\WPFSolution\ChurchTimer\bin\Debug\Microsoft.Windows.Shell.pdb
 C:\Users\Potter's House\Documents\Development\Church Timer\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Styles\Buttons.baml
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\bin\Debug\ChurchTimer.exe.config
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\bin\Debug\ChurchTimer.exe
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\bin\Debug\ChurchTimer.pdb
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\bin\Debug\Microsoft.Windows.Shell.dll
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\bin\Debug\PropertyChanged.dll
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\bin\Debug\Microsoft.Windows.Shell.pdb
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\bin\Debug\PropertyChanged.xml
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\ChurchTimer.csprojResolveAssemblyReference.cache
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\MainWindow.g.cs
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Views\BasicTimerView.g.cs
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Views\TimerControlView.g.cs
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Windows\ControlPanelWindow.g.cs
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Windows\PresentationWindow.g.cs
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\App.g.cs
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\ChurchTimer_MarkupCompile.cache
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\ChurchTimer_MarkupCompile.lref
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\App.baml
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\MainWindow.baml
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Styles\Buttons.baml
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Styles\Fonts.baml
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Styles\Colours.baml
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Views\BasicTimerView.baml
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Views\TimerControlView.baml
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Windows\ControlPanelWindow.baml
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\Presentation\Windows\PresentationWindow.baml
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\ChurchTimer.g.resources
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\ChurchTimer.Properties.Resources.resources
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\ChurchTimer.csproj.GenerateResource.Cache
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\ChurchTimer.csproj.CoreCompileInputs.cache
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\ChurchTimer.exe
-C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\obj\Debug\ChurchTimer.pdb
