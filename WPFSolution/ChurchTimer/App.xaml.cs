@@ -18,17 +18,19 @@ namespace ChurchTimer
         {
             var controller = new ChurchTimer.Application.Controllers.TimerViewController();
             var window = new ChurchTimer.Presentation.Windows.ControlPanelWindow(controller);
+            var awindow = new ChurchTimer.Presentation.Windows.PresentationWindow(controller);
             window.Show();
+            awindow.Show();
 
             controller.Settings.Metadata.Title = "New Timer";
-            controller.Settings.VisualSettings.CounterMode = Application.TimerCounterMode.CountUp;
-            controller.Settings.DurationSettings.Duration = 10;
-            controller.Settings.DurationSettings.FirstWarningTime = 5;
+            controller.Settings.VisualSettings.CounterMode = Application.TimerCounterMode.CountDownToMinus;
+            controller.Settings.DurationSettings.Duration = 60;
+            controller.Settings.DurationSettings.FirstWarningTime = 30;
             //controller.Settings.DurationSettings.SecondWarningTime = 5;
             controller.Settings.Metadata.BlinkingWhenExpired = true;
             controller.PublishSettings();
 
-            //controller.StartTimer();
+            controller.StartTimer();
             controller.EnabledBlinking();
 
             var timerMessage = new ChurchTimer.Application.TimerMessageSettings();
@@ -36,7 +38,7 @@ namespace ChurchTimer
             timerMessage.TimerMessage = "Hello, this is a nice message; I hope you like it. Have a lovely day at work. :-)";
             timerMessage.MessageFontSize = 100;
 
-            //controller.BroadcastMessage(timerMessage);
+            controller.BroadcastMessage(timerMessage);
         }
     }
 }

@@ -81,8 +81,8 @@
                                                            FontSize="8" 
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Center"
-                                                           Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='Church Timer'}" />                                                    
-                                                
+                                                           Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='Church Timer'}" />
+
                                                 <TextBlock Text=" |   Church Timer" FontSize="5" Margin="5,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource ForegroundRegularBrush}" />
                                             </StackPanel>
                                         </Viewbox>
@@ -120,7 +120,7 @@
                                     <Border Grid.Row="1" Padding="{Binding InnerContentPaddingThickness, FallbackValue=4}">
                                         <ContentPresenter Content="{TemplateBinding Content}" />
                                     </Border>
-                                    
+
                                 </Grid>
 
                             </Grid>
@@ -145,13 +145,10 @@
 
     </WindowChrome.WindowChrome>
 
-    <Grid>
-
-        <StackPanel Orientation="Vertical">
-            <DockPanel>
-                <Views:TimerControlView x:Name="timerControl" Height="181" DockPanel.Dock="Top"/>
-            </DockPanel>
-        </StackPanel>
-
-    </Grid>
+    <StackPanel Orientation="Vertical">
+        <DockPanel>
+            <Views:TimerControlView x:Name="timerControl" Height="181" DockPanel.Dock="Top"/>
+        </DockPanel>
+    </StackPanel>
+    
 </Window>

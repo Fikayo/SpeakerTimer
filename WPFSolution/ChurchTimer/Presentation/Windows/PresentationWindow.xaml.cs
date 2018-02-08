@@ -24,8 +24,25 @@
         public PresentationWindow(TimerViewController controller)
         {
             InitializeComponent();
-            this.DataContext = new WindowViewModel(this);
+            this.DataContext = this.ViewModel = new WindowViewModel(this);
             this.timerView.ViewModel.Controller = controller;
+        }
+
+        public WindowViewModel ViewModel { get; private set; }
+        
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key ==Key.F11 && !this.ViewModel.IsFullScreen)
+            {
+                this.ViewModel.FullScreen();
+                return;
+            }
+            
+            if ((e.Key == Key.F11 || e.Key == Key.Escape) && this.ViewModel.IsFullScreen)
+            {
+                this.ViewModel.UnFullScreen();
+                return;
+            }
         }
     }
 }

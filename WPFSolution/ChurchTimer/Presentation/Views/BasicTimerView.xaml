@@ -35,20 +35,20 @@
 
     </UserControl.Resources>
 
-    <Grid>
-        <Grid Name="grdBackground" Background="{Binding Path=VisualSettings.BackgroundColor}">
+    <Grid Name="grdBackground" Background="{Binding Path=VisualSettings.BackgroundColor, FallbackValue=Black}">
+        <Grid>
 
             <!-- Title -->
-            <Label Content="{Binding Path=SettingsMetadata.Title}" 
+            <TextBlock Text="{Binding Path=SettingsMetadata.Title, FallbackValue='Timer Title'}" 
                    Foreground="{Binding Path=TimerColor}" 
                    FontSize="{Binding Path=TimerTitleFontSize}" 
                    FontFamily="{Binding Path=VisualSettings.TimerFontFamily}"
-                   HorizontalContentAlignment="Center"
-                   VerticalContentAlignment="Top"
-                   Margin="0, 0, 50, 0">                
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Margin="0, 50, 0, 0">                
 
-                <Label.Style>
-                    <Style TargetType="{x:Type Label}">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
 
                         <Setter Property="Visibility" Value="Collapsed"/>
 
@@ -67,26 +67,28 @@
 
                         </Style.Triggers>
                     </Style>
-                </Label.Style>
+                </TextBlock.Style>
 
-            </Label>
+            </TextBlock>
 
             <!-- Message -->
-            <Label Foreground="{Binding Path=TimerColor, NotifyOnTargetUpdated=True}" 
-                   FontSize="{Binding Path=MessageFontSize}" 
-                   FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
-                   HorizontalContentAlignment="Center" 
-                   VerticalContentAlignment="Center">
+            <TextBlock Text="{Binding Message}"
+                Foreground="{Binding Path=TimerColor, NotifyOnTargetUpdated=True}" 
+                FontSize="{Binding Path=MessageFontSize}" 
+                FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                TextWrapping="WrapWithOverflow">
 
-                <TextBlock Text="{Binding Message}"
+                <!--<TextBlock Text="{Binding Message}"
                            TextWrapping="WrapWithOverflow"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center">
-                </TextBlock>
+                </TextBlock>-->
 
-                <Label.Style>
+                <TextBlock.Style>
 
-                    <Style TargetType="Label">
+                    <Style TargetType="TextBlock">
 
                         <Setter Property="Visibility" Value="Collapsed"/>
 
@@ -105,20 +107,20 @@
                         </Style.Triggers>
                     </Style>
 
-                </Label.Style>
+                </TextBlock.Style>
 
-            </Label>
+            </TextBlock>
 
             <!-- Timer -->
-            <Label Content="{Binding Timer}" 
+            <TextBlock Text="{Binding Timer, FallbackValue='00:00:00'}" 
                    Foreground="{Binding Path=TimerColor, NotifyOnTargetUpdated=True}" 
                    FontSize="{Binding Path=VisualSettings.TimerFontSize}" 
                    FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
-                   HorizontalContentAlignment="Center" 
-                   VerticalContentAlignment="Center">
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center">
 
-                <Label.Style>
-                    <Style TargetType="{x:Type Label}">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
 
                         <Setter Property="Visibility" Value="Collapsed"/>
 
@@ -152,21 +154,20 @@
 
                         </Style.Triggers>
                     </Style>
-                </Label.Style>
+                </TextBlock.Style>
 
-            </Label>
+            </TextBlock>
 
             <!-- Mini Timer -->
-            <Label Content="{Binding Timer}" 
+            <TextBlock Text="{Binding Timer}" 
                    Foreground="{Binding Path=TimerColor, NotifyOnTargetUpdated=True}" 
                    FontSize="{Binding Path=TimerTitleFontSize}" 
                    FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
-                   HorizontalContentAlignment="Center" 
-                   VerticalContentAlignment="Bottom"
-                   Margin="0,0,0,50">
+                   HorizontalAlignment="Center"
+                   Margin="0,50,0,0">
 
-                <Label.Style>
-                    <Style TargetType="{x:Type Label}">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
 
                         <Setter Property="Visibility" Value="Collapsed"/>
 
@@ -200,9 +201,9 @@
 
                         </Style.Triggers>
                     </Style>
-                </Label.Style>
+                </TextBlock.Style>
 
-            </Label>
+            </TextBlock>
 
         </Grid>
     </Grid>

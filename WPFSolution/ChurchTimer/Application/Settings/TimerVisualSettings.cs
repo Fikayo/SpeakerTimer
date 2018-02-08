@@ -67,7 +67,7 @@
                 TimerCounterMode.CountDownToMinus,
                 TimerDisplayMode.FullWidth,
                 "Arial",
-                50f,
+                200f,
                 Brushes.White,
                 Brushes.White,
                 Brushes.Cyan,

@@ -12,8 +12,10 @@
                 <ResourceDictionary Source="Presentation/Styles/Colours.xaml" />
 
                 <ResourceDictionary Source="Presentation/Styles/Fonts.xaml" />
-                
+
                 <ResourceDictionary Source="Presentation/Styles/Buttons.xaml" />
+                
+                <ResourceDictionary Source="Presentation/Styles/Windows.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
 

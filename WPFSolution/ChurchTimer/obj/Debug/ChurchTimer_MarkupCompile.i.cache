@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\x202925\Documents\Fikayo\Projects\SpeakerTimer\WPFSolution\ChurchTimer\App.xaml
-8-210320029
+9-736523448
 
 31539688828
 16-2043941583
-MainWindow.xaml;Presentation\Styles\Buttons.xaml;Presentation\Styles\Fonts.xaml;Presentation\Styles\Colours.xaml;Presentation\Views\BasicTimerView.xaml;Presentation\Views\TimerControlView.xaml;Presentation\Windows\ControlPanelWindow.xaml;Presentation\Windows\PresentationWindow.xaml;
+MainWindow.xaml;Presentation\Styles\Buttons.xaml;Presentation\Styles\Windows.xaml;Presentation\Styles\Fonts.xaml;Presentation\Styles\Colours.xaml;Presentation\Views\BasicTimerView.xaml;Presentation\Views\TimerControlView.xaml;Presentation\Windows\ControlPanelWindow.xaml;Presentation\Windows\PresentationWindow.xaml;
 
-False
+True
 

@@ -297,7 +297,6 @@
             var handler = this.BroadcastOver;
             if (handler != null)
             {
-                handler.BeginInvoke(this, EventArgs.Empty, null, null);
                 this.InvokeAsync(handler, EventArgs.Empty);
             }
         }

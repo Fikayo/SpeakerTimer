@@ -4,20 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChurchTimer.Presentation.Windows"
-        xmlns:Views="clr-namespace:ChurchTimer.Presentation.Views" x:Class="ChurchTimer.Presentation.Windows.PresentationWindow"
+        xmlns:Views="clr-namespace:ChurchTimer.Presentation.Views" 
+        x:Class="ChurchTimer.Presentation.Windows.PresentationWindow"
         mc:Ignorable="d"
-        WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Title="Live! Church Timer" Height="500" Width="1000" WindowState="Maximized">
+        KeyDown="Window_KeyDown"
+        Title="Live!" Height="500" Width="1000" WindowState="Maximized" Style="{DynamicResource WindowStyle}">
 
     <WindowChrome.WindowChrome>
 
-        <WindowChrome />
+        <WindowChrome 
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CornerRadius="0"
+            CaptionHeight="{Binding TitleHeight}"
+            GlassFrameThickness="0"            
+           />
 
     </WindowChrome.WindowChrome>
-    
-    <Grid>
 
+    <Grid>
         <Views:BasicTimerView x:Name="timerView"/>
     </Grid>
 </Window>

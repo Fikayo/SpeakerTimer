@@ -18,7 +18,7 @@ namespace ChurchTimer.Presentation.ViewModels
         /// </summary>
         private Window window;
 
-        private int innerContentPaddingSize = 4;
+        private int innerContentPaddingSize = 0;
 
         private int outerMarginSize = 10;
 
@@ -26,11 +26,10 @@ namespace ChurchTimer.Presentation.ViewModels
 
         private int resizeBorder = 3;
         
-        private int titleHeight = 30;
+        private int titleHeight = 35;
 
         private int minimumSize = 150;
-
-
+        
         public WindowViewModel(Window window)
         {
             this.window = window;
@@ -47,6 +46,8 @@ namespace ChurchTimer.Presentation.ViewModels
         }
 
         #region Properties
+
+        public bool IsFullScreen { get; set; }
 
         /// <summary>
         /// Gets or sets the minimum width of the window
@@ -95,6 +96,7 @@ namespace ChurchTimer.Presentation.ViewModels
                 {
                     this.resizeBorder = value;
                     this.OnPropertyChanged();
+                    this.OnPropertyChanged(nameof(this.ResizeBorderThickness));
                 }
             }
         }
@@ -112,6 +114,7 @@ namespace ChurchTimer.Presentation.ViewModels
                 {
                     this.outerMarginSize = value;
                     this.OnPropertyChanged();
+                    this.OnPropertyChanged(nameof(this.OuterMarginSizeThickness));
                 }
             }
         }
@@ -129,6 +132,7 @@ namespace ChurchTimer.Presentation.ViewModels
                 {
                     this.windowRadius = value;
                     this.OnPropertyChanged();
+                    this.OnPropertyChanged(nameof(this.WindowCornerRadius));
                 }
             }
         }
@@ -146,6 +150,7 @@ namespace ChurchTimer.Presentation.ViewModels
                 {
                     this.titleHeight = value;
                     this.OnPropertyChanged();
+                    this.OnPropertyChanged(nameof(this.TitleHeightGridLength));
                 }
             }
         }
@@ -179,7 +184,7 @@ namespace ChurchTimer.Presentation.ViewModels
         {
             get
             {
-                return new Thickness(this.ResizeBorder);
+                return new Thickness(this.ResizeBorder + this.OuterMarginSize);
             }
         }
 
@@ -218,6 +223,28 @@ namespace ChurchTimer.Presentation.ViewModels
         public ICommand SystemMenuCommand { get; protected set; }
 
         #endregion
+
+        public void FullScreen()
+        {
+            // First remove the title bar
+            this.TitleHeight = 0;
+
+            // Then maximise
+            this.window.WindowState = WindowState.Maximized;
+
+            this.IsFullScreen = true;
+        }
+
+        public void UnFullScreen()
+        {
+            // Restore title bar height
+            this.TitleHeight = 35;
+
+            // Restore window state
+            this.window.WindowState = WindowState.Normal;
+
+            this.IsFullScreen = false;
+        }
 
         private void Window_StateChanged(object sender, EventArgs e)
         {
