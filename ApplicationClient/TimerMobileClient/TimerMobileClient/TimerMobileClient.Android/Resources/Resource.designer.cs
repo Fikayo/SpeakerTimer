@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("TimerMobileClient.Droid.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("TheLiveTimer.Client.Droid.Resource", IsApplication=true)]
 
-namespace TimerMobileClient.Droid
+namespace TheLiveTimer.Client.Droid
 {
 	
 	
@@ -26,7 +26,7 @@ namespace TimerMobileClient.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::TimerMobileClient.Droid.Resource.Attribute.actionBarSize;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::TheLiveTimer.Client.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation

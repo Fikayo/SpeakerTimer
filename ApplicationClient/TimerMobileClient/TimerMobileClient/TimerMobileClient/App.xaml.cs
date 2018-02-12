@@ -1,4 +1,4 @@
-﻿namespace TheLiveTimer
+﻿namespace TheLiveTimer.Client
 {
     using MainApplication = Xamarin.Forms.Application;
 
@@ -8,7 +8,7 @@
 		{
 			InitializeComponent();
 
-			MainPage = new TheLiveTimer.MainPage();
+			MainPage = new TheLiveTimer.Client.MainPage();
 		}
 
 		protected override void OnStart ()

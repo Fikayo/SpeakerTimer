@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace TimerMobileClient.iOS
+namespace TheLiveTimer.Client.iOS
 {
     public class Application
     {

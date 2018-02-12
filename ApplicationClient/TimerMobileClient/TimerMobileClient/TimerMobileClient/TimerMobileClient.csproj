@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>TheLiveTimerMobileClient</AssemblyName>
+    <AssemblyName>TheLiveTimer.Client</AssemblyName>
     <RootNamespace>TheLiveTimer.Client</RootNamespace>
   </PropertyGroup>
 

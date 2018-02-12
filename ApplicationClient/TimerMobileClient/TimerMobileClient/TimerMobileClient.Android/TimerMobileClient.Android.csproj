@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -6,8 +6,8 @@
     <ProjectGuid>{24DF6ED6-A57B-4BD9-AA31-0C94ECCF55CB}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>TimerMobileClient.Droid</RootNamespace>
-    <AssemblyName>TimerMobileClient.Android</AssemblyName>
+    <RootNamespace>TheLiveTimer.Client.Droid</RootNamespace>
+    <AssemblyName>TheLiveTimer.Client.Android</AssemblyName>
     <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
@@ -70,7 +70,9 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\AndroidManifest.xml" />
+    <None Include="Properties\AndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Tabbar.axml" />
@@ -79,14 +81,11 @@
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\TimerMobileClient\TimerMobileClient.csproj">
       <Project>{AA93BF75-FDB7-45F0-AFF8-54456BAF601D}</Project>
       <Name>TimerMobileClient</Name>
     </ProjectReference>
   </ItemGroup>
-
-
- <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

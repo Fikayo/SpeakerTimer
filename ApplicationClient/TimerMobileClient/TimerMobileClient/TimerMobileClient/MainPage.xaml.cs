@@ -1,4 +1,4 @@
-﻿namespace TheLiveTimer
+﻿namespace TheLiveTimer.Client
 {
     using Xamarin.Forms;
 

@@ -8,9 +8,9 @@
     <ProjectGuid>{3A3947B4-048B-412A-B574-1A6DF5F7F234}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TimerMobileClient.iOS</RootNamespace>
+    <RootNamespace>TheLiveTimer.Client.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>TimerMobileClient.iOS</AssemblyName>
+    <AssemblyName>TheLiveTimer.Client.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
