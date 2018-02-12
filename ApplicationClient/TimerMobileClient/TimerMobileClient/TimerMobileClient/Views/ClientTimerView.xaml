@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TheLiveTimer.Client.ClientTimerView">
+
+    <ContentView.Resources>
+
+        <Storyboard x:Key="fadeIn">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5" FillBehavior="Stop"/>
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="fadeOut">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.5" FillBehavior="Stop"/>
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="blinkAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.7" AutoReverse="True" RepeatBehavior="Forever"/>
+        </Storyboard>
+
+        <Storyboard x:Key="colorChangeAnimation" AutoReverse="True">
+            <DoubleAnimation Storyboard.TargetProperty="FontSize"  By="20" Duration="0:0:.4" FillBehavior="Stop"/>
+        </Storyboard>
+
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        
+        <Grid Name="grdBackground" Background="{Binding Path=VisualSettings.BackgroundColor, FallbackValue=Black}">
+            <Grid>
+                
+                <!-- Title -->
+                <Label Text="{Binding Path=SettingsMetadata.Title, FallbackValue='Timer Title'}" 
+                   Foreground="{Binding Path=TimerColor}" 
+                   FontSize="{Binding Path=TimerTitleFontSize}" 
+                   FontFamily="{Binding Path=VisualSettings.TimerFontFamily}"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Margin="0, 50, 0, 0">
+                    
+                    <Label.Style>
+                        <Style TargetType="{x:Type Label}">
+
+                            <Setter Property="Visibility" Value="Collapsed"/>
+
+                            <Style.Triggers>
+
+                                <!-- Hide/show timer trigger -->
+                                <DataTrigger Binding="{Binding Path=IsTimerTitleVisible}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource fadeIn}" />
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard Storyboard="{StaticResource fadeOut}"/>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+
+
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+
+                    <!-- Triggers for the timer title  -->
+                    <Label.Triggers>
+                        
+                        <!-- Hide/show timer trigger -->
+                        <DataTrigger Binding="{Binding Path=IsTimerTitleVisible}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource fadeIn}" />
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource fadeOut}"/>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                        
+                    </Label.Triggers>
+
+                </Label>
+
+                <!-- Message -->
+                <Label Text="{Binding Message}"
+                Foreground="{Binding Path=TimerColor, NotifyOnTargetUpdated=True}" 
+                FontSize="{Binding Path=MessageFontSize}" 
+                FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                TextWrapping="WrapWithOverflow">
+
+                <!--<Label Text="{Binding Message}"
+                           TextWrapping="WrapWithOverflow"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center">
+                </Label>-->
+
+                    <Label.Style>
+
+                        <Style TargetType="Label">
+
+                            <Setter Property="Visibility" Value="Collapsed"/>
+
+                            <Style.Triggers>
+
+                                <!-- Fade in/out message -->
+                                <DataTrigger Binding="{Binding IsBroadcastingMessage}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource fadeIn}" />
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard Storyboard="{StaticResource fadeOut}"/>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+
+                            </Style.Triggers>
+                        </Style>
+
+                    </Label.Style>
+
+                </Label>
+
+                <!-- Timer -->
+                <Label Text="{Binding Timer, FallbackValue='00:00:00'}" 
+                   Foreground="{Binding Path=TimerColor, NotifyOnTargetUpdated=True}" 
+                   FontSize="{Binding Path=VisualSettings.TimerFontSize}" 
+                   FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center">
+
+                    <Label.Style>
+                        <Style TargetType="{x:Type Label}">
+
+                            <Setter Property="Visibility" Value="Collapsed"/>
+
+                            <Style.Triggers>
+
+                                <!-- Blinking animation trigger -->
+                                <DataTrigger Binding="{Binding IsBlinking}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Name="blink" Storyboard="{StaticResource blinkAnimation}" />
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="blink"/>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+
+                                <!-- Label color change animation trigger -->
+                                <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                                    <BeginStoryboard Name="change" Storyboard="{StaticResource colorChangeAnimation}"/>
+                                </EventTrigger>
+
+                                <!-- Hide/show timer trigger -->
+                                <DataTrigger Binding="{Binding IsTimerVisible}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource fadeIn}" />
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard Storyboard="{StaticResource fadeOut}"/>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+
+
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+
+                </Label>
+
+                <!-- Mini Timer -->
+                <Label Text="{Binding Timer}" 
+                   Foreground="{Binding Path=TimerColor, NotifyOnTargetUpdated=True}" 
+                   FontSize="{Binding Path=TimerTitleFontSize}" 
+                   FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
+                   HorizontalAlignment="Center"
+                   Margin="0,50,0,0">
+
+                    <Label.Style>
+                        <Style TargetType="{x:Type Label}">
+
+                            <Setter Property="Visibility" Value="Collapsed"/>
+
+                            <Style.Triggers>
+
+                                <!-- Blinking animation trigger -->
+                                <DataTrigger Binding="{Binding IsBlinking}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Name="blink" Storyboard="{StaticResource blinkAnimation}" />
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="blink"/>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+
+                                <!-- Label color change animation trigger -->
+                                <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                                    <BeginStoryboard Name="change" Storyboard="{StaticResource colorChangeAnimation}"/>
+                                </EventTrigger>
+
+                                <!-- Hide/show mini timer trigger; Show if main timer is not visible -->
+                                <DataTrigger Binding="{Binding IsTimerVisible}" Value="False">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource fadeIn}" />
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard Storyboard="{StaticResource fadeOut}"/>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+
+
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+
+                </Label>
+
+            </Grid>
+        </Grid>
+        
+    </ContentView.Content>
+
+</ContentView>
