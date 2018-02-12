@@ -119,6 +119,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presentation\ViewModels\ControlPanelViewModel.cs" />
     <Compile Include="Presentation\WindowResizer.cs" />
     <Compile Include="Presentation\Utils.cs" />
     <Compile Include="Presentation\ViewModels\BasicTimerViewModel.cs" />

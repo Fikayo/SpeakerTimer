@@ -18,9 +18,9 @@ namespace ChurchTimer
         {
             var controller = new ChurchTimer.Application.Controllers.TimerViewController();
             var window = new ChurchTimer.Presentation.Windows.ControlPanelWindow(controller);
-            var awindow = new ChurchTimer.Presentation.Windows.PresentationWindow(controller);
+            //var awindow = new ChurchTimer.Presentation.Windows.PresentationWindow(controller);
             window.Show();
-            awindow.Show();
+            //awindow.Show();
 
             controller.Settings.Metadata.Title = "New Timer";
             controller.Settings.VisualSettings.CounterMode = Application.TimerCounterMode.CountDownToMinus;

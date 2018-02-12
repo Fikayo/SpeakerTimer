@@ -145,10 +145,22 @@
 
     </WindowChrome.WindowChrome>
 
-    <StackPanel Orientation="Vertical">
-        <DockPanel>
-            <Views:TimerControlView x:Name="timerControl" Height="181" DockPanel.Dock="Top"/>
-        </DockPanel>
-    </StackPanel>
-    
+    <Grid>
+
+        <Grid Background="{StaticResource ForegroundLightBrush}"
+                   >
+
+            <Viewbox Stretch="Uniform">
+                <TextBlock Text="{Binding AddTimerText, FallbackValue=Hi}">
+                </TextBlock>
+            </Viewbox>
+
+        </Grid>
+
+        <StackPanel Orientation="Vertical">
+            <Views:TimerControlView x:Name="timerControl" Height="181"/>
+        </StackPanel>
+
+    </Grid>
+
 </Window>

@@ -24,8 +24,9 @@ namespace ChurchTimer.Presentation.Windows
         public ControlPanelWindow(TimerViewController controller)
         {
             InitializeComponent();
-            this.DataContext = new WindowViewModel(this);
-            this.timerControl.Controller = controller;
+            this.DataContext = this.ViewModel = new ControlPanelViewModel(this, controller);
         }
+
+        public WindowViewModel ViewModel { get; private set; }
     }
 }
