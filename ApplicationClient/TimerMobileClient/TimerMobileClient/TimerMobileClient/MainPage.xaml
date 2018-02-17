@@ -1,11 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:TheLiveTimer.Client"
+             xmlns:local="clr-namespace:TheLiveTimer.Client;assembly=TheLiveTimer.Client"
              x:Class="TheLiveTimer.Client.MainPage">
 
-	<Label Text="Welcome to Xamarin.Forms!" 
+    <StackLayout>
+        <Label Text="Welcome to The Live Timer! It's on now. I said it. here" 
            VerticalOptions="Center" 
            HorizontalOptions="Center" />
 
+        <local:ClientTimerView HorizontalOptions="FillAndExpand" VerticalOptions="Center" HeightRequest="200" />
+
+        <Button Text="Between" />
+
+        <local:MyView IsVisible="True" />
+
+        <Label Text="This comes after it :D. So watch carefully" />
+        
+    </StackLayout>
 </ContentPage>

@@ -6,7 +6,7 @@
     /// <summary>
     /// Interaction logic for BasicTimerView.xaml
     /// </summary>
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+	//[XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClientTimerView : ContentView
     {
         public ClientTimerView()
