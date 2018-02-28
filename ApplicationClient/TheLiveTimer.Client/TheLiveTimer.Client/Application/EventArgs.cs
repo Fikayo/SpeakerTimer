@@ -14,11 +14,11 @@
 
     internal class BroadcastReadyEventArgs : EventArgs
     {
-        public BroadcastReadyEventArgs(TimerMessageSettings message)
+        public BroadcastReadyEventArgs(string message)
         {
             this.Message = message;
         }
 
-        public TimerMessageSettings Message { get; private set; }
+        public string Message { get; private set; }
     }
 }

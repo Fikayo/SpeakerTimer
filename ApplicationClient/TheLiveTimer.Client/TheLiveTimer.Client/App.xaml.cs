@@ -21,12 +21,14 @@ namespace TheLiveTimer.Client
             var timerPage = new TimerPage();
             timerPage.Controller = this.clientCommunicator.TimerController;
             MainPage = timerPage;
+
+            System.Console.WriteLine("------- Starting application ----------- ");
         }
 
         protected override void OnStart()
         {
             // Handle when your app starts
-            //this.clientCommunicator.OpenCommnuication();
+            this.clientCommunicator.OpenCommnuication();
         }
 
         protected override void OnSleep()

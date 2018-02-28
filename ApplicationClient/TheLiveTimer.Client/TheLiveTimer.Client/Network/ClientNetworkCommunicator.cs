@@ -32,6 +32,7 @@
         /// </summary>
         public void OpenCommnuication()
         {
+            System.Console.WriteLine("---------- Opening commnication ----------- ");
             this.receiver.StartListeningAsync();
             this.Consume(this.queue);
         }
@@ -74,6 +75,24 @@
                 case TimerNetworkCommand.TimeExpired:
                     this.TimerController.ExpireTime();
                     break;
+
+                case TimerNetworkCommand.SettingsUpdated:
+                    {
+                        break;
+                    }
+
+                case TimerNetworkCommand.BroadcastReady:
+                    {
+                        var message = NetworkUtils.GetString(packet.Arguments);
+                        this.TimerController.BroadcastMessage(message);
+                        break;
+                    }
+
+                case TimerNetworkCommand.BroadcastOver:
+                    {
+                        this.TimerController.ClearBroadcast();
+                        break;   
+                    }
 
                 default:
                     {
