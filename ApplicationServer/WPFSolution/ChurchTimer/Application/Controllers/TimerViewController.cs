@@ -18,6 +18,8 @@
 
         public TimerViewController(int receivePort, int sendPort)
         {
+            this.commnicator = new NetworkCommunicator(receivePort, sendPort);
+
             this.timer = new Timer(1000);
             this.timer.Elapsed += Timer_Elapsed;
 
@@ -25,8 +27,6 @@
             this.messageTimer.Elapsed += MessageTimer_Elapsed;
             this.TimerState = TimerState.Stopped;
             this.Settings = new SimpleTimerSettings();
-
-            this.commnicator = new NetworkCommunicator(receivePort, sendPort);
         }
 
         #region Events
@@ -93,6 +93,8 @@
 
             this.timer.Stop();
             this.OnTimePausedAsync();
+
+            this.OnBlinkingStoppedAsync();
         }
 
         public void StopTimer()
@@ -102,6 +104,8 @@
             this.timer.Stop();
             Console.WriteLine("Time stopped. Timer.Enabled: {0}", this.timer.Enabled);
             this.OnTimeStoppedAsync();
+
+            this.OnBlinkingStoppedAsync();
         }
 
         public void ResetTimer()
