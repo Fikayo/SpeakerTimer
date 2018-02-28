@@ -38,9 +38,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Network\ClientNetworkCommunicator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\BroadcastReceiver.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Network\TimerNetworkPacket.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Network\TimerNetworkCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Network\NetworkUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Pages\" />

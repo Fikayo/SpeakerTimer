@@ -2,6 +2,7 @@
 {
     using System;
     using System.Threading.Tasks.Dataflow;
+    using TheLiveTimer.Network;
 
     /// <summary>
     /// Receives timer commands and sends them to the local timer controller

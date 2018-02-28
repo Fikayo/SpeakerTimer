@@ -97,6 +97,9 @@
     <Reference Include="System.Threading.Tasks.Dataflow">
       <HintPath>..\packages\Microsoft.Tpl.Dataflow.4.5.24\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
     </Reference>
+    <Reference Include="TheLiveTimer.Network">
+      <HintPath>..\..\..\ApplicationLibaries\TheLiveTimer.Network\TheLiveTimer.Network\TheLiveTimer.Network.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
