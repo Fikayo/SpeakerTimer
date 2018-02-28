@@ -120,6 +120,60 @@
 
         #endregion
 
+        public string ToTransportString()
+        {
+            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}",
+                this.VisualId,
+                this.TimerFontFamily.ToString(),
+                this.TimerFontSize,
+                (int)this.CounterMode,
+                (int)this.DisplayMode,
+                Color2Hex(this.TimerColor),
+                Color2Hex(this.RunningColor),
+                Color2Hex(this.PausedColor),
+                Color2Hex(this.FirstWarningColor),
+                Color2Hex(this.SecondWarningColor),
+                Color2Hex(this.StoppedColor),
+                Color2Hex(this.ExpiredColor),
+                Color2Hex(this.BackgroundColor),
+                Color2Hex(this.MessageColor)
+               );
+        }
+
+        public static TimerVisualSettings ParseTransportString(string transString)
+        {
+            TimerVisualSettings settings = new TimerVisualSettings();
+
+            var values = transString.Split(new char[] { ',' });
+
+            settings.TimerFontFamily = values[0];
+            settings.TimerFontSize = float.Parse(values[1]);
+            settings.CounterMode = (TimerCounterMode)int.Parse(values[2]);
+            settings.DisplayMode = (TimerDisplayMode)int.Parse(values[3]);
+            settings.TimerColor = Color.FromHex(values[4]);
+            settings.RunningColor = Color.FromHex(values[5]);
+            settings.PausedColor = Color.FromHex(values[6]);
+            settings.FirstWarningColor = Color.FromHex(values[7]);
+            settings.StoppedColor = Color.FromHex(values[8]);
+            settings.ExpiredColor = Color.FromHex(values[9]);
+            settings.BackgroundColor = Color.FromHex(values[10]);
+            settings.MessageColor = Color.FromHex(values[11]);
+            settings.SecondWarningColor = Color.FromHex(values[12]);
+
+            return settings;
+        }
+
+        private static string Color2Hex(Color color)
+        {
+            var red = (int)(color.R * 255);
+            var green = (int)(color.G * 255);
+            var blue = (int)(color.B * 255);
+            var alpha = (int)(color.A * 255);
+            var hex = $"#{alpha:X2}{red:X2}{green:X2}{blue:X2}";
+
+            return hex;
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())

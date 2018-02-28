@@ -1,5 +1,8 @@
 ﻿namespace TheLiveTimer.Client
 {
+    using System.Text;
+    using System.Text.RegularExpressions;
+
     public class SimpleTimerSettings
     {
         public SimpleTimerSettings()
@@ -19,6 +22,38 @@
         public TimerDurationSettings DurationSettings { get; set; }
 
         public TimerVisualSettings VisualSettings { get; set; }
+
+        public static SimpleTimerSettings FromString(string str)
+        {
+            var settings = new SimpleTimerSettings();
+
+            Regex regex = new Regex("(" + nameof(Metadata) + "):(.*?);/end/;");
+            var match = regex.Match(str);
+            var metatDataString = match.Groups[1].ToString();
+            settings.Metadata = SettingsMetaData.ParseTransportString(metatDataString);
+
+            regex = new Regex("(" + nameof(DurationSettings) + "):(.*?);/end/;");
+            match = regex.Match(str);
+            var durationString = match.Groups[1].ToString();
+            settings.DurationSettings = TimerDurationSettings.ParseTransportString(durationString);
+
+            regex = new Regex("(" + nameof(VisualSettings) + "):(.*?);/end/;");
+            match = regex.Match(str);
+            var visualString = match.Groups[1].ToString();
+            settings.VisualSettings = TimerVisualSettings.ParseTransportString(visualString);
+
+            return settings;
+        }
+
+        public string ToTransportString()
+        {
+            StringBuilder output = new StringBuilder();
+            output.Append(string.Format("{0}:{1};/end/;", nameof(this.Metadata), this.Metadata.ToCsv()));
+            output.Append(string.Format("{0}:{1};/end/;", nameof(this.DurationSettings), this.DurationSettings.ToTransportString()));
+            output.Append(string.Format("{0}:{1};/end/;", nameof(this.VisualSettings), this.VisualSettings.ToTransportString()));
+
+            return output.ToString();
+        }
 
         public override bool Equals(object obj)
         {
@@ -57,6 +92,30 @@
             public string FinalMessage { get; set; }
 
             public bool BlinkingWhenExpired { get; set; }
+
+            public static SettingsMetaData ParseTransportString(string csv)
+            {
+                var values = csv.Split(new char[] { ',' });
+
+                var metadata = new SettingsMetaData()
+                {
+                    Title = values[0],
+                    Name = values[1],
+                    FinalMessage = values[2],
+                    BlinkingWhenExpired = bool.Parse(values[3]),
+                };
+
+                return metadata;
+            }
+
+            public string ToCsv()
+            {
+                return string.Format("{0},{1},{2},{3}",
+                  this.Title,
+                  this.Name,
+                  this.FinalMessage,
+                  this.BlinkingWhenExpired);
+            }
 
             public override bool Equals(object obj)
             {
