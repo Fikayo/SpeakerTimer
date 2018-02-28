@@ -120,6 +120,62 @@
 
         #endregion
 
+
+        public string ToTransportString()
+        {
+            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}",
+                this.VisualId,
+                this.TimerFontFamily.ToString(),
+                this.TimerFontSize,
+                (int)this.CounterMode,
+                (int)this.DisplayMode,
+                Brush2Hex(this.TimerColor),
+                Brush2Hex(this.RunningColor),
+                Brush2Hex(this.PausedColor),
+                Brush2Hex(this.FirstWarningColor),
+                Brush2Hex(this.SecondWarningColor),
+                Brush2Hex(this.StoppedColor),
+                Brush2Hex(this.ExpiredColor),
+                Brush2Hex(this.BackgroundColor),
+                Brush2Hex(this.MessageColor)
+               );
+        }
+
+        public static TimerVisualSettings ParseTransportString(string transString)
+        {
+            TimerVisualSettings settings = new TimerVisualSettings();
+
+            var values = transString.Split(new char[] { ',' });
+
+            settings.TimerFontFamily = new FontFamily(values[0]);
+            settings.TimerFontSize = float.Parse(values[1]);
+            settings.CounterMode = (TimerCounterMode)int.Parse(values[2]);
+            settings.DisplayMode = (TimerDisplayMode)int.Parse(values[3]);
+            settings.TimerColor = Hex2Brush(values[4]);
+            settings.RunningColor = Hex2Brush(values[5]);
+            settings.PausedColor = Hex2Brush(values[6]);
+            settings.FirstWarningColor = Hex2Brush(values[7]);
+            settings.StoppedColor = Hex2Brush(values[8]);
+            settings.ExpiredColor = Hex2Brush(values[9]);
+            settings.BackgroundColor = Hex2Brush(values[10]);
+            settings.MessageColor = Hex2Brush(values[11]);
+            settings.SecondWarningColor = Hex2Brush(values[12]);
+
+            return settings;
+        }
+
+        private static string Brush2Hex(Brush brush)
+        {
+            var color = ((SolidColorBrush)brush).Color.ToString();
+            return color.ToString();
+        }
+
+        private static Brush Hex2Brush(string hex)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+            return (Brush)converter.ConvertFromString(hex);
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())

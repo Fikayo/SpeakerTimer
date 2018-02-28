@@ -3,6 +3,8 @@
     using System;
     using System.Timers;
     using ChurchTimer.Application.Settings;
+    using TheLiveTimer.Network;
+    using TheLiveTimer.Server.Network;
 
     public class TimerViewController
     {
@@ -12,7 +14,9 @@
         private SimpleTimerSettings settings;
         private double currentTimeInSeconds;
 
-        public TimerViewController()
+        private NetworkCommunicator commnicator;
+
+        public TimerViewController(int receivePort, int sendPort)
         {
             this.timer = new Timer(1000);
             this.timer.Elapsed += Timer_Elapsed;
@@ -22,6 +26,7 @@
             this.TimerState = TimerState.Stopped;
             this.Settings = new SimpleTimerSettings();
 
+            this.commnicator = new NetworkCommunicator(receivePort, sendPort);
         }
 
         #region Events
@@ -227,6 +232,8 @@
             {
                 this.InvokeAsync(handler, new CurrentTimeEventArgs(time), null);
             }
+
+            this.commnicator.BroadcastCommand(TimerNetworkCommand.TimeUpdated, time);
         }
 
         private void OnTimeStartedAsync()
@@ -236,6 +243,8 @@
             {
                 this.InvokeAsync(handler, EventArgs.Empty, this.EndAsyncEvent);
             }
+
+            this.commnicator.BroadcastCommand(TimerNetworkCommand.TimeStarted);
         }
 
         private void OnTimePausedAsync()
@@ -245,6 +254,8 @@
             {
                 this.InvokeAsync(handler, EventArgs.Empty, this.EndAsyncEvent);
             }
+
+            this.commnicator.BroadcastCommand(TimerNetworkCommand.TimePaused);
         }
 
         private void OnTimeStoppedAsync()
@@ -254,6 +265,8 @@
             {
                 this.InvokeAsync(handler, EventArgs.Empty, this.EndAsyncEvent);
             }
+
+            this.commnicator.BroadcastCommand(TimerNetworkCommand.TimeStopped);
         }
 
         private void OnTimeExpiredAsync()
@@ -263,6 +276,8 @@
             {
                 this.InvokeAsync(handler, EventArgs.Empty, this.EndAsyncEvent);
             }
+
+            this.commnicator.BroadcastCommand(TimerNetworkCommand.TimeExpired);
         }
 
         private void OnBlinkingStartedAsync()
@@ -272,6 +287,8 @@
             {
                 this.InvokeAsync(handler, EventArgs.Empty, this.EndAsyncEvent);
             }
+
+            this.commnicator.BroadcastCommand(TimerNetworkCommand.StartBlinking);
         }
 
         private void OnBlinkingStoppedAsync()
@@ -281,6 +298,8 @@
             {
                 this.InvokeAsync(handler, EventArgs.Empty, this.EndAsyncEvent);
             }
+
+            this.commnicator.BroadcastCommand(TimerNetworkCommand.StopBlinking);
         }
 
         private void OnBroadcastReadyAsync(TimerMessageSettings message)
@@ -290,6 +309,8 @@
             {
                 this.InvokeAsync(handler, new BroadcastReadyEventArgs(message), null);
             }
+
+            this.commnicator.BroadcastCommand(TimerNetworkCommand.BroadcastReady, NetworkUtils.ObjectToByteArray(message.TimerMessage));
         }
 
         private void OnBroadcastOverAsync()
@@ -299,6 +320,8 @@
             {
                 this.InvokeAsync(handler, EventArgs.Empty);
             }
+
+            this.commnicator.BroadcastCommand(TimerNetworkCommand.BroadcastOver);
         }
 
         private void OnSettingsUpdated(SimpleTimerSettings settings)
@@ -308,6 +331,8 @@
             {
                 handler.Invoke(this, new SettingsChangedEventArgs(settings));
             }
+
+            this.commnicator.BroadcastCommand(TimerNetworkCommand.SettingsUpdated, NetworkUtils.ObjectToByteArray(settings.ToTransportString()));
         }
 
         private void InvokeAsync(EventHandler handler, EventArgs args, AsyncCallback callback = null)

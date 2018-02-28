@@ -22,7 +22,7 @@
         }
 
         public int DurationId { get { return this.id; } }
-        
+
         public double Duration { get; set; } // In seconds
 
         public double FirstWarningTime { get; set; }
@@ -32,7 +32,27 @@
         public bool HasFirstWarning { get { return this.FirstWarningTime > 0; } }
 
         public bool HasSecondWarning { get { return this.SecondWarningTime > 0; } }
-        
+
+        public static TimerDurationSettings ParseTransportString(string transString)
+        {
+            var values = transString.Split(new char[] { ',' });
+
+            var duration = double.Parse(values[1]);
+            var firstWarningTime = double.Parse(values[3]);
+            var secondWarningTime = double.Parse(values[3]);
+            return new TimerDurationSettings(int.Parse(values[0]), duration, firstWarningTime, secondWarningTime);
+        }
+
+        public string ToTransportString()
+        {
+            return string.Format("{0},{1},{2},{3}",
+                this.DurationId,
+                this.Duration,
+                this.FirstWarningTime,
+                this.SecondWarningTime);
+        }
+
+
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())

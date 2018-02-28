@@ -61,8 +61,10 @@
             <local:BasicTimerView x:Name="timerPreview" Margin="0,0,0,0" Width="251" HorizontalAlignment="Left"/>
 
             <Button Content="Play" Command="{Binding PlayCommand}" Width="100"/>
+            <Button Content="Pause" Command="{Binding PauseCommand}" Width="100"/>
             <Button Content="Stop" Command="{Binding StopCommand}" Width="100"/>
             <Button Content="Reset" Command="{Binding ResetCommand}" Width="100"/>
+            <Button Content="Broadcast" Command="{Binding BroadcastCommand}" Width="100"/>
         </StackPanel>
         <!--<Grid>
             <local:BasicTimerView x:Name="timerPreview" Margin="10,0,0,0" Width="251" HorizontalAlignment="Left"/>
