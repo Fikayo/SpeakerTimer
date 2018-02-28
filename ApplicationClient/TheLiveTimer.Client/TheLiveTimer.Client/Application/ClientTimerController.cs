@@ -3,7 +3,9 @@
     using System;
 
     internal class ClientTimerController
-    { 
+    {
+        private double currentTime;
+
         public ClientTimerController()
         {
             this.TimerState = TimerState.Stopped;
@@ -71,6 +73,7 @@
 
         public void UpdateTime(double time)
         {
+            this.currentTime = time;
             this.OnTimeUpdatedAsync(time);
         }
         
@@ -79,9 +82,15 @@
             this.OnTimeExpiredAsync();
         }
 
-        public void BroadcastMessage(TimerMessageSettings message)
+        public void BroadcastMessage(string message)
         {
             this.OnBroadcastReadyAsync(message);
+        }
+
+        public void ClearBroadcast()
+        {
+            //this.UpdateTime(this.currentTime);
+            this.OnBroadcastOverAsync();
         }
 
         #endregion
@@ -171,7 +180,7 @@
             }
         }
 
-        private void OnBroadcastReadyAsync(TimerMessageSettings message)
+        private void OnBroadcastReadyAsync(string message)
         {
             var handler = this.BroadcastReady;
             if (handler != null)

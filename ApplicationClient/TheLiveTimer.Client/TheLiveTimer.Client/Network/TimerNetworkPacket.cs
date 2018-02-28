@@ -33,7 +33,7 @@
         /// <summary>
         /// The starting index of the arguments list in the network packet byte array.
         /// </summary>
-        public const int ArgumentsIndex = 21;
+        public const int ArgumentsIndex = 24;
 
         /* --------------------- */
 

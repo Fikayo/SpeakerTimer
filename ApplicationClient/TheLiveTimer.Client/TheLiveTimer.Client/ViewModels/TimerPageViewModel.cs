@@ -375,8 +375,8 @@
 
         private void Controller_BroadcastReady(object sender, BroadcastReadyEventArgs e)
         {
-            this.Message = e.Message.TimerMessage;
-            this.MessageFontSize = e.Message.MessageFontSize;
+            this.Message = e.Message;
+            //this.MessageFontSize = e.Message.MessageFontSize;
         }
 
         private void Controller_BroadcastOver(object sender, EventArgs e)
