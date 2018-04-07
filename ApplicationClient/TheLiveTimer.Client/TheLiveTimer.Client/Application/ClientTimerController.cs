@@ -35,7 +35,7 @@
 
         public event EventHandler BroadcastOver;
 
-        public event EventHandler SettingsUpdated;
+        public event EventHandler<SettingsChangedEventArgs> SettingsUpdated;
 
         #endregion
 
@@ -82,6 +82,11 @@
             this.OnTimeExpiredAsync();
         }
 
+        public void UpdateSettings(SimpleTimerSettings settings)
+        {
+            this.OnSettingsUpdated(settings);
+        }
+
         public void BroadcastMessage(string message)
         {
             this.OnBroadcastReadyAsync(message);
@@ -89,7 +94,6 @@
 
         public void ClearBroadcast()
         {
-            //this.UpdateTime(this.currentTime);
             this.OnBroadcastOverAsync();
         }
 
@@ -198,12 +202,12 @@
             }
         }
 
-        private void OnSettingsUpdated()
+        private void OnSettingsUpdated(SimpleTimerSettings settings)
         {
             var handler = this.SettingsUpdated;
             if (handler != null)
             {
-                handler.Invoke(this, EventArgs.Empty);
+                handler.Invoke(this, new SettingsChangedEventArgs(settings));
             }
         }
 

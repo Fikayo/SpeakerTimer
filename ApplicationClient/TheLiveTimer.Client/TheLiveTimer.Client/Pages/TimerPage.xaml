@@ -7,7 +7,7 @@
             <!-- Title -->
                 <Label Text="{Binding Path=SettingsMetadata.Title}" 
                        TextColor="White"
-                       VerticalTextAlignment="Start"
+                       VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Center">
 
                 </Label>

@@ -60,7 +60,7 @@
         /// </summary>
         SettingsUpdated = 11,
 
-        /* Request commnds from 17 - */
+        /* Request commands from 17 - */
 
         /// <summary>
         /// Notifies the server of a request to start the timer

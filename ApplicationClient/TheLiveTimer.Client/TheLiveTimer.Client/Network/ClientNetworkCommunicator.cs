@@ -1,6 +1,7 @@
 ﻿namespace TheLiveTimer.Client.Network
 {
     using System;
+    using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using TheLiveTimer.Network;
 
@@ -11,8 +12,8 @@
     {
         public const int UdpDefaultPort = 5004;
 
-        private BufferBlock<TimerNetworkPacket> queue;
-        private BroadcastReceiver receiver;
+        private BufferBlock<TimerCommandData> commandQueue;
+        private BroadcastReceiver broadcastReceiver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:TheLiveTimer.Client.Network.ClientNetworkCommunicator"/> class.
@@ -21,8 +22,8 @@
         /// <param name="queueCapacity">Determins the capacity of the network queue.</param>
         public ClientNetworkCommunicator(int port = UdpDefaultPort, int queueCapacity = 20)
         {
-            this.queue = new BufferBlock<TimerNetworkPacket>(new DataflowBlockOptions { BoundedCapacity = queueCapacity });
-            this.receiver = new BroadcastReceiver(port, queue);
+            this.commandQueue = new BufferBlock<TimerCommandData>(new DataflowBlockOptions { BoundedCapacity = queueCapacity });
+            this.broadcastReceiver = new BroadcastReceiver(port, commandQueue);
             this.TimerController = new ClientTimerController();
         }
 
@@ -34,27 +35,27 @@
         public void OpenCommnuication()
         {
             System.Console.WriteLine("---------- Opening commnication ----------- ");
-            this.receiver.StartListeningAsync();
-            this.Consume(this.queue);
+            this.broadcastReceiver.StartListeningAsync();
+            this.ConsumeAsync(this.commandQueue);
         }
 
-        private async void Consume(BufferBlock<TimerNetworkPacket> queue)
+        private async void ConsumeAsync(BufferBlock<TimerCommandData> queue)
         {
             while (await queue.OutputAvailableAsync())
             {
-                var packet = await queue.ReceiveAsync();
+                var networkData = await queue.ReceiveAsync();
 
-                ProcessCommand(packet);
+                ProcessCommand(networkData);
             }
         }
 
-        private void ProcessCommand(TimerNetworkPacket packet)
+        private void ProcessCommand(TimerCommandData commandData)
         {
-            switch (packet.Command)
+            switch (commandData.Command)
             {
                 case TimerNetworkCommand.TimeUpdated:
                     {
-                        double time = BitConverter.ToDouble(packet.Arguments, 0);
+                        double time = BitConverter.ToDouble(commandData.Arguments, 0);
                         this.TimerController.UpdateTime(time);
                         Console.WriteLine("Received time: " + time);
 
@@ -79,12 +80,14 @@
 
                 case TimerNetworkCommand.SettingsUpdated:
                     {
+                        var settings = SimpleTimerSettings.FromString(NetworkUtils.GetString(commandData.Arguments));
+                        this.TimerController.UpdateSettings(settings);
                         break;
                     }
 
                 case TimerNetworkCommand.BroadcastReady:
                     {
-                        var message = NetworkUtils.GetString(packet.Arguments);
+                        var message = NetworkUtils.GetString(commandData.Arguments);
                         this.TimerController.BroadcastMessage(message);
                         break;
                     }
@@ -97,7 +100,7 @@
 
                 default:
                     {
-                        Console.WriteLine("Unknown command: {0}", packet.Command);
+                        Console.WriteLine("Unknown command: {0}", commandData.Command);
                         break;
                     }
 

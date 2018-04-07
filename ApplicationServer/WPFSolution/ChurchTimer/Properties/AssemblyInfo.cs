@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("ChurchTimer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("TELUS Communications Inc")]
+[assembly: AssemblyCompany("Pinno Productions")]
 [assembly: AssemblyProduct("ChurchTimer")]
-[assembly: AssemblyCopyright("Copyright © TELUS Communications Inc 2018")]
+[assembly: AssemblyCopyright("Copyright © Pinno Productions 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

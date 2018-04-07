@@ -21,4 +21,14 @@
 
         public string Message { get; private set; }
     }
+
+    internal class SettingsChangedEventArgs : EventArgs
+    {
+        public SettingsChangedEventArgs(SimpleTimerSettings settings)
+        {
+            this.Settings = settings;
+        }
+
+        public SimpleTimerSettings Settings { get; set; }
+    }
 }

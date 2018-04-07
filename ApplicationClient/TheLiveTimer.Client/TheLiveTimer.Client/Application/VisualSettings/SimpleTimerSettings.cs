@@ -29,17 +29,17 @@
 
             Regex regex = new Regex("(" + nameof(Metadata) + "):(.*?);/end/;");
             var match = regex.Match(str);
-            var metatDataString = match.Groups[1].ToString();
+            var metatDataString = match.Groups[2].ToString();
             settings.Metadata = SettingsMetaData.ParseTransportString(metatDataString);
 
             regex = new Regex("(" + nameof(DurationSettings) + "):(.*?);/end/;");
             match = regex.Match(str);
-            var durationString = match.Groups[1].ToString();
+            var durationString = match.Groups[2].ToString();
             settings.DurationSettings = TimerDurationSettings.ParseTransportString(durationString);
 
             regex = new Regex("(" + nameof(VisualSettings) + "):(.*?);/end/;");
             match = regex.Match(str);
-            var visualString = match.Groups[1].ToString();
+            var visualString = match.Groups[2].ToString();
             settings.VisualSettings = TimerVisualSettings.ParseTransportString(visualString);
 
             return settings;

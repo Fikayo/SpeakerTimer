@@ -26,5 +26,18 @@
                 return ms.ToArray();
             }
         }
+
+        public static object ByteArrayToObject(byte[] arrBytes)
+        {
+            BinaryFormatter binForm = new BinaryFormatter();
+            using (var memStream = new MemoryStream())
+            {
+                memStream.Write(arrBytes, 0, arrBytes.Length);
+                memStream.Seek(0, SeekOrigin.Begin);
+                Object obj = (Object)binForm.Deserialize(memStream);
+                return obj;
+            }
+        }
+
     }
 }

@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("TheLiveTimer.Network")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("TELUS Communications Inc")]
+[assembly: AssemblyCompany("Pinno Productions")]
 [assembly: AssemblyProduct("TheLiveTimer.Network")]
-[assembly: AssemblyCopyright("Copyright © TELUS Communications Inc 2018")]
+[assembly: AssemblyCopyright("Copyright © Pinno Productions 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

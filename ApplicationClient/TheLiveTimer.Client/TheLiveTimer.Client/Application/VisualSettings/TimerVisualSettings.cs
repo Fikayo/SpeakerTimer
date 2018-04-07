@@ -122,8 +122,7 @@
 
         public string ToTransportString()
         {
-            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}",
-                this.VisualId,
+            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}",
                 this.TimerFontFamily.ToString(),
                 this.TimerFontSize,
                 (int)this.CounterMode,
@@ -147,18 +146,18 @@
             var values = transString.Split(new char[] { ',' });
 
             settings.TimerFontFamily = values[0];
-            settings.TimerFontSize = float.Parse(values[1]);
+            //settings.TimerFontSize = float.Parse(values[1]);
             settings.CounterMode = (TimerCounterMode)int.Parse(values[2]);
             settings.DisplayMode = (TimerDisplayMode)int.Parse(values[3]);
             settings.TimerColor = Color.FromHex(values[4]);
             settings.RunningColor = Color.FromHex(values[5]);
             settings.PausedColor = Color.FromHex(values[6]);
             settings.FirstWarningColor = Color.FromHex(values[7]);
+            settings.SecondWarningColor = Color.FromHex(values[12]);
             settings.StoppedColor = Color.FromHex(values[8]);
             settings.ExpiredColor = Color.FromHex(values[9]);
             settings.BackgroundColor = Color.FromHex(values[10]);
             settings.MessageColor = Color.FromHex(values[11]);
-            settings.SecondWarningColor = Color.FromHex(values[12]);
 
             return settings;
         }

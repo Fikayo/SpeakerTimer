@@ -304,6 +304,7 @@
                 this.controller.StopBlinking += Controller_StopBlinking;
                 this.controller.BroadcastReady += Controller_BroadcastReady;
                 this.controller.BroadcastOver += Controller_BroadcastOver;
+                this.controller.SettingsUpdated += Controller_SettingsUpdated;
             }
         }
 
@@ -382,6 +383,11 @@
         private void Controller_BroadcastOver(object sender, EventArgs e)
         {
             this.Message = string.Empty;
+        }
+
+        private void Controller_SettingsUpdated(object sender, SettingsChangedEventArgs e)
+        {
+            this.Settings = e.Settings;
         }
 
         #endregion
