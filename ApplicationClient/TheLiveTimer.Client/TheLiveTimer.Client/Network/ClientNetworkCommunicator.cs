@@ -12,7 +12,7 @@
     {
         public const int UdpDefaultPort = 5004;
 
-        private BufferBlock<TimerCommandData> commandQueue;
+        private BufferBlock<NetworkData> commandQueue;
         private BroadcastReceiver broadcastReceiver;
 
         /// <summary>
@@ -22,7 +22,7 @@
         /// <param name="queueCapacity">Determins the capacity of the network queue.</param>
         public ClientNetworkCommunicator(int port = UdpDefaultPort, int queueCapacity = 20)
         {
-            this.commandQueue = new BufferBlock<TimerCommandData>(new DataflowBlockOptions { BoundedCapacity = queueCapacity });
+            this.commandQueue = new BufferBlock<NetworkData>(new DataflowBlockOptions { BoundedCapacity = queueCapacity });
             this.broadcastReceiver = new BroadcastReceiver(port, commandQueue);
             this.TimerController = new ClientTimerController();
         }
@@ -39,13 +39,25 @@
             this.ConsumeAsync(this.commandQueue);
         }
 
-        private async void ConsumeAsync(BufferBlock<TimerCommandData> queue)
+        private async void ConsumeAsync(BufferBlock<NetworkData> queue)
         {
             while (await queue.OutputAvailableAsync())
             {
                 var networkData = await queue.ReceiveAsync();
 
-                ProcessCommand(networkData);
+                ProcessNetworkData(networkData);
+            }
+        }
+
+        private void ProcessNetworkData(NetworkData networkData)
+        {
+            if (networkData is TimerCommandData commandData)
+            {
+                ProcessCommand(commandData);
+            }
+            else if (networkData is ServerMessageData messageData)
+            {
+                ProcessServerMessage(messageData);
             }
         }
 
@@ -106,5 +118,39 @@
 
             }
         }
+    
+        private void ProcessServerMessage(ServerMessageData serverMessage)
+        {
+            switch(serverMessage.ServerMessage)
+            {
+                case ServerMessage.ServerReady:
+                    {
+                        break;
+                    }
+
+                case ServerMessage.ClientAccepted:
+                    {
+                        break;
+                    }
+
+                case ServerMessage.ClientDeclined:
+                    {
+                        break;
+                    }
+
+                case ServerMessage.ClientMax:
+                    {
+                        break;
+                    }
+
+                default:
+                    {
+                        Console.WriteLine("Unknown server message: {0}", serverMessage.ServerMessage);
+                        break;
+                    }
+            }
+
+        }
+
     }
 }

@@ -15,14 +15,14 @@
         private readonly int port;
         private readonly UdpClient udp;
         private Thread listeneningThread;
-        private BufferBlock<TimerCommandData> buffer;
+        private BufferBlock<NetworkData> buffer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:TheLiveTimer.Client.Network.BroadcastReceiver"/> class.
         /// </summary>
         /// <param name="port">Port to listen on</param>
         /// <param name="buffer">Buffer to store received packets. Must not be null</param>
-        public BroadcastReceiver(int port, BufferBlock<TimerCommandData> buffer)
+        public BroadcastReceiver(int port, BufferBlock<NetworkData> buffer)
         {
             if (buffer == null)
             {
@@ -71,17 +71,11 @@
         {
             Console.WriteLine("received broadcast: \n");
 
-            //var packet = TimerNetworkPacket.FromBytes(data);
             var packet = NetworkUtils.ByteArrayToObject(data);
-            if (packet is TimerNetworkPacket)
+            if (packet is TimerNetworkPacket networkPacket)
             {
-                var networkPacket = (TimerNetworkPacket)packet;
-
-                // The expected data *should* be TimerCommandData since this is the broadcast receiver
-                var commandData = networkPacket.NetworkData as TimerCommandData;
-
                 // Add network data to the buffer
-                this.buffer.SendAsync(commandData);
+                this.buffer.SendAsync(networkPacket.NetworkData);
             }
         }
     }

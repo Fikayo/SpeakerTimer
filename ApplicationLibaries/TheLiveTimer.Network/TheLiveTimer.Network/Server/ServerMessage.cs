@@ -6,18 +6,28 @@
     public enum ServerMessage
     {
         /// <summary>
+        /// Indicates that the server is ready to recieve client requests
+        /// </summary>
+        ServerReady = 1,
+
+        /// <summary>
         /// Indicates that the request to be a client has been accepted
         /// </summary>
-        ClientAccepted = 1,
+        ClientAccepted = 2,
 
         /// <summary>
         /// Inidicates that the request to be a client has been declined for various reasons
         /// </summary>
-        ClientDeclined = 2,
+        ClientDeclined = 3,
 
         /// <summary>
         /// Indicates that the number of clients allowed has been exceeded. The client request is hence declined.
         /// </summary>
-        ClientMax = 3,
+        ClientMax = 4,
+
+        /// <summary>
+        /// Verifies if the receiving client is still alive
+        /// </summary>
+        LivenessChecker = 10,
     }
 }

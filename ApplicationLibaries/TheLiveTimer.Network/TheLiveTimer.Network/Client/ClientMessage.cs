@@ -9,5 +9,10 @@
         /// Indicates a request to become a client to the receiving server
         /// </summary>
         ClientRequest = 1,
+
+        /// <summary>
+        /// Indicates that the client is still alive and connected.
+        /// </summary>
+        LivenessResponse = 10,
     }
 }

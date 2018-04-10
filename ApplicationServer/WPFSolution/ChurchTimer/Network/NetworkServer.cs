@@ -6,6 +6,8 @@ namespace TheLiveTimer.Server.Network
     using System.Net.Sockets;
     using System.Text;
     using System.Threading;
+    using System.Threading.Tasks.Dataflow;
+    using TheLiveTimer.Network;
 
     public class NetworkServer : INetworkServer, INetworkAsyncServer
     {
@@ -14,11 +16,13 @@ namespace TheLiveTimer.Server.Network
         private Thread listenerThread;
         private TcpListener listener;
         private BroadcastServer broadcaster;
+        private BufferBlock<ClientResponse> clientResponseQueue;
 
-        public NetworkServer(int receivePort, int sendPort)
+        public NetworkServer(int receivePort, int sendPort, BufferBlock<ClientResponse> clientResponseQueue)
         {
             this.listener = new TcpListener(IPAddress.Any, receivePort);
             this.broadcaster = new BroadcastServer(sendPort);
+            this.clientResponseQueue = clientResponseQueue;
         }
 
         public void Open()
@@ -59,17 +63,24 @@ namespace TheLiveTimer.Server.Network
 
         private void ClientHandler(object args)
         {
-            TcpClient client = args as TcpClient;
-            if (client != null)
+            if (args is TcpClient client)
             {
                 using (NetworkStream stream = client.GetStream())
                 {
                     byte[] data = new byte[1024];
                     stream.Read(data, 0, data.Length);
 
-                    Console.WriteLine("Server received: " + Encoding.ASCII.GetString(data));
-
-                    this.Broadcast(Encoding.ASCII.GetBytes("My broadcast"));
+                    var packet = NetworkUtils.ByteArrayToObject(data);
+                    if (packet is TimerNetworkPacket networkPacket)
+                    {
+                        // Add response to the buffer
+                        EndPoint clientAddress = client.Client.RemoteEndPoint;
+                        if (networkPacket.NetworkData is ClientMessageData messageData)
+                        {
+                            var response = new ClientResponse(clientAddress, messageData.ClientMessage);
+                            this.clientResponseQueue.SendAsync(response);
+                        }
+                    }
                 }
 
                 client.Close();

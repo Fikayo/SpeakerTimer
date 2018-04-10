@@ -16,9 +16,9 @@
 
         private NetworkCommunicator commnicator;
 
-        public TimerViewController(int receivePort, int sendPort)
+        internal TimerViewController(NetworkCommunicator communicator)
         {
-            this.commnicator = new NetworkCommunicator(receivePort, sendPort);
+            this.commnicator = communicator;
 
             this.timer = new Timer(1000);
             this.timer.Elapsed += Timer_Elapsed;

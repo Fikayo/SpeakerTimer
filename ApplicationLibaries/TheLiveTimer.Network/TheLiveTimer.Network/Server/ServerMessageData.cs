@@ -21,15 +21,5 @@
         }
 
         public ServerMessage ServerMessage { get; private set; }
-
-        protected override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException(nameof(info));
-            }
-
-            info.AddValue(nameof(ServerMessage), this.ServerMessage);
-        }
     }
 }
