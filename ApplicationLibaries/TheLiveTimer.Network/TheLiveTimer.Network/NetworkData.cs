@@ -7,6 +7,5 @@
     [Serializable]
     public abstract class NetworkData
     {
-        //public abstract void ProcessData(IDataVisitor visitor);
     }
 }

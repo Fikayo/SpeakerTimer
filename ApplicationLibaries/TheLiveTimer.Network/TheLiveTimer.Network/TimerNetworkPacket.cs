@@ -10,24 +10,7 @@
     [Serializable]
     public class TimerNetworkPacket : ISerializable
     {
-        /*
-        /// <summary>
-        /// The index of the packet identifier in the network packet byte array.
-        /// </summary>
-        public const int PacketIdIndex = 0;
-
-        /// <summary>
-        /// The index of the data size in the network packet byte array
-        /// </summary>
-        public const int DataSizeIndex = PacketIdIndex + 8;
-
-        /// <summary>
-        /// The index of where the data starts in the network packet byte array.
-        /// </summary>
-        public const int DataIndex = DataSizeIndex + 8;
-        */
-
-        public TimerNetworkPacket(Int64 packetId, NetworkData data)
+        internal TimerNetworkPacket(int packetId, NetworkData data)
         {
             this.PacketId = packetId;
             this.NetworkData = data;
@@ -47,9 +30,9 @@
         /// <summary>
         /// The packet id for this network packet
         /// </summary>
-        public Int64 PacketId { get; private set; }
+        public Int64 PacketId { get; }
 
-        public NetworkData NetworkData { get; private set; }
+        public NetworkData NetworkData { get; }
 
         /// <summary>
         /// Converts the byte array into a <see cref="TimerNetworkPacket"/>

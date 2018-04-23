@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-
-namespace TheLiveTimer.Client
+﻿namespace TheLiveTimer.Client
 {
+    using Xamarin.Forms;
+
     public partial class TimerPage : ContentPage
     {
         public TimerPage()

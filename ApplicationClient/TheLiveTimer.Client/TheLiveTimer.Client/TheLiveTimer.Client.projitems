@@ -38,6 +38,8 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Network\ClientNetworkCommunicator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\BroadcastReceiver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\ServerMessageProcessor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\CommandProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Pages\" />

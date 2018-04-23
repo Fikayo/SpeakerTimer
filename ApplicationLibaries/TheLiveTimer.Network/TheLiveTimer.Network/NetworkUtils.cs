@@ -2,6 +2,9 @@
 {
     using System;
     using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Net.NetworkInformation;
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Text;
 
@@ -37,6 +40,55 @@
                 Object obj = (Object)binForm.Deserialize(memStream);
                 return obj;
             }
+        }
+
+        public static IPAddress GetLocalIPv4(NetworkInterfaceType _type)
+        {
+            IPAddress output = null;
+            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (item.NetworkInterfaceType == _type && item.OperationalStatus == OperationalStatus.Up)
+                {
+                    IPInterfaceProperties adapterProperties = item.GetIPProperties();
+
+                    if (adapterProperties.GatewayAddresses.FirstOrDefault() != null)
+                    {
+                        foreach (UnicastIPAddressInformation ip in adapterProperties.UnicastAddresses)
+                        {
+                            if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                            {
+                                output = ip.Address;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return output;
+        }
+
+        public static IPAddress GetUnicastAddressV4(NetworkInterfaceType _type)
+        {
+            IPAddress output = null;
+            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (item.NetworkInterfaceType == _type && item.OperationalStatus == OperationalStatus.Up)
+                {
+                    IPInterfaceProperties adapterProperties = item.GetIPProperties();
+
+                    foreach (UnicastIPAddressInformation ip in adapterProperties.UnicastAddresses)
+                    {
+                        if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        {
+                            output = ip.Address;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return output;
         }
 
     }

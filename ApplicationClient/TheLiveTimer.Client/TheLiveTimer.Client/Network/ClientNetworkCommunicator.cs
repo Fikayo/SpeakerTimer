@@ -1,6 +1,8 @@
 ﻿namespace TheLiveTimer.Client.Network
 {
     using System;
+    using System.Net;
+    using System.Net.Sockets;
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using TheLiveTimer.Network;
@@ -12,8 +14,14 @@
     {
         public const int UdpDefaultPort = 5004;
 
+        private volatile bool isConnAllowed;
         private BufferBlock<NetworkData> commandQueue;
         private BroadcastReceiver broadcastReceiver;
+        private CommandProcessor commandProcessor;
+        private ServerMessageProcessor messageProcessor;
+        private long communicationId;
+
+        private object _lock = new object();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:TheLiveTimer.Client.Network.ClientNetworkCommunicator"/> class.
@@ -24,19 +32,83 @@
         {
             this.commandQueue = new BufferBlock<NetworkData>(new DataflowBlockOptions { BoundedCapacity = queueCapacity });
             this.broadcastReceiver = new BroadcastReceiver(port, commandQueue);
-            this.TimerController = new ClientTimerController();
+
+            this.commandProcessor = new CommandProcessor(this);
+            this.messageProcessor = new ServerMessageProcessor(this);
+            this.messageProcessor.ClientAccepted += MessageHandler_ClientAccepted;
+            this.messageProcessor.ClientDeclined += MessageProcessor_ClientDeclined;
+
+            var clientIP = NetworkUtils.GetUnicastAddressV4(System.Net.NetworkInformation.NetworkInterfaceType.Wireless80211);
+            this.ClientAddress = new NetworkAddress(clientIP, port);
+
+            this.IsConnectionAllowed = false;
         }
 
-        public ClientTimerController TimerController { get; private set; }
+        public event EventHandler ConnectionChanged;
+
+        /// <summary>
+        /// Gets or sets the timer controller.
+        /// </summary>
+        /// <value>The timer controller.</value>
+        public ClientTimerController TimerController { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="T:TheLiveTimer.Client.Network.ClientNetworkCommunicator"/>
+        /// is allowed connections to the server.
+        /// </summary>
+        /// <value><c>true</c> if connection allowed; otherwise, <c>false</c>.</value>
+        public bool IsConnectionAllowed
+        {
+            get { return this.isConnAllowed; }
+
+            set
+            {
+                var oldConn = this.isConnAllowed;
+                lock (this._lock)
+                {
+                    this.isConnAllowed = value;
+                }
+
+                if(oldConn != value)
+                {
+                    this.OnConnectionChanged();
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Gets the <see cref="NetworkAddress"/> of this client.
+        /// </summary>
+        /// <value>The client address.</value>
+        public NetworkAddress ClientAddress { get; }
 
         /// <summary>
         /// Starts a UDP receiver which listens for commands from the server
         /// </summary>
-        public void OpenCommnuication()
+        public void StartListening()
         {
             System.Console.WriteLine("---------- Opening commnication ----------- ");
             this.broadcastReceiver.StartListeningAsync();
             this.ConsumeAsync(this.commandQueue);
+        }
+
+        /// <summary>
+        /// Transmit's the specified message to the server
+        /// </summary>
+        /// <returns>The transmit.</returns>
+        /// <param name="message">Message.</param>
+        public void Transmit(TcpClient tcpClient, ClientMessage message)
+        {
+            var messageData = new ClientMessageData(message, this.ClientAddress);
+            var packet = NetworkPacketFactory.Instance.GetNetworkPacket(messageData);
+            var data = NetworkUtils.ObjectToByteArray(packet);
+
+            // Send data to server
+            using (NetworkStream stream = tcpClient.GetStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
         }
 
         private async void ConsumeAsync(BufferBlock<NetworkData> queue)
@@ -45,7 +117,8 @@
             {
                 var networkData = await queue.ReceiveAsync();
 
-                ProcessNetworkData(networkData);
+                Console.WriteLine("--- Receiving network data");
+                this.ProcessNetworkData(networkData);
             }
         }
 
@@ -53,103 +126,44 @@
         {
             if (networkData is TimerCommandData commandData)
             {
-                ProcessCommand(commandData);
+                Console.WriteLine("--- Timer Command Received");
+
+                this.IsConnectionAllowed = this.communicationId == commandData.CommunicationId;
+
+                if (this.IsConnectionAllowed)
+                    this.commandProcessor.ProcessCommand(commandData);
             }
             else if (networkData is ServerMessageData messageData)
             {
-                ProcessServerMessage(messageData);
+                Console.WriteLine("--- Server Message received");
+
+                this.messageProcessor.ProcessServerMessage(messageData);
             }
         }
 
-        private void ProcessCommand(TimerCommandData commandData)
+        private void MessageHandler_ClientAccepted(object sender, ClientAcceptedEventArgs e)
         {
-            switch (commandData.Command)
+            this.communicationId = e.CommunicationId;
+            this.IsConnectionAllowed = true;
+        }
+
+        private void MessageProcessor_ClientDeclined(object sender, ClientDeclinedEventArgs e)
+        {
+            this.IsConnectionAllowed = false;
+
+            if (e.MaxClientsReached)
             {
-                case TimerNetworkCommand.TimeUpdated:
-                    {
-                        double time = BitConverter.ToDouble(commandData.Arguments, 0);
-                        this.TimerController.UpdateTime(time);
-                        Console.WriteLine("Received time: " + time);
-
-                        break;
-                    }
-
-                case TimerNetworkCommand.TimeStarted:
-                    this.TimerController.StartTimer();
-                    break;
-
-                case TimerNetworkCommand.TimePaused:
-                    this.TimerController.PauseTimer();
-                    break;
-
-                case TimerNetworkCommand.TimeStopped:
-                    this.TimerController.StopTimer();
-                    break;
-
-                case TimerNetworkCommand.TimeExpired:
-                    this.TimerController.ExpireTime();
-                    break;
-
-                case TimerNetworkCommand.SettingsUpdated:
-                    {
-                        var settings = SimpleTimerSettings.FromString(NetworkUtils.GetString(commandData.Arguments));
-                        this.TimerController.UpdateSettings(settings);
-                        break;
-                    }
-
-                case TimerNetworkCommand.BroadcastReady:
-                    {
-                        var message = NetworkUtils.GetString(commandData.Arguments);
-                        this.TimerController.BroadcastMessage(message);
-                        break;
-                    }
-
-                case TimerNetworkCommand.BroadcastOver:
-                    {
-                        this.TimerController.ClearBroadcast();
-                        break;   
-                    }
-
-                default:
-                    {
-                        Console.WriteLine("Unknown command: {0}", commandData.Command);
-                        break;
-                    }
 
             }
         }
-    
-        private void ProcessServerMessage(ServerMessageData serverMessage)
+
+        private void OnConnectionChanged()
         {
-            switch(serverMessage.ServerMessage)
+            var handler = this.ConnectionChanged;
+            if (handler != null)
             {
-                case ServerMessage.ServerReady:
-                    {
-                        break;
-                    }
-
-                case ServerMessage.ClientAccepted:
-                    {
-                        break;
-                    }
-
-                case ServerMessage.ClientDeclined:
-                    {
-                        break;
-                    }
-
-                case ServerMessage.ClientMax:
-                    {
-                        break;
-                    }
-
-                default:
-                    {
-                        Console.WriteLine("Unknown server message: {0}", serverMessage.ServerMessage);
-                        break;
-                    }
+                handler.Invoke(this, EventArgs.Empty);
             }
-
         }
 
     }

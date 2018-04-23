@@ -2,7 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="TheLiveTimer.Client.TimerPage">
 	<ContentPage.Content>
 		<StackLayout>
-			<Label Text="Welcome to the Timer page!" VerticalOptions="Center" HorizontalOptions="Center" />
+            <Label Text="Welcome to the Timer page!" VerticalOptions="Center" HorizontalOptions="Center" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Connection: " Grid.Column="0" />
+                <Label Text="{Binding Path=ConnectionStatus}" Grid.Column="1" />
+                
+            </Grid>
 
             <!-- Title -->
                 <Label Text="{Binding Path=SettingsMetadata.Title}" 

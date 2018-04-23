@@ -16,10 +16,13 @@ namespace TheLiveTimer.Client
         {
             InitializeComponent();
 
-
+            var timerController = new ClientTimerController(); 
             this.clientCommunicator = new ClientNetworkCommunicator(Port, QueueCapacity);
+            this.clientCommunicator.TimerController = timerController;
+
             var timerPage = new TimerPage();
-            timerPage.Controller = this.clientCommunicator.TimerController;
+            timerPage.Controller = timerController;
+            timerPage.ViewModel.NetworkCommunicator = this.clientCommunicator;
             MainPage = timerPage;
 
             System.Console.WriteLine("------- Starting application ----------- ");
@@ -28,7 +31,7 @@ namespace TheLiveTimer.Client
         protected override void OnStart()
         {
             // Handle when your app starts
-            this.clientCommunicator.OpenCommnuication();
+            this.clientCommunicator.StartListening();
         }
 
         protected override void OnSleep()

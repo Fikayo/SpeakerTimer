@@ -3,23 +3,23 @@
     using System;
     using System.Runtime.Serialization;
 
+    [Serializable]
     public class ClientMessageData : NetworkData
     {
-        public ClientMessageData(ClientMessage clientMessage)
+        public ClientMessageData(ClientMessage clientMessage, NetworkAddress clientAddress, byte[] args = null)
         {
             this.ClientMessage = clientMessage;
+            this.ClientAddress = clientAddress;
+            this.Arguments = args ?? new byte[0];
         }
 
-        protected ClientMessageData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException(nameof(info));
-            }
+        /// <summary>
+        /// The arguments being sent with the data, if any
+        /// </summary>
+        public byte[] Arguments { get; }
 
-            this.ClientMessage = (ClientMessage)info.GetValue(nameof(ClientMessage), typeof(ClientMessage));
-        }
+        public ClientMessage ClientMessage { get; }
 
-        public ClientMessage ClientMessage { get; private set; }
+        public NetworkAddress ClientAddress { get; }
     }
 }

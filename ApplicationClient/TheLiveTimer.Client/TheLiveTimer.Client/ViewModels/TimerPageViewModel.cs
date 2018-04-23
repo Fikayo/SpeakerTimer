@@ -1,6 +1,7 @@
 ﻿namespace TheLiveTimer.Client
 {
      using System;
+    using TheLiveTimer.Client.Network;
     using Xamarin.Forms;
 
     internal class TimerPageViewModel : BaseViewModel
@@ -9,10 +10,11 @@
         private string message;
         private float timerTitleFontSize;
         private float messageFontSize;
-        public bool isTimerVisible;
-        public bool isTimerTitleVisible;
-        public bool isBroadcastingMessage;
-        public bool isBlinking;
+        private bool isTimerVisible;
+        private bool isTimerTitleVisible;
+        private bool isBroadcastingMessage;
+        private bool isBlinking;
+        private string connStatus;
         private Color timerColor;
         private ClientTimerController controller;
 
@@ -20,12 +22,15 @@
         private TimerDurationSettings durationSettings;
         private TimerVisualSettings visualSettings;
 
+        private ClientNetworkCommunicator networkCommunicator;
+
         public TimerPageViewModel()
         {
             this.Settings = new SimpleTimerSettings();
             this.IsTimerVisible = true;
             this.IsBroadcastingMessage = false;
             this.DisplayTimeElapsed(0);
+            this.ConnectionStatus = "Disabled";
         }
 
         public TimerPageViewModel(ClientTimerController controller) : this()
@@ -33,7 +38,7 @@
             this.Controller = controller;
         }
 
-        #region Properties
+        #region View Properties
 
         public SimpleTimerSettings.SettingsMetaData SettingsMetadata
         {
@@ -254,6 +259,26 @@
             }
         }
 
+
+        public string ConnectionStatus
+        {
+            get { return this.connStatus; }
+
+            set
+            {
+                if (this.connStatus != value)
+                {
+                    this.connStatus = value;
+                    Console.WriteLine("connection status: {0}", this.connStatus);
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Properties
+
         public ClientTimerController Controller
         {
             get { return this.controller; }
@@ -263,6 +288,18 @@
                 this.UnHookControllerEventHandlers();
                 this.controller = value;
                 this.HookControllerEventHandlers();
+            }
+        }
+
+        internal ClientNetworkCommunicator NetworkCommunicator
+        {
+            get { return this.networkCommunicator; }
+
+            set
+            {
+                this.UnHookNetworkEventHandlers();
+                this.networkCommunicator = value;
+                this.HookNetworkEventHandlers();
             }
         }
 
@@ -291,6 +328,8 @@
 
             this.Timer = display;
         }
+
+        #region Internal Members
 
         private void HookControllerEventHandlers()
         {
@@ -322,6 +361,24 @@
                 this.controller.BroadcastOver -= Controller_BroadcastOver;
             }
         }
+
+        private void HookNetworkEventHandlers()
+        {
+            if (this.networkCommunicator != null)
+            {
+                this.networkCommunicator.ConnectionChanged += NetworkCommunicator_ConnectionAllowed;
+            }
+        }
+
+        private void UnHookNetworkEventHandlers()
+        {
+            if (this.networkCommunicator != null)
+            {
+                this.networkCommunicator.ConnectionChanged -= NetworkCommunicator_ConnectionAllowed;
+            }
+        }
+
+        #endregion
 
         #region Event Handlers
 
@@ -388,6 +445,11 @@
         private void Controller_SettingsUpdated(object sender, SettingsChangedEventArgs e)
         {
             this.Settings = e.Settings;
+        }
+
+        private void NetworkCommunicator_ConnectionAllowed(object sender, EventArgs e)
+        {
+            this.ConnectionStatus = "Active";
         }
 
         #endregion

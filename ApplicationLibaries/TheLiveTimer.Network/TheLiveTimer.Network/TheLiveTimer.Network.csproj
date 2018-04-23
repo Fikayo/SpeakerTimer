@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="NetworkUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimerNetworkCommand.cs" />
+    <Compile Include="TimerCommand.cs" />
     <Compile Include="TimerNetworkPacket.cs" />
     <Compile Include="Client\ClientMessage.cs" />
     <Compile Include="Client\ClientMessageData.cs" />
@@ -52,6 +52,8 @@
     <Compile Include="NetworkData.cs" />
     <Compile Include="TimerCommandData.cs" />
     <Compile Include="Server\ServerMessageData.cs" />
+    <Compile Include="NetworkAddress.cs" />
+    <Compile Include="NetworkPacketFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Client\" />

@@ -69,7 +69,7 @@
 
         private void ProcessData(byte[] data)
         {
-            Console.WriteLine("received broadcast: \n");
+            Console.WriteLine("------ Received broadcast: \n");
 
             var packet = NetworkUtils.ByteArrayToObject(data);
             if (packet is TimerNetworkPacket networkPacket)

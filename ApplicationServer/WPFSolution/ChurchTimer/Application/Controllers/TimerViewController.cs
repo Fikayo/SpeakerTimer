@@ -237,7 +237,7 @@
                 this.InvokeAsync(handler, new CurrentTimeEventArgs(time), null);
             }
 
-            this.commnicator.BroadcastCommand(TimerNetworkCommand.TimeUpdated, time);
+            this.commnicator.BroadcastCommand(TimerCommand.TimeUpdated, time);
         }
 
         private void OnTimeStartedAsync()
@@ -248,7 +248,7 @@
                 this.InvokeAsync(handler, EventArgs.Empty, this.EndAsyncEvent);
             }
 
-            this.commnicator.BroadcastCommand(TimerNetworkCommand.TimeStarted);
+            this.commnicator.BroadcastCommand(TimerCommand.TimeStarted);
         }
 
         private void OnTimePausedAsync()
@@ -259,7 +259,7 @@
                 this.InvokeAsync(handler, EventArgs.Empty, this.EndAsyncEvent);
             }
 
-            this.commnicator.BroadcastCommand(TimerNetworkCommand.TimePaused);
+            this.commnicator.BroadcastCommand(TimerCommand.TimePaused);
         }
 
         private void OnTimeStoppedAsync()
@@ -270,7 +270,7 @@
                 this.InvokeAsync(handler, EventArgs.Empty, this.EndAsyncEvent);
             }
 
-            this.commnicator.BroadcastCommand(TimerNetworkCommand.TimeStopped);
+            this.commnicator.BroadcastCommand(TimerCommand.TimeStopped);
         }
 
         private void OnTimeExpiredAsync()
@@ -281,7 +281,7 @@
                 this.InvokeAsync(handler, EventArgs.Empty, this.EndAsyncEvent);
             }
 
-            this.commnicator.BroadcastCommand(TimerNetworkCommand.TimeExpired);
+            this.commnicator.BroadcastCommand(TimerCommand.TimeExpired);
         }
 
         private void OnBlinkingStartedAsync()
@@ -292,7 +292,7 @@
                 this.InvokeAsync(handler, EventArgs.Empty, this.EndAsyncEvent);
             }
 
-            this.commnicator.BroadcastCommand(TimerNetworkCommand.StartBlinking);
+            this.commnicator.BroadcastCommand(TimerCommand.StartBlinking);
         }
 
         private void OnBlinkingStoppedAsync()
@@ -303,7 +303,7 @@
                 this.InvokeAsync(handler, EventArgs.Empty, this.EndAsyncEvent);
             }
 
-            this.commnicator.BroadcastCommand(TimerNetworkCommand.StopBlinking);
+            this.commnicator.BroadcastCommand(TimerCommand.StopBlinking);
         }
 
         private void OnBroadcastReadyAsync(TimerMessageSettings message)
@@ -314,7 +314,7 @@
                 this.InvokeAsync(handler, new BroadcastReadyEventArgs(message), null);
             }
 
-            this.commnicator.BroadcastCommand(TimerNetworkCommand.BroadcastReady, NetworkUtils.ObjectToByteArray(message.TimerMessage));
+            this.commnicator.BroadcastCommand(TimerCommand.BroadcastReady, NetworkUtils.ObjectToByteArray(message.TimerMessage));
         }
 
         private void OnBroadcastOverAsync()
@@ -325,7 +325,7 @@
                 this.InvokeAsync(handler, EventArgs.Empty);
             }
 
-            this.commnicator.BroadcastCommand(TimerNetworkCommand.BroadcastOver);
+            this.commnicator.BroadcastCommand(TimerCommand.BroadcastOver);
         }
 
         private void OnSettingsUpdated(SimpleTimerSettings settings)
@@ -336,7 +336,7 @@
                 handler.Invoke(this, new SettingsChangedEventArgs(settings));
             }
 
-            this.commnicator.BroadcastCommand(TimerNetworkCommand.SettingsUpdated, NetworkUtils.ObjectToByteArray(settings.ToTransportString()));
+            this.commnicator.BroadcastCommand(TimerCommand.SettingsUpdated, NetworkUtils.ObjectToByteArray(settings.ToTransportString()));
         }
 
         private void InvokeAsync(EventHandler handler, EventArgs args, AsyncCallback callback = null)

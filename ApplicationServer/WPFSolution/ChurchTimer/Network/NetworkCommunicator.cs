@@ -1,35 +1,43 @@
 ﻿namespace TheLiveTimer.Server.Network
 {
     using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using TheLiveTimer.Server.Network;
     using TheLiveTimer.Network;
+    using System.Net;
 
     internal class NetworkCommunicator
     {
-        private const int MaxClients = 10;
-
         private NetworkServer server;
-        private BufferBlock<ClientResponse> clientQueue;
+        private BufferBlock<ReceivedParcel> clientResponseQueue;
+        private ClientManager clientManager;
 
         public NetworkCommunicator(int receivePort, int sendPort)
         {
-            this.clientQueue = new BufferBlock<ClientResponse>(new DataflowBlockOptions { BoundedCapacity = MaxClients });
-            this.server = new NetworkServer(receivePort, sendPort, clientQueue);
+            this.clientResponseQueue = new BufferBlock<ReceivedParcel>(new DataflowBlockOptions { BoundedCapacity = ClientManager.MaxClients + 1 });
+            this.server = new NetworkServer(receivePort, sendPort, clientResponseQueue);
+            this.clientManager = new ClientManager(clientResponseQueue, this);
             this.server.OpenAsync();
+
+            var serverIP = NetworkUtils.GetLocalIPv4(System.Net.NetworkInformation.NetworkInterfaceType.Ethernet);
+            Console.WriteLine("server Ip: {0}", serverIP);
+            this.ServerAddress = new NetworkAddress(serverIP, receivePort);
         }
+
+        /// <summary>
+        /// Gets the <see cref="NetworkAddress"/> of the server
+        /// </summary>
+        /// <value>The server address.</value>
+        public NetworkAddress ServerAddress { get; }
 
         public void AcceptClients()
         {
-            // First send out ServerReady message
-            var data = new ServerMessageData(ServerMessage.ServerReady);
-            this.TransmitData(data);
-
-            // Wait for client responses up to max number of clients
-            //server.
+            this.clientManager.ListenForClients();
         }
 
-        public void BroadcastCommand(TimerNetworkCommand command, params double[] args)
+        public void BroadcastCommand(TimerCommand command, params double[] args)
         {
             if (args != null)
             {
@@ -43,19 +51,20 @@
             }
         }
 
-        public void BroadcastCommand(TimerNetworkCommand command, byte[] args)
+        public void BroadcastCommand(TimerCommand command, byte[] args)
         {
             Console.WriteLine("Broadcasting command: " + command.ToString());
-            var commandData = new TimerCommandData(0, command, args);
+            var commandData = CommandDataFactory.Instance.GetCommandData(command, args);
             this.TransmitData(commandData);
         }
 
-        private void TransmitData(NetworkData data)
+        public void TransmitData(NetworkData data)
         {
-            var packet = new TimerNetworkPacket(0, data);
+            var packet = NetworkPacketFactory.Instance.GetNetworkPacket(data);
             var bytes = NetworkUtils.ObjectToByteArray(packet);
-            this.server.Broadcast(bytes);
+            this.server.BroadcastAsync(bytes);
         }
 
     }
 }
+

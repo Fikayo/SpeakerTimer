@@ -3,7 +3,7 @@
     /// <summary>
     /// Timer commands for transmission over the network
     /// </summary>
-    public enum TimerNetworkCommand
+    public enum TimerCommand
     {
         /// <summary>
         /// Notifies what a second has passsed
