@@ -10,7 +10,7 @@ namespace TheLiveTimer.Client
         private const int UDPPort = 5004;
         private const int QueueCapacity = 20;
 
-        private ClientNetworkCommunicator clientCommunicator;
+        private readonly ClientNetworkCommunicator clientCommunicator;
 
         public App()
         {
@@ -30,8 +30,10 @@ namespace TheLiveTimer.Client
 
         protected override void OnStart()
         {
+            System.Console.WriteLine("---------- INITIALISING ----------- ");
+
             // Handle when your app starts
-            this.clientCommunicator.StartListening();
+            this.clientCommunicator.Initialise();
         }
 
         protected override void OnSleep()

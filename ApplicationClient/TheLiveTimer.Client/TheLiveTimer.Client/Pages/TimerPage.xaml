@@ -1,29 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="TheLiveTimer.Client.TimerPage">
 	<ContentPage.Content>
-		<StackLayout>
-            <Label Text="Welcome to the Timer page!" VerticalOptions="Center" HorizontalOptions="Center" />
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
-                </Grid.ColumnDefinitions>
 
-                <Label Text="Connection: " Grid.Column="0" />
-                <Label Text="{Binding Path=ConnectionStatus}" Grid.Column="1" />
-                
-            </Grid>
-
-            <!-- Title -->
-                <Label Text="{Binding Path=SettingsMetadata.Title}" 
-                       TextColor="White"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="Center">
-
-                </Label>
+        <RelativeLayout>
             
-            <Grid BackgroundColor="{Binding Path=VisualSettings.BackgroundColor}" HeightRequest="200">
+            <!-- Parent vertical stack layout -->
+    		<StackLayout IsVisible="{Binding Path=!IsLandscapeMode}">
+                <Label Text="Welcome to the Timer page!" VerticalOptions="Center" HorizontalOptions="Center" />
 
+                <!-- Connection Status grid -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Connection: " Grid.Column="0" />
+                    <Label Text="{Binding Path=ConnectionStatus}" Grid.Column="1" />
+                    
+                </Grid>
+
+                <!-- Main Timer Grid -->
+                <Grid BackgroundColor="{Binding Path=VisualSettings.BackgroundColor}" HeightRequest="200">
+
+                    <!-- Message -->
+                    <Label Text="{Binding Message}"
+                        TextColor="{Binding Path=TimerColor}" 
+                        FontSize="{Binding Path=MessageFontSize}" 
+                        FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
+                        HorizontalTextAlignment="Center" 
+                        VerticalTextAlignment="Center"
+                               IsVisible="{Binding IsBroadcastingMessage}">
+
+                    </Label>
+
+                    <!-- Timer -->
+                    <Label Text="{Binding Timer}" 
+                           TextColor="{Binding Path=TimerColor}" 
+                           FontSize="{Binding Path=VisualSettings.TimerFontSize}" 
+                           FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
+                           HorizontalTextAlignment="Center" 
+                           VerticalTextAlignment="Center"
+                            IsVisible="{Binding IsTimerVisible}">
+
+                    </Label>
+
+
+                    <!-- Mini Timer -->
+                    <Label Text="{Binding Timer}" 
+                           TextColor="{Binding Path=TimerColor}" 
+                           FontSize="{Binding Path=TimerTitleFontSize}" 
+                           FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
+                           HorizontalTextAlignment="Center"
+                           Margin="0,50,0,0"
+                            IsVisible="{Binding IsBroadcastingMessage}">
+
+                    </Label>
+
+                </Grid>
+
+                <!-- Timer Metainfo section -->
+                <Label Text="Timer Metadata" Font="Bold,30" Margin="10, 0" HorizontalTextAlignment="Center"/>
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Name: " Grid.Column="0" Grid.Row="0"/>
+                    <Label Text="{Binding Path=SettingsMetadata.Title}" Grid.Column="1" Grid.Row="0"/>
+
+                    <Label Text="Title: " Grid.Column="0" Grid.Row="1"/>
+                    <Label Text="{Binding Path=SettingsMetadata.Name}" Grid.Column="1" Grid.Row="1"/>
+
+                    <Label Text="Final Message: " Grid.Column="0" Grid.Row="2"/>
+                    <Label Text="{Binding Path=SettingsMetadata.FinalMessage}" Grid.Column="1" Grid.Row="2"/>
+
+                    <Label Text="Blink When Expired: " Grid.Column="0" Grid.Row="3"/>
+                    <Label Text="{Binding Path=SettingsMetadata.BlinkingWhenExpired}" Grid.Column="1" Grid.Row="3"/>
+                </Grid>
+
+    		</StackLayout>
+
+            <!-- Horizontal Main Timer section -->
+            <Grid IsVisible="{Binding Path=IsLandscapeMode}" BackgroundColor="{Binding Path=VisualSettings.BackgroundColor}"
+                   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                Property=Width,
+                                Factor=1}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                Property=Height,
+                                Factor=1}">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
                 <!-- Message -->
                 <Label Text="{Binding Message}"
                     TextColor="{Binding Path=TimerColor}" 
@@ -59,7 +136,8 @@
                 </Label>
 
             </Grid>
-
-		</StackLayout>
+            
+        </RelativeLayout>
+        
 	</ContentPage.Content>
 </ContentPage>

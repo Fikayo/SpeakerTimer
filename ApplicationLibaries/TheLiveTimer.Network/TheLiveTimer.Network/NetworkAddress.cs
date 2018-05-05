@@ -6,6 +6,12 @@
     [Serializable]
     public class NetworkAddress
     {
+        public NetworkAddress(IPEndPoint ip)
+        {
+            this.IP = ip.Address;
+            this.Port = ip.Port;
+        }
+
         public NetworkAddress(IPAddress ip, int port)
         {
             this.IP = ip;
@@ -16,12 +22,12 @@
 
         public int Port { get; }
 
-		public override int GetHashCode()
-		{
+        public override int GetHashCode()
+        {
             return base.GetHashCode() * 17;
-		}
+        }
 
-		public override bool Equals(object obj)
+        public override bool Equals(object obj)
         {
             if (obj == null) return false;
             if (!(obj is NetworkAddress)) return false;

@@ -14,5 +14,7 @@
         /// Indicates that the client is still alive and connected.
         /// </summary>
         LivenessResponse = 10,
+
+        Unknown = 20,
     }
 }

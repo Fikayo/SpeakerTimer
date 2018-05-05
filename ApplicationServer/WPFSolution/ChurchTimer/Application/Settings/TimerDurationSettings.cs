@@ -38,7 +38,7 @@
             var values = transString.Split(new char[] { ',' });
 
             var duration = double.Parse(values[1]);
-            var firstWarningTime = double.Parse(values[3]);
+            var firstWarningTime = double.Parse(values[2]);
             var secondWarningTime = double.Parse(values[3]);
             return new TimerDurationSettings(int.Parse(values[0]), duration, firstWarningTime, secondWarningTime);
         }

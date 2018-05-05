@@ -82,6 +82,27 @@
         {
         }
 
+        private TimerVisualSettings(int id) :
+            this(
+                id,
+                TimerCounterMode.CountDownToMinus,
+                TimerDisplayMode.FullWidth,
+                "Arial",
+                50f,
+                Color.White,
+                Color.White,
+                Color.Cyan,
+                Color.Yellow,
+                Color.Orange,
+                Color.Red,
+                Color.Silver,
+                Color.Black,
+                Color.Red,
+                true
+                )
+        {
+        }
+
         public int VisualId { get { return this.id; } }
 
         public bool ShowTimerTitle { get; set; }
@@ -122,7 +143,8 @@
 
         public string ToTransportString()
         {
-            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}",
+            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}",
+                this.VisualId,
                 this.TimerFontFamily.ToString(),
                 this.TimerFontSize,
                 (int)this.CounterMode,
@@ -141,23 +163,26 @@
 
         public static TimerVisualSettings ParseTransportString(string transString)
         {
-            TimerVisualSettings settings = new TimerVisualSettings();
-
             var values = transString.Split(new char[] { ',' });
 
-            settings.TimerFontFamily = values[0];
-            //settings.TimerFontSize = float.Parse(values[1]);
-            settings.CounterMode = (TimerCounterMode)int.Parse(values[2]);
-            settings.DisplayMode = (TimerDisplayMode)int.Parse(values[3]);
-            settings.TimerColor = Color.FromHex(values[4]);
-            settings.RunningColor = Color.FromHex(values[5]);
-            settings.PausedColor = Color.FromHex(values[6]);
-            settings.FirstWarningColor = Color.FromHex(values[7]);
-            settings.SecondWarningColor = Color.FromHex(values[12]);
-            settings.StoppedColor = Color.FromHex(values[8]);
-            settings.ExpiredColor = Color.FromHex(values[9]);
-            settings.BackgroundColor = Color.FromHex(values[10]);
-            settings.MessageColor = Color.FromHex(values[11]);
+            TimerVisualSettings settings = new TimerVisualSettings(int.Parse(values[0]));
+
+            settings.TimerFontFamily = values[1];
+            //settings.TimerFontSize = float.Parse(values[2]);
+            settings.CounterMode = (TimerCounterMode)int.Parse(values[3]);
+            settings.DisplayMode = (TimerDisplayMode)int.Parse(values[4]);
+            settings.TimerColor = Color.FromHex(values[5]);
+            settings.RunningColor = Color.FromHex(values[6]);
+            settings.PausedColor = Color.FromHex(values[7]);
+            settings.FirstWarningColor = Color.FromHex(values[8]);
+            settings.SecondWarningColor = Color.FromHex(values[9]);
+            settings.StoppedColor = Color.FromHex(values[10]);
+            settings.ExpiredColor = Color.FromHex(values[11]);
+            settings.BackgroundColor = Color.FromHex(values[12]);
+            settings.MessageColor = Color.FromHex(values[13]);
+
+            System.Console.WriteLine("\n----- Trans string: {0}\n--------", transString);
+            System.Console.WriteLine("Background color: {0}; String hex: {1}", settings.BackgroundColor, values[10]);
 
             return settings;
         }

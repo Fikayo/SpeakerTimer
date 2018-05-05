@@ -1,6 +1,7 @@
 ﻿namespace TheLiveTimer.Client
 {
     using System;
+    using TheLiveTimer.Network;
 
     internal class CurrentTimeEventArgs : EventArgs
     {
@@ -50,5 +51,15 @@
         }
 
         public long CommunicationId { get; }
+    }
+
+    internal class ServerReadyEventArgs : EventArgs
+    {
+        public ServerReadyEventArgs(NetworkAddress address)
+        {
+            this.ServerAddress = address;
+        }
+
+        public NetworkAddress ServerAddress { get; }
     }
 }

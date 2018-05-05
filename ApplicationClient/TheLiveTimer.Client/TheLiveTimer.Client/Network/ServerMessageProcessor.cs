@@ -1,7 +1,6 @@
 ﻿namespace TheLiveTimer.Client.Network
 {
     using System;
-    using System.Net.Sockets;
     using TheLiveTimer.Network;
 
     internal class ServerMessageProcessor
@@ -10,6 +9,8 @@
         {
             this.NetworkCommunicator = communicator;
         }
+
+        public event EventHandler<ServerReadyEventArgs> ServerReady;
 
         public event EventHandler<ClientAcceptedEventArgs> ClientAccepted;
 
@@ -30,14 +31,7 @@
 
                         // Server is ready to accept clients
                         var address = serverMessage.Address;
-                        Console.WriteLine("--- have the addy");
-
-                        var serverTcpClient = new TcpClient(address.IP.ToString(), address.Port);
-                        Console.WriteLine("--- have the tcp client");
-
-
-                        // Transmit request to server
-                        this.NetworkCommunicator.Transmit(serverTcpClient, ClientMessage.ClientRequest);
+                        this.OnServerReady(address);
                         break;
                     }
 
@@ -107,6 +101,15 @@
             if (handler != null)
             {
                 handler.Invoke(this, new ClientDeclinedEventArgs(maxClients));
+            }
+        }
+
+        private void OnServerReady(NetworkAddress serverAddress)
+        {
+            var handler = this.ServerReady;
+            if (handler != null)
+            {
+                handler.Invoke(this, new ServerReadyEventArgs(serverAddress));
             }
         }
     }

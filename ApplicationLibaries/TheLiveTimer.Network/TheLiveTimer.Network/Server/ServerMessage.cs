@@ -29,5 +29,7 @@
         /// Verifies if the receiving client is still alive
         /// </summary>
         LivenessChecker = 10,
+
+        Error = 20,
     }
 }

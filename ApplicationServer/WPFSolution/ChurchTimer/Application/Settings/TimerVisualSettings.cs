@@ -82,6 +82,27 @@
         {
         }
 
+        private TimerVisualSettings(int id) :
+            this(
+                id,
+                TimerCounterMode.CountDownToMinus,
+                TimerDisplayMode.FullWidth,
+                "Arial",
+                200f,
+                Brushes.White,
+                Brushes.White,
+                Brushes.Cyan,
+                Brushes.Yellow,
+                Brushes.Orange,
+                Brushes.Red,
+                Brushes.Silver,
+                Brushes.Black,
+                Brushes.Red,
+                true
+                )
+        {
+        }
+
         public int VisualId { get { return this.id; } }
 
         public bool ShowTimerTitle { get; set; }
@@ -143,23 +164,23 @@
 
         public static TimerVisualSettings ParseTransportString(string transString)
         {
-            TimerVisualSettings settings = new TimerVisualSettings();
-
             var values = transString.Split(new char[] { ',' });
+            
+            TimerVisualSettings settings = new TimerVisualSettings(int.Parse(values[0]));
 
-            settings.TimerFontFamily = new FontFamily(values[0]);
-            settings.TimerFontSize = float.Parse(values[1]);
-            settings.CounterMode = (TimerCounterMode)int.Parse(values[2]);
-            settings.DisplayMode = (TimerDisplayMode)int.Parse(values[3]);
-            settings.TimerColor = Hex2Brush(values[4]);
-            settings.RunningColor = Hex2Brush(values[5]);
-            settings.PausedColor = Hex2Brush(values[6]);
-            settings.FirstWarningColor = Hex2Brush(values[7]);
-            settings.StoppedColor = Hex2Brush(values[8]);
-            settings.ExpiredColor = Hex2Brush(values[9]);
-            settings.BackgroundColor = Hex2Brush(values[10]);
-            settings.MessageColor = Hex2Brush(values[11]);
-            settings.SecondWarningColor = Hex2Brush(values[12]);
+            settings.TimerFontFamily = new FontFamily(values[1]);
+            settings.TimerFontSize = float.Parse(values[2]);
+            settings.CounterMode = (TimerCounterMode)int.Parse(values[3]);
+            settings.DisplayMode = (TimerDisplayMode)int.Parse(values[4]);
+            settings.TimerColor = Hex2Brush(values[5]);
+            settings.RunningColor = Hex2Brush(values[6]);
+            settings.PausedColor = Hex2Brush(values[7]);
+            settings.FirstWarningColor = Hex2Brush(values[8]);
+            settings.SecondWarningColor = Hex2Brush(values[9]);
+            settings.StoppedColor = Hex2Brush(values[10]);
+            settings.ExpiredColor = Hex2Brush(values[11]);
+            settings.BackgroundColor = Hex2Brush(values[12]);
+            settings.MessageColor = Hex2Brush(values[13]);
 
             return settings;
         }

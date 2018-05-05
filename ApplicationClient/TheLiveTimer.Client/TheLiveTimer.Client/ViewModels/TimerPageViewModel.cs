@@ -1,6 +1,6 @@
 ﻿namespace TheLiveTimer.Client
 {
-     using System;
+    using System;
     using TheLiveTimer.Client.Network;
     using Xamarin.Forms;
 
@@ -14,6 +14,7 @@
         private bool isTimerTitleVisible;
         private bool isBroadcastingMessage;
         private bool isBlinking;
+        private bool isLandscapeMode;
         private string connStatus;
         private Color timerColor;
         private ClientTimerController controller;
@@ -39,6 +40,20 @@
         }
 
         #region View Properties
+
+        public bool IsLandscapeMode
+        {
+            get { return this.isLandscapeMode; }
+
+            set
+            {
+                if (this.isLandscapeMode != value)
+                {
+                    this.isLandscapeMode = value;
+                    this.OnPropertyChanged();
+                }
+            }
+        }
 
         public SimpleTimerSettings.SettingsMetaData SettingsMetadata
         {
@@ -366,7 +381,7 @@
         {
             if (this.networkCommunicator != null)
             {
-                this.networkCommunicator.ConnectionChanged += NetworkCommunicator_ConnectionAllowed;
+                this.networkCommunicator.ConnectionChanged += NetworkCommunicator_ConnectionChanged;
             }
         }
 
@@ -374,7 +389,7 @@
         {
             if (this.networkCommunicator != null)
             {
-                this.networkCommunicator.ConnectionChanged -= NetworkCommunicator_ConnectionAllowed;
+                this.networkCommunicator.ConnectionChanged -= NetworkCommunicator_ConnectionChanged;
             }
         }
 
@@ -447,9 +462,9 @@
             this.Settings = e.Settings;
         }
 
-        private void NetworkCommunicator_ConnectionAllowed(object sender, EventArgs e)
+        private void NetworkCommunicator_ConnectionChanged(object sender, EventArgs e)
         {
-            this.ConnectionStatus = "Active";
+            this.ConnectionStatus = this.NetworkCommunicator.IsConnectionAllowed ? "Active" : "Disabled";
         }
 
         #endregion

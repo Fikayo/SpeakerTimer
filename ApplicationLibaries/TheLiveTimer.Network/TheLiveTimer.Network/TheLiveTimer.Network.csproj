@@ -40,6 +40,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Threading.Tasks.Dataflow" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NetworkUtils.cs" />
@@ -54,10 +55,19 @@
     <Compile Include="Server\ServerMessageData.cs" />
     <Compile Include="NetworkAddress.cs" />
     <Compile Include="NetworkPacketFactory.cs" />
+    <Compile Include="Communication\IReceiver.cs" />
+    <Compile Include="Communication\ITransmitter.cs" />
+    <Compile Include="Communication\Transmitter.cs" />
+    <Compile Include="Communication\BroadcastServer.cs" />
+    <Compile Include="Communication\TcpReceiver.cs" />
+    <Compile Include="Communication\UdpReceiver.cs" />
+    <Compile Include="Communication\ReceivedPacket.cs" />
+    <Compile Include="Communication\AsyncTcpReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Client\" />
     <Folder Include="Server\" />
+    <Folder Include="Communication\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,8 +1,9 @@
 ﻿namespace TheLiveTimer.Client.Network
 {
     using System;
-    using System.Net;
+    using System.Collections.Concurrent;
     using System.Net.Sockets;
+    using System.Threading;
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using TheLiveTimer.Network;
@@ -15,13 +16,15 @@
         public const int UdpDefaultPort = 5004;
 
         private volatile bool isConnAllowed;
-        private BufferBlock<NetworkData> commandQueue;
-        private BroadcastReceiver broadcastReceiver;
+        //private readonly BlockingCollection<ReceivedPacket> commandQueue;
+        private readonly BufferBlock<ReceivedPacket> commandQueue;
+        private readonly IReceiverAsync broadcastReceiver;
         private CommandProcessor commandProcessor;
         private ServerMessageProcessor messageProcessor;
+        //private Thread receivingThread;
         private long communicationId;
 
-        private object _lock = new object();
+        private readonly object _lock = new object();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:TheLiveTimer.Client.Network.ClientNetworkCommunicator"/> class.
@@ -30,18 +33,13 @@
         /// <param name="queueCapacity">Determins the capacity of the network queue.</param>
         public ClientNetworkCommunicator(int port = UdpDefaultPort, int queueCapacity = 20)
         {
-            this.commandQueue = new BufferBlock<NetworkData>(new DataflowBlockOptions { BoundedCapacity = queueCapacity });
+            //this.commandQueue = new BlockingCollection<ReceivedPacket>(queueCapacity);
+            this.commandQueue = new BufferBlock<ReceivedPacket>(new DataflowBlockOptions() { BoundedCapacity = queueCapacity });
+            //this.broadcastReceiver = new UdpReceiver(port, commandQueue);
             this.broadcastReceiver = new BroadcastReceiver(port, commandQueue);
-
-            this.commandProcessor = new CommandProcessor(this);
-            this.messageProcessor = new ServerMessageProcessor(this);
-            this.messageProcessor.ClientAccepted += MessageHandler_ClientAccepted;
-            this.messageProcessor.ClientDeclined += MessageProcessor_ClientDeclined;
 
             var clientIP = NetworkUtils.GetUnicastAddressV4(System.Net.NetworkInformation.NetworkInterfaceType.Wireless80211);
             this.ClientAddress = new NetworkAddress(clientIP, port);
-
-            this.IsConnectionAllowed = false;
         }
 
         public event EventHandler ConnectionChanged;
@@ -63,15 +61,28 @@
 
             set
             {
-                var oldConn = this.isConnAllowed;
+                bool connChanged;
                 lock (this._lock)
                 {
+                    connChanged = this.isConnAllowed != value;
                     this.isConnAllowed = value;
                 }
 
-                if(oldConn != value)
+                if (connChanged)
                 {
                     this.OnConnectionChanged();
+                }
+            }
+
+        }
+
+        private long CommunicationId
+        {
+            set
+            {
+                lock (this._lock)
+                {
+                    this.communicationId = value;
                 }
             }
 
@@ -83,14 +94,10 @@
         /// <value>The client address.</value>
         public NetworkAddress ClientAddress { get; }
 
-        /// <summary>
-        /// Starts a UDP receiver which listens for commands from the server
-        /// </summary>
-        public void StartListening()
+        public void Initialise()
         {
-            System.Console.WriteLine("---------- Opening commnication ----------- ");
-            this.broadcastReceiver.StartListeningAsync();
-            this.ConsumeAsync(this.commandQueue);
+            this.Init();
+            this.StartListening();
         }
 
         /// <summary>
@@ -111,19 +118,84 @@
             }
         }
 
-        private async void ConsumeAsync(BufferBlock<NetworkData> queue)
-        {
-            while (await queue.OutputAvailableAsync())
-            {
-                var networkData = await queue.ReceiveAsync();
+        #region Internal Members
 
-                Console.WriteLine("--- Receiving network data");
-                this.ProcessNetworkData(networkData);
+        private async void Init()
+        {
+            this.IsConnectionAllowed = false;
+
+            if (this.commandProcessor == null)
+            {
+                this.commandProcessor = new CommandProcessor(this);
+            }
+
+            if (this.messageProcessor == null)
+            {
+                this.messageProcessor = new ServerMessageProcessor(this);
+                this.messageProcessor.ClientAccepted += MessageHandler_ClientAccepted;
+                this.messageProcessor.ClientDeclined += MessageProcessor_ClientDeclined;
+                this.messageProcessor.ServerReady += MessageProcessor_ServerReady;
+            }
+
+            //if (this.receivingThread == null)
+            //{
+            //    this.receivingThread = new Thread(() =>
+            //    {
+            //        this.ConsumePacketAsync(this.commandQueue);
+            //    });
+            //
+            //    this.receivingThread.Start();
+            //}
+            await this.ConsumePacketAsync(this.commandQueue);
+        }
+
+        private async void StartListening()
+        {
+            if (!this.broadcastReceiver.IsListening)
+            {
+                System.Console.WriteLine("---------- Opening commnication ----------- ");
+                await this.broadcastReceiver.StartListeningAsync();
             }
         }
 
-        private void ProcessNetworkData(NetworkData networkData)
+        private void IssueClientRequest(NetworkAddress serverAddress)
         {
+            Console.WriteLine("--- have the addy");
+
+            var serverTcpClient = new TcpClient(serverAddress.IP.ToString(), serverAddress.Port);
+            Console.WriteLine("--- have the tcp client");
+
+            // Transmit request to server
+            this.Transmit(serverTcpClient, ClientMessage.ClientRequest);
+        }
+
+        private async Task ConsumePacketAsync(BufferBlock<ReceivedPacket> queue)
+        {
+            Console.WriteLine("--- Opening consumer ");
+
+            while (await queue.OutputAvailableAsync())
+            {
+                var packet = await queue.ReceiveAsync();
+
+                Console.WriteLine("--- Consuming packet");
+                this.ProcessNetworkData(packet);
+            }
+        }
+
+        private void ConsumePacketAsync(BlockingCollection<ReceivedPacket> queue)
+        {
+            while (true)
+            {
+                var packet = queue.Take();
+
+                Console.WriteLine("--- Consuming packet");
+                this.ProcessNetworkData(packet);
+            }
+        }
+
+        private void ProcessNetworkData(ReceivedPacket packet)
+        {
+            var networkData = packet.Packet.NetworkData;
             if (networkData is TimerCommandData commandData)
             {
                 Console.WriteLine("--- Timer Command Received");
@@ -131,7 +203,14 @@
                 this.IsConnectionAllowed = this.communicationId == commandData.CommunicationId;
 
                 if (this.IsConnectionAllowed)
+                {
                     this.commandProcessor.ProcessCommand(commandData);
+                }
+                else
+                {
+                    // Connection not allowed, issue client request
+                    this.IssueClientRequest(packet.Sender);
+                }
             }
             else if (networkData is ServerMessageData messageData)
             {
@@ -141,9 +220,14 @@
             }
         }
 
+        #endregion
+
+        #region Event Handlers
+
         private void MessageHandler_ClientAccepted(object sender, ClientAcceptedEventArgs e)
         {
-            this.communicationId = e.CommunicationId;
+            Console.WriteLine("---->>> CLIENT ACCPETED: {0}", this.communicationId);
+            this.CommunicationId = e.CommunicationId;
             this.IsConnectionAllowed = true;
         }
 
@@ -157,6 +241,16 @@
             }
         }
 
+        private void MessageProcessor_ServerReady(object sender, ServerReadyEventArgs e)
+        {
+            var serverAddress = e.ServerAddress;
+            this.IssueClientRequest(serverAddress);
+        }
+
+        #endregion
+
+        #region Event Triggers
+
         private void OnConnectionChanged()
         {
             var handler = this.ConnectionChanged;
@@ -165,6 +259,8 @@
                 handler.Invoke(this, EventArgs.Empty);
             }
         }
+
+        #endregion
 
     }
 }

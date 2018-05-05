@@ -4,6 +4,9 @@
 
     public partial class TimerPage : ContentPage
     {
+        private double width = 0;
+        private double height = 0;
+
         public TimerPage()
         {
             InitializeComponent();
@@ -17,6 +20,17 @@
         {
             get { return this.ViewModel.Controller; }
             set { this.ViewModel.Controller = value; }
+        }
+
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+            if (this.width != width || this.height != height)
+            {
+                this.width = width;
+                this.height = height;
+                this.ViewModel.IsLandscapeMode = this.width > this.height;
+            }
         }
     }
 }
