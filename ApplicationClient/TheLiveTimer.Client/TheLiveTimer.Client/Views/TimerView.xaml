@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="TheLiveTimer.Client.TimerView">
+    <ContentView.Content>
+
+        <!-- Main Timer Grid -->
+        <Grid BackgroundColor="{Binding Path=VisualSettings.BackgroundColor}" HeightRequest="200">
+
+            <!-- Message -->
+            <Label Text="{Binding Message}"
+                TextColor="{Binding Path=TimerColor}" 
+                FontSize="{Binding Path=MessageFontSize}" 
+                FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
+                HorizontalTextAlignment="Center" 
+                VerticalTextAlignment="Center"
+                       IsVisible="{Binding IsBroadcastingMessage}">
+
+            </Label>
+
+            <!-- Timer -->
+            <Label Text="{Binding Timer}" 
+                   TextColor="{Binding Path=TimerColor}" 
+                   FontSize="{Binding Path=VisualSettings.TimerFontSize}" 
+                   FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
+                   HorizontalTextAlignment="Center" 
+                   VerticalTextAlignment="Center"
+                    IsVisible="{Binding IsTimerVisible}">
+
+            </Label>
+
+
+            <!-- Mini Timer -->
+            <Label Text="{Binding Timer}" 
+                   TextColor="{Binding Path=TimerColor}" 
+                   FontSize="{Binding Path=TimerTitleFontSize}" 
+                   FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
+                   HorizontalTextAlignment="Center"
+                   Margin="0,50,0,0"
+                    IsVisible="{Binding IsBroadcastingMessage}">
+
+            </Label>
+
+        </Grid>
+        
+    </ContentView.Content>
+</ContentView>

@@ -4,7 +4,7 @@
     using TheLiveTimer.Client.Network;
     using Xamarin.Forms;
 
-    internal class TimerPageViewModel : BaseViewModel
+    internal class TimerViewModel : BaseViewModel
     {
         private string timer;
         private string message;
@@ -15,7 +15,6 @@
         private bool isBroadcastingMessage;
         private bool isBlinking;
         private bool isLandscapeMode;
-        private string connStatus;
         private Color timerColor;
         private ClientTimerController controller;
 
@@ -25,22 +24,17 @@
 
         private ClientNetworkCommunicator networkCommunicator;
 
-        private TimerViewModel timerViewModel;
-
-        public TimerPageViewModel()
+        public TimerViewModel()
         {
             this.Settings = new SimpleTimerSettings();
             this.IsTimerVisible = true;
             this.IsBroadcastingMessage = false;
             this.DisplayTimeElapsed(0);
-            this.ConnectionStatus = "Disabled";
-            this.timerViewModel = new TimerViewModel();
         }
 
-        public TimerPageViewModel(ClientTimerController controller) : this()
+        public TimerViewModel(ClientTimerController controller) : this()
         {
             this.Controller = controller;
-            this.timerViewModel.Controller = controller;
         }
 
         #region View Properties
@@ -278,22 +272,6 @@
             }
         }
 
-
-        public string ConnectionStatus
-        {
-            get { return this.connStatus; }
-
-            set
-            {
-                if (this.connStatus != value)
-                {
-                    this.connStatus = value;
-                    Console.WriteLine("connection status: {0}", this.connStatus);
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         #endregion
 
         #region Properties
@@ -309,30 +287,6 @@
                 this.HookControllerEventHandlers();
             }
         }
-
-        internal ClientNetworkCommunicator NetworkCommunicator
-        {
-            get { return this.networkCommunicator; }
-
-            set
-            {
-                this.UnHookNetworkEventHandlers();
-                this.networkCommunicator = value;
-                this.HookNetworkEventHandlers();
-            }
-        }
-
-        public TimerViewModel TimerViewModel
-        {
-            get { return this.TimerViewModel; }
-
-            set
-            {
-                this.timerViewModel = value;
-                this.OnPropertyChanged();
-            }
-        }
-
 
         #endregion
 
@@ -390,22 +344,6 @@
                 this.controller.StopBlinking -= Controller_StopBlinking;
                 this.controller.BroadcastReady -= Controller_BroadcastReady;
                 this.controller.BroadcastOver -= Controller_BroadcastOver;
-            }
-        }
-
-        private void HookNetworkEventHandlers()
-        {
-            if (this.networkCommunicator != null)
-            {
-                this.networkCommunicator.ConnectionChanged += NetworkCommunicator_ConnectionChanged;
-            }
-        }
-
-        private void UnHookNetworkEventHandlers()
-        {
-            if (this.networkCommunicator != null)
-            {
-                this.networkCommunicator.ConnectionChanged -= NetworkCommunicator_ConnectionChanged;
             }
         }
 
@@ -476,11 +414,6 @@
         private void Controller_SettingsUpdated(object sender, SettingsChangedEventArgs e)
         {
             this.Settings = e.Settings;
-        }
-
-        private void NetworkCommunicator_ConnectionChanged(object sender, EventArgs e)
-        {
-            this.ConnectionStatus = this.NetworkCommunicator.IsConnectionAllowed ? "Active" : "Disabled";
         }
 
         #endregion

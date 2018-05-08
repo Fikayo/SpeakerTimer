@@ -18,8 +18,8 @@
 
         internal ClientTimerController Controller
         {
-            get { return this.ViewModel.Controller; }
-            set { this.ViewModel.Controller = value; }
+            get { return this.timerView.Controller; }
+            set { this.ViewModel.Controller = this.timerView.Controller = value; }
         }
 
         protected override void OnSizeAllocated(double width, double height)

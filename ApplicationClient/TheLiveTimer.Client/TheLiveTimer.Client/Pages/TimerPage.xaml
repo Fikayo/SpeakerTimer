@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="TheLiveTimer.Client.TimerPage">
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:local="clr-namespace:TheLiveTimer.Client;assembly=TheLiveTimer.Client.Droid"
+    x:Class="TheLiveTimer.Client.TimerPage">
 	<ContentPage.Content>
 
         <RelativeLayout>
@@ -19,45 +23,9 @@
                     <Label Text="{Binding Path=ConnectionStatus}" Grid.Column="1" />
                     
                 </Grid>
-
-                <!-- Main Timer Grid -->
-                <Grid BackgroundColor="{Binding Path=VisualSettings.BackgroundColor}" HeightRequest="200">
-
-                    <!-- Message -->
-                    <Label Text="{Binding Message}"
-                        TextColor="{Binding Path=TimerColor}" 
-                        FontSize="{Binding Path=MessageFontSize}" 
-                        FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
-                        HorizontalTextAlignment="Center" 
-                        VerticalTextAlignment="Center"
-                               IsVisible="{Binding IsBroadcastingMessage}">
-
-                    </Label>
-
-                    <!-- Timer -->
-                    <Label Text="{Binding Timer}" 
-                           TextColor="{Binding Path=TimerColor}" 
-                           FontSize="{Binding Path=VisualSettings.TimerFontSize}" 
-                           FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
-                           HorizontalTextAlignment="Center" 
-                           VerticalTextAlignment="Center"
-                            IsVisible="{Binding IsTimerVisible}">
-
-                    </Label>
-
-
-                    <!-- Mini Timer -->
-                    <Label Text="{Binding Timer}" 
-                           TextColor="{Binding Path=TimerColor}" 
-                           FontSize="{Binding Path=TimerTitleFontSize}" 
-                           FontFamily="{Binding Path=VisualSettings.TimerFontFamily}" 
-                           HorizontalTextAlignment="Center"
-                           Margin="0,50,0,0"
-                            IsVisible="{Binding IsBroadcastingMessage}">
-
-                    </Label>
-
-                </Grid>
+                
+                <!-- Main Timer -->
+                <local:TimerView x:Name="timerView" HeightRequest="200"/>
 
                 <!-- Timer Metainfo section -->
                 <Label Text="Timer Metadata" Font="Bold,30" Margin="10, 0" HorizontalTextAlignment="Center"/>
@@ -80,6 +48,7 @@
                     <Label Text="Blink When Expired: " Grid.Column="0" Grid.Row="3"/>
                     <Label Text="{Binding Path=SettingsMetadata.BlinkingWhenExpired}" Grid.Column="1" Grid.Row="3"/>
                 </Grid>
+
 
     		</StackLayout>
 

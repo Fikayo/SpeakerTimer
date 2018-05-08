@@ -15,6 +15,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TimerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -40,9 +44,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Network\BroadcastReceiver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\ServerMessageProcessor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\CommandProcessor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\TimerViewOld.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TimerViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TimerPageViewModelOld.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\TimerView.xaml.cs">
+      <DependentUpon>TimerView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Pages\" />
     <Folder Include="$(MSBuildThisFileDirectory)Network\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\" />
   </ItemGroup>
 </Project>

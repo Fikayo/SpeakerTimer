@@ -4,7 +4,7 @@
     using TheLiveTimer.Client.Network;
     using Xamarin.Forms;
 
-    internal class TimerPageViewModel : BaseViewModel
+    internal class TimerPageViewModelOld : BaseViewModel
     {
         private string timer;
         private string message;
@@ -25,22 +25,18 @@
 
         private ClientNetworkCommunicator networkCommunicator;
 
-        private TimerViewModel timerViewModel;
-
-        public TimerPageViewModel()
+        public TimerPageViewModelOld()
         {
             this.Settings = new SimpleTimerSettings();
             this.IsTimerVisible = true;
             this.IsBroadcastingMessage = false;
             this.DisplayTimeElapsed(0);
             this.ConnectionStatus = "Disabled";
-            this.timerViewModel = new TimerViewModel();
         }
 
-        public TimerPageViewModel(ClientTimerController controller) : this()
+        public TimerPageViewModelOld(ClientTimerController controller) : this()
         {
             this.Controller = controller;
-            this.timerViewModel.Controller = controller;
         }
 
         #region View Properties
@@ -321,18 +317,6 @@
                 this.HookNetworkEventHandlers();
             }
         }
-
-        public TimerViewModel TimerViewModel
-        {
-            get { return this.TimerViewModel; }
-
-            set
-            {
-                this.timerViewModel = value;
-                this.OnPropertyChanged();
-            }
-        }
-
 
         #endregion
 
