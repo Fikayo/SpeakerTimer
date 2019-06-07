@@ -16,7 +16,8 @@ namespace ChurchTimer
     {
         void App_Startup(object sender, StartupEventArgs e)
         {
-            var controller = new ChurchTimer.Application.Controllers.TimerViewController(5004, 5004);
+            var networkCommunicator = new TheLiveTimer.Server.Network.NetworkCommunicator(5000, 5000);
+            var controller = new ChurchTimer.Application.Controllers.TimerViewController(networkCommunicator);
             var window = new ChurchTimer.Presentation.Windows.ControlPanelWindow(controller);
             var awindow = new ChurchTimer.Presentation.Windows.PresentationWindow(controller);
             window.Show();

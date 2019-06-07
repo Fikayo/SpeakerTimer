@@ -135,9 +135,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Network\BroadcastServer.cs" />
-    <Compile Include="Network\INetworkServer.cs" />
+    <Compile Include="Network\ClientManager.cs" />
+    <Compile Include="Network\CommandDataFactory.cs" />
     <Compile Include="Network\NetworkCommunicator.cs" />
-    <Compile Include="Network\NetworkServer.cs" />
     <Compile Include="Presentation\ViewModels\ControlPanelViewModel.cs" />
     <Compile Include="Presentation\WindowResizer.cs" />
     <Compile Include="Presentation\Utils.cs" />

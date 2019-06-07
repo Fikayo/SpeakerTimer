@@ -38,9 +38,19 @@
 
         public long NextCommunicationId()
         {
-            var id = random.Next() * 17;
+            //var id = random.Next() * 17;
 
+            // Generate a new random long number. Current method allows duplicate comm ids on occasion -\_("/)_/-
+            var id = LongRandom(100000000000000000, 100000000000000050, this.random);
             return (this.CommunicationId = id);
+        }
+
+        private long LongRandom(long min, long max, Random rand)
+        {
+            long result = rand.Next((Int32)(min >> 32), (Int32)(max >> 32));
+            result = (result << 32);
+            result = result | (long)rand.Next((Int32)min, (Int32)max);
+            return result;
         }
     }
 }
